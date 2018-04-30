@@ -1,0 +1,3 @@
+Acme-Taxi/target/**
+Acme-Taxi/src/main/resources/Entities.map
+*.lock
