@@ -11,7 +11,7 @@ import domain.SpamWord;
 
 @Component
 @Transactional
-public class StringToSpamWordController implements Converter<String, SpamWord> {
+public class StringToSpamWordConverter implements Converter<String, SpamWord> {
 
 	@Autowired
 	private SpamWordRepository	spamWordRepository;

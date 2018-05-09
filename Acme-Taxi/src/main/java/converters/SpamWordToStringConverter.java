@@ -9,7 +9,7 @@ import domain.SpamWord;
 
 @Component
 @Transactional
-public class SpamWordToStringController implements Converter<SpamWord, String> {
+public class SpamWordToStringConverter implements Converter<SpamWord, String> {
 
 	@Override
 	public String convert(final SpamWord spamword) {
