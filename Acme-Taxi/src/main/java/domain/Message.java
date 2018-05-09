@@ -30,6 +30,7 @@ public class Message extends DomainEntity {
 
 	private Actor	sender;
 	private Actor	recipient;
+	private Folder	folder;
 
 
 	public Message() {
@@ -98,6 +99,17 @@ public class Message extends DomainEntity {
 
 	public void setRecipient(final Actor recipient) {
 		this.recipient = recipient;
+	}
+
+	@Valid
+	@NotNull
+	@ManyToOne(optional = false)
+	public Folder getFolder() {
+		return this.folder;
+	}
+
+	public void setFolder(final Folder folder) {
+		this.folder = folder;
 	}
 
 }
