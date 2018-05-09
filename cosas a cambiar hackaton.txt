@@ -1,9 +1,0 @@
-marcar como spam un mensaje bloquea al user
-imagen opcional como url en report
-indicar que pasa esteticament con mensajes no leidos
-Expresiones regulares en los dni/documentos de identificación: Una clase nueva que almacena una lista de expresiones regulares.
-telefono como en el explorer
-Quitar reply, comentario consigo mismo
-Arreglar requisito 25
-Precio:Una tarifa fija más precio por kilómetro
-Textos legales,politicas de cookies, contactos dentro del configurations
