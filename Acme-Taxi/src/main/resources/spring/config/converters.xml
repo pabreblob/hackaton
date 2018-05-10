@@ -18,6 +18,8 @@
 	">
 
 	<util:list id="converters">
+		<bean class="converters.StringToSpamWordConverter" /> 
+    	<bean class="converters.SpamWordToStringConverter" /> 
 	</util:list>
 	
 </beans>
