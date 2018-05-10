@@ -20,6 +20,8 @@
 	<util:list id="converters">
 		<bean class="converters.StringToSpamWordConverter" /> 
     	<bean class="converters.SpamWordToStringConverter" /> 
+    	<bean class="converters.StringToIdNumberPatternConverter" /> 
+    	<bean class="converters.IdNumberPatternToStringConverter" /> 
 	</util:list>
 	
 </beans>
