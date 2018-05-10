@@ -19,13 +19,7 @@ public class SpamWordService {
 	private SpamWordRepository	spamWordRepository;
 
 
-	//TODO: Quitar comentarios cuando se incorpore los servicios de Admin
-
-	//@Autowired
-	//private AdminService adminService;
-
 	public SpamWord create() {
-		//Assert.notNull(this.adminService.findByPrincipal());
 		final SpamWord res = new SpamWord();
 
 		return res;
@@ -58,7 +52,6 @@ public class SpamWordService {
 		Assert.notNull(sw);
 		Assert.notNull(sw.getWord());
 		Assert.isTrue(sw.getId() > 0);
-		//Assert.notNull(this.adminService.findByPrincipal());
 		this.spamWordRepository.delete(sw);
 	}
 }
