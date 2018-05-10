@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Driver extends Actor implements Reviewable {
+public class Driver extends Actor /* implements Reviewable */{
 
 	private String	photoUrl;
 	private int		maxPassengers;

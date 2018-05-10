@@ -94,7 +94,6 @@ public class Comment extends DomainEntity {
 	}
 
 	@Valid
-	@NotNull
 	@ManyToOne(optional = false)
 	public Announcement getAnnouncement() {
 		return this.announcement;

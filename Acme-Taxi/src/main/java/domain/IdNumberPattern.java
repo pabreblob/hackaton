@@ -3,8 +3,9 @@ package domain;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -12,6 +13,9 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(uniqueConstraints = {
+	@UniqueConstraint(columnNames = "pattern")
+})
 public class IdNumberPattern extends DomainEntity {
 
 	private String	pattern;
@@ -24,7 +28,6 @@ public class IdNumberPattern extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	@Column(length = Integer.MAX_VALUE)
 	public String getPattern() {
 		return this.pattern;
 	}

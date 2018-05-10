@@ -22,6 +22,10 @@
     	<bean class="converters.SpamWordToStringConverter" /> 
     	<bean class="converters.StringToIdNumberPatternConverter" /> 
     	<bean class="converters.IdNumberPatternToStringConverter" /> 
+		<bean class="converters.StringToConfigurationConverter" /> 
+    	<bean class="converters.ConfigurationToStringConverter" /> 
+		<bean class="converters.StringToCommentConverter" /> 
+    	<bean class="converters.CommentToStringConverter" /> 
 	</util:list>
 	
 </beans>

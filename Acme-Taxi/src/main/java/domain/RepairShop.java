@@ -17,7 +17,7 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class RepairShop extends DomainEntity implements Reviewable {
+public class RepairShop extends DomainEntity /* implements Reviewable */{
 
 	private String		name;
 	private String		description;

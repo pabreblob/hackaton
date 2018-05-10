@@ -24,15 +24,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Review extends DomainEntity {
 
-	private String		title;
-	private String		body;
-	private Date		moment;
-	private int			rating;
-	private boolean		marked;
+	private String	title;
+	private String	body;
+	private Date	moment;
+	private int		rating;
+	private boolean	marked;
 
-	private User		creator;
-	private Reviewable	reviewed;
+	private User	creator;
 
+
+	//private Reviewable	reviewed;
 
 	public Review() {
 		super();
@@ -100,15 +101,15 @@ public class Review extends DomainEntity {
 		this.creator = creator;
 	}
 
-	@Valid
-	@NotNull
-	@ManyToOne(optional = false)
-	public Reviewable getReviewed() {
-		return this.reviewed;
-	}
-
-	public void setReviewed(final Reviewable reviewed) {
-		this.reviewed = reviewed;
-	}
+	//	@Valid
+	//	@NotNull
+	//	@ManyToOne(optional = false)
+	//	public Reviewable getReviewed() {
+	//		return this.reviewed;
+	//	}
+	//
+	//	public void setReviewed(final Reviewable reviewed) {
+	//		this.reviewed = reviewed;
+	//	}
 
 }
