@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -15,7 +17,7 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class RepairShop extends DomainEntity {
+public class RepairShop extends DomainEntity implements Reviewable {
 
 	private String		name;
 	private String		description;
@@ -23,6 +25,7 @@ public class RepairShop extends DomainEntity {
 	private String		phone;
 	private String		photoUrl;
 	private boolean		marked;
+	private double		meanRating;
 
 	private Mechanic	mechanic;
 
@@ -88,6 +91,16 @@ public class RepairShop extends DomainEntity {
 
 	public void setMarked(final boolean marked) {
 		this.marked = marked;
+	}
+
+	@Min(value = 0)
+	@Digits(integer = 1, fraction = 1)
+	public double getMeanRating() {
+		return this.meanRating;
+	}
+
+	public void setMeanRating(final double meanRating) {
+		this.meanRating = meanRating;
 	}
 
 	@Valid

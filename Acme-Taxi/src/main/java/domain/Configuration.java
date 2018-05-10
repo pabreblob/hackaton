@@ -1,14 +1,19 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
@@ -17,25 +22,26 @@ import org.hibernate.validator.constraints.URL;
 @Access(AccessType.PROPERTY)
 public class Configuration extends DomainEntity {
 
-	private String	bannerUrl;
-	private String	currency;
-	private double	pricePerKm;
-	private double	minimumFee;
-	private double	advertisementPrice;
-	private String	welcomeEng;
-	private String	welcomeEsp;
-	private int		limitReportsWeek;
-	private String	footer;
-	private double	vat;
-	private String	legalTextEng;
-	private String	legalTextEsp;
-	private String	cookiesPolicyEng;
-	private String	cookiesPolicyEsp;
-	private String	contactEng;
-	private String	contactEsp;
-	private String	countryCode;
-	private String	acceptCookiesEng;
-	private String	acceptCookiesEsp;
+	private String				bannerUrl;
+	private String				currency;
+	private double				pricePerKm;
+	private double				minimumFee;
+	private double				advertisementPrice;
+	private String				welcomeEng;
+	private String				welcomeEsp;
+	private int					limitReportsWeek;
+	private String				footer;
+	private double				vat;
+	private String				legalTextEng;
+	private String				legalTextEsp;
+	private String				cookiesPolicyEng;
+	private String				cookiesPolicyEsp;
+	private String				contactEng;
+	private String				contactEsp;
+	private String				countryCode;
+	private String				acceptCookiesEng;
+	private String				acceptCookiesEsp;
+	private Collection<String>	nationalities;
 
 
 	public Configuration() {
@@ -241,6 +247,17 @@ public class Configuration extends DomainEntity {
 
 	public void setAcceptCookiesEsp(final String acceptCookiesEsp) {
 		this.acceptCookiesEsp = acceptCookiesEsp;
+	}
+
+	@NotNull
+	@NotEmpty
+	@ElementCollection
+	public Collection<String> getNationalities() {
+		return this.nationalities;
+	}
+
+	public void setNationalities(final Collection<String> nationalities) {
+		this.nationalities = nationalities;
 	}
 
 }

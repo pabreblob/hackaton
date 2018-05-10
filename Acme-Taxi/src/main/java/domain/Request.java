@@ -76,8 +76,8 @@ public class Request extends DomainEntity {
 	@NotNull
 	@Valid
 	@Past
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getMoment() {
 		return this.moment;
 	}

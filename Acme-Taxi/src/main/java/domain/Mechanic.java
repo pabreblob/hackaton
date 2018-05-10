@@ -16,6 +16,7 @@ public class Mechanic extends Actor {
 
 	private String	idNumber;
 	private String	photoUrl;
+	private String	nationality;
 
 
 	public Mechanic() {
@@ -41,6 +42,16 @@ public class Mechanic extends Actor {
 
 	public void setPhotoUrl(final String photoUrl) {
 		this.photoUrl = photoUrl;
+	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getNationality() {
+		return this.nationality;
+	}
+
+	public void setNationality(final String nationality) {
+		this.nationality = nationality;
 	}
 
 }

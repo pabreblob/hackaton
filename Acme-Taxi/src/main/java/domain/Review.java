@@ -22,19 +22,19 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class UserReview extends DomainEntity {
+public class Review extends DomainEntity {
 
-	private String	title;
-	private String	body;
-	private Date	moment;
-	private int		rank;
-	private boolean	marked;
+	private String		title;
+	private String		body;
+	private Date		moment;
+	private int			rating;
+	private boolean		marked;
 
-	private User	creator;
-	private User	reviewed;
+	private User		creator;
+	private Reviewable	reviewed;
 
 
-	public UserReview() {
+	public Review() {
 		super();
 	}
 
@@ -73,12 +73,12 @@ public class UserReview extends DomainEntity {
 	}
 
 	@Range(max = 5, min = 0)
-	public int getRank() {
-		return this.rank;
+	public int getRating() {
+		return this.rating;
 	}
 
-	public void setRank(final int rank) {
-		this.rank = rank;
+	public void setRating(final int rating) {
+		this.rating = rating;
 	}
 
 	public boolean isMarked() {
@@ -103,11 +103,11 @@ public class UserReview extends DomainEntity {
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
-	public User getReviewed() {
+	public Reviewable getReviewed() {
 		return this.reviewed;
 	}
 
-	public void setReviewed(final User reviewed) {
+	public void setReviewed(final Reviewable reviewed) {
 		this.reviewed = reviewed;
 	}
 

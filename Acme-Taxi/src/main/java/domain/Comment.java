@@ -55,7 +55,7 @@ public class Comment extends DomainEntity {
 	@Valid
 	@Past
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getMoment() {
 		return this.moment;
 	}

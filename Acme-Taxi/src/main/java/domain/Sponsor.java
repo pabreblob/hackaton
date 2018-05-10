@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 public class Sponsor extends Actor {
 
 	private String	idNumber;
+	private String	nationality;
 
 
 	public Sponsor() {
@@ -28,6 +29,16 @@ public class Sponsor extends Actor {
 
 	public void setIdNumber(final String idNumber) {
 		this.idNumber = idNumber;
+	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getNationality() {
+		return this.nationality;
+	}
+
+	public void setNationality(final String nationality) {
+		this.nationality = nationality;
 	}
 
 }

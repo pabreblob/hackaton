@@ -4,6 +4,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -13,13 +14,15 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Driver extends Actor {
+public class Driver extends Actor implements Reviewable {
 
 	private String	photoUrl;
 	private int		maxPassengers;
 	private String	numberPlate;
 	private String	location;
 	private String	idNumber;
+	private double	meanRating;
+	private String	nationality;
 
 
 	public Driver() {
@@ -74,6 +77,26 @@ public class Driver extends Actor {
 
 	public void setIdNumber(final String idNumber) {
 		this.idNumber = idNumber;
+	}
+
+	@Min(value = 0)
+	@Digits(integer = 1, fraction = 1)
+	public double getMeanRating() {
+		return this.meanRating;
+	}
+
+	public void setMeanRating(final double meanRating) {
+		this.meanRating = meanRating;
+	}
+
+	@NotBlank
+	@SafeHtml(whitelistType = WhiteListType.NONE)
+	public String getNationality() {
+		return this.nationality;
+	}
+
+	public void setNationality(final String nationality) {
+		this.nationality = nationality;
 	}
 
 }

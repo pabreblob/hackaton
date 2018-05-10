@@ -1,13 +1,11 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -16,13 +14,14 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class User extends Actor {
+public class User extends Actor implements Reviewable {
 
-	private String						photoUrl;
-	private String						location;
+	private String	photoUrl;
+	private String	location;
+	private double	meanRating;
 
-	private Collection<Announcement>	announcements;
 
+	//	private Collection<Announcement>	announcements;
 
 	public User() {
 		super();
@@ -49,14 +48,24 @@ public class User extends Actor {
 		this.location = location;
 	}
 
-	@NotNull
-	@ManyToMany(mappedBy = "attendants")
-	public Collection<Announcement> getAnnouncements() {
-		return this.announcements;
+	@Min(value = 0)
+	@Digits(integer = 1, fraction = 1)
+	public double getMeanRating() {
+		return this.meanRating;
 	}
 
-	public void setAnnouncements(final Collection<Announcement> announcements) {
-		this.announcements = announcements;
+	public void setMeanRating(final double meanRating) {
+		this.meanRating = meanRating;
 	}
+
+	//	@NotNull
+	//	@ManyToMany(mappedBy = "attendants")
+	//	public Collection<Announcement> getAnnouncements() {
+	//		return this.announcements;
+	//	}
+	//
+	//	public void setAnnouncements(final Collection<Announcement> announcements) {
+	//		this.announcements = announcements;
+	//	}
 
 }

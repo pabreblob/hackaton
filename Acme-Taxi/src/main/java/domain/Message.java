@@ -1,12 +1,14 @@
 
 package domain;
 
+import java.util.Collection;
 import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,14 +25,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Message extends DomainEntity {
 
-	private String	subject;
-	private String	body;
-	private boolean	checked;
-	private Date	moment;
+	private String				subject;
+	private String				body;
+	private boolean				checked;
+	private Date				moment;
 
-	private Actor	sender;
-	private Actor	recipient;
-	private Folder	folder;
+	private Priority			priority;
+
+	private Actor				sender;
+	private Collection<Actor>	recipients;
+	private Folder				folder;
 
 
 	public Message() {
@@ -79,6 +83,16 @@ public class Message extends DomainEntity {
 		this.moment = moment;
 	}
 
+	@NotNull
+	@Valid
+	public Priority getPriority() {
+		return this.priority;
+	}
+
+	public void setPriority(final Priority priority) {
+		this.priority = priority;
+	}
+
 	@Valid
 	@NotNull
 	@ManyToOne(optional = false)
@@ -92,13 +106,13 @@ public class Message extends DomainEntity {
 
 	@Valid
 	@NotNull
-	@ManyToOne(optional = false)
-	public Actor getRecipient() {
-		return this.recipient;
+	@ManyToMany
+	public Collection<Actor> getRecipients() {
+		return this.recipients;
 	}
 
-	public void setRecipient(final Actor recipient) {
-		this.recipient = recipient;
+	public void setRecipients(final Collection<Actor> recipients) {
+		this.recipients = recipients;
 	}
 
 	@Valid
@@ -110,6 +124,11 @@ public class Message extends DomainEntity {
 
 	public void setFolder(final Folder folder) {
 		this.folder = folder;
+	}
+
+
+	public enum Priority {
+		HIGH, NEUTRAL, LOW;
 	}
 
 }
