@@ -25,7 +25,7 @@ public class Message extends DomainEntity {
 
 	private String	subject;
 	private String	body;
-	private boolean	read;
+	private boolean	checked;
 	private Date	moment;
 
 	private Actor	sender;
@@ -58,12 +58,12 @@ public class Message extends DomainEntity {
 		this.body = body;
 	}
 
-	public boolean isRead() {
-		return this.read;
+	public boolean isChecked() {
+		return this.checked;
 	}
 
-	public void setRead(final boolean read) {
-		this.read = read;
+	public void setChecked(final boolean checked) {
+		this.checked = checked;
 	}
 
 	@Valid

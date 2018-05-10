@@ -30,7 +30,7 @@
 			</list>
 		</property>
 	</bean>
-<!-- 	 <bean id="userAccount2" class="security.UserAccount">
+	 <bean id="userAccount2" class="security.UserAccount">
 		<property name="username" value="user1" />
 		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
 		<property name="authorities">
@@ -219,7 +219,7 @@
 		</property>
 	</bean>
 	
-	Other domain beans come here	
+	
 	<bean id="Configurations" class="domain.Configuration">
 		<property name="bannerUrl" value="http://imgs.ntdtv.com/pic/2017/3-7/p8049361a90343536.jpg" />
 		<property name="currency" value="€" />
@@ -240,7 +240,7 @@
 		<property name="countryCode" value="+034" />
 		<property name="acceptCookiesEng" value="By using this site, you accept our cookie policy" />
 		<property name="acceptCookiesEsp" value="Usar este sitio implica aceptar nuestra política de cookies" />
-	</bean> -->
+	</bean> 
 	<bean id="Admin" class="domain.Admin">
 		<property name="name" value="admin" />
 		<property name="surname" value="admsur" />
@@ -268,7 +268,7 @@
 		
 	</bean>
 	
-<!-- 	<bean id="User1" class="domain.User">
+	<bean id="User1" class="domain.User">
 		<property name="name" value="user1" />
 		<property name="surname" value="user1sur" />
 		<property name="birthdate" value="1992/05/27" />
@@ -1467,183 +1467,183 @@
 	<bean id="Message1Sent" class="domain.Message">
 		<property name="subject" value="message1" />
 		<property name="body" value="bodymessage1" />
-		<property name="read" value="true"/>
+		<property name="checked" value="true"/>
 		<property name="moment" value="2017/02/24 23:00" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+	
 		<ref bean="User1"></ref>
-		</list>	
+		
 		</property>
 		<property name="folder" ><ref bean="AdminOutbox"></ref></property>
 	</bean>
 	<bean id="Message1Received" class="domain.Message">
 		<property name="subject" value="message1" />
 		<property name="body" value="bodymessage1" />
-		<property name="read" value="false" />
+		<property name="checked" value="false" />
 		<property name="moment" value="2017/02/24 23:00" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User1"></ref>
-		</list>	
+		
 		</property>
 		<property name="folder" ><ref bean="User1Inbox"></ref></property>
 	</bean>
 	<bean id="Message2Sent" class="domain.Message">
 		<property name="subject" value="message2" />
 		<property name="body" value="bodymessage2" />
-		<property name="read" value="true" />
+		<property name="checked" value="true" />
 		<property name="moment" value="2017/02/24 23:02" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User1"></ref>
-		</list>	
+		
 		</property>
 		<property name="folder" ><ref bean="AdminOutbox"></ref></property>
 	</bean>
 	<bean id="Message2Received" class="domain.Message">
 		<property name="subject" value="message2" />
 		<property name="body" value="bodymessage2" />
-		<property name="read" value="true" />
+		<property name="checked" value="true" />
 		<property name="moment" value="2017/02/24 23:02" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User1"></ref>
-		</list>	
+			
 		</property>
 		<property name="folder" ><ref bean="User1Inbox"></ref></property>
 	</bean>
 	<bean id="Message3Sent" class="domain.Message">
 		<property name="subject" value="message3" />
 		<property name="body" value="bodymessage3" />
-		<property name="read" value="true" />
+		<property name="checked" value="true" />
 		<property name="moment" value="2017/02/24 23:03" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User1"></ref>
-		</list>	
+			
 		</property>
 		<property name="folder" ><ref bean="AdminOutbox"></ref></property>
 	</bean>
 	<bean id="Message3Received" class="domain.Message">
 		<property name="subject" value="message3" />
 		<property name="body" value="bodymessage3" />
-		<property name="read" value="true" />
+		<property name="checked" value="true" />
 		<property name="moment" value="2017/02/24 23:03" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+	
 		<ref bean="User1"></ref>
-		</list>	
+		
 		</property>
 		<property name="folder" ><ref bean="User1Inbox"></ref></property>
 	</bean>
 	<bean id="Message4Sent" class="domain.Message">
 		<property name="subject" value="message4" />
 		<property name="body" value="bodymessage4" />
-		<property name="read" value="true" />
+		<property name="checked" value="true" />
 		<property name="moment" value="2017/02/24 23:04" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User1"></ref>
-		</list>	
+		
 		</property>
 		<property name="folder" ><ref bean="AdminOutbox"></ref></property>
 	</bean>
 	<bean id="Message4Received" class="domain.Message">
 		<property name="subject" value="message4" />
 		<property name="body" value="bodymessage4" />
-		<property name="read" value="false" />
+		<property name="checked" value="false" />
 		<property name="moment" value="2017/02/24 23:04" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User1"></ref>
-		</list>	
+		
 		</property>
 		<property name="folder" ><ref bean="User1Inbox"></ref></property>
 	</bean>
 	<bean id="Message5Sent" class="domain.Message">
 		<property name="subject" value="message5" />
 		<property name="body" value="bodymessage5" />
-		<property name="read" value="true" />
+		<property name="checked" value="true" />
 		<property name="moment" value="2017/02/24 23:05" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User1"></ref>
-		</list>	
+			
 		</property>
 		<property name="folder" ><ref bean="AdminOutbox"></ref></property>
 	</bean>
 	<bean id="Message5Received" class="domain.Message">
 		<property name="subject" value="message5" />
 		<property name="body" value="bodymessage5" />
-		<property name="read" value="true" />
+		<property name="checked" value="true" />
 		<property name="moment" value="2017/02/24 23:05" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User1"></ref>
-		</list>	
+			
 		</property>
 		<property name="folder" ><ref bean="User1Inbox"></ref></property>
 	</bean>
 	<bean id="Message6Sent" class="domain.Message">
 		<property name="subject" value="message6" />
 		<property name="body" value="bodymessage6" />
-		<property name="read" value="true" />
+		<property name="checked" value="true" />
 		<property name="moment" value="2017/02/24 23:06" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User1"></ref>
-		</list>	
+			
 		</property>
 		<property name="folder" ><ref bean="AdminOutbox"></ref></property>
 	</bean>
 	<bean id="Message6Received" class="domain.Message">
 		<property name="subject" value="message6" />
 		<property name="body" value="bodymessage6" />
-		<property name="read" value="false" />
+		<property name="checked" value="false" />
 		<property name="moment" value="2017/02/24 23:06" />
 		<property name="sender" ><ref bean="Admin"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User1"></ref>
-		</list>	
+		
 		</property>
 		<property name="folder" ><ref bean="User1Inbox"></ref></property>
 	</bean>
 	<bean id="Message7Sent" class="domain.Message">
 		<property name="subject" value="message7" />
 		<property name="body" value="viagra" />
-		<property name="read" value="true" />
+		<property name="checked" value="true" />
 		<property name="moment" value="2017/02/24 23:07" />
 		<property name="sender" ><ref bean="User2"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User3"></ref>
-		</list>	
+		
 		</property>
 		<property name="folder" ><ref bean="User2Outbox"></ref></property>
 	</bean>
 	<bean id="Message7Received" class="domain.Message">
 		<property name="subject" value="message7" />
 		<property name="body" value="viagra" />
-		<property name="read" value="true" />
+		<property name="checked" value="true" />
 		<property name="moment" value="2017/02/24 23:07" />
 		<property name="sender" ><ref bean="User2"></ref></property>
-		<property name="recipients">
-		<list>
+		<property name="recipient">
+		
 		<ref bean="User3"></ref>
-		</list>	
+		
 		</property>
 		<property name="folder" ><ref bean="User3Spambox"></ref></property>
-	</bean> -->
+	</bean> 
 </beans>

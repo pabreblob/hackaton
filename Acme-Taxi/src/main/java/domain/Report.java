@@ -26,7 +26,7 @@ public class Report extends DomainEntity {
 
 	private String	reason;
 	private Date	moment;
-	private boolean	read;
+	private boolean	checked;
 	private String	imageUrl;
 
 	private Actor	creator;
@@ -61,12 +61,12 @@ public class Report extends DomainEntity {
 		this.moment = moment;
 	}
 
-	public boolean isRead() {
-		return this.read;
+	public boolean isChecked() {
+		return this.checked;
 	}
 
-	public void setRead(final boolean read) {
-		this.read = read;
+	public void setChecked(final boolean checked) {
+		this.checked = checked;
 	}
 
 	@URL

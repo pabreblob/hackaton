@@ -28,8 +28,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Announcement extends DomainEntity {
 
 	private String				title;
-	private String				from;
-	private String				to;
+	private String				origin;
+	private String				destination;
 	private double				pricePerPerson;
 	private Date				moment;
 	private String				description;
@@ -59,22 +59,22 @@ public class Announcement extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getFrom() {
-		return this.from;
+	public String getOrigin() {
+		return this.origin;
 	}
 
-	public void setFrom(final String from) {
-		this.from = from;
+	public void setOrigin(final String origin) {
+		this.origin = origin;
 	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getTo() {
-		return this.to;
+	public String getDestination() {
+		return this.destination;
 	}
 
-	public void setTo(final String to) {
-		this.to = to;
+	public void setDestination(final String destination) {
+		this.destination = destination;
 	}
 
 	@Min(value = 0)

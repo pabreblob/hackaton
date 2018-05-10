@@ -25,8 +25,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Request extends DomainEntity {
 
-	private String	from;
-	private String	to;
+	private String	origin;
+	private String	destination;
 	private double	price;
 	private Date	moment;
 	private String	comment;
@@ -45,22 +45,22 @@ public class Request extends DomainEntity {
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getFrom() {
-		return this.from;
+	public String getOrigin() {
+		return this.origin;
 	}
 
-	public void setFrom(final String from) {
-		this.from = from;
+	public void setOrigin(final String origin) {
+		this.origin = origin;
 	}
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getTo() {
-		return this.to;
+	public String getDestination() {
+		return this.destination;
 	}
 
-	public void setTo(final String to) {
-		this.to = to;
+	public void setDestination(final String destination) {
+		this.destination = destination;
 	}
 
 	@Min(value = 0)
