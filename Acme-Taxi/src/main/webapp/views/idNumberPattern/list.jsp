@@ -34,4 +34,13 @@
 	<spring:message code="idNumberPattern.pattern" var="pattern" />
 	<display:column property="pattern" title="${pattern}"/>
 	
+	<spring:message code="idNumberPattern.edit" var="editHeader"/>
+	<display:column title="${editHeader}">
+			<a href="idNumberPattern/edit.do?idNumberPatternId=${row.id}"><spring:message code="idNumberPattern.edit"/> </a>
+	</display:column>
+
+	<spring:message code="idNumberPattern.delete" var="deleteHeader"/>
+	<display:column title="${deleteHeader}">
+			<a href="idNumberPattern/delete.do?idNumberPatternId=${row.id}"><spring:message code="idNumberPattern.delete"/> </a>
+	</display:column>
 </display:table>
