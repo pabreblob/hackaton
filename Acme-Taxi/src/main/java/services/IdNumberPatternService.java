@@ -42,6 +42,9 @@ public class IdNumberPatternService {
 		Assert.isTrue(idN.getId() > 0);
 		this.idNumberPatternRepository.delete(idN);
 	}
+	public void delete(final int id) {
+		this.delete(this.idNumberPatternRepository.findOne(id));
+	}
 
 	public Collection<IdNumberPattern> findAll() {
 		return this.idNumberPatternRepository.findAll();

@@ -51,4 +51,12 @@ public class IdNumberPatternController extends AbstractController {
 		else
 			return new ModelAndView("redirect: list.do?nationality=" + stringForm.getText());
 	}
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(final Integer idNumberPatternId) {
+		try {
+			this.idNumberPatternService.delete(idNumberPatternId);
+		} catch (final Throwable oops) {
+		}
+		return new ModelAndView("redirect: list.do");
+	}
 }
