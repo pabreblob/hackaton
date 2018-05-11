@@ -47,4 +47,8 @@ public class IdNumberPatternService {
 	public Collection<IdNumberPattern> findAll() {
 		return this.idNumberPatternRepository.findAll();
 	}
+
+	public Collection<IdNumberPattern> findByNationality(final String nationality) {
+		return this.idNumberPatternRepository.findByNationality(nationality);
+	}
 }
