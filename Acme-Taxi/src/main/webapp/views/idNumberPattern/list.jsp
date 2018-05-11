@@ -27,7 +27,7 @@
 	</form:select>
 	<acme:submit name="submit" code="idNumberPattern.submit"/>
 </form:form>
-<display:table class="displaytag" name="idNumberPatterns" id="row">	
+<display:table class="displaytag" name="idNumberPatterns" id="row" pagesize="20">	
 	<spring:message code="idNumberPattern.nationality" var="idNumberPattern" />
 	<display:column property="nationality" title="${idNumberPattern}"/>
 
