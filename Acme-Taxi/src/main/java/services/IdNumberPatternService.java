@@ -19,10 +19,9 @@ public class IdNumberPatternService {
 	@Autowired
 	private IdNumberPatternRepository	idNumberPatternRepository;
 
+	@Autowired
+	private ConfigurationService		configurationService;
 
-	//TODO: Quitar comentarios cuando se implemente Configuration
-	//@Autowired
-	//private ConfigurationService	configurationService;
 
 	public IdNumberPattern create() {
 		final IdNumberPattern idN = new IdNumberPattern();
@@ -32,7 +31,7 @@ public class IdNumberPatternService {
 	public IdNumberPattern save(final IdNumberPattern idN) {
 		Assert.notNull(idN);
 		Assert.isTrue(!StringUtils.isEmpty(idN.getPattern()));
-		//Assert.isTrue(configurationService.find().getNationalities().contains(idN.getNationality()));
+		Assert.isTrue(this.configurationService.find().getNationalities().contains(idN.getNationality()));
 		idN.setPattern(idN.getPattern().trim());
 		final IdNumberPattern saved = this.idNumberPatternRepository.save(idN);
 		return saved;
