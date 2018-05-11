@@ -8,9 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.IdNumberPatternRepository;
 import domain.IdNumberPattern;
+import forms.IdNumberPatternForm;
 
 @Service
 @Transactional
@@ -21,6 +24,9 @@ public class IdNumberPatternService {
 
 	@Autowired
 	private ConfigurationService		configurationService;
+
+	@Autowired
+	private Validator					validator;
 
 
 	public IdNumberPattern create() {
@@ -52,5 +58,18 @@ public class IdNumberPatternService {
 
 	public Collection<IdNumberPattern> findByNationality(final String nationality) {
 		return this.idNumberPatternRepository.findByNationality(nationality);
+	}
+
+	public IdNumberPattern recontruct(final IdNumberPatternForm form, final BindingResult br) {
+		IdNumberPattern res = null;
+		res = this.create();
+		res.setPattern(form.getText());
+		res.setNationality(form.getNationality());
+		if (form.getId() != 0) {
+			res.setId(form.getId());
+			res.setVersion(this.idNumberPatternRepository.findOne(form.getId()).getVersion());
+		}
+		this.validator.validate(form, br);
+		return res;
 	}
 }
