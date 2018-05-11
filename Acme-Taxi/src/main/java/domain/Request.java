@@ -141,7 +141,7 @@ public class Request extends DomainEntity {
 	}
 
 	@Valid
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	public Driver getDriver() {
 		return this.driver;
 	}
