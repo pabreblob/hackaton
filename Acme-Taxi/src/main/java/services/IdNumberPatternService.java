@@ -59,7 +59,11 @@ public class IdNumberPatternService {
 	public Collection<IdNumberPattern> findByNationality(final String nationality) {
 		return this.idNumberPatternRepository.findByNationality(nationality);
 	}
-
+	public IdNumberPattern findOne(final int id) {
+		final IdNumberPattern res = this.idNumberPatternRepository.findOne(id);
+		Assert.notNull(res);
+		return res;
+	}
 	public IdNumberPattern recontruct(final IdNumberPatternForm form, final BindingResult br) {
 		IdNumberPattern res = null;
 		res = this.create();

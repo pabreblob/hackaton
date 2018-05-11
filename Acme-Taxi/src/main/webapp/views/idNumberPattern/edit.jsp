@@ -16,7 +16,11 @@
 	<form:label path="nationality">
 		<spring:message code="idNumberPattern.nationality" />:
 	</form:label>	
-	<form:select path="nationality" items="${nationalities}"/>
+	<form:select path="nationality">
+	<spring:message code="idNumberPattern.selectOne" var="selectOne"/>
+		<form:option value="" label="${selectOne}"/>
+		<form:options items="${nationalities}"/>
+	</form:select>
 	<form:errors path="nationality" cssClass="error" />
 	<br>
 	<acme:submit name="save" code="idNumberPattern.submit"/>

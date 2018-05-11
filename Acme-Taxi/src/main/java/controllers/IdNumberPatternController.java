@@ -86,4 +86,20 @@ public class IdNumberPatternController extends AbstractController {
 		res.addObject("nationalities", this.configurationService.find().getNationalities());
 		return res;
 	}
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(final Integer idNumberPatternId) {
+		final ModelAndView res = new ModelAndView();
+		try {
+			final IdNumberPattern idn = this.idNumberPatternService.findOne(idNumberPatternId);
+			final IdNumberPatternForm form = new IdNumberPatternForm();
+			form.setId(idn.getId());
+			form.setText(idn.getPattern());
+			res.addObject("form", form);
+			res.addObject("nationalities", this.configurationService.find().getNationalities());
+		} catch (final Throwable oops) {
+			return new ModelAndView("redirect: list.do");
+		}
+		return res;
+
+	}
 }
