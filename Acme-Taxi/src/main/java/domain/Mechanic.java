@@ -24,7 +24,7 @@ public class Mechanic extends Actor {
 	}
 
 	@NotBlank
-	@SafeHtml
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getIdNumber() {
 		return this.idNumber;
 	}
