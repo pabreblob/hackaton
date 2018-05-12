@@ -26,6 +26,8 @@
     	<bean class="converters.ConfigurationToStringConverter" /> 
 		<bean class="converters.StringToCommentConverter" /> 
     	<bean class="converters.CommentToStringConverter" /> 
+    	<bean class="converters.StringToFolderConverter" /> 
+    	<bean class="converters.FolderToStringConverter" />
 	</util:list>
 	
 </beans>
