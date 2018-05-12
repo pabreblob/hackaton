@@ -56,6 +56,10 @@
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 	
 		<security:intercept-url pattern="/folder/**" access="isAuthenticated()" /> 
+		<security:intercept-url pattern="/mechanic/create.do" access="isAnonymous()" /> 
+		<security:intercept-url pattern="/mechanic/save.do" access="isAnonymous()" /> 
+		<security:intercept-url pattern="/mechanic/display.do" access="permitAll" /> 
+		<security:intercept-url pattern="/mechanic/mechanic/**" access="hasRole('MECHANIC')" /> 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

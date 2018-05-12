@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -19,6 +21,8 @@ import org.hibernate.validator.constraints.URL;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import security.UserAccount;
+
 @Access(AccessType.PROPERTY)
 public class MechanicForm {
 
@@ -32,9 +36,7 @@ public class MechanicForm {
 	private String	nationality;
 	private String	confirmPass;
 	private boolean	acceptTerms;
-
-	private String	username;
-	private String	password;
+	private UserAccount userAccount;
 
 
 	public MechanicForm() {
@@ -122,25 +124,16 @@ public class MechanicForm {
 		this.email = email;
 	}
 
-	@Size(min = 5, max = 32)
-	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getUsername() {
-		return this.username;
+	@NotNull
+	@Valid
+	@OneToOne(cascade = CascadeType.ALL, optional = false)
+	public UserAccount getUserAccount() {
+		return this.userAccount;
 	}
 
-	public void setUsername(final String username) {
-		this.username = username;
+	public void setUserAccount(final UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
-
-	@Size(min = 5, max = 32)
-	public String getPassword() {
-		return this.password;
-	}
-
-	public void setPassword(final String password) {
-		this.password = password;
-	}
-
 	@Size(min = 5, max = 32)
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getConfirmPass() {

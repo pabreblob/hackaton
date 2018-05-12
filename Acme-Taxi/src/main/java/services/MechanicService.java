@@ -21,6 +21,7 @@ import security.LoginService;
 import security.UserAccount;
 import security.UserAccountService;
 import domain.Actor;
+import domain.Folder;
 import domain.Mechanic;
 import forms.MechanicForm;
 
@@ -34,8 +35,10 @@ public class MechanicService {
 	private UserAccountService	userAccountService;
 	@Autowired
 	private Validator			validator;
-//	@Autowired
-//	private FolderService		folderService;
+	@Autowired
+	private ConfigurationService		configurationService;
+	@Autowired
+	private FolderService		folderService;
 
 
 	public MechanicService() {
@@ -48,12 +51,12 @@ public class MechanicService {
 		final UserAccount ua = this.userAccountService.create();
 		mechanic.setUserAccount(ua);
 
-//		mechanic.setFolders(new ArrayList<Folder>());
-//		mechanic.getFolders().add(this.folderService.create());
-//		mechanic.getFolders().add(this.folderService.create());
-//		mechanic.getFolders().add(this.folderService.create());
-//		mechanic.getFolders().add(this.folderService.create());
-//		mechanic.getFolders().add(this.folderService.create());
+		mechanic.setFolders(new ArrayList<Folder>());
+		mechanic.getFolders().add(this.folderService.create());
+		mechanic.getFolders().add(this.folderService.create());
+		mechanic.getFolders().add(this.folderService.create());
+		mechanic.getFolders().add(this.folderService.create());
+		mechanic.getFolders().add(this.folderService.create());
 		mechanic.setBlockedUsers(new ArrayList<Actor>());
 		final List<Authority> authorities = new ArrayList<Authority>();
 		final Authority auth = new Authority();
@@ -82,19 +85,25 @@ public class MechanicService {
 			mechanic.getUserAccount().setPassword(hash);
 		}
 
-//		if (mechanic.getId() == 0) {
-//			mechanic.setFolders(new ArrayList<Folder>());
-//			final Collection<Folder> folders = this.folderService.defaultFolders();
-//			mechanic.getFolders().addAll(folders);
-//		}
-
-		final List<Authority> authorities = new ArrayList<Authority>();
-		final Authority auth = new Authority();
-		auth.setAuthority(Authority.MECHANIC);
-		authorities.add(auth);
-		mechanic.getUserAccount().setAuthorities(authorities);
-		final UserAccount ua = this.userAccountService.save(mechanic.getUserAccount());
-		mechanic.setUserAccount(ua);
+		if (mechanic.getId() == 0) {
+			mechanic.setFolders(new ArrayList<Folder>());
+			final Collection<Folder> folders = this.folderService.defaultFolders();
+			mechanic.getFolders().addAll(folders);
+		}
+	
+		if (mechanic.getPhone() != null && mechanic.getPhone() != "")
+			if (!mechanic.getPhone().trim().startsWith("+"))
+				mechanic.setPhone("+" + this.configurationService.find().getCountryCode() + " " + mechanic.getPhone().trim());
+		if(mechanic.getId()==0){
+			final List<Authority> authorities = new ArrayList<Authority>();
+			final Authority auth = new Authority();
+			auth.setAuthority(Authority.MECHANIC);
+			authorities.add(auth);
+			mechanic.getUserAccount().setAuthorities(authorities);
+			final UserAccount ua = this.userAccountService.save(mechanic.getUserAccount());
+			mechanic.setUserAccount(ua);		
+		}
+		
 
 		final Mechanic res = this.mechanicRepository.save(mechanic);
 		return res;
@@ -102,7 +111,9 @@ public class MechanicService {
 
 	public Mechanic findOne(final int idMechanic) {
 		Assert.isTrue(idMechanic!= 0);
+		
 		final Mechanic res = this.mechanicRepository.findOne(idMechanic);
+		Assert.isTrue(res!=null);
 		return res;
 	}
 
@@ -131,8 +142,8 @@ public class MechanicService {
 		res.setPhone(mechanicForm.getPhone());
 		res.setEmail(mechanicForm.getEmail());
 		res.setSuspicious(false);
-		res.getUserAccount().setUsername(mechanicForm.getUsername());
-		res.getUserAccount().setPassword(mechanicForm.getPassword());
+		res.getUserAccount().setUsername(mechanicForm.getUserAccount().getUsername());
+		res.getUserAccount().setPassword(mechanicForm.getUserAccount().getPassword());
 		res.setIdNumber(mechanicForm.getIdNumber());
 		res.setPhotoUrl(mechanicForm.getPhotoUrl());
 		res.setNationality(mechanicForm.getNationality());
@@ -142,6 +153,7 @@ public class MechanicService {
 	
 	public Mechanic reconstructEdition(final Mechanic mechanic, final BindingResult binding) {
 		final Mechanic res = this.findOne(mechanic.getId());
+		Assert.isTrue(mechanic.getId()==this.findByPrincipal().getId());
 		res.setName(mechanic.getName());
 		res.setSurname(mechanic.getSurname());
 		res.setBirthdate(mechanic.getBirthdate());

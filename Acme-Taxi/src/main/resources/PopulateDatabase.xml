@@ -237,7 +237,7 @@
 		<property name="cookiesPolicyEsp" value="Esta es la política de cookies" />
 		<property name="contactEng" value="This is the contact info" />
 		<property name="contactEsp" value="Esta es la información de contacto" />
-		<property name="countryCode" value="+034" />
+		<property name="countryCode" value="034" />
 		<property name="acceptCookiesEng" value="By using this site, you accept our cookie policy" />
 		<property name="acceptCookiesEsp" value="Usar este sitio implica aceptar nuestra política de cookies" />
 		<property name="nationalities">

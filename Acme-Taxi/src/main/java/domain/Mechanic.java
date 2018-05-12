@@ -33,7 +33,6 @@ public class Mechanic extends Actor {
 		this.idNumber = idNumber;
 	}
 
-	@NotBlank
 	@URL
 	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPhotoUrl() {
