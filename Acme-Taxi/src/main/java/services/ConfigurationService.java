@@ -15,6 +15,8 @@ public class ConfigurationService {
 
 	@Autowired
 	private ConfigurationRepository	configurationRepository;
+	@Autowired
+	private AdminService			adminService;
 
 
 	public ConfigurationService() {
@@ -22,6 +24,8 @@ public class ConfigurationService {
 	}
 
 	public Configuration save(final Configuration configuration) {
+		Assert.notNull(this.adminService.findByPrincipal());
+
 		Assert.notNull(configuration);
 		Assert.notNull(this.configurationRepository.findOne(configuration.getId()));
 		Assert.isTrue(!configuration.getBannerUrl().equals(""));

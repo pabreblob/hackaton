@@ -27,4 +27,24 @@ public class ConfigurationAdminController extends AbstractController {
 		return res;
 	}
 
+	@RequestMapping("/display-legaltexteng")
+	public ModelAndView displayLegalTextEng() {
+		final String legalText = this.configurationService.find().getLegalTextEng();
+
+		final ModelAndView res = new ModelAndView("configuration/display-legaltext");
+		res.addObject("legalText", legalText);
+
+		return res;
+	}
+
+	@RequestMapping("/display-legaltextesp")
+	public ModelAndView displayLegalTextEsp() {
+		final String legalText = this.configurationService.find().getLegalTextEsp();
+
+		final ModelAndView res = new ModelAndView("configuration/display-legaltext");
+		res.addObject("legalText", legalText);
+
+		return res;
+	}
+
 }
