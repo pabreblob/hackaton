@@ -1,8 +1,11 @@
 
 package controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,5 +45,42 @@ public class SpamWordController extends AbstractController {
 		form.setWord(sp.getWord());
 		res.addObject("form", form);
 		return res;
+	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public ModelAndView save(@Valid final SpamWordForm form, final BindingResult binding) {
+		if (binding.hasErrors()) {
+			final ModelAndView res = new ModelAndView("spamWord/edit");
+			res.addObject("form", form);
+			return res;
+		} else
+			try {
+				if (form.getId() == 0)
+					this.spamWordService.addWord(form.getWord());
+				else {
+					if (form.getWord().contains(","))
+						throw new IllegalArgumentException();
+					final SpamWord sp = this.spamWordService.create();
+					sp.setId(form.getId());
+					sp.setWord(form.getWord());
+					this.spamWordService.save(sp);
+				}
+				return new ModelAndView("redirect: list.do");
+			} catch (final Throwable oops) {
+				final ModelAndView res = new ModelAndView("spamWord/edit");
+				res.addObject("form", form);
+				if (form.getId() != 0 && form.getWord().contains(","))
+					res.addObject("message", "spamWord.cantContainAComma");
+				else
+					res.addObject("message", "spamWord.cannotCommit");
+				return res;
+			}
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(final int spamWordId) {
+		final SpamWord sp = this.spamWordService.findOne(spamWordId);
+		this.spamWordService.delete(sp);
+		return new ModelAndView("redirect: list.do");
 	}
 }

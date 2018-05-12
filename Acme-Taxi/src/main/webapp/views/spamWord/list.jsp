@@ -10,8 +10,8 @@
  
 <a href="spamWord/create.do"><spring:message code="spamWord.create"/></a> 
 
-<display:table class="displaytag" name="spamWords" pagesize="20" id="row">   
-  <spring:message code="spamWord.word" var="word" /> 
+<display:table class="displaytag" name="spamWords" defaultsort="1" pagesize="20" id="row">   
+  <spring:message code="spamWord.word" var="word"/> 
   <display:column property="word" title="${word}"/>    
   
   <spring:message code="spamWord.edit" var="editHeader"/> 
