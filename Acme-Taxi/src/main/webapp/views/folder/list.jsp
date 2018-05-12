@@ -23,7 +23,7 @@
 <security:authorize access="hasRole('ADMIN')">
 <h3><a href="message/admin/create.do"><spring:message code="folder.broadcastMessage"/></a></h3>
 </security:authorize>
-<display:table name="folders" id="row" requestURI="folder/actor/list.do" pagesize="10" class="displaytag">
+<display:table name="folders" id="row" requestURI="folder/actor/list.do" class="displaytag">
 	<spring:message code="folder.name" var="name"/>
 	<display:column property="name" title="${name}" />
 	
