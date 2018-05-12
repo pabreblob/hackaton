@@ -54,4 +54,10 @@ public class SpamWordService {
 		Assert.isTrue(sw.getId() > 0);
 		this.spamWordRepository.delete(sw);
 	}
+
+	public SpamWord findOne(final int id) {
+		final SpamWord sp = this.spamWordRepository.findOne(id);
+		Assert.notNull(sp);
+		return sp;
+	}
 }

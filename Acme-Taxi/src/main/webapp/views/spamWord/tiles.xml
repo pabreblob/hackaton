@@ -10,5 +10,10 @@
 		<put-attribute name="title" value="Spam word list" />
 		<put-attribute name="body" value="/views/spamWord/list.jsp" />
 	</definition>
-	
+
+	<definition name="spamWord/edit" extends="master.page">	
+		<put-attribute name="title" value="Spam word edit" />
+		<put-attribute name="body" value="/views/spamWord/edit.jsp" />
+	</definition>
+		
 </tiles-definitions>
