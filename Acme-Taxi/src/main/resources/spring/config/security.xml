@@ -54,6 +54,7 @@
 		<security:intercept-url pattern="/profile/action-2.do" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/profile/action-3.do" access="isAuthenticated()" /> 
 	
+		<security:intercept-url pattern="/folder/**" access="isAuthenticated()" /> 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
