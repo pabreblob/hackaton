@@ -10,9 +10,10 @@
  
 <a href="spamWord/create.do"><spring:message code="spamWord.create"/></a> 
 
-<display:table class="displaytag"  requestURI="spamWord/list.do" name="spamWords" defaultsort="1" pagesize="20" id="row">   
+<display:table class="displaytag"  requestURI="spamWord/list.do" name="spamWords" sort="external" partialList="true" size="${total}"
+	defaultsort="1" pagesize="20" id="row">   
   <spring:message code="spamWord.word" var="word"/> 
-  <display:column property="word" title="${word}"/>    
+  <display:column property="word" sortable="true" sortName="word" title="${word}"/>    
   
   <spring:message code="spamWord.edit" var="editHeader"/> 
   <display:column title="${editHeader}"> 

@@ -1,9 +1,15 @@
 
 package controllers;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.displaytag.tags.TableTagParameters;
+import org.displaytag.util.ParamEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,10 +28,35 @@ public class SpamWordController extends AbstractController {
 	private SpamWordService	spamWordService;
 
 
+	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	//	public ModelAndView list() {
+	//		final ModelAndView res = new ModelAndView("spamWord/list");
+	//		res.addObject("spamWords", this.spamWordService.findAll());
+	//		return res;
+	//	}
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(final HttpServletRequest request) {
+		Pageable pageable;
+		Direction dir = null;
+		Integer pageNum = 0;
+		final String pageNumStr = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_PAGE));
+		final String sortAtt = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_SORT));
+		final String sortOrder = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_ORDER));
+		if (sortOrder != null)
+			if (sortOrder.equals("1"))
+				dir = Direction.ASC;
+			else
+				dir = Direction.DESC;
+		if (pageNumStr != null)
+			pageNum = Integer.parseInt(pageNumStr) - 1;
+		if (sortAtt != null && dir != null)
+			pageable = new PageRequest(pageNum, 20, dir, sortAtt);
+		else
+			pageable = new PageRequest(pageNum, 20);
 		final ModelAndView res = new ModelAndView("spamWord/list");
-		res.addObject("spamWords", this.spamWordService.findAll());
+		res.addObject("spamWords", this.spamWordService.getSpamWords(pageable));
+		res.addObject("total", this.spamWordService.countSpamWords());
 		return res;
 	}
 

@@ -4,6 +4,7 @@ package services;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -78,5 +79,13 @@ public class SpamWordService {
 
 	public Collection<String> getWords() {
 		return this.spamWordRepository.getWords();
+	}
+
+	public Integer countSpamWords() {
+		return this.spamWordRepository.countSpamWords();
+	}
+
+	public Collection<SpamWord> getSpamWords(final Pageable pageable) {
+		return this.spamWordRepository.getSpamWords(pageable).getContent();
 	}
 }
