@@ -48,7 +48,7 @@ public class IdNumberPatternController extends AbstractController {
 	@RequestMapping(value = "/filteredList", method = RequestMethod.POST)
 	public ModelAndView filteringList(@Valid final StringForm stringForm, final BindingResult br) {
 		System.out.println("Texto: " + stringForm.getText());
-		if (br.hasErrors() || stringForm.getText() == "-")
+		if (br.hasErrors() || stringForm.getText() == "" || stringForm.getText() == null)
 			return new ModelAndView("redirect: list.do");
 		else
 			return new ModelAndView("redirect: list.do?nationality=" + stringForm.getText());

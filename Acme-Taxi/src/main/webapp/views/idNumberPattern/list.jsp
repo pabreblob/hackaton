@@ -22,12 +22,12 @@
 	</form:label>	
 	<form:select path="text">
 		<spring:message code="idNumberPattern.showAll" var="showAll"/>
-		<form:option value="-" label="${showAll}" />		
+		<form:option value="" label="${showAll}" />		
 		<form:options items="${nationalities}"/>
 	</form:select>
 	<acme:submit name="submit" code="idNumberPattern.submit"/>
 </form:form>
-<display:table class="displaytag" name="idNumberPatterns" id="row" pagesize="20">	
+<display:table class="displaytag" requestURI="idNumberPattern/list.do" name="idNumberPatterns" id="row" pagesize="20">	
 	<spring:message code="idNumberPattern.nationality" var="idNumberPattern" />
 	<display:column property="nationality" title="${idNumberPattern}"/>
 
