@@ -27,9 +27,10 @@
 	</form:select>
 	<acme:submit name="submit" code="idNumberPattern.submit"/>
 </form:form>
-<display:table class="displaytag" requestURI="idNumberPattern/list.do" name="idNumberPatterns" id="row" pagesize="20">	
+<display:table class="displaytag" requestURI="idNumberPattern/list.do" name="idNumberPatterns" id="row" 
+	pagesize="20" sort="external" partialList="true" size="${total}">	
 	<spring:message code="idNumberPattern.nationality" var="idNumberPattern" />
-	<display:column property="nationality" title="${idNumberPattern}"/>
+	<display:column property="nationality"  sortable="true" sortName="nationality" title="${idNumberPattern}"/>
 
 	<spring:message code="idNumberPattern.pattern" var="pattern" />
 	<display:column property="pattern" title="${pattern}"/>

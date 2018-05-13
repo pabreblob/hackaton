@@ -3,9 +3,15 @@ package controllers;
 
 import java.util.Collection;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.displaytag.tags.TableTagParameters;
+import org.displaytag.util.ParamEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,20 +37,54 @@ public class IdNumberPatternController extends AbstractController {
 
 
 	@RequestMapping(value = "/list")
-	public ModelAndView list(@RequestParam(required = false) final String nationality) {
+	public ModelAndView list(final HttpServletRequest request, @RequestParam(required = false) final String nationality) {
+		Pageable pageable;
+		Direction dir = null;
+		Integer pageNum = 0;
+		final String pageNumStr = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_PAGE));
+		final String sortAtt = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_SORT));
+		final String sortOrder = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_ORDER));
+		if (sortOrder != null)
+			if (sortOrder.equals("1"))
+				dir = Direction.ASC;
+			else
+				dir = Direction.DESC;
+		if (pageNumStr != null)
+			pageNum = Integer.parseInt(pageNumStr) - 1;
+		if (sortAtt != null && dir != null)
+			pageable = new PageRequest(pageNum, 20, dir, sortAtt);
+		else
+			pageable = new PageRequest(pageNum, 20);
+
 		final ModelAndView result = new ModelAndView("idNumberPattern/list");
 		final Collection<String> nationalities = this.configurationService.find().getNationalities();
 		if (nationality == null || !nationalities.contains(nationality)) {
-			result.addObject("idNumberPatterns", this.idNumberPatternService.findAll());
+			result.addObject("idNumberPatterns", this.idNumberPatternService.getIdNumberPattern(pageable));
+			result.addObject("total", this.idNumberPatternService.countIdNumberPattern());
 			result.addObject("nationalityFilter", null);
 		} else {
 			result.addObject("nationalityFilter", nationality);
-			result.addObject("idNumberPatterns", this.idNumberPatternService.findByNationality(nationality));
+			result.addObject("idNumberPatterns", this.idNumberPatternService.getIdNumberPatternByNationality(nationality, pageable));
+			result.addObject("total", this.idNumberPatternService.countIdNumberPatternByNationality(nationality));
 		}
 		result.addObject("nationalities", nationalities); //Nacionalidades para la lista
 		result.addObject("stringForm", new StringForm()); //StringForm para el formulario
 		return result;
 	}
+	//	public ModelAndView list(@RequestParam(required = false) final String nationality) {
+	//		final ModelAndView result = new ModelAndView("idNumberPattern/list");
+	//		final Collection<String> nationalities = this.configurationService.find().getNationalities();
+	//		if (nationality == null || !nationalities.contains(nationality)) {
+	//			result.addObject("idNumberPatterns", this.idNumberPatternService.findAll());
+	//			result.addObject("nationalityFilter", null);
+	//		} else {
+	//			result.addObject("nationalityFilter", nationality);
+	//			result.addObject("idNumberPatterns", this.idNumberPatternService.findByNationality(nationality));
+	//		}
+	//		result.addObject("nationalities", nationalities); //Nacionalidades para la lista
+	//		result.addObject("stringForm", new StringForm()); //StringForm para el formulario
+	//		return result;
+	//	}
 	@RequestMapping(value = "/filteredList", method = RequestMethod.POST)
 	public ModelAndView filteringList(@Valid final StringForm stringForm, final BindingResult br) {
 		System.out.println("Texto: " + stringForm.getText());
