@@ -28,6 +28,8 @@
     	<bean class="converters.CommentToStringConverter" /> 
     	<bean class="converters.StringToFolderConverter" /> 
     	<bean class="converters.FolderToStringConverter" />
+	<bean class="converters.StringToMessageConverter" /> 
+    	<bean class="converters.MessageToStringConverter" />
     	
     	<bean class="converters.SponsorshipToStringConverter"/>
 		<bean class="converters.StringToSponsorshipConverter" />
