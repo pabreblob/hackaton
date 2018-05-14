@@ -8,12 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 
 import repositories.SpamWordRepository;
 import domain.SpamWord;
-import forms.SpamWordForm;
 
 @Service
 @Transactional
@@ -21,8 +18,6 @@ public class SpamWordService {
 
 	@Autowired
 	private SpamWordRepository	spamWordRepository;
-	@Autowired
-	private Validator			validator;
 
 
 	public SpamWord create() {
@@ -54,15 +49,6 @@ public class SpamWordService {
 	public SpamWord findOne(final int id) {
 		final SpamWord sp = this.spamWordRepository.findOne(id);
 		Assert.notNull(sp);
-		return sp;
-	}
-
-	public SpamWord reconstruct(final SpamWordForm form, final BindingResult binding) {
-		final SpamWord sp = this.create();
-		sp.setWord(form.getWord());
-		if (sp.getId() != 0)
-			sp.setId(form.getId());
-		this.validator.validate(form, binding);
 		return sp;
 	}
 

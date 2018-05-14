@@ -8,11 +8,12 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%> 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %> 
 
-<form:form action="spamWord/save.do" modelAttribute="form">
-	<jstl:if test="${form.id == 0}">
+<form:form action="spamWord/save.do" modelAttribute="spamWord">
+	<jstl:if test="${spamWord.id == 0}">
 		<spring:message code="spamWord.canAddMore"/>
 	</jstl:if>
 	<form:hidden path="id"/>
+	<form:hidden path="version"/>
 	<acme:textbox code="spamWord.word" path="word"/>
 	<acme:submit name="submit" code="spamWord.submit"/>
 	<acme:cancel url="spamWord/list.do" code="spamWord.cancel"/>

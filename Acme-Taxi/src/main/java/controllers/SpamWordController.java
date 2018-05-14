@@ -18,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.SpamWordService;
 import domain.SpamWord;
-import forms.SpamWordForm;
 
 @Controller
 @RequestMapping("/spamWord")
@@ -63,7 +62,7 @@ public class SpamWordController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		final ModelAndView res = new ModelAndView("spamWord/edit");
-		res.addObject("form", new SpamWordForm());
+		res.addObject("spamWord", this.spamWordService.create());
 		return res;
 	}
 
@@ -71,36 +70,30 @@ public class SpamWordController extends AbstractController {
 	public ModelAndView edit(final int spamWordId) {
 		final ModelAndView res = new ModelAndView("spamWord/edit");
 		final SpamWord sp = this.spamWordService.findOne(spamWordId);
-		final SpamWordForm form = new SpamWordForm();
-		form.setId(spamWordId);
-		form.setWord(sp.getWord());
-		res.addObject("form", form);
+		res.addObject("spamWord", sp);
 		return res;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView save(@Valid final SpamWordForm form, final BindingResult binding) {
+	public ModelAndView save(@Valid final SpamWord sp, final BindingResult binding) {
 		if (binding.hasErrors()) {
 			final ModelAndView res = new ModelAndView("spamWord/edit");
-			res.addObject("form", form);
+			res.addObject("spamWord", sp);
 			return res;
 		} else
 			try {
-				if (form.getId() == 0)
-					this.spamWordService.addWord(form.getWord());
+				if (sp.getId() == 0)
+					this.spamWordService.addWord(sp.getWord());
 				else {
-					if (form.getWord().contains(","))
+					if (sp.getWord().contains(","))
 						throw new IllegalArgumentException();
-					final SpamWord sp = this.spamWordService.create();
-					sp.setId(form.getId());
-					sp.setWord(form.getWord());
 					this.spamWordService.save(sp);
 				}
 				return new ModelAndView("redirect: list.do");
 			} catch (final Throwable oops) {
 				final ModelAndView res = new ModelAndView("spamWord/edit");
-				res.addObject("form", form);
-				if (form.getId() != 0 && form.getWord().contains(","))
+				res.addObject("spamWord", sp);
+				if (sp.getId() != 0 && sp.getWord().contains(","))
 					res.addObject("message", "spamWord.cantContainAComma");
 				else
 					res.addObject("message", "spamWord.cannotCommit");
