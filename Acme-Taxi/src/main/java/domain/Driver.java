@@ -1,11 +1,17 @@
 
 package domain;
 
+import java.util.Collection;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -14,15 +20,18 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Driver extends Actor /* implements Reviewable */{
+public class Driver extends Actor {
 
-	private String	photoUrl;
-	private int		maxPassengers;
-	private String	numberPlate;
-	private String	location;
-	private String	idNumber;
-	private double	meanRating;
-	private String	nationality;
+	private String				photoUrl;
+	private int					maxPassengers;
+	private String				numberPlate;
+	private String				location;
+	private String				idNumber;
+	private double				meanRating;
+	private String				nationality;
+
+	private Car					car;
+	private Collection<Review>	reviews;
 
 
 	public Driver() {
@@ -97,6 +106,26 @@ public class Driver extends Actor /* implements Reviewable */{
 
 	public void setNationality(final String nationality) {
 		this.nationality = nationality;
+	}
+
+	@Valid
+	@OneToOne(optional = true)
+	public Car getCar() {
+		return this.car;
+	}
+
+	public void setCar(final Car car) {
+		this.car = car;
+	}
+
+	@NotNull
+	@OneToMany
+	public Collection<Review> getReviews() {
+		return this.reviews;
+	}
+
+	public void setReviews(final Collection<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 }

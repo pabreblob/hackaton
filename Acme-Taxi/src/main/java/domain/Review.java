@@ -101,15 +101,4 @@ public class Review extends DomainEntity {
 		this.creator = creator;
 	}
 
-	//	@Valid
-	//	@NotNull
-	//	@ManyToOne(optional = false)
-	//	public Reviewable getReviewed() {
-	//		return this.reviewed;
-	//	}
-	//
-	//	public void setReviewed(final Reviewable reviewed) {
-	//		this.reviewed = reviewed;
-	//	}
-
 }

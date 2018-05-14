@@ -33,6 +33,7 @@ public class Request extends DomainEntity {
 	private boolean	cancelled;
 	private boolean	marked;
 	private double	distance;
+	private double	estimatedTime;
 
 	private User	user;
 	private Driver	driver;
@@ -148,6 +149,16 @@ public class Request extends DomainEntity {
 
 	public void setDriver(final Driver driver) {
 		this.driver = driver;
+	}
+
+	@Min(value = 0)
+	@Digits(integer = 15, fraction = 2)
+	public double getEstimatedTime() {
+		return this.estimatedTime;
+	}
+
+	public void setEstimatedTime(final double estimatedTime) {
+		this.estimatedTime = estimatedTime;
 	}
 
 }

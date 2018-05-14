@@ -7,6 +7,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -18,13 +19,14 @@ import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class User extends Actor /* implements Reviewable */{
+public class User extends Actor {
 
 	private String						photoUrl;
 	private String						location;
 	private double						meanRating;
 
 	private Collection<Announcement>	announcements;
+	private Collection<Review>			reviews;
 
 
 	public User() {
@@ -70,6 +72,16 @@ public class User extends Actor /* implements Reviewable */{
 
 	public void setAnnouncements(final Collection<Announcement> announcements) {
 		this.announcements = announcements;
+	}
+
+	@NotNull
+	@OneToMany
+	public Collection<Review> getReviews() {
+		return this.reviews;
+	}
+
+	public void setReviews(final Collection<Review> reviews) {
+		this.reviews = reviews;
 	}
 
 }
