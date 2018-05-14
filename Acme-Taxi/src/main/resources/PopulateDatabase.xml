@@ -540,7 +540,7 @@
 		<property name="numberPlate" value="3112ACB" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="20668400W" />
-		<property name="nationality" value="British" />
+		<property name="nationality" value="Spanish" />
 		
 	</bean>
 	<bean id="Driver4" class="domain.Driver">
@@ -572,7 +572,7 @@
 		<property name="numberPlate" value="0123FFB" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="56228561R" />
-		<property name="nationality" value="British" />
+		<property name="nationality" value="Spanish" />
 		
 	</bean>
 	
@@ -632,7 +632,7 @@
 		</property>
 		<property name="photoUrl" value="http://www.image.jpg" />
 		<property name="IdNumber" value="66296704D" />
-		<property name="nationality" value="British" />
+		<property name="nationality" value="Spanish" />
 		
 	</bean>
 	
@@ -662,7 +662,7 @@
 		</property>
 		<property name="photoUrl" value="http://www.image.jpg" />
 		<property name="IdNumber" value="92976051T" />
-		<property name="nationality" value="British" />
+		<property name="nationality" value="Spanish" />
 		
 	</bean>
 	
@@ -721,7 +721,7 @@
 			<ref bean="userAccount14" />
 		</property>
 		<property name="IdNumber" value="93277207V" />
-		<property name="nationality" value="British" />
+		<property name="nationality" value="Spanish" />
 		
 	</bean>
 	
@@ -779,7 +779,7 @@
 			<ref bean="userAccount16" />
 		</property>
 		<property name="IdNumber" value="07092078M" />
-		<property name="nationality" value="British" />
+		<property name="nationality" value="Spanish" />
 		
 	</bean>
 	
