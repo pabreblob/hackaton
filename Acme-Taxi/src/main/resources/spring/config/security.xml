@@ -75,6 +75,7 @@
 		
 		<security:intercept-url pattern="/idNumberPattern/**" access="hasRole('ADMIN')" /> 
 		
+		<security:intercept-url pattern="/spamWord/**" access="hasRole('ADMIN')" /> 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

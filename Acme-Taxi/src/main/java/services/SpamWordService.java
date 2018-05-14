@@ -4,6 +4,7 @@ package services;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -38,20 +39,39 @@ public class SpamWordService {
 		return res;
 	}
 
-	public void addWords(final String words) {
-		final String[] w = words.split(",");
-		SpamWord temp;
-		for (final String word : w) {
-			temp = this.create();
-			temp.setWord(word);
-			this.save(temp);
-		}
-	}
-
 	public void delete(final SpamWord sw) {
 		Assert.notNull(sw);
 		Assert.notNull(sw.getWord());
 		Assert.isTrue(sw.getId() > 0);
 		this.spamWordRepository.delete(sw);
+	}
+
+	public SpamWord findOne(final int id) {
+		final SpamWord sp = this.spamWordRepository.findOne(id);
+		Assert.notNull(sp);
+		return sp;
+	}
+
+	public void addWord(final String text) {
+		final Collection<String> all = this.getWords();
+		for (final String w : text.split(","))
+			if (!all.contains(w.trim())) {
+				all.add(w);//Linea para evitar los fallos por repetición
+				final SpamWord sp = this.create();
+				sp.setWord(w);
+				this.save(sp);
+			}
+	}
+
+	public Collection<String> getWords() {
+		return this.spamWordRepository.getWords();
+	}
+
+	public Integer countSpamWords() {
+		return this.spamWordRepository.countSpamWords();
+	}
+
+	public Collection<SpamWord> getSpamWords(final Pageable pageable) {
+		return this.spamWordRepository.getSpamWords(pageable).getContent();
 	}
 }
