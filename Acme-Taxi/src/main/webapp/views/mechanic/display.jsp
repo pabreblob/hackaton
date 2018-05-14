@@ -53,4 +53,22 @@
 	:
 	<jstl:out value="${mechanic.email}" />
 </p>
+<jstl:if test='${total!=0}'>
+<display:table class="displaytag" name="repairShops" requestURI="${requestURI}" pagesize="5" id="row" sort="external" partialList="true"
+size="${total}">
+<spring:message code="mechanic.repairShop.name" var="nameHeader" />
+<display:column property="name" title="${nameHeader}" />
+<spring:message code="mechanic.repairShop.location" var="locationHeader" />
+<display:column property="location" title="${locationHeader}" sortable="true" sortName="location" />
+<spring:message code="mechanic.repairShop.meanRating" var="meanRatingHeader" />
+<display:column property="meanRating" title="${meanRatingHeader}" sortable="true" sortName="meanRating" />
+<display:column>
+			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
+					code="mechanic.display" />
+			</a>
+
+		</display:column>
+
+</display:table>
+</jstl:if>
 

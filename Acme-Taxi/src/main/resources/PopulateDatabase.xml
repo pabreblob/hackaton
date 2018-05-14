@@ -2352,9 +2352,9 @@
 	
 	<bean id="RepairShop6" class="domain.RepairShop">
 		<property name="mechanic" ><ref bean="Mechanic1"></ref></property>
-		<property name="name" value="repairshop1" />
-		<property name="description" value="desc1" />
-		<property name="location" value="Testloc1" />
+		<property name="name" value="repairshop6" />
+		<property name="description" value="desc6" />
+		<property name="location" value="Testloc6" />
 		<property name="phone" value="691331099" />
 		<property name="photoUrl" value="https://www.image.jpg" />
 		<property name="marked" value="false" />

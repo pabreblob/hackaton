@@ -152,16 +152,11 @@ public class MechanicService {
 	}
 	
 	public Mechanic reconstructEdition(final Mechanic mechanic, final BindingResult binding) {
-		final Mechanic res = this.findOne(mechanic.getId());
+		final Mechanic res = mechanic;
 		Assert.isTrue(mechanic.getId()==this.findByPrincipal().getId());
-		res.setName(mechanic.getName());
-		res.setSurname(mechanic.getSurname());
-		res.setBirthdate(mechanic.getBirthdate());
-		res.setPhone(mechanic.getPhone());
-		res.setEmail(mechanic.getEmail());
-		res.setIdNumber(mechanic.getIdNumber());
-		res.setPhotoUrl(mechanic.getPhotoUrl());
-		res.setNationality(mechanic.getNationality());
+		res.setBlockedUsers(this.findOne(mechanic.getId()).getBlockedUsers());
+		res.setFolders(this.findOne(mechanic.getId()).getFolders());
+		res.setUserAccount(this.findOne(mechanic.getId()).getUserAccount());
 		this.validator.validate(res, binding);
 		return res;
 	}

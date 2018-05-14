@@ -60,6 +60,12 @@
 		<security:intercept-url pattern="/mechanic/save.do" access="isAnonymous()" /> 
 		<security:intercept-url pattern="/mechanic/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/mechanic/mechanic/**" access="hasRole('MECHANIC')" /> 
+		<security:intercept-url pattern="/repairShop/list.do" access="permitAll" />
+		<security:intercept-url pattern="/repairShop/display.do" access="permitAll" />
+		<security:intercept-url pattern="/repairShop/search.do" access="permitAll" />
+		<security:intercept-url pattern="/repairShop/list-search.do" access="permitAll" />
+		<security:intercept-url pattern="/repairShop/mechanic/**" access="hasRole('MECHANIC')" />
+		<security:intercept-url pattern="/repairShop/admin/**" access="hasRole('ADMIN')" />  
 		
 		<security:intercept-url pattern="/idNumberPattern/**" access="hasRole('ADMIN')" /> 
 		
