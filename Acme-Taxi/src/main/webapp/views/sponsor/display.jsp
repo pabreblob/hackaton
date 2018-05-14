@@ -48,7 +48,10 @@
 	<jstl:out value="${sponsor.email}" />
 </p>
 
+
+<jstl:if test="${requestURI == 'sponsor/sponsor/display.do'}">
 <a href = "sponsor/sponsor/edit.do">
 <spring:message code="sponsor.edit" />
 </a>
+</jstl:if>
 

@@ -109,7 +109,7 @@ public class SponsorSponsorController extends AbstractController {
 		final ModelAndView result;
 		result = new ModelAndView("sponsor/display");
 		result.addObject("sponsor", this.sponsorService.findByPrincipal());
-
+		result.addObject("requestURI", "sponsor/sponsor/display.do");
 		return result;
 	}
 }

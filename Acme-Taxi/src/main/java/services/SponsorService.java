@@ -98,7 +98,7 @@ public class SponsorService {
 
 		if (sponsor.getPhone() != null && sponsor.getPhone() != "")
 			if (!sponsor.getPhone().trim().startsWith("+"))
-				sponsor.setPhone(this.configurationService.find().getCountryCode() + " " + sponsor.getPhone().trim());
+				sponsor.setPhone("+" + this.configurationService.find().getCountryCode() + " " + sponsor.getPhone().trim());
 
 		final Sponsor res = this.sponsorRepository.save(sponsor);
 		return res;
