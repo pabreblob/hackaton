@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -8,6 +9,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import repositories.ActorRepository;
 import security.LoginService;
@@ -49,5 +51,12 @@ public class ActorService {
 		Actor res;
 		res = this.actorRepository.save(a);
 		return res;
+	}
+
+	public Collection<Actor> findByUsername(final String keyword) {
+		if (StringUtils.isEmpty(keyword))
+			return new ArrayList<Actor>();
+		else
+			return this.actorRepository.findByUsername(keyword);
 	}
 }
