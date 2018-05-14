@@ -28,38 +28,6 @@ public class ConfigurationService {
 
 		Assert.notNull(configuration);
 		Assert.notNull(this.configurationRepository.findOne(configuration.getId()));
-		Assert.isTrue(!configuration.getBannerUrl().equals(""));
-		Assert.notNull(configuration.getBannerUrl());
-		Assert.isTrue(!configuration.getCurrency().equals(""));
-		Assert.notNull(configuration.getCurrency());
-		Assert.isTrue(configuration.getPricePerKm() >= 0);
-		Assert.isTrue(configuration.getMinimumFee() >= 0);
-		Assert.isTrue(configuration.getAdvertisementPrice() >= 0);
-		Assert.isTrue(!configuration.getWelcomeEng().equals(""));
-		Assert.notNull(configuration.getWelcomeEng());
-		Assert.isTrue(!configuration.getWelcomeEsp().equals(""));
-		Assert.notNull(configuration.getWelcomeEsp());
-		Assert.isTrue(configuration.getLimitReportsWeek() >= 1);
-		Assert.notNull(configuration.getFooter());
-		Assert.isTrue(!configuration.getFooter().equals(""));
-		Assert.isTrue(configuration.getVat() >= 0);
-		Assert.notNull(configuration.getLegalTextEng());
-		Assert.isTrue(!configuration.getLegalTextEng().equals(""));
-		Assert.notNull(configuration.getLegalTextEsp());
-		Assert.isTrue(!configuration.getLegalTextEsp().equals(""));
-		Assert.notNull(configuration.getCookiesPolicyEng());
-		Assert.isTrue(!configuration.getCookiesPolicyEng().equals(""));
-		Assert.notNull(configuration.getCookiesPolicyEsp());
-		Assert.isTrue(!configuration.getCookiesPolicyEsp().equals(""));
-		Assert.notNull(configuration.getContactEng());
-		Assert.isTrue(!configuration.getContactEng().equals(""));
-		Assert.notNull(configuration.getContactEsp());
-		Assert.isTrue(!configuration.getContactEsp().equals(""));
-		Assert.notNull(configuration.getAcceptCookiesEng());
-		Assert.isTrue(!configuration.getAcceptCookiesEng().equals(""));
-		Assert.notNull(configuration.getAcceptCookiesEsp());
-		Assert.isTrue(!configuration.getAcceptCookiesEsp().equals(""));
-		Assert.isTrue(!configuration.getNationalities().isEmpty());
 
 		return this.configurationRepository.save(configuration);
 	}

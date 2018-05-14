@@ -8,7 +8,25 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<table style="border: 0">
+<style>
+table{
+	border-collapse: collapse;
+}
+tr{
+	border: 1px solid black;
+}
+table tr:last-child{
+	border-bottom: none;
+}
+tr:nth-child(odd){
+	background-color: lightgreen;
+	}
+tr:nth-child(even){
+	background-color: lightblue;
+}
+</style>
+
+<table>
 	<tr>
 		<td style="width: 15%"><b><spring:message code="configuration.bannerUrl"/></b></td><td style="text-align: center"><jstl:out value="${config.bannerUrl}"/></td>
 	</tr>
@@ -38,7 +56,7 @@
 	</tr>
 </table>
 <h2><spring:message code="configuration.texts"/></h2>
-<table style="border: 0">
+<table>
 	<tr>
 		<th></th><th style="text-align: center"><spring:message code="configuration.english"/></th><th style="text-align: center"><spring:message code="configuration.spanish"/></th>
 	</tr>

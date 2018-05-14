@@ -12,3 +12,15 @@
 <div>
 	<jstl:out value="${legalText}"></jstl:out>
 </div>
+
+<jstl:if test="${eng == true}">
+	<div>
+		<a href="configuration/admin/edit-legaltexteng.do"><spring:message code="configuration.legaltext.edit"/></a>
+	</div>
+</jstl:if>
+
+<jstl:if test="${eng == false}">
+	<div>
+		<a href="configuration/admin/edit-legaltextesp.do"><spring:message code="configuration.legaltext.edit"/></a>
+	</div>
+</jstl:if>
