@@ -45,12 +45,14 @@ $(document).ready(function() {
 		} else {
 			document.getElementById("pruebacookie").innerHTML = "Usamos cookies para mejorar su experiencia. Si continúa navegando en este sitio, consideramos que acepta su uso. <button type='button' onclick='acceptCookies()'>Aceptar</button>";
 		}
+	}else{
+		document.getElementById("pruebacookie").style.display="none";
 	}
 });
 
 function acceptCookies() {
 	document.cookie = "accepted=true; path=/";
-	document.getElementById("pruebacookie").innerHTML = "";
+	document.getElementById("pruebacookie").style.display = "none";
 }
 
 function getCookie(cname) {
