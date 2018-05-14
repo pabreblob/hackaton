@@ -6,7 +6,12 @@ import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.displaytag.tags.TableTagParameters;
+import org.displaytag.util.ParamEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -38,13 +43,33 @@ public class MessageActorController extends AbstractController {
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int folderId) {
+	public ModelAndView list(@RequestParam final int folderId, final HttpServletRequest request) {
 		ModelAndView result;
 		final Folder f = this.folderService.findOne(folderId);
 		Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(f));
-		final Collection<Message> messages = f.getMessages();
+		final Collection<Message> messages;
+		Pageable pageable;
+		Direction dir = null;
+		Integer pageNum = 0;
+		final String pageNumStr = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_PAGE));
+		final String sortAtt = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_SORT));
+		final String sortOrder = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_ORDER));
+		if (sortOrder != null)
+			if (sortOrder.equals("1"))
+				dir = Direction.ASC;
+			else
+				dir = Direction.DESC;
+		if (pageNumStr != null)
+			pageNum = Integer.parseInt(pageNumStr) - 1;
+		if (sortAtt != null && dir != null)
+			pageable = new PageRequest(pageNum, 5, dir, sortAtt);
+		else
+			pageable = new PageRequest(pageNum, 5);
+		messages = this.messageService.findMessagesByFolderId(folderId, pageable);
+		final Integer total = this.messageService.countMessagesByFolderId(folderId);
 		result = new ModelAndView("message/list");
 		result.addObject("messages", messages);
+		result.addObject("total", total);
 		result.addObject("folder", f);
 		return result;
 	}

@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -159,9 +160,15 @@ public class MessageService {
 		target.getMessages().add(message);
 	}
 
-	public Collection<Message> findMessagesByFolderId(final int folderId) {
+	public Collection<Message> findMessagesByFolderId(final int folderId, final Pageable pageable) {
 		Assert.isTrue(folderId != 0);
-		final Collection<Message> res = this.messageRepository.findMessagesByFolderId(folderId);
+		final Collection<Message> res = this.messageRepository.findMessagesByFolderId(folderId, pageable).getContent();
+		return res;
+	}
+
+	public Integer countMessagesByFolderId(final int folderId) {
+		Assert.isTrue(folderId != 0);
+		final Integer res = this.messageRepository.countMessagesByFolderId(folderId);
 		return res;
 	}
 

@@ -18,14 +18,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <h1><jstl:out value="${folder.name}"/></h1>
-<display:table name="messages" id="row" requestURI="message/actor/list.do" pagesize="5" class="displaytag">
+<display:table name="messages" id="row" requestURI="message/actor/list.do" pagesize="5" class="displaytag" sort="external" partialList="true" size="${total}">
 <spring:message code="message.moment" var="momentHeader" />
 <spring:message code="moment.date.format" var="dateFormat" />
-<display:column sortable="true" title="${momentHeader}">
+<display:column sortable="true" title="${momentHeader}" sortName="moment">
 	<fmt:formatDate value="${row.moment}" pattern="${dateFormat}"/>
 </display:column>
 <spring:message code="message.sender" var="senderHeader"/>
-<display:column property="sender.userAccount.username" title="${senderHeader}" sortable="true" />
+<display:column property="sender.userAccount.username" title="${senderHeader}" sortable="true" sortName="sender.userAccount.username" />
 <spring:message code="message.subject" var="subjectHeader"/>
 <display:column property="subject" title="${subjectHeader}" sortable="false" />
 <display:column sortable="false">
