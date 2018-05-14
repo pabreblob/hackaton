@@ -78,17 +78,19 @@ public class MessageService {
 		Assert.isTrue(sender.getFolders().contains(message.getFolder()));
 		Assert.isTrue(message.getFolder().getName().equals("Out box"));
 		message.setMoment(new Date(System.currentTimeMillis() - 1000));
+		message.setChecked(true);
 		Message res;
 		res = this.messageRepository.save(message);
 		final Collection<Actor> recipients = message.getRecipients();
 		res.getFolder().getMessages().add(res);
+		message.setChecked(false);
 		for (final Actor a : recipients)
 			for (final Folder f : a.getFolders())
-				if (!taboow && f.getName().equals("In box")) {
+				if (!taboow && !a.getBlockedUsers().contains(sender) && f.getName().equals("In box")) {
 					message.setFolder(f);
 					f.getMessages().add(this.messageRepository.save(message));
 					break;
-				} else if (taboow && f.getName().equals("Spam box")) {
+				} else if ((taboow || a.getBlockedUsers().contains(sender)) && f.getName().equals("Spam box")) {
 					message.setFolder(f);
 					f.getMessages().add(this.messageRepository.save(message));
 					break;
@@ -100,6 +102,7 @@ public class MessageService {
 		final Actor sender = this.actorService.findByPrincipal();
 		message.setSender(sender);
 		message.setMoment(new Date(System.currentTimeMillis() - 1000));
+		message.setChecked(true);
 		Message res;
 		res = this.messageRepository.save(message);
 		final Collection<Actor> recipients = res.getRecipients();
@@ -107,6 +110,7 @@ public class MessageService {
 		Assert.isTrue(sender.getFolders().contains(message.getFolder()));
 		Assert.isTrue(message.getFolder().getName().equals("Out box"));
 		res.getFolder().getMessages().add(res);
+		message.setChecked(false);
 		for (final Actor a : recipients)
 			for (final Folder f : a.getFolders())
 				if (f.getName().equals("Notification box")) {
@@ -188,7 +192,17 @@ public class MessageService {
 		return result;
 	}
 
-	public void metodito() {
-		this.messageRepository.getMessagesPorqueSi();
+	public Integer countUnreadMessages(final int folderId) {
+		Assert.notNull(folderId);
+		Assert.isTrue(folderId != 0);
+		return this.messageRepository.countUnreadMessages(folderId);
+	}
+
+	public void checkMessage(final int messageId) {
+		Assert.notNull(messageId);
+		Assert.isTrue(messageId != 0);
+		final Message message = this.findOne(messageId);
+		Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(message.getFolder()));
+		message.setChecked(true);
 	}
 }

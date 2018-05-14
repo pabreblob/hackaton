@@ -2,6 +2,8 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.FolderService;
+import services.MessageService;
 import domain.Folder;
 import forms.FolderMoveForm;
 
@@ -28,6 +31,8 @@ public class FolderActorController extends AbstractController {
 	private FolderService	folderService;
 	@Autowired
 	private ActorService	actorService;
+	@Autowired
+	private MessageService	messageService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -39,6 +44,10 @@ public class FolderActorController extends AbstractController {
 			res.addObject("back", null);
 			res.addObject("main", true);
 			res.addObject("parent", null);
+			final Map<String, Integer> unreadMessages = new HashMap<String, Integer>();
+			for (final Folder f : this.folderService.mainFolders())
+				unreadMessages.put(f.getName(), this.messageService.countUnreadMessages(f.getId()));
+			res.addObject("unreadMessages", unreadMessages);
 		} else
 			try {
 				final Folder parent = this.folderService.findOne(parentId);
@@ -52,6 +61,10 @@ public class FolderActorController extends AbstractController {
 				res.addObject("main", false);
 				res.addObject("name", parent.getName());
 				res.addObject("parent", parentId);
+				final Map<String, Integer> unreadMessages = new HashMap<String, Integer>();
+				for (final Folder f : parent.getChildren())
+					unreadMessages.put(f.getName(), this.messageService.countUnreadMessages(f.getId()));
+				res.addObject("unreadMessages", unreadMessages);
 			} catch (final Throwable oops) {
 				res = this.list(null);
 				res.addObject("message", "folder.cannotCommit");

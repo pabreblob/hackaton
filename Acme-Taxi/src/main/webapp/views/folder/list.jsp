@@ -37,6 +37,9 @@
 	<spring:message code="folder.numberMessages" var="numberMessages"/>
 	<display:column title="${numberMessages}" ><p>${row.messages.size()}</p></display:column>
 	
+	<spring:message code="folder.numberUnreadMessages" var="numberUnreadMessages"/>
+	<display:column title="${numberUnreadMessages}" ><p>${unreadMessages[row.name]}</p></display:column>
+	
 	<spring:message code="folder.messages" var="messages"/>
 	<display:column title="${messages}">
 		<jstl:if test="${row.messages.size() != 0 }">

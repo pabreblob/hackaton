@@ -15,6 +15,6 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select f.messages from Folder f where f.id = ?1")
 	Collection<Message> findMessagesByFolderId(int folderId);
 
-	@Query(value = "create event pepito on schedule at current_timestamp + interval 1 minute do delete * from message", nativeQuery = true)
-	void getMessagesPorqueSi();
+	@Query("select count(m) from Folder f join f.messages m where f.id = ?1 and m.checked is false")
+	Integer countUnreadMessages(int folderId);
 }

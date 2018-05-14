@@ -129,7 +129,7 @@ public class MessageActorController extends AbstractController {
 				break;
 			}
 		Assert.isTrue(found);
-		message.setChecked(true);
+		this.messageService.checkMessage(messageId);
 		result = new ModelAndView("message/display");
 		result.addObject("mess", message);
 		return result;
