@@ -9,9 +9,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="idNumberPattern/save.do" modelAttribute="form">
+<form:form action="idNumberPattern/save.do" modelAttribute="idNumberPattern">
 	<form:hidden path="id"/>
-	<acme:textbox code="idNumberPattern.pattern" path="text"/>
+	<form:hidden path="version"/>
+	<acme:textbox code="idNumberPattern.pattern" path="pattern"/>
 	
 	<form:label path="nationality">
 		<spring:message code="idNumberPattern.nationality" />:

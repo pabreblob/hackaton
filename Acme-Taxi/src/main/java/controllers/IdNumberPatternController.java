@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ConfigurationService;
 import services.IdNumberPatternService;
 import domain.IdNumberPattern;
-import forms.IdNumberPatternForm;
 import forms.StringForm;
 
 @Controller
@@ -104,23 +103,22 @@ public class IdNumberPatternController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		final ModelAndView res = new ModelAndView("idNumberPattern/edit");
-		final IdNumberPatternForm form = new IdNumberPatternForm();
-		res.addObject("form", form);
+		final IdNumberPattern idN = new IdNumberPattern();
+		res.addObject("idNumberPattern", idN);
 		res.addObject("nationalities", this.configurationService.find().getNationalities());
 		return res;
 	}
 	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final IdNumberPatternForm form, final BindingResult br) {
+	public ModelAndView save(@Valid final IdNumberPattern idN, final BindingResult br) {
 		final ModelAndView res = new ModelAndView("idNumberPattern/edit");
-		final IdNumberPattern idn = this.idNumberPatternService.recontruct(form, br);
 		if (br.hasErrors())
-			res.addObject("form", form);
+			res.addObject("idNumberPattern", idN);
 		else
 			try {
-				this.idNumberPatternService.save(idn);
+				this.idNumberPatternService.save(idN);
 				return new ModelAndView("redirect: list.do");
 			} catch (final Throwable oops) {
-				res.addObject("form", form);
+				res.addObject("idNumberPattern", idN);
 				res.addObject("message", "idNumberPattern.cannotCommit");
 			}
 		res.addObject("nationalities", this.configurationService.find().getNationalities());
@@ -131,10 +129,7 @@ public class IdNumberPatternController extends AbstractController {
 		final ModelAndView res = new ModelAndView();
 		try {
 			final IdNumberPattern idn = this.idNumberPatternService.findOne(idNumberPatternId);
-			final IdNumberPatternForm form = new IdNumberPatternForm();
-			form.setId(idn.getId());
-			form.setText(idn.getPattern());
-			res.addObject("form", form);
+			res.addObject("idNumberPattern", idn);
 			res.addObject("nationalities", this.configurationService.find().getNationalities());
 		} catch (final Throwable oops) {
 			return new ModelAndView("redirect: list.do");
