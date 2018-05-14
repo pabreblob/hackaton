@@ -32,6 +32,9 @@
 		<value>/views/folder/messages</value>
 		<value>/views/mechanic/messages</value>
 		<value>/views/repairShop/messages</value>
+		
+		<value>/views/sponsor/messages</value>
+		<value>/views/sponsorship/messages</value>
 	</util:list>
 
 </beans>
