@@ -23,8 +23,6 @@ import org.hibernate.validator.constraints.URL;
 public class Driver extends Actor {
 
 	private String				photoUrl;
-	private int					maxPassengers;
-	private String				numberPlate;
 	private String				location;
 	private String				idNumber;
 	private double				meanRating;
@@ -49,24 +47,7 @@ public class Driver extends Actor {
 		this.photoUrl = photoUrl;
 	}
 
-	@Min(value = 1)
-	public int getMaxPassengers() {
-		return this.maxPassengers;
-	}
-
-	public void setMaxPassengers(final int maxPassengers) {
-		this.maxPassengers = maxPassengers;
-	}
-
-	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getNumberPlate() {
-		return this.numberPlate;
-	}
-
-	public void setNumberPlate(final String numberPlate) {
-		this.numberPlate = numberPlate;
-	}
+	
 
 	@NotBlank
 	@SafeHtml(whitelistType = WhiteListType.NONE)

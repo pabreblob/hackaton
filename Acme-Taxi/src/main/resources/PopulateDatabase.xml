@@ -341,6 +341,10 @@
 		
 		</list>	
 		</property>
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 		
 	</bean>
 	
@@ -373,6 +377,11 @@
 		<property name="announcements">
 		<list>
 		
+		</list>	
+		</property>
+		<property name="reviews">
+		<list>
+		<ref bean="Review1" />
 		</list>	
 		</property>
 		
@@ -409,6 +418,10 @@
 		
 		</list>	
 		</property>
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 		
 	</bean>
 	
@@ -443,6 +456,10 @@
 		
 		</list>	
 		</property>
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 		
 	</bean>
 	<bean id="Driver1" class="domain.Driver">
@@ -470,11 +487,15 @@
 			<ref bean="userAccount6" />
 		</property>
 		<property name="photoUrl" value="http://www.image.jpg" />
-		<property name="maxPassengers" value="3" />
-		<property name="numberPlate" value="0112DCB" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="44394959Z" />
 		<property name="nationality" value="Spanish" />
+		<property name="car" ><ref bean="Car1"/></property>
+		<property name="reviews">
+		<list>
+		<ref bean="Review3"/>
+		</list>	
+		</property>
 		
 	</bean>
 	
@@ -503,11 +524,14 @@
 			<ref bean="userAccount7" />
 		</property>
 		<property name="photoUrl" value="http://www.image.jpg" />
-		<property name="maxPassengers" value="4" />
-		<property name="numberPlate" value="0145FFK" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="71808857M" />
 		<property name="nationality" value="Spanish" />
+		<property name="car" ><ref bean="Car2"/></property>
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 		
 	</bean>
 	
@@ -536,11 +560,14 @@
 			<ref bean="userAccount8" />
 		</property>
 		<property name="photoUrl" value="http://www.image.jpg" />
-		<property name="maxPassengers" value="3" />
-		<property name="numberPlate" value="3112ACB" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="20668400W" />
 		<property name="nationality" value="Spanish" />
+		<property name="car" ><ref bean="Car3"/></property>
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 		
 	</bean>
 	<bean id="Driver4" class="domain.Driver">
@@ -568,11 +595,15 @@
 			<ref bean="userAccount9" />
 		</property>
 		<property name="photoUrl" value="http://www.image.jpg" />
-		<property name="maxPassengers" value="3" />
-		<property name="numberPlate" value="0123FFB" />
+
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="56228561R" />
 		<property name="nationality" value="Spanish" />
+		<property name="car" ><null/></property>
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>	
 		
 	</bean>
 	
@@ -809,6 +840,27 @@
 		</property>
 		<property name="IdNumber" value="88547463Q" />
 		<property name="nationality" value="Spanish" />
+		
+	</bean>
+	<bean id="Car1" class="domain.Car">
+		<property name="carModel" value="Seat Ibiza" />
+		<property name="maxPassengers" value="3" />
+		<property name="numberPlate" value="0112DCB" />
+		<property name="repairShop" ><ref bean="RepairShop1"/></property>	
+	</bean>
+	<bean id="Car2" class="domain.Car">
+		<property name="carModel" value="Honda Civic" />
+		<property name="maxPassengers" value="4" />
+		<property name="numberPlate" value="0145FFK" />
+		<property name="repairShop" ><ref bean="RepairShop2"/></property>
+		
+	</bean>
+	
+	<bean id="Car3" class="domain.Car">
+		<property name="carModel" value="Toyota Auris" />
+		<property name="maxPassengers" value="3" />
+		<property name="numberPlate" value="3112ACB" />
+		<property name="repairShop" ><null/></property>
 		
 	</bean>
 	
@@ -2304,6 +2356,11 @@
 		<property name="photoUrl" value="https://www.image.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
+		<property name="reviews">
+		<list>
+		<ref bean="Review2"/>
+		</list>	
+		</property>
 	</bean> 
 	
 	<bean id="RepairShop2" class="domain.RepairShop">
@@ -2315,6 +2372,10 @@
 		<property name="photoUrl" value="https://www.image.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 	</bean> 
 	
 	<bean id="RepairShop3" class="domain.RepairShop">
@@ -2326,6 +2387,10 @@
 		<property name="photoUrl" value="https://www.image.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 	</bean>   
 	
 	<bean id="RepairShop4" class="domain.RepairShop">
@@ -2337,6 +2402,10 @@
 		<property name="photoUrl" value="https://www.image.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 	</bean> 
 	
 	<bean id="RepairShop5" class="domain.RepairShop">
@@ -2348,6 +2417,10 @@
 		<property name="photoUrl" value="https://www.image.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 	</bean> 
 	
 	<bean id="RepairShop6" class="domain.RepairShop">
@@ -2359,6 +2432,10 @@
 		<property name="photoUrl" value="https://www.image.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 	</bean>   
 	
 	<bean id="RepairShop7" class="domain.RepairShop">
@@ -2370,6 +2447,10 @@
 		<property name="photoUrl" value="https://www.image.jpg" />
 		<property name="marked" value="true" />
 		<property name="meanRating" value="0.0" />
+		<property name="reviews">
+		<list>
+		</list>	
+		</property>
 	</bean> 
 	
 	<bean id="Service1" class="domain.Service">
@@ -2462,6 +2543,7 @@
 		<property name="origin" value="street1"/>
 		<property name="destination" value="street2"/>
 		<property name="distance" value="3.72"/>
+		<property name="estimatedTime" value="8.90"/>
 		<property name="price" value="5.58"/>
 		<property name="moment" value="2018/09/25 12:10" />
 		<property name="comment" value="testcomment"/>
@@ -2475,6 +2557,7 @@
 		<property name="origin" value="street3"/>
 		<property name="destination" value="street4"/>
 		<property name="distance" value="7.89"/>
+		<property name="estimatedTime" value="17.50"/>
 		<property name="price" value="16.83"/>
 		<property name="moment" value="2017/09/25 12:10" />
 		<property name="comment" value="testcomment"/>
@@ -2488,6 +2571,7 @@
 		<property name="origin" value="street4"/>
 		<property name="destination" value="street5"/>
 		<property name="distance" value="3.72"/>
+		<property name="estimatedTime" value="8.90"/>
 		<property name="price" value="5.58"/>
 		<property name="moment" value="2018/09/25 12:10" />
 		<property name="comment" value="testcomment"/>
@@ -2501,6 +2585,7 @@
 		<property name="origin" value="street1"/>
 		<property name="destination" value="street3"/>
 		<property name="distance" value="15.17"/>
+		<property name="estimatedTime" value="28.00"/>
 		<property name="price" value="27.75"/>
 		<property name="moment" value="2018/10/25 12:10" />
 		<property name="comment" value="testcomment"/>
@@ -2514,6 +2599,7 @@
 		<property name="origin" value="street1"/>
 		<property name="destination" value="street2"/>
 		<property name="distance" value="3.72"/>
+		<property name="estimatedTime" value="8.90"/>
 		<property name="price" value="5.58"/>
 		<property name="moment" value="2018/09/15 12:10" />
 		<property name="comment" value="testcomment"/>
@@ -2527,6 +2613,7 @@
 		<property name="origin" value="street1"/>
 		<property name="destination" value="street2"/>
 		<property name="distance" value="3.72"/>
+		<property name="estimatedTime" value="8.90"/>
 		<property name="price" value="5.58"/>
 		<property name="moment" value="2017/03/15 12:10" />
 		<property name="comment" value="testcomment"/>
@@ -2540,6 +2627,7 @@
 		<property name="origin" value="street1"/>
 		<property name="destination" value="street2"/>
 		<property name="distance" value="3.72"/>
+		<property name="estimatedTime" value="8.90"/>
 		<property name="price" value="5.58"/>
 		<property name="moment" value="2018/09/15 22:10" />
 		<property name="comment" value="testcomment"/>
@@ -2553,6 +2641,7 @@
 		<property name="origin" value="street6"/>
 		<property name="destination" value="street7"/>
 		<property name="distance" value="8.82"/>
+		<property name="estimatedTime" value="20.00"/>
 		<property name="price" value="18.23"/>
 		<property name="moment" value="2015/10/05 12:10" />
 		<property name="comment" value="testcomment"/>
@@ -2566,6 +2655,7 @@
 		<property name="origin" value="street6"/>
 		<property name="destination" value="street7"/>
 		<property name="distance" value="8.82"/>
+		<property name="estimatedTime" value="20.00"/>
 		<property name="price" value="18.23"/>
 		<property name="moment" value="2019/01/25 12:10" />
 		<property name="comment" value="sex"/>
@@ -2788,6 +2878,30 @@
 			</list>
 		</property>
 		<property name="announcement"><ref bean="Announcement3" /></property>
+	</bean>
+	<bean id="Review1" class="domain.Review">
+		<property name="title" value="review1" />
+		<property name="body" value="review1" />
+		<property name="moment" value="2018/01/30 20:00" />
+		<property name="rating" value="4" />
+		<property name="marked" value="false" />
+		<property name="creator" ><ref bean="User1"/></property>	
+	</bean>
+	<bean id="Review2" class="domain.Review">
+		<property name="title" value="review2" />
+		<property name="body" value="review2" />
+		<property name="moment" value="2018/01/30 20:03" />
+		<property name="rating" value="4" />
+		<property name="marked" value="false" />
+		<property name="creator" ><ref bean="User1"/></property>	
+	</bean>
+	<bean id="Review3" class="domain.Review">
+		<property name="title" value="review3" />
+		<property name="body" value="review3" />
+		<property name="moment" value="2018/01/30 20:05" />
+		<property name="rating" value="4" />
+		<property name="marked" value="false" />
+		<property name="creator" ><ref bean="User1"/></property>	
 	</bean>
 		
 </beans>
