@@ -49,3 +49,28 @@
 	:
 	<jstl:out value="${repairShop.meanRating}" />
 </p>
+<jstl:if test='${total!=0}'>
+<display:table class="displaytag" name="services" requestURI="${requestURI}" pagesize="5" id="row" sort="external" partialList="true"
+size="${total}">
+<jstl:if test='${owner}'>
+<display:column>
+<jstl:if test='${row.suspended}'>
+<a href="service/suspend.do?serviceId=${row.id}"> <spring:message
+					code="repairShop.service.reopen" />
+			</a>
+</jstl:if>
+<jstl:if test='${!row.suspended}'>
+<a href="service/suspend.do?serviceId=${row.id}"> <spring:message
+					code="repairShop.service.suspend" />
+			</a>
+</jstl:if>
+</display:column>
+</jstl:if>
+<spring:message code="repairShop.service.title" var="titleHeader" />
+<display:column property="title" title="${nameHeader}" />
+<spring:message code="repairShop.service.price" var="priceHeader" />
+<display:column property="price" title="${priceHeader}" sortable="true" sortName="price" />
+<spring:message code="repairShop.service.suspended" var="suspendedHeader" />
+<display:column property="suspended" title="${suspendedHeader}" sortable="true" sortName="suspended" />
+</display:table>
+</jstl:if>

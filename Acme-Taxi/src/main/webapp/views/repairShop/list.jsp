@@ -36,9 +36,36 @@
 <spring:message code="repairShop.meanRating" var="meanRatingHeader" />
 <display:column property="meanRating" title="${meanRatingHeader}" sortable="true" sortName="meanRating" />
 <display:column>
+<security:authorize access="isAnonymous()">
 			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
 					code="repairShop.display" />
 			</a>
+</security:authorize>
+<security:authorize access="hasRole('ADMIN')">
+			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
+					code="repairShop.display" />
+			</a>
+</security:authorize>
+<security:authorize access="hasRole('USER')">
+			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
+					code="repairShop.display" />
+			</a>
+</security:authorize>
+<security:authorize access="hasRole('DRIVER')">
+			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
+					code="repairShop.display" />
+			</a>
+</security:authorize>
+<security:authorize access="hasRole('SPONSOR')">
+			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
+					code="repairShop.display" />
+			</a>
+</security:authorize>
+<security:authorize access="hasRole('MECHANIC')">
+			<a href="repairShop/mechanic/display.do?repairShopId=${row.id}"> <spring:message
+					code="repairShop.display" />
+			</a>
+</security:authorize>
 
 		</display:column>
 </display:table>

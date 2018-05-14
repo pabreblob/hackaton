@@ -49,8 +49,8 @@ public class RepairShopService {
 		boolean spamw = false;
 		for (final SpamWord word : sw) {
 			spamw = repairShop.getName().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
-			spamw = repairShop.getDescription().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
-			spamw = repairShop.getLocation().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
+			spamw |= repairShop.getDescription().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
+			spamw |= repairShop.getLocation().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
 			if (spamw)
 				break;
 		}

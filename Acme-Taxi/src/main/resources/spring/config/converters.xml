@@ -35,6 +35,10 @@
 		<bean class="converters.StringToSponsorshipConverter" />
 		<bean class="converters.SponsorToStringConverter"/>
 		<bean class="converters.StringToSponsorConverter" />
+		<bean class="converters.StringToMechanicConverter" /> 
+    	<bean class="converters.MechanicToStringConverter" />
+		<bean class="converters.StringToRepairShopConverter" /> 
+    	<bean class="converters.RepairShopToStringConverter" />
 	</util:list>
 	
 </beans>

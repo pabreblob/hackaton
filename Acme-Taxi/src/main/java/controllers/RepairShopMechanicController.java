@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.MechanicService;
 import services.RepairShopService;
+import services.ServiceService;
 
 import domain.RepairShop;
 
@@ -37,6 +38,8 @@ public class RepairShopMechanicController extends AbstractController {
 	private RepairShopService		repairShopService;
 	@Autowired
 	private MechanicService		mechanicService;
+	@Autowired
+	private ServiceService		serviceService;
 
 
 
@@ -111,5 +114,40 @@ public class RepairShopMechanicController extends AbstractController {
 			res.addObject("repairShop", r);
 			
 			return res;
+		}
+		@RequestMapping(value = "/display", method = RequestMethod.GET)
+		public ModelAndView display(@RequestParam final Integer repairShopId,final HttpServletRequest request) {
+			final ModelAndView result;
+			Collection<domain.Service> services;
+			Pageable pageable;
+			Direction dir = null;
+			Integer pageNum = 0;
+			final String pageNumStr = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_PAGE));
+			final String sortAtt = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_SORT));
+			final String sortOrder = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_ORDER));
+			if (sortOrder != null)
+				if (sortOrder.equals("1"))
+					dir = Direction.ASC;
+				else
+					dir = Direction.DESC;
+			if (pageNumStr != null)
+				pageNum = Integer.parseInt(pageNumStr) - 1;
+			if (sortAtt != null && dir != null)
+				pageable = new PageRequest(pageNum, 5, dir, sortAtt);
+			else
+				pageable = new PageRequest(pageNum, 5);
+			final Integer total = this.serviceService.countByRepairShop(repairShopId);
+			services=this.serviceService.findByRepairShop(repairShopId, pageable);
+			final RepairShop repairShop=this.repairShopService.findOne(repairShopId);
+			final boolean owner=this.mechanicService.findByPrincipal().getId()==repairShop.getMechanic().getId();
+			final String requestURI = "repairShop/mechanic/display.do";
+				result = new ModelAndView("repairShop/display");
+				result.addObject("repairShop", repairShop);
+				result.addObject("services", services);
+				result.addObject("requestURI", requestURI);
+				result.addObject("total", total);
+				result.addObject("owner", owner);
+					
+			return result;
 		}
 }
