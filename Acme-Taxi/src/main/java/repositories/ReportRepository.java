@@ -1,8 +1,7 @@
 
 package repositories;
 
-import java.util.Date;
-
+import org.joda.time.LocalDate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,5 +32,5 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
 	Integer countReportByActor(int actorId);
 
 	@Query("select count(r) from Report r where r.moment > ?1")
-	Integer countReportThisWeek(Date date);
+	Integer countReportThisWeek(LocalDate date);
 }
