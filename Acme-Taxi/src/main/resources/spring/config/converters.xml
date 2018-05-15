@@ -39,6 +39,8 @@
     	<bean class="converters.MechanicToStringConverter" />
 		<bean class="converters.StringToRepairShopConverter" /> 
     	<bean class="converters.RepairShopToStringConverter" />
+    	<bean class="converters.StringToReportConverter" /> 
+    	<bean class="converters.ReportToStringConverter" />
 	</util:list>
 	
 </beans>
