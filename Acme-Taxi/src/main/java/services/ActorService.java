@@ -7,6 +7,7 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -58,5 +59,12 @@ public class ActorService {
 			return new ArrayList<Actor>();
 		else
 			return this.actorRepository.findByUsername(keyword);
+	}
+	
+	public Collection<Actor> getSuspiciousActor(Pageable pageable){
+		return this.actorRepository.getSuspiciousActor(pageable).getContent();
+	}
+	public Integer countSuspiciousActor(){
+		return this.actorRepository.countSuspiciousActor();
 	}
 }
