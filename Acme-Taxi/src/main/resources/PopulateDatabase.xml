@@ -307,6 +307,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount1" />
 		</property>
+		<property name="banned" value="false" />
 		
 	</bean>
 	
@@ -345,6 +346,7 @@
 		<list>
 		</list>	
 		</property>
+		<property name="banned" value="false" />
 		
 	</bean>
 	
@@ -384,6 +386,7 @@
 		<ref bean="Review1" />
 		</list>	
 		</property>
+		<property name="banned" value="false" />
 		
 	</bean>
 	
@@ -422,6 +425,7 @@
 		<list>
 		</list>	
 		</property>
+		<property name="banned" value="false" />
 		
 	</bean>
 	
@@ -460,6 +464,7 @@
 		<list>
 		</list>	
 		</property>
+		<property name="banned" value="false" />
 		
 	</bean>
 	<bean id="Driver1" class="domain.Driver">
@@ -840,6 +845,7 @@
 		</property>
 		<property name="IdNumber" value="88547463Q" />
 		<property name="nationality" value="Spanish" />
+		<property name="banned" value="true" />
 		
 	</bean>
 	<bean id="Car1" class="domain.Car">
