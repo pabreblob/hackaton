@@ -7,6 +7,7 @@ import java.util.Collection;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
@@ -59,4 +60,25 @@ public class ActorService {
 		else
 			return this.actorRepository.findByUsername(keyword);
 	}
+
+	public Collection<Actor> getSuspiciousActor(final Pageable pageable) {
+		return this.actorRepository.getSuspiciousActor(pageable).getContent();
+	}
+	public Integer countSuspiciousActor() {
+		return this.actorRepository.countSuspiciousActor();
+	}
+	public void ban(final int actorId) {
+		final Actor a = this.findOne(actorId);
+		Assert.notNull(a);
+		a.setBanned(true);
+		this.save(a);
+	}
+
+	public void unban(final int actorId) {
+		final Actor a = this.findOne(actorId);
+		Assert.notNull(a);
+		a.setBanned(false);
+		this.save(a);
+	}
+
 }
