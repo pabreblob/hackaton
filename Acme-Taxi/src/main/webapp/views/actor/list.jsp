@@ -22,7 +22,8 @@ $(document).ready(function() {
 <label for="username">
 	<spring:message code="actor.username" />
 </label>
-<input type="text" name="username" id="username" autocomplete="off" placeholder="Insert a keyword here" />
+<spring:message code="actor.placeholderSearchUsername" var="placeholder" />
+<input type="text" name="username" id="username" size="30" autocomplete="off" placeholder="${placeholder}" />
 
 <table id="list">
 <thead>
