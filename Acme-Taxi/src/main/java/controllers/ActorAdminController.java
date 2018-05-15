@@ -49,4 +49,23 @@ public class ActorAdminController extends AbstractController {
 		res.addObject("total", this.actorService.countSuspiciousActor());
 		return res;
 	}
+
+	@RequestMapping(value = "/ban", method = RequestMethod.GET)
+	public ModelAndView ban(final Integer actorId) {
+		try {
+			this.actorService.ban(actorId);
+		} catch (final Throwable oops) {
+		}
+		return new ModelAndView("redirect: listSuspicious.do");
+	}
+
+	@RequestMapping(value = "/unban", method = RequestMethod.GET)
+	public ModelAndView unban(final Integer actorId) {
+		try {
+			this.actorService.unban(actorId);
+		} catch (final Throwable oops) {
+		}
+		return new ModelAndView("redirect: listSuspicious.do");
+	}
+
 }

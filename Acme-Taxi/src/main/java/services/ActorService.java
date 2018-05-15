@@ -60,11 +60,25 @@ public class ActorService {
 		else
 			return this.actorRepository.findByUsername(keyword);
 	}
-	
-	public Collection<Actor> getSuspiciousActor(Pageable pageable){
+
+	public Collection<Actor> getSuspiciousActor(final Pageable pageable) {
 		return this.actorRepository.getSuspiciousActor(pageable).getContent();
 	}
-	public Integer countSuspiciousActor(){
+	public Integer countSuspiciousActor() {
 		return this.actorRepository.countSuspiciousActor();
 	}
+	public void ban(final int actorId) {
+		final Actor a = this.findOne(actorId);
+		Assert.notNull(a);
+		a.setBanned(true);
+		this.save(a);
+	}
+
+	public void unban(final int actorId) {
+		final Actor a = this.findOne(actorId);
+		Assert.notNull(a);
+		a.setBanned(false);
+		this.save(a);
+	}
+
 }

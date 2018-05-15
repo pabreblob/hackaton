@@ -8,12 +8,12 @@
 
 
 <display:table class="displaytag"  requestURI="actor/admin/listSuspicious.do" name="actors" sort="external" partialList="true" size="${total}"
-	pagesize="10" id="row">
+	pagesize="10" id="row" keepStatus="true">
 	
 	<display:column>
 		<jstl:if test="${row.banned}">
 			<div style="background-color:red">
-				<spring:message code="actor.ban"/>
+				<spring:message code="actor.banned"/>
 			</div>
 		</jstl:if>
 	</display:column>
