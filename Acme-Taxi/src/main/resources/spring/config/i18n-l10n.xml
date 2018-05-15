@@ -33,6 +33,7 @@
 		<value>/views/mechanic/messages</value>
 		<value>/views/repairShop/messages</value>
 		
+		<value>/views/driver/messages</value>
 		<value>/views/sponsor/messages</value>
 		<value>/views/sponsorship/messages</value>
 		<value>/views/spamWord/messages</value>
