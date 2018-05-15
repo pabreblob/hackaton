@@ -29,8 +29,9 @@
 	color: white;
 	text-transform: uppercase;
 	cursor: pointer;
-	font-size: 12px;
+	font-size: 17px;
 	text-decoration: none;
+	font-family: Arial, sans-serif;
 }
 
 /* Lower levels */
@@ -62,7 +63,8 @@
 }
 
 .jMenu li ul li a {
-	font-size: 11px;
+	font-size: 15px;
+	font-family: Arial, sans-serif;
 	text-transform: none;
 	padding: 7px;
 	display: block;

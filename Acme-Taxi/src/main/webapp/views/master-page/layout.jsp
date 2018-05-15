@@ -1,13 +1,3 @@
-<%--
- * layout.jsp
- *
- * Copyright (C) 2017 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- --%>
-
 <%@page language="java" contentType="text/html; UTF-8" pageEncoding="UTF-8"%>
 
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -15,8 +5,14 @@
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<style>
+
+
+</style>
 <head>
 
 <base
@@ -58,9 +54,15 @@
 </script>
 
 </head>
+<style>
+	body{
+		font-size: 17px;
+		font-family: Arial, sans-serif;
+	}
 
+</style>
 <body>
-
+	
 	<div>
 		<tiles:insertAttribute name="header" />
 	</div>
@@ -74,9 +76,18 @@
 			<span class="message"><spring:message code="${message}" /></span>
 		</jstl:if>	
 	</div>
+	
+	<%-- <div>
+		<br/>
+		<br/>
+		<a href="${url}"><img src='<jstl:out value="${image}"/>' /></a>
+	</div> --%>
+	
 	<div>
 		<tiles:insertAttribute name="footer" />
 	</div>
+	
+
 
 </body>
 </html>
