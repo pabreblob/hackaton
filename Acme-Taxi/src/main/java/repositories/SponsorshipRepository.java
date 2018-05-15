@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,4 +25,7 @@ public interface SponsorshipRepository extends JpaRepository<Sponsorship, Intege
 
 	@Query("select count(s) from Sponsorship s where s.accepted = false")
 	Integer countSponsorshipNotAccepted();
+
+	@Query("select s from Sponsorship s where s.accepted = true and s.cancelled = false order by rand()")
+	Collection<Sponsorship> getRandomSponsorship();
 }

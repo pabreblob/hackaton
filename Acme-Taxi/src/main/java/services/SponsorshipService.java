@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -133,5 +134,9 @@ public class SponsorshipService {
 
 	public Integer countSponsorshipNotAccepted() {
 		return this.sponsorshipRepository.countSponsorshipNotAccepted();
+	}
+
+	public Sponsorship getRandomSponsorship() {
+		return new ArrayList<Sponsorship>(this.sponsorshipRepository.getRandomSponsorship()).get(0);
 	}
 }
