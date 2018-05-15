@@ -39,12 +39,20 @@
 			<li><a class="fNiv"><spring:message	code="master.page.admin" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="configuration/admin/display.do"><spring:message code="master.page.configuration.admin.display" /></a></li>
-					<li><a href="spamWord/admin/list.do"><spring:message code="master.page.spamword.admin.list" /></a></li>
-					<li><a href="idNumberPattern/admin/list.do"><spring:message code="master.page.idnumber.admin.list" /></a></li>
-					<li><a href="sponsorship/admin/list.do"><spring:message code="master.page.sponsorship.admin.list" /></a></li>					
+					<li><a href="configuration/admin/display.do"><spring:message code="master.page.admin.configuration.display" /></a></li>
+					<li><a href="spamWord/admin/list.do"><spring:message code="master.page.admin.spamword.list" /></a></li>
+					<li><a href="idNumberPattern/admin/list.do"><spring:message code="master.page.admin.idnumber.list" /></a></li>
+					<li><a href="sponsorship/admin/list.do"><spring:message code="master.page.admin.sponsorship.list" /></a></li>			
 				</ul>
 			</li>
+			
+			<li><a class="fNiv"><spring:message code="master.page.admin.marked"/></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="repairShop/admin/list-marked.do"><spring:message code="master.page.admin.repairshop.marked" /></a></li>		
+				</ul>
+			</li>
+			
 		</security:authorize>
 		
 		<security:authorize access="hasRole('SPONSOR')">
@@ -55,6 +63,18 @@
 					<li class="arrow"></li>
 					<li><a href="sponsorship/sponsor/create.do"><spring:message code="master.page.sponsor.sponsorship.create" /></a></li>
 					<li><a href="sponsorship/sponsor/list.do"><spring:message code="master.page.sponsor.sponsorship.list" /></a></li>					
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('MECHANIC')">
+			
+		<!-- Acciones de Mechanic -->
+			<li><a class="fNiv"><spring:message code="master.page.mechanic"/></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="reparirShop/mechanic/list-created.do"><spring:message code="master.page.mechanic.repairshop.created"/></a></li>
+					<li><a href="repairShop/mechanic/create.do"><spring:message code="master.page.mechanic.reparishop.create"/></a></li>
 				</ul>
 			</li>
 		</security:authorize>
@@ -86,11 +106,12 @@
 				<security:authorize access="hasRole('ADMIN')">
 					<li><a href="admin/admin/display.do"><spring:message code="master.page.profile.display"/></a></li>
 				</security:authorize>
-				
-				<!-- Carpetas -->
-				<li><a href="folder/actor/list.do"><spring:message code="master.page.folder.list"/></a></li>
 			</ul>
 		</li>
+		
+		<!-- Carpetas -->
+		<li><a class="fNiv" href="folder/actor/list.do"><spring:message code="master.page.folder.list"/></a></li>
+
 		</security:authorize>
 				
 		<security:authorize access="isAnonymous()">
@@ -113,6 +134,9 @@
 		<!-- Salir del sistema -->
 			<li><a class="fNiv" href="j_spring_security_logout"><spring:message code="master.page.logout" /></a></li>
 		</security:authorize>
+		
+		<!-- Búsqueda de Actores -->
+		<li><a class="fNiv" href="actor/list.do"><spring:message code="master.page.search.actor"/></a></li>
 		
 		<!-- Cambio de Idioma -->
 		<li id="rightB">
