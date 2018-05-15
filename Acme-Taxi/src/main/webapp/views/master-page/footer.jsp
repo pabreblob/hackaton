@@ -12,12 +12,13 @@
 
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:useBean id="date" class="java.util.Date" />
 
 <hr />
 
-<b>Copyright &copy; <fmt:formatDate value="${date}" pattern="yyyy" /> Acme, Inc.</b>
+<b><jstl:out value="${footer}"/></b>
 <div>
 <a href="misc/terms.do">
 	<spring:message code="master.page.terms"/>
@@ -40,10 +41,11 @@
 $(document).ready(function() {
 	if (getCookie("accepted") !== ("true")) {
 		var language = getCookie("language");
+		var cookies = '<jstl:out value="${acceptCookies}" />';
 		if (language == "" || language === "en") {
-			document.getElementById("pruebacookie").innerHTML = "We use cookies to improve your experience. If you continue surfing this website, we consider that you accept their use. <button type='button' onclick='acceptCookies()'>Accept</button>";
+			document.getElementById("pruebacookie").innerHTML = cookies + " <button type='button' onclick='acceptCookies()'>Accept</button>";
 		} else {
-			document.getElementById("pruebacookie").innerHTML = "Usamos cookies para mejorar su experiencia. Si continúa navegando en este sitio, consideramos que acepta su uso. <button type='button' onclick='acceptCookies()'>Aceptar</button>";
+			document.getElementById("pruebacookie").innerHTML = cookies + " <button type='button' onclick='acceptCookies()'>Aceptar</button>";
 		}
 	}else{
 		document.getElementById("pruebacookie").style.display="none";

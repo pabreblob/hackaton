@@ -12,6 +12,7 @@ package controllers;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ClassUtils;
@@ -21,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ConfigurationService;
+import services.SponsorshipService;
 
 @Controller
 public class AbstractController {
 
 	@Autowired
 	private ConfigurationService	configurationService;
+	@Autowired
+	private SponsorshipService		sponsorshipService;
 
 
 	// Panic handler ----------------------------------------------------------
@@ -34,6 +38,12 @@ public class AbstractController {
 	@ModelAttribute
 	public void banner(final Model model) {
 		model.addAttribute("bannerUrl", this.configurationService.find().getBannerUrl());
+		if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("English"))
+			model.addAttribute("acceptCookies", this.configurationService.find().getAcceptCookiesEng());
+		else if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("Spanish"))
+			model.addAttribute("acceptCookies", this.configurationService.find().getAcceptCookiesEsp());
+		model.addAttribute("footer", this.configurationService.find().getFooter());
+		model.addAttribute("spons", this.sponsorshipService.getRandomSponsorship().getPictureUrl());
 	}
 
 	@ExceptionHandler(Throwable.class)
@@ -53,6 +63,10 @@ public class AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("misc/terms");
+		if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("English"))
+			result.addObject("legalText", this.configurationService.find().getLegalTextEng());
+		else if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("Spanish"))
+			result.addObject("legalText", this.configurationService.find().getLegalTextEsp());
 
 		return result;
 	}
@@ -61,6 +75,10 @@ public class AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("misc/contact");
+		if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("English"))
+			result.addObject("contact", this.configurationService.find().getContactEng());
+		else if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("Spanish"))
+			result.addObject("contact", this.configurationService.find().getContactEsp());
 
 		return result;
 	}
@@ -69,6 +87,10 @@ public class AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("misc/cookies");
+		if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("English"))
+			result.addObject("cookies", this.configurationService.find().getCookiesPolicyEng());
+		else if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("Spanish"))
+			result.addObject("cookies", this.configurationService.find().getCookiesPolicyEsp());
 
 		return result;
 	}
