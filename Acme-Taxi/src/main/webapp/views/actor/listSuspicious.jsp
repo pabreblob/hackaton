@@ -19,7 +19,7 @@
 	</display:column>
 	   
   	<spring:message code="actor.username" var="usernameHeader"/>
-  	<display:column property="userAccount.username" sortable="true" sortName="username" title="${usernameHeader}"/>
+  	<display:column property="userAccount.username" sortable="true" sortName="userAccount.username" title="${usernameHeader}"/>
   	
   	<spring:message code="actor.name" var="nameHeader"/>
   	<display:column property="name" sortable="true" sortName="name" title="${nameHeader}"/>
