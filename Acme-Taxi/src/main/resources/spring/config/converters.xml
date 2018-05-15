@@ -41,6 +41,12 @@
     	<bean class="converters.RepairShopToStringConverter" />
 		<bean class="converters.DriverToStringConverter"/>
 		<bean class="converters.StringToDriverConverter" />
+		<bean class="converters.StringToServiceConverter" /> 
+    	<bean class="converters.ServiceToStringConverter" />
+		<bean class="converters.StringToUserConverter" /> 
+    	<bean class="converters.UserToStringConverter" />
+		<bean class="converters.StringToReservationConverter" /> 
+    	<bean class="converters.ReservationToStringConverter" />
 	</util:list>
 	
 </beans>

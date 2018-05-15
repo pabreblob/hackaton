@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import repositories.ActorRepository;
+
 import repositories.UserRepository;
 import security.LoginService;
 import security.UserAccount;
-import domain.Actor;
+
 import domain.User;
 
 @Service

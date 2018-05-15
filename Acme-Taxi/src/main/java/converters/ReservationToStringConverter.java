@@ -4,20 +4,19 @@ package converters;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import domain.RepairShop;
+import domain.Reservation;
 
 @Component
 @Transactional
-public class RepairShopToStringConverter implements Converter<RepairShop, String> {
+public class ReservationToStringConverter implements Converter<Reservation ,String> {
 
 	@Override
-	public String convert(final RepairShop repairShop) {
+	public String convert(final Reservation reservation) {
 		String result;
-		if (repairShop == null)
+		if (reservation == null)
 			result = null;
 		else
-			result = String.valueOf(repairShop.getId());
+			result = String.valueOf(reservation.getId());
 		return result;
 	}
 }

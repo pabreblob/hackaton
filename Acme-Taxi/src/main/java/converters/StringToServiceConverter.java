@@ -7,22 +7,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import repositories.ServiceRepository;
 
-import repositories.UserRepository;
-
-import domain.User;
+import domain.Service;
 
 @Component
 @Transactional
-public class StringToUserConverter implements Converter<String, User> {
+public class StringToServiceConverter implements Converter<String, Service> {
 
 	@Autowired
-	UserRepository	userRepository;
+	ServiceRepository	serviceRepository;
 
 
 	@Override
-	public User convert(final String arg0) {
-		User res;
+	public Service convert(final String arg0) {
+		Service res;
 		int id;
 
 		try {
@@ -30,7 +29,7 @@ public class StringToUserConverter implements Converter<String, User> {
 				res = null;
 			else {
 				id = Integer.valueOf(arg0);
-				res = this.userRepository.findOne(id);
+				res = this.serviceRepository.findOne(id);
 			}
 
 		} catch (final Throwable oops) {

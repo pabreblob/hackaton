@@ -5,19 +5,23 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import domain.RepairShop;
+import domain.Service;
+
 
 @Component
 @Transactional
-public class RepairShopToStringConverter implements Converter<RepairShop, String> {
+public class ServiceToStringConverter implements Converter<Service, String> {
 
 	@Override
-	public String convert(final RepairShop repairShop) {
+	public String convert(final Service service) {
 		String result;
-		if (repairShop == null)
+
+		if (service == null)
 			result = null;
 		else
-			result = String.valueOf(repairShop.getId());
+			result = String.valueOf(service.getId());
+
 		return result;
 	}
+
 }

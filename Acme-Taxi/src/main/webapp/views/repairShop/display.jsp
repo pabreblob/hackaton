@@ -55,15 +55,22 @@ size="${total}">
 <jstl:if test='${owner}'>
 <display:column>
 <jstl:if test='${row.suspended}'>
-<a href="service/suspend.do?serviceId=${row.id}"> <spring:message
+<a href="repairShop/mechanic/suspend-service.do?serviceId=${row.id}"> <spring:message
 					code="repairShop.service.reopen" />
 			</a>
 </jstl:if>
 <jstl:if test='${!row.suspended}'>
-<a href="service/suspend.do?serviceId=${row.id}"> <spring:message
+<a href="repairShop/mechanic/suspend-service.do?serviceId=${row.id}"> <spring:message
 					code="repairShop.service.suspend" />
 			</a>
 </jstl:if>
+</display:column>
+</jstl:if>
+<jstl:if test='${owner}'>
+<display:column>
+<a href="service/mechanic/edit.do?serviceId=${row.id}"> <spring:message
+					code="repairShop.edit" />
+			</a>
 </display:column>
 </jstl:if>
 <spring:message code="repairShop.service.title" var="titleHeader" />
@@ -74,3 +81,8 @@ size="${total}">
 <display:column property="suspended" title="${suspendedHeader}" sortable="true" sortName="suspended" />
 </display:table>
 </jstl:if>
+<jstl:if test='${owner}'>
+<a href="service/mechanic/create.do?repairShopId=${repairShop.id}"> <spring:message
+					code="repairShop.service.create" />
+			</a>
+			</jstl:if>

@@ -81,8 +81,8 @@
 			<li><a class="fNiv"><spring:message code="master.page.mechanic"/></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="reparirShop/mechanic/list-created.do"><spring:message code="master.page.mechanic.repairshop.created"/></a></li>
-					<li><a href="repairShop/mechanic/create.do"><spring:message code="master.page.mechanic.reparishop.create"/></a></li>
+					<li><a href="repairShop/mechanic/list-created.do"><spring:message code="master.page.mechanic.repairshop.created"/></a></li>
+					<li><a href="repairShop/mechanic/create.do"><spring:message code="master.page.mechanic.repairshop.create"/></a></li>
 				</ul>
 			</li>
 		</security:authorize>

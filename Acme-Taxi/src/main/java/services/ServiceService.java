@@ -31,6 +31,7 @@ public class ServiceService {
 
 	public domain.Service create(RepairShop repairShop) {
 		final domain.Service service=new domain.Service();
+		Assert.isTrue(repairShop.getMechanic().getId()==this.mechanicService.findByPrincipal().getId());
 		service.setRepairShop(repairShop);
 
 		return service;
@@ -75,6 +76,7 @@ public class ServiceService {
 	}
 	public void suspend(int serviceId){
 		domain.Service service=this.findOne(serviceId);
+		Assert.isTrue(service.getRepairShop().getMechanic().getId()==this.mechanicService.findByPrincipal().getId());
 		if(service.isSuspended()){
 			service.setSuspended(false);
 		}else{
