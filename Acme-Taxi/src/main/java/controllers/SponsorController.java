@@ -35,7 +35,7 @@ public class SponsorController extends AbstractController {
 	private ConfigurationService	configurationService;
 
 	@Autowired
-	IdNumberPatternService			idNumberPatternService;
+	private IdNumberPatternService	idNumberPatternService;
 
 
 	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
