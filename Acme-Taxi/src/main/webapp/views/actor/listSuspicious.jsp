@@ -17,6 +17,25 @@
 			</div>
 		</jstl:if>
 	</display:column>
+	
+	<spring:message code="actor.role" var="roleHeader"/>
+  	<display:column title="${roleHeader}">
+  	<jstl:if test="${row.userAccount.authorities[0].authority == 'MECHANIC'}">
+  		<spring:message code="actor.mechanic"/>
+  	</jstl:if>
+  	<jstl:if test="${row.userAccount.authorities[0].authority == 'ADMIN'}">
+  		<spring:message code="actor.admin"/>
+  	</jstl:if>
+  	<jstl:if test="${row.userAccount.authorities[0].authority == 'USER'}">
+  		<spring:message code="actor.user"/>
+  	</jstl:if>
+  	<jstl:if test="${row.userAccount.authorities[0].authority == 'DRIVER'}">
+  		<spring:message code="actor.driver"/>
+  	</jstl:if>
+  	<jstl:if test="${row.userAccount.authorities[0].authority == 'SPONSOR'}">
+  		<spring:message code="actor.sponsor"/>
+  	</jstl:if>
+  	</display:column>
 	   
   	<spring:message code="actor.username" var="usernameHeader"/>
   	<display:column property="userAccount.username" sortable="true" sortName="userAccount.username" title="${usernameHeader}"/>
