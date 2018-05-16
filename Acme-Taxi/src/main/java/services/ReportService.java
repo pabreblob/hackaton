@@ -3,7 +3,6 @@ package services;
 
 import java.util.Date;
 
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,9 +49,9 @@ public class ReportService {
 		return this.countReportByActor(actorId);
 	}
 	public Integer countReportThisWeek() {
-		LocalDate d = new LocalDate();
-		d = d.minusDays(7);
-		return this.reportRepository.countReportThisWeek(d);
+		final long dayInMS = 7 * 24 * 60 * 60 * 1000;
+		final Integer res = this.reportRepository.countReportThisWeek(new Date(System.currentTimeMillis() - dayInMS));
+		return res;
 	}
 	public Report create() {
 		final Report r = new Report();
@@ -62,7 +61,7 @@ public class ReportService {
 		Assert.isTrue(r.getCreator().getId() != r.getReported().getId());
 		Assert.isTrue(!(r.getReported() instanceof Admin));
 		if (r.getId() == 0)
-			Assert.isTrue(this.countReportThisWeek() >= 1 + this.configurationService.find().getLimitReportsWeek());
+			Assert.isTrue(this.countReportThisWeek() + 1 <= this.configurationService.find().getLimitReportsWeek());
 		final Report saved = this.reportRepository.save(r);
 		return saved;
 	}

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.ConfigurationService;
 import services.ReportService;
 import domain.Actor;
 import domain.Admin;
@@ -20,9 +21,11 @@ import domain.Report;
 public class ReportActorController extends AbstractController {
 
 	@Autowired
-	private ReportService	reportService;
+	private ReportService			reportService;
 	@Autowired
-	private ActorService	actorService;
+	private ActorService			actorService;
+	@Autowired
+	private ConfigurationService	configurationService;
 
 
 	@RequestMapping(value = "create", method = RequestMethod.GET)
@@ -32,6 +35,7 @@ public class ReportActorController extends AbstractController {
 			final Report r = this.reportService.create();
 			final Actor reported = this.actorService.findOne(actorId);
 			Assert.isTrue(!(reported instanceof Admin));
+			Assert.isTrue(reported.getId() != this.actorService.findByPrincipal().getId());
 			r.setReported(reported);
 			res.addObject("report", r);
 			res.addObject("reported", reported.getName() + " " + reported.getSurname());
@@ -57,7 +61,10 @@ public class ReportActorController extends AbstractController {
 			final ModelAndView res = new ModelAndView("report/create");
 			res.addObject("report", r);
 			res.addObject("reported", r.getReported().getName() + " " + r.getReported().getSurname());
-			res.addObject("message", "report.cannotCommit");
+			if (this.reportService.countReportThisWeek() >= this.configurationService.find().getLimitReportsWeek())
+				res.addObject("message", "report.limit");
+			else
+				res.addObject("message", "report.cannotCommit");
 			return res;
 		}
 	}
