@@ -1,10 +1,10 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,20 +30,21 @@ public class ReportService {
 	private Validator				validator;
 
 
-	public Page<Report> getAll(final Pageable pageable) {
-		return this.reportRepository.getAll(pageable);
+	public Collection<Report> getAll(final Pageable pageable) {
+		return this.reportRepository.getAll(pageable).getContent();
 	}
 	public Integer countAll() {
 		return this.reportRepository.countAll();
 	}
-	public Page<Report> getNotChecked(final Pageable pageable) {
-		return this.reportRepository.getNotChecked(pageable);
+	public Collection<Report> getNotChecked(final Pageable pageable) {
+		return this.reportRepository.getNotChecked(pageable).getContent();
 	}
 	public Integer countNotChecked() {
 		return this.reportRepository.countNotChecked();
 	}
-	public Page<Report> getReportByActor(final int actorId, final Pageable pageable) {
-		return this.reportRepository.getReportByActor(actorId, pageable);
+	public Collection<Report> getReportByActor(final int actorId, final Pageable pageable) {
+		Assert.notNull(this.actorService.findOne(actorId));
+		return this.reportRepository.getReportByActor(actorId, pageable).getContent();
 	}
 	public Integer countReportByActor(final int actorId) {
 		return this.countReportByActor(actorId);
