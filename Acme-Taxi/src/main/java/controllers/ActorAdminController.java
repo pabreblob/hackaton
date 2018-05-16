@@ -40,9 +40,9 @@ public class ActorAdminController extends AbstractController {
 		if (pageNumStr != null)
 			pageNum = Integer.parseInt(pageNumStr) - 1;
 		if (sortAtt != null && dir != null)
-			pageable = new PageRequest(pageNum, 10, dir, sortAtt);
+			pageable = new PageRequest(pageNum, 5, dir, sortAtt);
 		else
-			pageable = new PageRequest(pageNum, 10);
+			pageable = new PageRequest(pageNum, 5);
 
 		final ModelAndView res = new ModelAndView("actor/listSuspicious");
 		res.addObject("actors", this.actorService.getSuspiciousActor(pageable));

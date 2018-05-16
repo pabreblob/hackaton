@@ -50,9 +50,9 @@ public class SpamWordController extends AbstractController {
 		if (pageNumStr != null)
 			pageNum = Integer.parseInt(pageNumStr) - 1;
 		if (sortAtt != null && dir != null)
-			pageable = new PageRequest(pageNum, 20, dir, sortAtt);
+			pageable = new PageRequest(pageNum, 5, dir, sortAtt);
 		else
-			pageable = new PageRequest(pageNum, 20);
+			pageable = new PageRequest(pageNum, 5);
 		final ModelAndView res = new ModelAndView("spamWord/list");
 		res.addObject("spamWords", this.spamWordService.getSpamWords(pageable));
 		res.addObject("total", this.spamWordService.countSpamWords());

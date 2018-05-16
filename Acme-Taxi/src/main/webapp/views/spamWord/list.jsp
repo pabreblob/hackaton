@@ -11,7 +11,7 @@
 <a href="spamWord/create.do"><spring:message code="spamWord.create"/></a> 
 
 <display:table class="displaytag"  requestURI="spamWord/list.do" name="spamWords" sort="external" partialList="true" size="${total}"
-	pagesize="20" id="row">   
+	pagesize="5" id="row">   
   <spring:message code="spamWord.word" var="word"/> 
   <display:column property="word" sortable="true" sortName="word" title="${word}"/>    
   

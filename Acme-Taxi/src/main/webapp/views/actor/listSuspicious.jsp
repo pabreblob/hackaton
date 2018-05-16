@@ -8,7 +8,7 @@
 
 
 <display:table class="displaytag"  requestURI="actor/admin/listSuspicious.do" name="actors" sort="external" partialList="true" size="${total}"
-	pagesize="10" id="row" keepStatus="true">
+	pagesize="5" id="row" keepStatus="true">
 	
 	<display:column>
 		<jstl:if test="${row.banned}">

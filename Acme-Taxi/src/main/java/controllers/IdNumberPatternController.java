@@ -51,9 +51,9 @@ public class IdNumberPatternController extends AbstractController {
 		if (pageNumStr != null)
 			pageNum = Integer.parseInt(pageNumStr) - 1;
 		if (sortAtt != null && dir != null)
-			pageable = new PageRequest(pageNum, 20, dir, sortAtt);
+			pageable = new PageRequest(pageNum, 5, dir, sortAtt);
 		else
-			pageable = new PageRequest(pageNum, 20);
+			pageable = new PageRequest(pageNum, 5);
 
 		final ModelAndView result = new ModelAndView("idNumberPattern/list");
 		final Collection<String> nationalities = this.configurationService.find().getNationalities();
