@@ -30,8 +30,7 @@ public class ReviewService {
 	@Autowired
 	private UserService				userService;
 
-	@Autowired
-	private ConfigurationService	configurationService;
+	
 
 	@Autowired
 	private Validator				validator;

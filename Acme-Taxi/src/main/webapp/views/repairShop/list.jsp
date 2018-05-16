@@ -28,7 +28,7 @@
 			</a>
 
 		</display:column>
-<
+
 
 <display:column>
 			<a href="reservation/mechanic/list-shop.do?repairShopId=${row.id}"> <spring:message
@@ -37,6 +37,14 @@
 
 		</display:column>
 </jstl:if>
+<jstl:if test="${requestURI == 'repairShop/user/list-reviewable.do' }">
+<display:column>
+			<a href="review/user/create-repairShop.do?repairShopId=${row.id}"> <spring:message
+					code="repairShop.review.create" />
+			</a>
+
+		</display:column>
+		</jstl:if>
 <security:authorize access="hasRole('ADMIN')">
 <display:column>
 			<a href="repairShop/admin/delete.do?repairShopId=${row.id}&requestURI=${requestURI}"> <spring:message

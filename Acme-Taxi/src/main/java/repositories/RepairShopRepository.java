@@ -30,12 +30,10 @@ public interface RepairShopRepository extends JpaRepository<RepairShop, Integer>
 	Page<RepairShop> findMarkedRepairShop(Pageable pageable);
 	@Query("select count (r) from RepairShop r where r.marked=true")
 	Integer countMarkedRepairShop();
-	@Query("select r from RepairShop r join r.reviews rev where rev.creator.id!=?1")
-	Page<RepairShop> listRepairShopsReviewable(int useId,Pageable pageable);
-	@Query("select count (r) from RepairShop r join r.reviews rev where rev.creator.id!=?1")
-	Integer countRepairShopsReviewable(int userId);
-	@Query("select r from RepairShop r join r.reviews rev where rev.creator.id!=?1")
-	Collection<RepairShop> findRepairShopsReviewable(int userId);
+	@Query("select r from RepairShop r join r.reviews rev where rev.creator.id=?1")
+	Collection<RepairShop> findRepairShopsReviewed(int userId);
+	@Query("select count (r) from RepairShop r join r.reviews rev where rev.creator.id=?1")
+	Integer countRepairShopsReviewed(int userId);
 	@Query("select r from RepairShop r join r.reviews rev where rev.id!=?1")
 	RepairShop findRepairShopByReviewId(int reviewId);
 }

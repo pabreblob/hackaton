@@ -15,6 +15,7 @@ import org.springframework.validation.Validator;
 
 import repositories.RepairShopRepository;
 
+import domain.Car;
 import domain.RepairShop;
 import domain.Review;
 import domain.SpamWord;
@@ -36,6 +37,8 @@ public class RepairShopService {
 	private ServiceService		serviceService;
 	@Autowired
 	private UserService		userService;
+	@Autowired
+	private CarService		carService;
 
 
 	public RepairShopService() {
@@ -143,27 +146,38 @@ public class RepairShopService {
 	public void delete(final RepairShop repairShop) {
 		assert repairShop != null;
 		Collection <domain.Service> services=this.serviceService.findAllByRepairShop(repairShop.getId());
+		Collection <Car> cars=this.carService.findByRepairShop(repairShop.getId());
 		for(domain.Service s: services){
 			this.serviceService.delete(s);
 		}
+		for(Car c: cars){
+			c.setRepairShop(null);
+		}
+		
 		this.repairShopRepository.delete(repairShop.getId());
 	}
 	public Collection<RepairShop> listRepairShopsReviewable(final Pageable pageable) {
 		final Collection<RepairShop> res;
-		res = this.repairShopRepository.listRepairShopsReviewable(this.userService.findByPrincipal().getId(), pageable).getContent();
-		return res;
+		res = this.repairShopRepository.findAllRepairShops(pageable).getContent();
+		Collection<RepairShop> reviewed=this.findRepairShopsReviewed();
+		final Collection<RepairShop> result = new ArrayList<>(res);
+		result.removeAll(reviewed);
+		return result;
 	}
-	public Integer countRepairShopsReviewable(){
-		Integer res=this.repairShopRepository.countRepairShopsReviewable(this.userService.findByPrincipal().getId());
-		return res;
-	}
-	public Collection<RepairShop> findRepairShopsReviewable() {
+	
+	public Collection<RepairShop> findRepairShopsReviewed() {
 		final Collection<RepairShop> res;
-		res = this.repairShopRepository.findRepairShopsReviewable(this.userService.findByPrincipal().getId());
+		res = this.repairShopRepository.findRepairShopsReviewed(this.userService.findByPrincipal().getId());
 		return res;
 	}
 	public RepairShop findRepairShopByReview(int reviewId){
 		RepairShop res=this.repairShopRepository.findRepairShopByReviewId(reviewId);
+		return res;
+	}
+	public Integer countReviewable(){
+		Integer res=this.repairShopRepository.countAllRepairShops();
+		Integer reviewed=this.repairShopRepository.countRepairShopsReviewed(this.userService.findByPrincipal().getId());
+		res-=reviewed;
 		return res;
 	}
 }

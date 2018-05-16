@@ -83,4 +83,34 @@ public class RepairShopUserController extends AbstractController {
 				
 		return result;
 	}
+	@RequestMapping(value = "/list-reviewable", method = RequestMethod.GET)
+	public ModelAndView list(final HttpServletRequest request) {
+		ModelAndView res;
+		Collection<RepairShop> repairShops;
+		Pageable pageable;
+		Direction dir = null;
+		Integer pageNum = 0;
+		final String pageNumStr = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_PAGE));
+		final String sortAtt = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_SORT));
+		final String sortOrder = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_ORDER));
+		if (sortOrder != null)
+			if (sortOrder.equals("1"))
+				dir = Direction.ASC;
+			else
+				dir = Direction.DESC;
+		if (pageNumStr != null)
+			pageNum = Integer.parseInt(pageNumStr) - 1;
+		if (sortAtt != null && dir != null)
+			pageable = new PageRequest(pageNum, 5, dir, sortAtt);
+		else
+			pageable = new PageRequest(pageNum, 5);
+		
+		repairShops = this.repairShopService.listRepairShopsReviewable(pageable);
+		final Integer total = this.repairShopService.countReviewable();
+		res = new ModelAndView("repairShop/list");
+		res.addObject("repairShops", repairShops);
+		res.addObject("total", total);
+		res.addObject("requestURI", "repairShop/user/list-reviewable.do");
+		return res;
+	}
 }
