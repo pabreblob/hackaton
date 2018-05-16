@@ -1,6 +1,8 @@
 
 package services;
 
+import java.util.Date;
+
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -8,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.ReportRepository;
 import domain.Admin;
@@ -21,6 +25,10 @@ public class ReportService {
 	private ReportRepository		reportRepository;
 	@Autowired
 	private ConfigurationService	configurationService;
+	@Autowired
+	private ActorService			actorService;
+	@Autowired
+	private Validator				validator;
 
 
 	public Page<Report> getAll(final Pageable pageable) {
@@ -62,5 +70,13 @@ public class ReportService {
 		r.setChecked(true);
 		this.save(r);
 	}
-
+	public Report recontruct(final Report report, final BindingResult bindingResult) {
+		report.setId(0);
+		report.setVersion(0);
+		report.setCreator(this.actorService.findByPrincipal());
+		report.setMoment(new Date(System.currentTimeMillis() - 1000));
+		report.setChecked(false);
+		this.validator.validate(report, bindingResult);
+		return report;
+	}
 }
