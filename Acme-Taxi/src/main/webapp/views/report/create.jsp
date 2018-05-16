@@ -15,14 +15,14 @@
 	<form:label path="reason">
 		<spring:message code="report.reason" /><br>
 	</form:label>
-	<form:textarea path="reason" rows="5" style="width:80%"/>
+	<form:textarea path="reason" rows="5" style="width:80%"/><br>
 	<form:errors path="reason" cssClass="error" />
 	<br>
 	<br>
 	<form:label path="imageUrl">
 		<spring:message code="report.image" /><br>
 	</form:label>	
-	<form:input id="url" path="imageUrl" style="width:80%" placeholder="https://www.google.com" />	
+	<form:input id="url" autocomplete="off" path="imageUrl" style="width:80%" placeholder="https://www.google.com" />	
 	<form:errors path="imageUrl" cssClass="error" />
 	<br>
 	<br>
@@ -39,11 +39,15 @@
 
 <script>
 	$(document).ready(function(){
+		if(document.getElementById("url").value.trim() != ""){
+			imageBox.style.display = "block";
+			document.getElementById("image").src = document.getElementById("url").value;
+		}
 		$("#url").on('change keyup input',function(){
 			if(document.getElementById("url").value.trim() == ""){
 				imageBox.style.display = "none";
 			}else{
-				imageBox.style.display = "block"
+				imageBox.style.display = "block";
 				document.getElementById("image").src = document.getElementById("url").value;
 			}
 		})

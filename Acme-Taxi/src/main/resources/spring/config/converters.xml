@@ -49,6 +49,8 @@
     	<bean class="converters.ReservationToStringConverter" />
     	<bean class="converters.StringToReportConverter" /> 
     	<bean class="converters.ReportToStringConverter" />
+    	<bean class="converters.StringToActorConverter" /> 
+    	<bean class="converters.ActorToStringConverter" />
 	</util:list>
 	
 </beans>
