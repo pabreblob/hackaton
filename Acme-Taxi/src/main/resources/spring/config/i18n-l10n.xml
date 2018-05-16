@@ -41,6 +41,7 @@
 		<value>/views/spamWord/messages</value>
 		<value>/views/message/messages</value>
 		<value>/views/actor/messages</value>
+		<value>/views/report/messages</value>
 	</util:list>
 
 </beans>
