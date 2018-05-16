@@ -42,7 +42,10 @@
 					<li><a href="configuration/admin/display.do"><spring:message code="master.page.admin.configuration.display" /></a></li>
 					<li><a href="spamWord/admin/list.do"><spring:message code="master.page.admin.spamword.list" /></a></li>
 					<li><a href="idNumberPattern/admin/list.do"><spring:message code="master.page.admin.idnumber.list" /></a></li>
-					<li><a href="sponsorship/admin/list.do"><spring:message code="master.page.admin.sponsorship.list" /></a></li>			
+					<li><a href="sponsorship/admin/list.do"><spring:message code="master.page.admin.sponsorship.list" /></a></li>
+					<li><a href="report/admin/list.do"><spring:message code="master.page.admin.report.list" /></a></li>
+					<li><a href="report/admin/listUnread.do"><spring:message code="master.page.admin.report.unread" /></a></li>
+								
 				</ul>
 			</li>
 			
@@ -83,8 +86,19 @@
 					<li class="arrow"></li>
 					<li><a href="repairShop/mechanic/list-created.do"><spring:message code="master.page.mechanic.repairshop.created"/></a></li>
 					<li><a href="repairShop/mechanic/create.do"><spring:message code="master.page.mechanic.repairshop.create"/></a></li>
+					<li><a href="reservation/mechanic/list.do"><spring:message code="master.page.mechanic.reservation.list"/></a></li>
 				</ul>
 			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('USER')">
+		
+		<!-- Acciones de User -->
+			<li><a class="fNiv"><spring:message code="master.page.user"/></a></li>
+				<ul>
+					<li><a class="arrow"></a></li>
+					<li><a href="reservation/user/list.do"><spring:message code="master.page.user.reservation.list"/></a></li>
+				</ul>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
@@ -125,10 +139,10 @@
 		<security:authorize access="isAnonymous()">
 		
 		<!-- Acceder al sistema -->
+			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 			<li><a class="fNiv"><spring:message code="master.page.access"/></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="security/login.do"><spring:message code="master.page.login" /></a></li>
 					<li><a href="mechanic/create.do"><spring:message code="master.page.mechanic.register" /></a></li>
 					<li><a href="sponsor/create.do"><spring:message code="master.page.sponsor.register" /></a></li>
 					<li><a href="user/create.do"><spring:message code="master.page.user.register" /></a></li>
@@ -145,6 +159,9 @@
 		
 		<!-- Búsqueda de Actores -->
 		<li><a class="fNiv" href="actor/list.do"><spring:message code="master.page.search.actor"/></a></li>
+		
+		<!-- Lista de Talleres -->
+		<li><a class="fNiv" href="repairShop/list.do"><spring:message code="master.page.repairshop.list"/></a>
 		
 		<!-- Cambio de Idioma -->
 		<li id="rightB">
