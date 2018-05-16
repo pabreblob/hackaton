@@ -30,9 +30,12 @@
 		<value>/views/folder/tiles.xml</value>
 		<value>/views/mechanic/tiles.xml</value>
 		<value>/views/repairShop/tiles.xml</value>
+		<value>/views/service/tiles.xml</value>
+		<value>/views/reservation/tiles.xml</value>
 		
 		<value>/views/idNumberPattern/tiles.xml</value>
 		
+		<value>/views/driver/tiles.xml</value>
 		<value>/views/sponsor/tiles.xml</value>
 		<value>/views/sponsorship/tiles.xml</value>
 		<value>/views/spamWord/tiles.xml</value>

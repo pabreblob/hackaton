@@ -307,7 +307,6 @@
 		<property name="userAccount">
 			<ref bean="userAccount1" />
 		</property>
-		<property name="banned" value="false" />
 		
 	</bean>
 	
@@ -336,6 +335,7 @@
 			<ref bean="userAccount2" />
 		</property>
 		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="meanRating" value="4.0" />	
 		<property name="location" value="Sevilla" />
 		<property name="announcements">
 		<list>
@@ -344,9 +344,9 @@
 		</property>
 		<property name="reviews">
 		<list>
+		<ref bean="Review1" />
 		</list>	
 		</property>
-		<property name="banned" value="false" />
 		
 	</bean>
 	
@@ -383,10 +383,9 @@
 		</property>
 		<property name="reviews">
 		<list>
-		<ref bean="Review1" />
+		
 		</list>	
 		</property>
-		<property name="banned" value="false" />
 		
 	</bean>
 	
@@ -425,7 +424,6 @@
 		<list>
 		</list>	
 		</property>
-		<property name="banned" value="false" />
 		
 	</bean>
 	
@@ -464,7 +462,6 @@
 		<list>
 		</list>	
 		</property>
-		<property name="banned" value="false" />
 		
 	</bean>
 	<bean id="Driver1" class="domain.Driver">
@@ -498,7 +495,6 @@
 		<property name="car" ><ref bean="Car1"/></property>
 		<property name="reviews">
 		<list>
-		<ref bean="Review3"/>
 		</list>	
 		</property>
 		
@@ -532,9 +528,11 @@
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="71808857M" />
 		<property name="nationality" value="Spanish" />
+		<property name="meanRating" value="4.0" />
 		<property name="car" ><ref bean="Car2"/></property>
 		<property name="reviews">
 		<list>
+		<ref bean="Review3"/>
 		</list>	
 		</property>
 		
@@ -845,7 +843,7 @@
 		</property>
 		<property name="IdNumber" value="88547463Q" />
 		<property name="nationality" value="Spanish" />
-		<property name="banned" value="true" />
+		<property name="banned" value="True" />
 		
 	</bean>
 	<bean id="Car1" class="domain.Car">
@@ -2361,7 +2359,7 @@
 		<property name="phone" value="691331099" />
 		<property name="photoUrl" value="https://www.image.jpg" />
 		<property name="marked" value="false" />
-		<property name="meanRating" value="0.0" />
+		<property name="meanRating" value="4.0" />
 		<property name="reviews">
 		<list>
 		<ref bean="Review2"/>
@@ -2511,35 +2509,35 @@
 	<bean id="Reservation2" class="domain.Reservation">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="service" ><ref bean="Service2"></ref></property>
-		<property name="moment" value="2018/02/21 17:10" />
+		<property name="moment" value="2019/02/21 17:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="cancelled" value="false" />
 	</bean>
 	<bean id="Reservation3" class="domain.Reservation">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="service" ><ref bean="Service3"></ref></property>
-		<property name="moment" value="2018/09/20 18:10" />
+		<property name="moment" value="2019/09/20 18:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="cancelled" value="true" />
 	</bean>
 	<bean id="Reservation4" class="domain.Reservation">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="service" ><ref bean="Service4"></ref></property>
-		<property name="moment" value="2018/10/20 18:10" />
+		<property name="moment" value="2019/10/20 18:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="cancelled" value="false" />
 	</bean>
 	<bean id="Reservation5" class="domain.Reservation">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="service" ><ref bean="Service5"></ref></property>
-		<property name="moment" value="2018/09/20 19:10" />
+		<property name="moment" value="2019/09/20 19:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="cancelled" value="false" />
 	</bean>
 	<bean id="Reservation6" class="domain.Reservation">
 		<property name="user" ><ref bean="User2"></ref></property>
 		<property name="service" ><ref bean="Service1"></ref></property>
-		<property name="moment" value="2018/09/25 13:10" />
+		<property name="moment" value="2019/09/25 13:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="cancelled" value="false" />
 	</bean>
@@ -2891,7 +2889,7 @@
 		<property name="moment" value="2018/01/30 20:00" />
 		<property name="rating" value="4" />
 		<property name="marked" value="false" />
-		<property name="creator" ><ref bean="User1"/></property>	
+		<property name="creator" ><ref bean="User2"/></property>	
 	</bean>
 	<bean id="Review2" class="domain.Review">
 		<property name="title" value="review2" />

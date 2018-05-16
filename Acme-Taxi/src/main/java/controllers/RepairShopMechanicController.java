@@ -112,6 +112,7 @@ public class RepairShopMechanicController extends AbstractController {
 			ModelAndView res;
 			res = new ModelAndView("repairShop/edit");
 			res.addObject("repairShop", r);
+			res.addObject("message", messageCode);
 			
 			return res;
 		}
@@ -150,4 +151,6 @@ public class RepairShopMechanicController extends AbstractController {
 					
 			return result;
 		}
+
+		
 }

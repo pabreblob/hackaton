@@ -2,6 +2,7 @@
 package services;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.RepairShopRepository;
-import domain.Mechanic;
+
 import domain.RepairShop;
+import domain.Review;
 import domain.SpamWord;
 
 
@@ -39,6 +41,7 @@ public class RepairShopService {
 	public RepairShop create() {
 		final RepairShop repairShop = new RepairShop();
 		repairShop.setMechanic(this.mechanicService.findByPrincipal());
+		repairShop.setReviews(new ArrayList<Review>());
 
 		return repairShop;
 	}
@@ -116,12 +119,14 @@ public class RepairShopService {
 			res.setMarked(false);
 			res.setMeanRating(0.0);
 			res.setMechanic(this.mechanicService.findByPrincipal());
+			res.setReviews(new ArrayList<Review>());
 		}else{
 			Assert.isTrue(this.findOne(repairShop.getId()).getMechanic().getId()==this.mechanicService.findByPrincipal().getId());
 			res=repairShop;
 			res.setMarked(this.findOne(repairShop.getId()).isMarked());
 			res.setMeanRating(this.findOne(repairShop.getId()).getMeanRating());
 			res.setMechanic(this.findOne(repairShop.getId()).getMechanic());
+			res.setReviews(this.findOne(repairShop.getId()).getReviews());
 			
 			
 			

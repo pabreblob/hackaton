@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.MechanicRepository;
+
 import repositories.RepairShopRepository;
-import domain.Mechanic;
+
 import domain.RepairShop;
 
 @Component

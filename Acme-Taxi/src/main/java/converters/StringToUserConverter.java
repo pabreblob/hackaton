@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.SponsorRepository;
+
 import repositories.UserRepository;
-import domain.Sponsor;
+
 import domain.User;
 
 @Component

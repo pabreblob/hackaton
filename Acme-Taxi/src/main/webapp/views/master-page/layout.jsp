@@ -77,11 +77,11 @@
 		</jstl:if>	
 	</div>
 	
-	<%-- <div>
+	<div>
 		<br/>
 		<br/>
-		<a href="${url}"><img src='<jstl:out value="${image}"/>' /></a>
-	</div> --%>
+		<img src='<jstl:out value="${spons}"/>' />
+	</div> 
 	
 	<div>
 		<tiles:insertAttribute name="footer" />

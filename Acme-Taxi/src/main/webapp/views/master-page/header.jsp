@@ -53,6 +53,14 @@
 				</ul>
 			</li>
 			
+			<li><a class="fNiv"><spring:message code="master.page.admin.actor.marked"/></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="actor/admin/listSuspicious.do"><spring:message code="master.page.admin.actor.suspicious" /></a></li>
+					<li><a href="actor/admin/listBanned.do"><spring:message code="master.page.admin.actor.banned" /></a></li>		
+				</ul>
+			</li>
+			
 		</security:authorize>
 		
 		<security:authorize access="hasRole('SPONSOR')">
@@ -73,8 +81,8 @@
 			<li><a class="fNiv"><spring:message code="master.page.mechanic"/></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="reparirShop/mechanic/list-created.do"><spring:message code="master.page.mechanic.repairshop.created"/></a></li>
-					<li><a href="repairShop/mechanic/create.do"><spring:message code="master.page.mechanic.reparishop.create"/></a></li>
+					<li><a href="repairShop/mechanic/list-created.do"><spring:message code="master.page.mechanic.repairshop.created"/></a></li>
+					<li><a href="repairShop/mechanic/create.do"><spring:message code="master.page.mechanic.repairshop.create"/></a></li>
 				</ul>
 			</li>
 		</security:authorize>
