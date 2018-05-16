@@ -25,11 +25,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import services.ActorService;
 import services.ConfigurationService;
 import services.IdNumberPatternService;
 import services.MechanicService;
 import services.RepairShopService;
 
+import domain.Actor;
 import domain.IdNumberPattern;
 import domain.Mechanic;
 import domain.RepairShop;
@@ -48,6 +50,8 @@ public class MechanicController extends AbstractController {
 	private IdNumberPatternService		idNumberPatternService;
 	@Autowired
 	private RepairShopService		repairShopService;
+	@Autowired
+	private ActorService		actorService;
 
 
 
@@ -153,7 +157,24 @@ public class MechanicController extends AbstractController {
 		repairShops=this.repairShopService.listByMechanic(mechanicId, pageable);
 		final String requestURI = "mechanic/display.do";
 			result = new ModelAndView("mechanic/display");
+		boolean blockeable=false;
+		boolean unblockeable=false;
+		try{
+			Actor a=this.actorService.findByPrincipal();
+			if(a.getId()!=mechanic.getId()){
+				if(!a.getBlockedUsers().contains(mechanic)){
+					blockeable=true;
+				}
+				if(a.getBlockedUsers().contains(mechanic)){
+					unblockeable=true;
+				}
+			}
+		}catch(Throwable oops){
+			
+		}
 			result.addObject("mechanic", mechanic);
+			result.addObject("blockeable", blockeable);
+			result.addObject("unblockeable", unblockeable);
 			result.addObject("repairShops", repairShops);
 			result.addObject("requestURI", requestURI);
 			result.addObject("total", total);

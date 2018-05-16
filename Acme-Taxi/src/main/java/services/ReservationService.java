@@ -13,8 +13,10 @@ import org.springframework.util.Assert;
 
 import repositories.ReservationRepository;
 
+
 import domain.RepairShop;
 import domain.Reservation;
+
 
 import domain.SpamWord;
 
@@ -32,6 +34,8 @@ public class ReservationService {
 	private SpamWordService		spamWordService;
 	@Autowired
 	private UserService		userService;
+	@Autowired
+	private ServiceService		serviceService;
 
 
 	public ReservationService() {
@@ -40,6 +44,9 @@ public class ReservationService {
 
 	public Reservation create(domain.Service s) {
 		final Reservation reservation = new Reservation();
+		Collection<domain.Service> reservedServices=this.serviceService.findByUser(this.userService.findByPrincipal().getId());
+		Assert.isTrue(!reservedServices.contains(s));
+		Assert.isTrue(!s.isSuspended());
 		reservation.setService(s);
 		reservation.setUser(this.userService.findByPrincipal());
 
@@ -48,7 +55,10 @@ public class ReservationService {
 	public Reservation save(final Reservation reservation) {
 		Assert.notNull(reservation);
 		reservation.setUser(this.userService.findByPrincipal());
+		Collection<domain.Service> reservedServices=this.serviceService.findByUser(this.userService.findByPrincipal().getId());
 		Assert.isTrue(!reservation.getService().isSuspended());
+		Assert.isTrue(!reservedServices.contains(reservation.getService()));
+		
 		final Collection<SpamWord> sw = this.spamWordService.findAll();
 		boolean spamw = false;
 		for (final SpamWord word : sw) {
@@ -98,7 +108,7 @@ public class ReservationService {
 		final RepairShop repairShop=this.repairShopService.findOne(repairShopId);
 		Assert.isTrue(repairShop.getMechanic().getId()==this.mechanicService.findByPrincipal().getId());
 		
-		res = this.reservationRepository.findCurrentReservationsByUser(repairShopId, pageable).getContent();
+		res = this.reservationRepository.findReservationsByRepairShop(repairShopId, pageable).getContent();
 		return res;
 	}
 	public Integer countByRepairShop(int repairShopId){
@@ -111,5 +121,20 @@ public class ReservationService {
 		Reservation reservation=this.findOne(reservationId);
 		Assert.isTrue(this.userService.findByPrincipal().getId()==reservation.getUser().getId());
 		reservation.setCancelled(true);
+	}
+	public Integer countByService(int serviceId){
+		final domain.Service service=this.serviceService.findOne(serviceId);
+		Integer res=this.reservationRepository.countCurrentReservationsByService(service.getId());
+		return res;
+	}
+	public void delete(final Reservation reservation) {
+		assert reservation != null;
+		this.reservationRepository.delete(reservation.getId());
+	}
+	public Collection<Reservation> findAllByService (final int serviceId) {
+		final Collection<Reservation> res;
+		
+		res = this.reservationRepository.findAllByService(serviceId);
+		return res;
 	}
 }

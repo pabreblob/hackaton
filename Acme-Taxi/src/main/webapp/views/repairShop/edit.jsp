@@ -28,6 +28,11 @@
 	<acme:textbox code="repairShop.phone" path="phone"/><br />
 	<acme:textbox code="repairShop.photo" path="photoUrl"/><br />
 	<acme:submit name="save" code="repairShop.save"  />
+	<jstl:if test="${repairShop.id != 0}">
+	<input type="submit" name="delete"
+				value="<spring:message code="repairShop.delete" />"
+				onclick="return confirm('<spring:message code="repairShop.confirm.delete" />')" />
+	</jstl:if> 
 	<acme:cancel code="repairShop.cancel" url="/repairShop/mechanic/list-created.do" /><br />	
 </form:form>
 

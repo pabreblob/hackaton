@@ -16,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 
-
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -98,7 +97,7 @@ public class ReservationUserController extends AbstractController {
 			try {
 				this.reservationService.save(r);
 				int repairShopId=r.getService().getRepairShop().getId();
-				res = new ModelAndView("redirect:/repairShop/mechanic/display.do?repairShopId="+repairShopId);
+				res = new ModelAndView("redirect:/repairShop/user/display.do?repairShopId="+repairShopId);
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(r, "reservation.commit.error");
 			}

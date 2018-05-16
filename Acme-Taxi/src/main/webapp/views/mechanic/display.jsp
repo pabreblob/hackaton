@@ -25,6 +25,14 @@
 	:
 	<jstl:out value="${mechanic.surname}" />
 </p>
+<jstl:if test='${blockeable}'>
+<a href="actor/actor/block.do?actorId=${mechanic.id}"> <spring:message code="mechanic.block" />
+	</a>
+</jstl:if>
+<jstl:if test='${unblockeable}'>
+<a href="actor/actor/unblock.do?actorId=${mechanic.id}"> <spring:message code="mechanic.unblock" />
+	</a>
+</jstl:if>
 <spring:message code="mechanic.dateFormat2" var="dateFormat2" />
 <p>
 <spring:message code="mechanic.birthdate"/>:<fmt:formatDate value="${mechanic.birthdate}" pattern="${dateFormat2}" />
@@ -65,32 +73,32 @@ size="${total}">
 <display:column>
 	<security:authorize access="isAnonymous()">
 			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
-					code="mechanic.display" />
+					code="mechanic.repairShop.display" />
 			</a>
 </security:authorize>
 <security:authorize access="hasRole('ADMIN')">
 			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
-					code="mechanic.display" />
+					code="mechanic.repairShop.display" />
 			</a>
 </security:authorize>
 <security:authorize access="hasRole('USER')">
-			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
-					code="mechanic.display" />
+			<a href="repairShop/user/display.do?repairShopId=${row.id}"> <spring:message
+					code="mechanic.repairShop.display" />
 			</a>
 </security:authorize>
 <security:authorize access="hasRole('DRIVER')">
 			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
-					code="mechanic.display" />
+					code="mechanic.repairShop.display" />
 			</a>
 </security:authorize>
 <security:authorize access="hasRole('SPONSOR')">
 			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
-					code="mechanic.display" />
+					code="mechanic.repairShop.display" />
 			</a>
 </security:authorize>
 <security:authorize access="hasRole('MECHANIC')">
 			<a href="repairShop/mechanic/display.do?repairShopId=${row.id}"> <spring:message
-					code="mechanic.display" />
+					code="mechanic.repairShop.display" />
 			</a>
 </security:authorize>		
 </display:column>

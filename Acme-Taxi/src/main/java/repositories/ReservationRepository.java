@@ -2,6 +2,8 @@
 package repositories;
 
 
+import java.util.Collection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,4 +26,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
 	Page<Reservation> findReservationsByRepairShop(int repairShopId,Pageable pageable);
 	@Query("select count (r) from Reservation r join r.service s where s.repairShop.id=?1 and r.moment>CURRENT_TIMESTAMP")
 	Integer countReservationsByRepairShop(int repairShopId);
+	@Query("select count (r) from Reservation r where r.service.id=?1 and r.moment>CURRENT_TIMESTAMP and r.cancelled=0")
+	Integer countCurrentReservationsByService(int serviceId);
+	@Query("select r from Reservation r where r.service.id=?1")
+	Collection<Reservation> findAllByService(int serviceId);
 }

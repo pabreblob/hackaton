@@ -27,6 +27,7 @@ import services.RepairShopService;
 import services.ServiceService;
 
 import domain.RepairShop;
+import domain.Service;
 
 
 
@@ -149,6 +150,24 @@ public class RepairShopMechanicController extends AbstractController {
 				result.addObject("total", total);
 				result.addObject("owner", owner);
 					
+			return result;
+		}
+		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+		public ModelAndView delete(final RepairShop r, final BindingResult binding) {
+			ModelAndView result;
+			final RepairShop repairShop = this.repairShopService.reconstruct(r, binding);
+			if (binding.hasErrors())
+				result= this.createEditModelAndView(repairShop);
+			else
+			try {
+				final Collection<Service> services=this.serviceService.findAllByRepairShop(repairShop.getId());
+				Assert.isTrue(services.isEmpty());
+				this.repairShopService.delete(repairShop);
+				result = new ModelAndView("redirect:list-created.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(r, "repairShop.delete.error");
+			}
+
 			return result;
 		}
 

@@ -3,6 +3,8 @@ package controllers;
 
 
 
+
+
 import javax.validation.Valid;
 
 
@@ -20,8 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.MechanicService;
 import services.RepairShopService;
+import services.ReservationService;
 import services.ServiceService;
-
+import domain.Mechanic;
 import domain.RepairShop;
 import domain.Service;
 
@@ -37,6 +40,8 @@ public class ServiceMechanicController extends AbstractController {
 	private MechanicService		mechanicService;
 	@Autowired
 	private ServiceService		serviceService;
+	@Autowired
+	private ReservationService		reservationService;
 
 
 
@@ -54,6 +59,10 @@ public class ServiceMechanicController extends AbstractController {
 		ModelAndView res;
 		Service s;
 		s= this.serviceService.findOne(serviceId);
+		if(s.getId()!=0){
+			int pendingReserves=this.reservationService.countByService(s.getId());
+			Assert.isTrue(pendingReserves==0);
+		}
 		Assert.isTrue(s.getRepairShop().getMechanic().getId()==this.mechanicService.findByPrincipal().getId());
 		res = this.createEditModelAndView(s);
 		return res;
@@ -66,8 +75,7 @@ public class ServiceMechanicController extends AbstractController {
 		else
 			try {
 				this.serviceService.save(s);
-				int repairShopId=s.getRepairShop().getId();
-				res = new ModelAndView("redirect:/repairShop/mechanic/display.do?repairShopId="+repairShopId);
+				res = new ModelAndView("redirect:/repairShop/mechanic/display.do?repairShopId="+s.getRepairShop().getId());
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(s, "service.commit.error");
 			}
@@ -94,6 +102,37 @@ public class ServiceMechanicController extends AbstractController {
 
 			return res;
 		}
+		@RequestMapping(value = "/display", method = RequestMethod.GET)
+		public ModelAndView display(@RequestParam final int serviceId) {
+			final ModelAndView result;
+			Service service=this.serviceService.findOne(serviceId);
+			Mechanic mechanic=this.mechanicService.findByPrincipal();
+			Assert.isTrue(service.getRepairShop().getMechanic().getId()==mechanic.getId());
+			int pendingReservations=this.reservationService.countByService(serviceId);
+			result = new ModelAndView("service/display");
+			result.addObject("service", service);
+			result.addObject("pendingReservations", pendingReservations);
+			result.addObject("requestURI", "service/mechanic/display.do");
 
+			return result;
+		}
+		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+		public ModelAndView delete(final @Valid Service service, final BindingResult binding) {
+			ModelAndView result;
+			if (binding.hasErrors())
+				result= this.createEditModelAndView(service);
+			else
+			try {
+				int pendingReservations=this.reservationService.countByService(service.getId());
+				Assert.isTrue(pendingReservations==0);
+				final RepairShop repairShop=service.getRepairShop();
+				this.serviceService.delete(service);
+				result = new ModelAndView("redirect:/repairShop/mechanic/display.do?repairShopId="+repairShop.getId());
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndView(service, "service.delete.error");
+			}
+
+			return result;
+		}
 		
 }

@@ -22,39 +22,70 @@
 	pagesize="5" class="displaytag" sort="external" partialList="true"
 	size="${total}">
 <jstl:if test="${requestURI == 'reservation/user/list.do' }">
+
 <display:column>
+<jstl:if test="${!row.cancelled }">
 			<a href="reservation/user/cancel.do?reservationId=${row.id}"> <spring:message
 					code="reservation.cancel" />
 			</a>
-
+</jstl:if>
 		</display:column>
 </jstl:if>
+
+<spring:message code="reservation.service" var="serviceHeader" />
 <security:authorize access="hasRole('MECHANIC')">
-<spring:message code="reservation.user" var="userHeader" />
-<display:column property="user.userAccount.username" title="${userHeader}" />
-</security:authorize>
-<spring:message code="reservation.dateFormat" var="dateFormatHeader" />
-<spring:message code="reservation.moment" var="momentHeader" />
-<display:column title="${dateHeader}">
-		<fmt:formatDate value="${n.moment}" pattern="${dateFormatHeader}" />
-	</display:column>
-<display:column property="cancelled" sortable="true" sortName="cancelled" />
-<spring:message code="reservation.repairShop" var="repairHeader" />
-<display:column property="service.repairShop.name" title="${repairHeader}" sortable="true" sortName="service.repairShop.name"/>
-<security:authorize access="hasRole('MECHANIC')">
-<display:column>
-			<a href="repairShop/mechanic/display.do?repairShopId=${row.service.repairShop.id}"> <jstl:out value="${row.service.repairShop.name}" />
+
+<display:column title="${serviceHeader}">
+			<a href="service/mechanic/display.do?serviceId=${row.service.id}"> <jstl:out value="${row.service.title}" />
 			</a>
 
 		</display:column>
 </security:authorize>
 <security:authorize access="hasRole('USER')">
-<display:column>
-			<a href="repairShop/user/display.do?repairShopId=${row.service.repairShop.id}"> <jstl:out value="${row.service.repairShop.name}" />
+<display:column property="service.title" title="${serviceHeader}" />
+</security:authorize>
+
+<security:authorize access="hasRole('MECHANIC')">
+<spring:message code="reservation.user" var="userHeader" />
+<display:column title="${userHeader}">
+			<a href="user/display.do?userId=${row.user.id}"> <jstl:out value="${row.user.userAccount.username}" />
 			</a>
 
 		</display:column>
 </security:authorize>
+
+<spring:message code="reservation.dateFormat" var="dateFormatHeader" />
+<spring:message code="reservation.moment" var="momentHeader" />
+
+<display:column title="${momentHeader}" sortable="true" sortName="moment">
+		<fmt:formatDate value="${row.moment}" pattern="${dateFormatHeader}" />
+	</display:column>
+<spring:message code="reservation.comment" var="commentHeader" />
+<display:column property="comment" title="${commentHeader}" />
+<spring:message code="reservation.status" var="statusHeader" />
+<display:column title="${statusHeader}" >
+<jstl:if test="${row.cancelled }">
+<spring:message code="reservation.cancelled" />
+</jstl:if>
+<jstl:if test="${!row.cancelled }">
+<spring:message code="reservation.pending" />
+</jstl:if>
+</display:column>
+<spring:message code="reservation.repairShop" var="repairHeader" />
+<security:authorize access="hasRole('MECHANIC')">
+<display:column title="${repairHeader}">
+			<a href="repairShop/mechanic/display.do?repairShopId=${row.service.repairShop.id}"> <jstl:out value="${row.service.repairShop.name}" />
+			</a>
+
+		</display:column>
+</security:authorize>
+<jstl:if test="${requestURI == 'reservation/user/list.do' }">
+<display:column title="${repairHeader}">
+			<a href="repairShop/user/display.do?repairShopId=${row.service.repairShop.id}"> <jstl:out value="${row.service.repairShop.name}" />
+			</a>
+
+		</display:column>
+</jstl:if>
 
 
 

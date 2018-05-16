@@ -27,6 +27,11 @@
 	<acme:textbox code="service.title" path="title" /><br />
 	<acme:textbox code="service.price" path="price" /><br />
 	<acme:submit name="save" code="service.save"  />
+	<jstl:if test="${repairShop.id != 0}">
+	<input type="submit" name="delete"
+				value="<spring:message code="service.delete" />"
+				onclick="return confirm('<spring:message code="service.confirm.delete" />')" />
+	</jstl:if>
 	<acme:cancel code="service.cancel" url="/repairShop/mechanic/display.do?repairShopId=${service.repairShop.id}" /><br />	
 </form:form>
 

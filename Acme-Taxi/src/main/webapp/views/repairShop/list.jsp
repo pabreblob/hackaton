@@ -28,7 +28,22 @@
 			</a>
 
 		</display:column>
+<
+
+<display:column>
+			<a href="reservation/mechanic/list-shop.do?repairShopId=${row.id}"> <spring:message
+					code="repairShop.reservation.list" />
+			</a>
+
+		</display:column>
 </jstl:if>
+<security:authorize access="hasRole('ADMIN')">
+<display:column>
+			<a href="repairShop/admin/delete.do?repairShopId=${row.id}&requestURI=${requestURI}"> <spring:message
+					code="repairShop.delete" />
+			</a>
+</display:column>
+</security:authorize>
 <spring:message code="repairShop.name" var="nameHeader" />
 <display:column property="name" title="${nameHeader}" />
 <spring:message code="repairShop.location" var="locationHeader" />
@@ -47,7 +62,7 @@
 			</a>
 </security:authorize>
 <security:authorize access="hasRole('USER')">
-			<a href="repairShop/display.do?repairShopId=${row.id}"> <spring:message
+			<a href="repairShop/user/display.do?repairShopId=${row.id}"> <spring:message
 					code="repairShop.display" />
 			</a>
 </security:authorize>

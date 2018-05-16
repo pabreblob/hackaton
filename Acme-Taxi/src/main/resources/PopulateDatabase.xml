@@ -2502,7 +2502,7 @@
 	<bean id="Reservation1" class="domain.Reservation">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="service" ><ref bean="Service1"></ref></property>
-		<property name="moment" value="2017/02/20 15:10" />
+		<property name="moment" value="2019/02/20 15:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="cancelled" value="false" />
 	</bean>

@@ -19,16 +19,16 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="repairShop/mechanic/edit.do" modelAttribute="repairShop">
+<form:form action="reservation/user/edit.do" modelAttribute="reservation">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<acme:textbox code="repairShop.name" path="name" /><br />
-	<acme:textarea code="repairShop.description" path="description" /><br />
-	<acme:textbox code="repairShop.location" path="location"/><br />
-	<acme:textbox code="repairShop.phone" path="phone"/><br />
-	<acme:textbox code="repairShop.photo" path="photoUrl"/><br />
-	<acme:submit name="save" code="repairShop.save"  />
-	<acme:cancel code="repairShop.cancel" url="/repairShop/mechanic/list-created.do" /><br />	
+	<form:hidden path="service" />
+	<form:hidden path="user" />
+	<form:hidden path="cancelled" />
+	<acme:textbox code="reservation.moment" path="moment" /><br />
+	<acme:textarea code="reservation.comment" path="comment" /><br />
+	<acme:submit name="save" code="reservation.save"  />
+	<acme:cancel code="reservation.cancel" url="/reservation/user/list.do" /><br />	
 </form:form>
 
 

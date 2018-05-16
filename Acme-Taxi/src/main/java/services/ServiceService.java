@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import repositories.ServiceRepository;
 import domain.RepairShop;
+import domain.Reservation;
 import domain.SpamWord;
 
 
@@ -24,6 +25,8 @@ public class ServiceService {
 	private SpamWordService	spamWordService;
 	@Autowired
 	private ServiceRepository	serviceRepository;
+	@Autowired
+	private ReservationService reservationService;
 
 	public ServiceService() {
 		super();
@@ -39,6 +42,10 @@ public class ServiceService {
 	public domain.Service save(final domain.Service service) {
 		Assert.notNull(service);
 		Assert.isTrue(service.getRepairShop().getMechanic().getId()==this.mechanicService.findByPrincipal().getId());
+		if(service.getId()!=0){
+			int pendingReserves=this.reservationService.countByService(service.getId());
+			Assert.isTrue(pendingReserves==0);
+		}
 		final Collection<SpamWord> sw = this.spamWordService.findAll();
 		boolean spamw = false;
 		for (final SpamWord word : sw) {
@@ -83,5 +90,22 @@ public class ServiceService {
 			service.setSuspended(true);
 		}
 	}
-	
+	public Collection<domain.Service> findByUser(final int userId) {
+		final Collection<domain.Service> res;
+		res = this.serviceRepository.findServicesByUser(userId);
+		return res;
+	}
+	public void delete(final domain.Service service) {
+		assert service != null;
+		Collection <Reservation> reservations=this.reservationService.findAllByService(service.getId());
+		for(Reservation r: reservations){
+			this.reservationService.delete(r);
+		}
+		this.serviceRepository.delete(service.getId());
+	}
+	public Collection<domain.Service> findAllByRepairShop(final int repairShopId) {
+		final Collection<domain.Service> res;
+		res = this.serviceRepository.findAllServicesByRepairShop(repairShopId);
+		return res;
+	}
 }

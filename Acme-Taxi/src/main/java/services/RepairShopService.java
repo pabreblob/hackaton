@@ -32,6 +32,8 @@ public class RepairShopService {
 	private Validator	validator;
 	@Autowired
 	private SpamWordService		spamWordService;
+	@Autowired
+	private ServiceService		serviceService;
 
 
 	public RepairShopService() {
@@ -135,6 +137,14 @@ public class RepairShopService {
 		
 		this.validator.validate(res, binding);
 		return res;
+	}
+	public void delete(final RepairShop repairShop) {
+		assert repairShop != null;
+		Collection <domain.Service> services=this.serviceService.findAllByRepairShop(repairShop.getId());
+		for(domain.Service s: services){
+			this.serviceService.delete(s);
+		}
+		this.repairShopRepository.delete(repairShop.getId());
 	}
 
 }
