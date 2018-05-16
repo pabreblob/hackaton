@@ -34,6 +34,8 @@ public class RepairShopService {
 	private SpamWordService		spamWordService;
 	@Autowired
 	private ServiceService		serviceService;
+	@Autowired
+	private UserService		userService;
 
 
 	public RepairShopService() {
@@ -146,5 +148,22 @@ public class RepairShopService {
 		}
 		this.repairShopRepository.delete(repairShop.getId());
 	}
-
+	public Collection<RepairShop> listRepairShopsReviewable(final Pageable pageable) {
+		final Collection<RepairShop> res;
+		res = this.repairShopRepository.listRepairShopsReviewable(this.userService.findByPrincipal().getId(), pageable).getContent();
+		return res;
+	}
+	public Integer countRepairShopsReviewable(){
+		Integer res=this.repairShopRepository.countRepairShopsReviewable(this.userService.findByPrincipal().getId());
+		return res;
+	}
+	public Collection<RepairShop> findRepairShopsReviewable() {
+		final Collection<RepairShop> res;
+		res = this.repairShopRepository.findRepairShopsReviewable(this.userService.findByPrincipal().getId());
+		return res;
+	}
+	public RepairShop findRepairShopByReview(int reviewId){
+		RepairShop res=this.repairShopRepository.findRepairShopByReviewId(reviewId);
+		return res;
+	}
 }
