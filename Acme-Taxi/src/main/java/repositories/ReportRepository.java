@@ -27,9 +27,9 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
 	Integer countNotChecked();
 
 	//Paginación de los reports de un actor
-	@Query("select r from Report r where r.creator = ?1")
+	@Query("select r from Report r where r.creator.id = ?1")
 	Page<Report> getReportByActor(int actorId, Pageable pageable);
-	@Query("select count(r) from Report r where r.creator = ?1")
+	@Query("select count(r) from Report r where r.creator.id = ?1")
 	Integer countReportByActor(int actorId);
 
 	@Query("select count(r) from Report r where r.moment > ?1")

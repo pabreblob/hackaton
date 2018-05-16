@@ -47,7 +47,7 @@ public class ReportService {
 		return this.reportRepository.getReportByActor(actorId, pageable).getContent();
 	}
 	public Integer countReportByActor(final int actorId) {
-		return this.countReportByActor(actorId);
+		return this.reportRepository.countReportByActor(actorId);
 	}
 	public Integer countReportThisWeek() {
 		final long dayInMS = 7 * 24 * 60 * 60 * 1000;
@@ -67,8 +67,10 @@ public class ReportService {
 		return saved;
 	}
 	public void check(final Report r) {
-		r.setChecked(true);
-		this.save(r);
+		if (!r.isChecked()) {
+			r.setChecked(true);
+			this.save(r);
+		}
 	}
 	public Report recontruct(final Report report, final BindingResult bindingResult) {
 		report.setId(0);
@@ -78,5 +80,10 @@ public class ReportService {
 		report.setChecked(false);
 		this.validator.validate(report, bindingResult);
 		return report;
+	}
+	public Report findOne(final int reportId) {
+		final Report res = this.reportRepository.findOne(reportId);
+		Assert.notNull(res);
+		return res;
 	}
 }
