@@ -43,6 +43,22 @@ public class ReportActorController extends AbstractController {
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public ModelAndView save(final Report report, final BindingResult bindingResult) {
-
+		final Report r = this.reportService.recontruct(report, bindingResult);
+		if (bindingResult.hasErrors()) {
+			final ModelAndView res = new ModelAndView("report/create");
+			res.addObject("report", r);
+			res.addObject("reported", r.getReported().getName() + " " + r.getReported().getSurname());
+			return res;
+		}
+		try {
+			this.reportService.save(r);
+			return new ModelAndView("redirect:/actor/display.do?actorId=" + r.getReported().getId());
+		} catch (final Throwable oops) {
+			final ModelAndView res = new ModelAndView("report/create");
+			res.addObject("report", r);
+			res.addObject("reported", r.getReported().getName() + " " + r.getReported().getSurname());
+			res.addObject("message", "report.cannotCommit");
+			return res;
+		}
 	}
 }

@@ -11,6 +11,7 @@
 
 <h4><spring:message code="report.reporting"/><jstl:out value="${reported}"/></h4>
 <form:form action="report/actor/save.do" modelAttribute="report">
+	<form:hidden path="reported"/>
 	<form:label path="reason">
 		<spring:message code="report.reason" /><br>
 	</form:label>
