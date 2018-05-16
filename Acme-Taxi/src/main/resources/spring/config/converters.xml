@@ -51,6 +51,8 @@
     	<bean class="converters.ReportToStringConverter" />
     	<bean class="converters.StringToActorConverter" /> 
     	<bean class="converters.ActorToStringConverter" />
+    	<bean class="converters.StringToRequestConverter" /> 
+    	<bean class="converters.RequestToStringConverter" />
 	</util:list>
 	
 </beans>
