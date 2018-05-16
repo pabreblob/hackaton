@@ -94,11 +94,12 @@
 		<security:authorize access="hasRole('USER')">
 		
 		<!-- Acciones de User -->
-			<li><a class="fNiv"><spring:message code="master.page.user"/></a></li>
+			<li><a class="fNiv"><spring:message code="master.page.user"/></a>
 				<ul>
 					<li><a class="arrow"></a></li>
 					<li><a href="reservation/user/list.do"><spring:message code="master.page.user.reservation.list"/></a></li>
 				</ul>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
