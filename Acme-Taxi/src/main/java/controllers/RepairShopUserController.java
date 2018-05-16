@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.RepairShopService;
 
+import services.ConfigurationService;
 import services.ServiceService;
 import services.UserService;
 
@@ -42,6 +43,8 @@ public class RepairShopUserController extends AbstractController {
 	private ServiceService		serviceService;
 	@Autowired
 	private UserService		userService;
+	@Autowired
+	private ConfigurationService		configurationsService;
 
 
 
@@ -73,10 +76,12 @@ public class RepairShopUserController extends AbstractController {
 		final Integer total = this.serviceService.countByRepairShop(repairShopId);
 		services=this.serviceService.findByRepairShop(repairShopId, pageable);
 		final RepairShop repairShop=this.repairShopService.findOne(repairShopId);
+		final String currency=this.configurationsService.find().getCurrency();
 		final String requestURI = "repairShop/user/display.do";
 			result = new ModelAndView("repairShop/display");
 			result.addObject("repairShop", repairShop);
 			result.addObject("services", services);
+			result.addObject("currency", currency);
 			result.addObject("servicesReserved", servicesReserved);
 			result.addObject("requestURI", requestURI);
 			result.addObject("total", total);

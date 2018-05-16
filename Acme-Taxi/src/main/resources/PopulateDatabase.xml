@@ -280,7 +280,7 @@
 		<property name="nationality" value="Spanish" />
 	</bean>
 	<bean id="IdNumberPattern2" class="domain.IdNumberPattern">
-		<property name="pattern" value="[a-z]{5}\d[0156]\d{4}\w{3}l{2}(\d{2})?" />
+		<property name="pattern" value="^[A-CEGHJ-PR-TW-Z]{1}[A-CEGHJ-NPR-TW-Z]{1}[0-9]{6}[A-DFM]{0,1}$" />
 		<property name="nationality" value="British" />
 	</bean>
 	<bean id="Admin" class="domain.Admin">
@@ -334,7 +334,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount2" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/92.jpg" />
 		<property name="meanRating" value="4.0" />	
 		<property name="location" value="Sevilla" />
 		<property name="announcements">
@@ -374,7 +374,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount3" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/85.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="announcements">
 		<list>
@@ -413,7 +413,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount4" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/40.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="announcements">
 		<list>
@@ -451,7 +451,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount5" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/women/65.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="announcements">
 		<list>
@@ -488,7 +488,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount6" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/58.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="44394959Z" />
 		<property name="nationality" value="Spanish" />
@@ -524,7 +524,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount7" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/women/53.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="71808857M" />
 		<property name="nationality" value="Spanish" />
@@ -562,7 +562,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount8" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/79.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="20668400W" />
 		<property name="nationality" value="Spanish" />
@@ -597,7 +597,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount9" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/women/32.jpg" />
 
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="56228561R" />
@@ -634,7 +634,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount10" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/52.jpg" />
 		<property name="IdNumber" value="73028767H" />
 		<property name="nationality" value="Spanish" />
 		
@@ -664,7 +664,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount11" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/82.jpg" />
 		<property name="IdNumber" value="66296704D" />
 		<property name="nationality" value="Spanish" />
 		
@@ -694,7 +694,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount12" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/women/71.jpg" />
 		<property name="IdNumber" value="92976051T" />
 		<property name="nationality" value="Spanish" />
 		
@@ -724,7 +724,7 @@
 		<property name="userAccount">
 			<ref bean="userAccount13" />
 		</property>
-		<property name="photoUrl" value="http://www.image.jpg" />
+		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/38.jpg" />
 		<property name="IdNumber" value="22102911A" />
 		<property name="nationality" value="Spanish" />
 		
@@ -2200,7 +2200,7 @@
 		<property name="reason" value="report1" />
 		<property name="moment" value="2018/02/20 23:00" />
 		<property name="checked" value="true" />
-		<property name="imageUrl" value="https://www.image.jpg" />
+		<property name="imageUrl" ><null/></property>
 	</bean>
 	
 	<bean id="Report2" class="domain.Report">
@@ -2209,7 +2209,7 @@
 		<property name="reason" value="report2" />
 		<property name="moment" value="2018/02/20 23:50" />
 		<property name="checked" value="true" />
-		<property name="imageUrl" value="https://www.image.jpg" />
+		<property name="imageUrl" value="https://liquipedia.net/commons/images/f/fd/Team_Random_logo.png" />
 	</bean> 
 	
 	<bean id="Report3" class="domain.Report">
@@ -2218,7 +2218,7 @@
 		<property name="reason" value="report3" />
 		<property name="moment" value="2018/02/20 23:40" />
 		<property name="checked" value="true" />
-		<property name="imageUrl" value="https://www.image.jpg" />
+		<property name="imageUrl" ><null/></property>
 	</bean> 
 	
 	<bean id="Report4" class="domain.Report">
@@ -2227,7 +2227,7 @@
 		<property name="reason" value="report4" />
 		<property name="moment" value="2018/02/20 23:30" />
 		<property name="checked" value="true" />
-		<property name="imageUrl" value="https://www.image.jpg" />
+		<property name="imageUrl" ><null/></property>
 	</bean> 
 	
 	<bean id="Report5" class="domain.Report">
@@ -2236,7 +2236,7 @@
 		<property name="reason" value="report5" />
 		<property name="moment" value="2018/02/20 23:20" />
 		<property name="checked" value="false" />
-		<property name="imageUrl" value="https://www.image.jpg" />
+		<property name="imageUrl" ><null/></property>
 	</bean> 
 	
 	<bean id="Report6" class="domain.Report">
@@ -2245,7 +2245,7 @@
 		<property name="reason" value="report6" />
 		<property name="moment" value="2018/02/20 23:10" />
 		<property name="checked" value="true" />
-		<property name="imageUrl" value="https://www.image.jpg" />
+		<property name="imageUrl" ><null/></property>
 	</bean> 
 	
 	<bean id="Sponsorship1" class="domain.Sponsorship">
@@ -2284,7 +2284,7 @@
 	</bean>
 	<bean id="Sponsorship3" class="domain.Sponsorship">
 		<property name="sponsor" ><ref bean="Sponsor1"></ref></property>
-		<property name="pictureUrl" value="https://www.racefoxx.com/media/image/product/2242/md/yamaha-r1-carbonfibre-engine-cover-clutch-glossy~3.jpg" />
+		<property name="pictureUrl" value="https://www.coches.com/fotos_historicas/honda/Civic/high_b04018aad396f2110939e61555d59fe4.jpg" />
 		<property name="accepted" value="true"/>
 		<property name="cancelled" value="false"/>
 		<property name="creditCard"><bean class="domain.CreditCard">
@@ -2301,7 +2301,7 @@
 	</bean>
 	<bean id="Sponsorship4" class="domain.Sponsorship">
 		<property name="sponsor" ><ref bean="Sponsor1"></ref></property>
-		<property name="pictureUrl" value="https://www.racefoxx.com/media/image/product/2242/md/yamaha-r1-carbonfibre-engine-cover-clutch-glossy~3.jpg" />
+		<property name="pictureUrl" value="https://wordlesstech.com/wp-content/uploads/2012/08/Creative-Advertisements-by-Asile-1.jpg" />
 		<property name="accepted" value="true"/>
 		<property name="cancelled" value="false"/>
 		<property name="creditCard"><bean class="domain.CreditCard">
@@ -2318,7 +2318,7 @@
 	</bean>
 	<bean id="Sponsorship5" class="domain.Sponsorship">
 		<property name="sponsor" ><ref bean="Sponsor1"></ref></property>
-		<property name="pictureUrl" value="https://www.racefoxx.com/media/image/product/2242/md/yamaha-r1-carbonfibre-engine-cover-clutch-glossy~3.jpg" />
+		<property name="pictureUrl" value="http://creativecriminals.com/pictures/post/2470/christmasadvertisements17.jpg" />
 		<property name="accepted" value="false"/>
 		<property name="cancelled" value="false"/>
 		<property name="creditCard"><bean class="domain.CreditCard">
@@ -2335,7 +2335,7 @@
 	</bean>
 	<bean id="Sponsorship6" class="domain.Sponsorship">
 		<property name="sponsor" ><ref bean="Sponsor2"></ref></property>
-		<property name="pictureUrl" value="https://www.racefoxx.com/media/image/product/2242/md/yamaha-r1-carbonfibre-engine-cover-clutch-glossy~3.jpg" />
+		<property name="pictureUrl" value="http://creativecriminals.com/pictures/post/2470/christmasadvertisements24.jpg" />
 		<property name="accepted" value="true"/>
 		<property name="cancelled" value="false"/>
 		<property name="creditCard"><bean class="domain.CreditCard">
@@ -2357,7 +2357,7 @@
 		<property name="description" value="desc1" />
 		<property name="location" value="Testloc1" />
 		<property name="phone" value="691331099" />
-		<property name="photoUrl" value="https://www.image.jpg" />
+		<property name="photoUrl" value="http://www.camiondedesatranques.es/images/Desatascos_01.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="4.0" />
 		<property name="reviews">
@@ -2373,7 +2373,7 @@
 		<property name="description" value="desc2" />
 		<property name="location" value="Testloc2" />
 		<property name="phone" value="691336799" />
-		<property name="photoUrl" value="https://www.image.jpg" />
+		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
 		<property name="reviews">
@@ -2388,7 +2388,7 @@
 		<property name="description" value="desc3" />
 		<property name="location" value="Testloc3" />
 		<property name="phone" value="691397099" />
-		<property name="photoUrl" value="https://www.image.jpg" />
+		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
 		<property name="reviews">
@@ -2403,7 +2403,7 @@
 		<property name="description" value="desc4" />
 		<property name="location" value="Testloc4" />
 		<property name="phone" value="691551099" />
-		<property name="photoUrl" value="https://www.image.jpg" />
+		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
 		<property name="reviews">
@@ -2418,7 +2418,7 @@
 		<property name="description" value="desc5" />
 		<property name="location" value="Testloc5" />
 		<property name="phone" value="691301099" />
-		<property name="photoUrl" value="https://www.image.jpg" />
+		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
 		<property name="reviews">
@@ -2433,7 +2433,7 @@
 		<property name="description" value="desc6" />
 		<property name="location" value="Testloc6" />
 		<property name="phone" value="691331099" />
-		<property name="photoUrl" value="https://www.image.jpg" />
+		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
 		<property name="reviews">
@@ -2448,7 +2448,7 @@
 		<property name="description" value="sex" />
 		<property name="location" value="Testloc7" />
 		<property name="phone" value="691312099" />
-		<property name="photoUrl" value="https://www.image.jpg" />
+		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="true" />
 		<property name="meanRating" value="0.0" />
 		<property name="reviews">

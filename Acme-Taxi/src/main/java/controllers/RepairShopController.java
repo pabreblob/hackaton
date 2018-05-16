@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ConfigurationService;
 import services.RepairShopService;
 import services.ServiceService;
 
@@ -35,6 +36,8 @@ public class RepairShopController extends AbstractController {
 	private RepairShopService		repairShopService;
 	@Autowired
 	private ServiceService		serviceService;
+	@Autowired
+	private ConfigurationService		configurationsService;
 
 
 
@@ -92,10 +95,12 @@ public class RepairShopController extends AbstractController {
 		final Integer total = this.serviceService.countByRepairShop(repairShopId);
 		services=this.serviceService.findByRepairShop(repairShopId, pageable);
 		final RepairShop repairShop=this.repairShopService.findOne(repairShopId);
+		final String currency=this.configurationsService.find().getCurrency();
 		final String requestURI = "repairShop/display.do";
 			result = new ModelAndView("repairShop/display");
 			result.addObject("repairShop", repairShop);
 			result.addObject("services", services);
+			result.addObject("currency", currency);
 			result.addObject("requestURI", requestURI);
 			result.addObject("total", total);
 				
