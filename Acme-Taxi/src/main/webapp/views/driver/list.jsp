@@ -14,7 +14,7 @@
 	name="drivers" requestURI="${requestURI}" id="row">
 	
 	<display:column>
-		<a href="review/create.do?driverId=${row.id}"> <spring:message
+		<a href="review/user/create-driver.do?driverId=${row.id}"> <spring:message
 				code="driver.review" />
 		</a>
 	</display:column>

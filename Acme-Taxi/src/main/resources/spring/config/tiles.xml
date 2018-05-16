@@ -35,6 +35,7 @@
 		
 		<value>/views/idNumberPattern/tiles.xml</value>
 		
+		<value>/views/review/tiles.xml</value>
 		<value>/views/driver/tiles.xml</value>
 		<value>/views/sponsor/tiles.xml</value>
 		<value>/views/sponsorship/tiles.xml</value>

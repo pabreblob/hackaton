@@ -17,12 +17,18 @@ public interface DriverRepository extends JpaRepository<Driver, Integer> {
 	@Query("select d from Driver d where d.userAccount.id = ?1")
 	Driver findDriverByUserAccountId(int UserAccountId);
 
-	@Query("select r.driver from Request r where r.user.id = ?1 and r.driver != null")
-	Page<Driver> findDriversReviewable(int userAccountId, Pageable pageable);
+	@Query("select distinct r.driver from Request r where r.user.id = ?1 and r.driver != null and r.moment < CURRENT_TIMESTAMP and r.cancelled = false")
+	Page<Driver> findDriversReviewable(int userId, Pageable pageable);
 
-	@Query("select r.driver from Request r where r.user.id = ?1 and r.driver != null")
-	Collection<Driver> findDriversReviewable(int userAccountId);
+	@Query("select distinct r.driver from Request r where r.user.id = ?1 and r.driver != null and r.moment < CURRENT_TIMESTAMP and r.cancelled = false")
+	Collection<Driver> findDriversReviewable(int userId);
 
-	@Query("select count(r.driver) from Request r where r.user.userAccount.id = ?1 and r.driver != null")
-	Integer countDriversReviewable(int userAccountId);
+	@Query("select d from Driver d join d.reviews r where r.creator.id = ?1 ")
+	Collection<Driver> findDriverWithReviewByUserId(int userId);
+
+	@Query("select d from Driver d join d.reviews r where r.id = ?1 ")
+	Driver findDriverByReviewId(int reviewId);
+
+	//	@Query("select count(r.driver) from Request r where r.user.userAccount.id = ?1 and r.driver != null")
+	//	Integer countDriversReviewable(int userAccountId);
 }
