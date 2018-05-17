@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ConfigurationService;
 import services.MechanicService;
 import services.RepairShopService;
 import services.ReservationService;
@@ -42,6 +43,8 @@ public class ServiceMechanicController extends AbstractController {
 	private ServiceService		serviceService;
 	@Autowired
 	private ReservationService		reservationService;
+	@Autowired
+	private ConfigurationService		configurationsService;
 
 
 
@@ -108,9 +111,12 @@ public class ServiceMechanicController extends AbstractController {
 			Service service=this.serviceService.findOne(serviceId);
 			Mechanic mechanic=this.mechanicService.findByPrincipal();
 			Assert.isTrue(service.getRepairShop().getMechanic().getId()==mechanic.getId());
+			
 			int pendingReservations=this.reservationService.countByService(serviceId);
+			final String currency=this.configurationsService.find().getCurrency();
 			result = new ModelAndView("service/display");
 			result.addObject("service", service);
+			result.addObject("currency", currency);
 			result.addObject("pendingReservations", pendingReservations);
 			result.addObject("requestURI", "service/mechanic/display.do");
 

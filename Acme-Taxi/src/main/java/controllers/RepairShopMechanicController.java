@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ConfigurationService;
 import services.MechanicService;
 import services.RepairShopService;
 import services.ServiceService;
@@ -41,6 +42,8 @@ public class RepairShopMechanicController extends AbstractController {
 	private MechanicService		mechanicService;
 	@Autowired
 	private ServiceService		serviceService;
+	@Autowired
+	private ConfigurationService		configurationsService;
 
 
 
@@ -142,10 +145,12 @@ public class RepairShopMechanicController extends AbstractController {
 			services=this.serviceService.findByRepairShop(repairShopId, pageable);
 			final RepairShop repairShop=this.repairShopService.findOne(repairShopId);
 			final boolean owner=this.mechanicService.findByPrincipal().getId()==repairShop.getMechanic().getId();
+			final String currency=this.configurationsService.find().getCurrency();
 			final String requestURI = "repairShop/mechanic/display.do";
 				result = new ModelAndView("repairShop/display");
 				result.addObject("repairShop", repairShop);
 				result.addObject("services", services);
+				result.addObject("currency", currency);
 				result.addObject("requestURI", requestURI);
 				result.addObject("total", total);
 				result.addObject("owner", owner);

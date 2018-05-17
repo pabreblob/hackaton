@@ -36,6 +36,9 @@ public class MessageServiceTest extends AbstractTest {
 	@Autowired
 	private FolderService	folderService;
 
+	@Autowired
+	private ActorService	actorService;
+
 
 	/**
 	 * Tests the creation of messages.
@@ -172,6 +175,59 @@ public class MessageServiceTest extends AbstractTest {
 			Assert.isTrue(sender != null && sender.contains(saved));
 			Assert.isTrue(found.getFolder().getName().equals("Out box"));
 			super.authenticate(null);
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+		this.checkExceptions(expected, caught);
+	}
+
+	/**
+	 * Tests notifications.
+	 * <p>
+	 * This method tests the creation and later notification of messages.
+	 * <p>
+	 * 13.2. An actor who is authenticated as an administrator must be able to: Broadcast a message to the actors of the system.
+	 * 
+	 * Case 1: The admin broadcasts a message. No exception is expected.
+	 * 
+	 * Case 2: An unauthenticated user tries to broadcast a message. An IllegalArgumentException is expected.
+	 */
+	@Test
+	public void driverNotifyMessage() {
+		final Object testingData[][] = {
+			{
+				"user1", null
+			}, {
+				"driver1", null
+			}, {
+				null, IndexOutOfBoundsException.class
+			}
+		};
+		for (int i = 0; i < testingData.length; i++)
+			this.templateNotifyMessage((String) testingData[i][0], (Class<?>) testingData[i][1]);
+	}
+
+	/**
+	 * Template for testing notifications.
+	 * <p>
+	 * This method defines the template used for the tests that check notifications.
+	 * 
+	 * @param username
+	 *            The username of the user that logs in.
+	 * @param expected
+	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
+	 */
+	public void templateNotifyMessage(final String username, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		try {
+			final Actor a = new ArrayList<Actor>(this.actorService.findByUsername(username)).get(0);
+			final Message res = this.messageService.notify(a, "Test", "Notification test");
+			final Message found = this.messageService.findOne(res.getId());
+			Assert.isTrue(found.equals(res));
+			final Collection<Message> notified = this.folderService.findFolderByNameAndActor(a, "Notification box").getMessages();
+			Assert.isTrue(notified != null && notified.contains(res));
+			Assert.isTrue(found.getFolder().getName().equals("Notification box"));
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}

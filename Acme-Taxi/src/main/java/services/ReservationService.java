@@ -3,7 +3,9 @@ package services;
 
 
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +16,10 @@ import org.springframework.util.Assert;
 import repositories.ReservationRepository;
 
 
+import domain.Actor;
+import domain.Admin;
+import domain.Message;
+import domain.Message.Priority;
 import domain.RepairShop;
 import domain.Reservation;
 
@@ -36,6 +42,10 @@ public class ReservationService {
 	private UserService		userService;
 	@Autowired
 	private ServiceService		serviceService;
+	@Autowired
+	private MessageService		messageService;
+	@Autowired
+	private AdminService		adminService;
 
 
 	public ReservationService() {
@@ -67,7 +77,27 @@ public class ReservationService {
 				break;
 		}
 		reservation.getUser().setSuspicious(spamw);
+		
 		final Reservation res = this.reservationRepository.save(reservation);
+		final Message mes = this.messageService.create();
+		if(reservation.getService().getRepairShop().getMechanic().getNationality().equals("Spanish")){
+			mes.setSubject("Nueva reserva");
+		}else{
+			mes.setSubject("New Reservation");
+		}
+		if(reservation.getService().getRepairShop().getMechanic().getNationality().equals("Spanish")){
+			mes.setBody("Una reserva para el servicio " + reservation.getService().getTitle()+" de la tienda de reparaciones "+reservation.getService().getRepairShop().getName()+"ha sido solicitada por "+reservation.getUser().getUserAccount().getUsername());	
+		}else{
+			mes.setBody("A reservation for the service " + reservation.getService()+" from the repair shop "+reservation.getService().getRepairShop().getName()+"has been made by "+reservation.getUser().getUserAccount().getUsername());
+		}
+		
+		mes.setPriority(Priority.NEUTRAL);
+		List<Admin> admin=new ArrayList<Admin>(this.adminService.findAll());
+		mes.setSender(admin.get(0));
+		final Collection<Actor> recipients = new ArrayList<Actor>();
+		recipients.add(reservation.getService().getRepairShop().getMechanic());
+		mes.setRecipients(recipients);
+		this.messageService.broadcast(mes);
 		return res;
 	}
 
@@ -137,4 +167,5 @@ public class ReservationService {
 		res = this.reservationRepository.findAllByService(serviceId);
 		return res;
 	}
+	
 }

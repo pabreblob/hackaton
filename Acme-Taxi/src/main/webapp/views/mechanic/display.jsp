@@ -29,10 +29,15 @@
 <a href="actor/actor/block.do?actorId=${mechanic.id}"> <spring:message code="mechanic.block" />
 	</a>
 </jstl:if>
+
 <jstl:if test='${unblockeable}'>
 <a href="actor/actor/unblock.do?actorId=${mechanic.id}"> <spring:message code="mechanic.unblock" />
 	</a>
-</jstl:if>
+</jstl:if><p>
+<security:authorize access="isAuthenticated()">
+<a href="report/actor/create.do?actorId=${mechanic.id}"> <spring:message code="mechanic.report" /></a>
+</security:authorize>
+</p>
 <spring:message code="mechanic.dateFormat2" var="dateFormat2" />
 <p>
 <spring:message code="mechanic.birthdate"/>:<fmt:formatDate value="${mechanic.birthdate}" pattern="${dateFormat2}" />

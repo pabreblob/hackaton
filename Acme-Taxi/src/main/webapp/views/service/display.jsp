@@ -19,7 +19,7 @@
 <p>
 	<spring:message code="service.price" />
 	:
-	<jstl:out value="${service.price}" />
+	<jstl:out value="${service.price}" /><jstl:out value="${currency}"/>
 </p>
 <jstl:if test='${pendingReservations==0}'>
 <p>

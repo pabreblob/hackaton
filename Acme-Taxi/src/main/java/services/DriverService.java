@@ -170,16 +170,37 @@ public class DriverService {
 
 	public Collection<Driver> findDriversReviewable(final Pageable pageable) {
 		final Collection<Driver> res = this.driverRepository.findDriversReviewable(this.userService.findByPrincipal().getId(), pageable).getContent();
-		return res;
+		final Collection<Driver> revisados = this.findDriversWithReviewByPrincipal();
+		final Collection<Driver> result = new ArrayList<>(res);
+		result.removeAll(revisados);
+
+		return result;
 	}
 
 	public Collection<Driver> findDriversReviewable() {
 		final Collection<Driver> res = this.driverRepository.findDriversReviewable(this.userService.findByPrincipal().getId());
-		return res;
+		final Collection<Driver> revisados = this.findDriversWithReviewByPrincipal();
+		final Collection<Driver> result = new ArrayList<>(res);
+		result.removeAll(revisados);
+
+		return result;
+	}
+
+	public Collection<Driver> findDriversWithReviewByPrincipal() {
+		return this.driverRepository.findDriverWithReviewByUserId(this.userService.findByPrincipal().getId());
+	}
+
+	public Driver findDriverByReviewId(final int reviewId) {
+		return this.driverRepository.findDriverByReviewId(reviewId);
 	}
 
 	public Integer countDriversReviewable() {
-		return this.driverRepository.countDriversReviewable(LoginService.getPrincipal().getId());
+		return this.findDriversReviewable().size();
 	}
 
+	Driver findDriverByCarId(final int carId) {
+		final Driver d = this.driverRepository.findDriverByCarId(carId);
+		Assert.notNull(d);
+		return d;
+	}
 }
