@@ -84,6 +84,6 @@ public class RequestService {
 	}
 
 	public Collection<Request> findRequestByDriverToDo(final int driverId) {
-		return this.findRequestByDriverToDo(driverId);
+		return this.requestRepository.findRequestByDriverToDo(driverId);
 	}
 }
