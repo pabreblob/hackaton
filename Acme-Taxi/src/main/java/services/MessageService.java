@@ -15,8 +15,10 @@ import org.springframework.validation.Validator;
 
 import repositories.MessageRepository;
 import domain.Actor;
+import domain.Admin;
 import domain.Folder;
 import domain.Message;
+import domain.Message.Priority;
 import domain.SpamWord;
 
 @Service
@@ -34,6 +36,9 @@ public class MessageService {
 
 	@Autowired
 	private SpamWordService		spamWordService;
+
+	@Autowired
+	private AdminService		adminService;
 
 	@Autowired
 	private Validator			validator;
@@ -98,6 +103,31 @@ public class MessageService {
 				}
 		return res;
 	}
+
+	public Message notify(final Actor a, final String subject, final String body) {
+		Assert.notNull(a);
+		Assert.isTrue(a.getId() != 0);
+		final Message message = new Message();
+		Assert.notNull(message);
+		final Actor sender = new ArrayList<Admin>(this.adminService.findAll()).get(0);
+		Assert.notNull(sender);
+		message.setMoment(new Date(System.currentTimeMillis() - 1000));
+		message.setSender(sender);
+		final Collection<Actor> recipients = new ArrayList<Actor>();
+		recipients.add(a);
+		message.setRecipients(recipients);
+		message.setPriority(Priority.NEUTRAL);
+		message.setSubject(subject);
+		message.setBody(body);
+		final Folder f = this.folderService.findFolderByNameAndActor(a, "Notification box");
+		Assert.notNull(f);
+		message.setFolder(f);
+		Message res;
+		res = this.messageRepository.save(message);
+		res.getFolder().getMessages().add(res);
+		return res;
+	}
+
 	public Message broadcast(final Message message) {
 		Assert.notNull(message);
 		final Actor sender = this.actorService.findByPrincipal();

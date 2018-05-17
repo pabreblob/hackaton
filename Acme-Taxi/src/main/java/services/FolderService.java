@@ -233,6 +233,9 @@ public class FolderService {
 	public Folder findFolderByNameAndActor(final String s) {
 		return this.folderRepository.findFolderByNameAndActor(this.actorService.findByPrincipal().getId(), s);
 	}
+	public Folder findFolderByNameAndActor(final Actor a, final String s) {
+		return this.folderRepository.findFolderByNameAndActor(a.getId(), s);
+	}
 	public Folder findOne(final int id) {
 		return this.folderRepository.findOne(id);
 	}
