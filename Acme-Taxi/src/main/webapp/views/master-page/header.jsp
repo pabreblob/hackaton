@@ -135,7 +135,7 @@
 		</li>
 		
 		<!-- Carpetas -->
-		<li><a class="fNiv" href="folder/actor/list.do"><spring:message code="master.page.folder.list"/></a></li>
+		<li><a class="fNiv" href="folder/actor/list.do"><spring:message code="master.page.folder.list"/> (<jstl:out value="${unread}"/>)</a></li>
 
 		</security:authorize>
 				
