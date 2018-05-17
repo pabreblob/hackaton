@@ -58,6 +58,11 @@ public class RequestUserController extends AbstractController {
 			final ModelAndView res = new ModelAndView("request/confirm");
 			res.addObject("currency", conf.getCurrency());
 			res.addObject("request", r);
+			String estimated = "";
+			final int hours = distanciaYTiempo.get(1) / 3600;
+			final int minutes = (distanciaYTiempo.get(1) - hours * 3600) / 60;
+			estimated = hours + "h " + minutes + "min";
+			res.addObject("estimated", estimated);
 			return res;
 		} catch (final Throwable oops) {
 			if (distanciaYTiempo == null) {

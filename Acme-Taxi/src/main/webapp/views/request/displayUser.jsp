@@ -24,7 +24,7 @@
 </iframe>
 
 <p><spring:message code="request.price"/>: <jstl:out value="${request.price}"/> <jstl:out value="${currency}"/></p>
-<p><spring:message code="request.estimatedTime"/>: <jstl:out value="${request.estimatedTime}"/> <spring:message code="request.hours"/> (<spring:message code="request.timeCanChange"/>)</p>
+<p><spring:message code="request.estimatedTime"/>: <jstl:out value="${estimated}"/> (<spring:message code="request.timeCanChange"/>)</p>
 
 <form:form action="request/user/save.do" modelAttribute="request">
 	<form:hidden path="origin"/>
