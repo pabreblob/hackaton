@@ -1,25 +1,36 @@
 
 package services;
 
+import java.util.List;
+
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.RequestRepository;
+import utilities.GoogleMaps;
+import domain.Configuration;
 import domain.Request;
+import domain.SpamWord;
 
 @Service
 @Transactional
 public class RequestService {
 
 	@Autowired
-	private RequestRepository	requestRepository;
+	private RequestRepository		requestRepository;
 	@Autowired
-	private UserService			userService;
+	private UserService				userService;
 	@Autowired
-	private Validator			validator;
+	private Validator				validator;
+	@Autowired
+	private ConfigurationService	configurationService;
+	@Autowired
+	private SpamWordService			spamWordService;
 
 
 	public Request create() {
@@ -40,5 +51,34 @@ public class RequestService {
 		request.setUser(this.userService.findByPrincipal());
 		this.validator.validate(request, bindingResult);
 		return request;
+	}
+
+	public Request save(final Request r) {
+		final LocalDate now = new LocalDate();
+		final LocalDate moment = new LocalDate(r.getMoment());
+		Assert.isTrue(moment.isAfter(now));
+
+		final List<Integer> distanceAndTime = GoogleMaps.getDistanceAndDuration(r.getOrigin(), r.getDestination());
+		Assert.notNull(distanceAndTime);
+
+		r.setDistance(distanceAndTime.get(0));
+		r.setEstimatedTime(distanceAndTime.get(1));
+
+		final Configuration conf = this.configurationService.find();
+		double price = (1 + conf.getVat()) * (conf.getMinimumFee() + (conf.getPricePerKm() * (distanceAndTime.get(0) * 1.0 / 1000)));
+		final int temp = (int) price * 100;
+		price = 1.0 * temp / 100;
+		r.setPrice(price);
+		boolean spamw = false;
+		for (final SpamWord word : this.spamWordService.findAll()) {
+			spamw = r.getComment().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
+			if (spamw)
+				break;
+		}
+		r.setMarked(spamw);
+		if (spamw)
+			this.userService.findByPrincipal().setSuspicious(spamw);
+		final Request saved = this.requestRepository.save(r);
+		return saved;
 	}
 }

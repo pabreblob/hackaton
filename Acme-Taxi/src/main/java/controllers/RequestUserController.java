@@ -3,6 +3,7 @@ package controllers;
 
 import java.util.List;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -43,8 +44,11 @@ public class RequestUserController extends AbstractController {
 			return res;
 		}
 		final List<Integer> distanciaYTiempo = GoogleMaps.getDistanceAndDuration(request.getOrigin(), request.getDestination());
+		final LocalDate now = new LocalDate();
+		final LocalDate moment = new LocalDate(r.getMoment());
 		try {
 			Assert.notNull(distanciaYTiempo);
+			Assert.isTrue(moment.isAfter(now));
 			final Configuration conf = this.configurationService.find();
 			double price = (1 + conf.getVat()) * (conf.getMinimumFee() + (conf.getPricePerKm() * (distanciaYTiempo.get(0) * 1.0 / 1000)));
 			int temp = (int) (price * 100);
@@ -71,6 +75,26 @@ public class RequestUserController extends AbstractController {
 				res.addObject("message", "request.originOrDestinationFail");
 				return res;
 			}
+			if (!moment.isAfter(now)) {
+				final ModelAndView res = new ModelAndView("request/edit");
+				res.addObject("request", r);
+				res.addObject("message", "request.dateMustBeFuture");
+				return res;
+			}
+			final ModelAndView res = new ModelAndView("request/edit");
+			res.addObject("request", r);
+			res.addObject("message", "request.cannotCommit");
+			return res;
+		}
+	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public ModelAndView save(final Request request, final BindingResult bindingResult) {
+		final Request r = this.requestService.reconstruct(request, bindingResult);
+		try {
+			final Request saved = this.requestService.save(r);
+			return new ModelAndView("redirect:/request/user/display.do?requestId=" + saved.getId());
+		} catch (final Throwable oops) {
 			final ModelAndView res = new ModelAndView("request/edit");
 			res.addObject("request", r);
 			res.addObject("message", "request.cannotCommit");
