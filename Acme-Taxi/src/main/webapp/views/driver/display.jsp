@@ -61,9 +61,42 @@
 	<jstl:out value="${driver.location}" />
 </p>
 
+<p>
+	<spring:message code="driver.rating" />:
+	<jstl:out value="${driver.meanRating}" />
+</p>
+
+ <jstl:if test="${!empty driver.reviews}"> 
+<a href="review/list-driver.do?driverId=${driver.id }">
+	<spring:message code="driver.reviews" />
+</a>
+</jstl:if> 
+<br/>
+<jstl:if test="${requestURI == 'driver/driver/display.do'}">
+<jstl:if test="${driver.car != null}"> 
+<a href="car/display.do">
+	<spring:message code="driver.displaycar" />
+</a>
+</jstl:if>
+<jstl:if test="${driver.car == null}"> 
+<a href="car/create.do">
+	<spring:message code="driver.createcar"/>
+</a>
+</jstl:if>  
+</jstl:if>
+
+
+<jstl:if test="${requestURI != 'driver/driver/display.do'}">
+<jstl:if test="${driver.car != null}"> 
+<a href="car/display.do?carId=${driver.car.id }">
+	<spring:message code="driver.displaycar" />
+</a>
+</jstl:if>
+</jstl:if>
 
 
 <jstl:if test="${requestURI == 'driver/driver/display.do'}">
+<br />
 	<a href="driver/driver/edit.do"> <spring:message code="driver.edit" />
 	</a>
 </jstl:if>

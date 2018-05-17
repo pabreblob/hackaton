@@ -12,8 +12,9 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <display:table pagesize="5" class="displaytag" 
-	name="reviews" requestURI="${requestURI}" id="row">
+	name="reviews" requestURI="${requestURI}" id="row" sort="external" partialList="true" size="${total }">
 	
+	<jstl:if test="${requestURI == 'review/user/list-created.do' }">
 	<display:column>
 		<a href="review/user/edit.do?reviewId=${row.id}"> <spring:message
 				code="review.edit" />
@@ -25,6 +26,7 @@
 				code="review.delete" />
 		</a>
 	</display:column>
+	</jstl:if>
 	
 	<spring:message code="review.moment" var="momentHeader" />
 	<spring:message code="review.dateFormat2" var="dateFormatHeader" />
@@ -37,11 +39,20 @@
 	<spring:message code="review.rating" var="ratingHeader" />
 	<display:column property="rating" title="${ratingHeader}" />
 	
-	
+	<jstl:if test="${requestURI == 'review/user/list-created.do' }">
 	<display:column>
 		<a href="review/user/display.do?reviewId=${row.id}"> <spring:message
 				code="review.display" />
 		</a>
 	</display:column>
+	</jstl:if>
+	
+	<jstl:if test="${requestURI != 'review/user/list-created.do' }">
+	<display:column>
+		<a href="review/display.do?reviewId=${row.id}"> <spring:message
+				code="review.display" />
+		</a>
+	</display:column>
+	</jstl:if>
 	
 </display:table>
