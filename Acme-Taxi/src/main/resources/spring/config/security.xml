@@ -96,6 +96,7 @@
 		<security:intercept-url pattern="/actor/**" access="permitAll" />
 		<security:intercept-url pattern="/report/actor/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/report/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/request/user/**" access="hasRole('USER')" />
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 

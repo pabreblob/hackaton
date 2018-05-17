@@ -44,6 +44,7 @@
 		<value>/views/message/messages</value>
 		<value>/views/actor/messages</value>
 		<value>/views/report/messages</value>
+		<value>/views/request/messages</value>
 	</util:list>
 
 </beans>

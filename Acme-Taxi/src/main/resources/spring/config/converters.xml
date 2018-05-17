@@ -53,6 +53,8 @@
     	<bean class="converters.ActorToStringConverter" />
 		<bean class="converters.StringToCarConverter" /> 
     	<bean class="converters.CarToStringConverter" />
+    	<bean class="converters.StringToRequestConverter" /> 
+    	<bean class="converters.RequestToStringConverter" />
 	</util:list>
 	
 </beans>
