@@ -34,7 +34,7 @@ public class SpamWordService {
 		Assert.notNull(sw);
 		Assert.notNull(sw.getWord());
 		Assert.isTrue(sw.getWord().replace(" ", "").length() != 0);
-		sw.setWord(sw.getWord().trim());
+		sw.setWord(sw.getWord().toLowerCase().trim());
 		final SpamWord res = this.spamWordRepository.save(sw);
 		return res;
 	}
@@ -55,8 +55,8 @@ public class SpamWordService {
 	public void addWord(final String text) {
 		final Collection<String> all = this.getWords();
 		for (final String w : text.split(","))
-			if (!all.contains(w.trim())) {
-				all.add(w);//Linea para evitar los fallos por repetición
+			if (!all.contains(w.toLowerCase().trim())) {
+				all.add(w.toLowerCase().trim());//Linea para evitar los fallos por repetición
 				final SpamWord sp = this.create();
 				sp.setWord(w);
 				this.save(sp);
