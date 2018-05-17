@@ -19,17 +19,20 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="reservation/user/edit.do" modelAttribute="reservation">
+<form:form action="service/mechanic/edit.do" modelAttribute="service">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="service" />
-	<form:hidden path="user" />
-	<form:hidden path="cancelled" />
-	<spring:message code="reservation.placeholderDate" var="dateplaceholder"/>
-	<acme:textbox code="reservation.moment" path="moment" placeholder='${dateplaceholder}' /><br />
-	<acme:textarea code="reservation.comment" path="comment" /><br />
-	<acme:submit name="save" code="reservation.save"  />
-	<acme:cancel code="reservation.cancel" url="/reservation/user/list.do" /><br />	
+	<form:hidden path="suspended" />
+	<form:hidden path="repairShop" />
+	<acme:textbox code="service.title" path="title" /><br />
+	<acme:textbox code="service.price" path="price" /><br />
+	<acme:submit name="save" code="service.save"  />
+	<jstl:if test="${repairShop.id != 0}">
+	<input type="submit" name="delete"
+				value="<spring:message code="service.delete" />"
+				onclick="return confirm('<spring:message code="service.confirm.delete" />')" />
+	</jstl:if>
+	<acme:cancel code="service.cancel" url="/repairShop/mechanic/display.do?repairShopId=${service.repairShop.id}" /><br />	
 </form:form>
 
 

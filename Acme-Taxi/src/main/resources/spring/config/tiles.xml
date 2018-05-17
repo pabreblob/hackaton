@@ -32,6 +32,7 @@
 		<value>/views/repairShop/tiles.xml</value>
 		<value>/views/service/tiles.xml</value>
 		<value>/views/reservation/tiles.xml</value>
+		<value>/views/car/tiles.xml</value>
 		
 		<value>/views/idNumberPattern/tiles.xml</value>
 		

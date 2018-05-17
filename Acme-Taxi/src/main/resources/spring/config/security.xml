@@ -72,14 +72,20 @@
 		<security:intercept-url pattern="/service/mechanic/**" access="hasRole('MECHANIC')" />
 		<security:intercept-url pattern="/reservation/mechanic/**" access="hasRole('MECHANIC')" />
 		<security:intercept-url pattern="/reservation/user/**" access="hasRole('USER')" />
+		<security:intercept-url pattern="/car/**"	access="permitAll" />
+		<security:intercept-url pattern="/car/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/car/driver/**" access="hasRole('DRIVER')"/>
 		
+		<security:intercept-url pattern="/review/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/review/driver/**" access="hasRole('DRIVER')" />
 		<security:intercept-url pattern="/review/user/**" access="hasRole('USER')" />
-		<security:intercept-url pattern="/driver/**" access="permitAll" />
+		<security:intercept-url pattern="/review/**" access="permitAll" />
 		<security:intercept-url pattern="/driver/user/**" access="hasRole('USER')" />
-		<security:intercept-url pattern="/sponsor/**" access="permitAll" />
+		<security:intercept-url pattern="/driver/**" access="permitAll" />
 		<security:intercept-url pattern="/sponsor/sponsor/**" access="hasRole('SPONSOR')" />
 		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasRole('SPONSOR')" /> 
-		<security:intercept-url pattern="/sponsorship/admin/**" access="hasRole('ADMIN')" /> 
+		<security:intercept-url pattern="/sponsorship/admin/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/sponsor/**" access="permitAll" /> 
 		 
 		
 		<security:intercept-url pattern="/idNumberPattern/**" access="hasRole('ADMIN')" /> 

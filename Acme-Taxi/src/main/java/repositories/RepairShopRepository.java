@@ -34,6 +34,6 @@ public interface RepairShopRepository extends JpaRepository<RepairShop, Integer>
 	Collection<RepairShop> findRepairShopsReviewed(int userId);
 	@Query("select count (r) from RepairShop r join r.reviews rev where rev.creator.id=?1")
 	Integer countRepairShopsReviewed(int userId);
-	@Query("select r from RepairShop r join r.reviews rev where rev.id!=?1")
+	@Query("select r from RepairShop r join r.reviews rev where rev.id=?1")
 	RepairShop findRepairShopByReviewId(int reviewId);
 }

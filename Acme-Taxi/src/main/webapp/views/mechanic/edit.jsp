@@ -22,7 +22,8 @@
 	<spring:message code="mechanic.placeholderEmail" var="emailplaceholder"/>
 	<acme:textbox code="mechanic.email" path="email" placeholder='${emailplaceholder}' /><br/>
 	<acme:textbox code="mechanic.phone" path="phone" /><br/>
-	<acme:textbox code="mechanic.birthdate" path="birthdate" />
+	<spring:message code="mechanic.placeholderDate" var="dateplaceholder"/>
+	<acme:textbox code="mechanic.birthdate" path="birthdate" placeholder='${dateplaceholder}' />
 	<p>
 	<form:label path="nationality"><spring:message code="mechanic.nationality"/></form:label>
 <form:select path="nationality" >
@@ -48,7 +49,8 @@
 	<spring:message code="mechanic.placeholderEmail" var="emailplaceholder"/>
 	<acme:textbox code="mechanic.email" path="email" placeholder='${emailplaceholder}' /><br/>
 	<acme:textbox code="mechanic.phone" path="phone" /><br/>
-	<acme:textbox code="mechanic.birthdate" path="birthdate" />
+	<spring:message code="mechanic.placeholderDate" var="dateplaceholder"/>
+	<acme:textbox code="mechanic.birthdate" path="birthdate" placeholder='${dateplaceholder}' />
 	<p>
 	<form:label path="nationality"><spring:message code="mechanic.nationality"/></form:label>
 <form:select path="nationality" >

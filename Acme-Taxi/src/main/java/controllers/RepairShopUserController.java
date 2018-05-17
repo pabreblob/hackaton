@@ -76,11 +76,13 @@ public class RepairShopUserController extends AbstractController {
 		final Integer total = this.serviceService.countByRepairShop(repairShopId);
 		services=this.serviceService.findByRepairShop(repairShopId, pageable);
 		final RepairShop repairShop=this.repairShopService.findOne(repairShopId);
+		boolean hasReviews=!repairShop.getReviews().isEmpty();
 		final String currency=this.configurationsService.find().getCurrency();
 		final String requestURI = "repairShop/user/display.do";
 			result = new ModelAndView("repairShop/display");
 			result.addObject("repairShop", repairShop);
 			result.addObject("services", services);
+			result.addObject("hasReviews", hasReviews);
 			result.addObject("currency", currency);
 			result.addObject("servicesReserved", servicesReserved);
 			result.addObject("requestURI", requestURI);

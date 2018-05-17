@@ -48,6 +48,19 @@
 	<jstl:out value="${sponsor.email}" />
 </p>
 
+<jstl:if test='${blockeable}'>
+<a href="actor/actor/block.do?actorId=${sponsor.id}"> <spring:message code="sponsor.block" />
+	</a>
+</jstl:if>
+
+<jstl:if test='${unblockeable}'>
+<a href="actor/actor/unblock.do?actorId=${sponsor.id}"> <spring:message code="sponsor.unblock" />
+	</a>
+</jstl:if><p>
+<security:authorize access="isAuthenticated()">
+<a href="report/actor/create.do?actorId=${sponsor.id}"> <spring:message code="sponsor.report" /></a>
+</security:authorize>
+</p>
 
 <jstl:if test="${requestURI == 'sponsor/sponsor/display.do'}">
 <a href = "sponsor/sponsor/edit.do">

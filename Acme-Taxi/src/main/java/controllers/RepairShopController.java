@@ -78,6 +78,7 @@ public class RepairShopController extends AbstractController {
 		Pageable pageable;
 		Direction dir = null;
 		Integer pageNum = 0;
+		
 		final String pageNumStr = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_PAGE));
 		final String sortAtt = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_SORT));
 		final String sortOrder = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_ORDER));
@@ -95,11 +96,13 @@ public class RepairShopController extends AbstractController {
 		final Integer total = this.serviceService.countByRepairShop(repairShopId);
 		services=this.serviceService.findByRepairShop(repairShopId, pageable);
 		final RepairShop repairShop=this.repairShopService.findOne(repairShopId);
+		boolean hasReviews=!repairShop.getReviews().isEmpty();
 		final String currency=this.configurationsService.find().getCurrency();
 		final String requestURI = "repairShop/display.do";
 			result = new ModelAndView("repairShop/display");
 			result.addObject("repairShop", repairShop);
 			result.addObject("services", services);
+			result.addObject("hasReviews", hasReviews);
 			result.addObject("currency", currency);
 			result.addObject("requestURI", requestURI);
 			result.addObject("total", total);

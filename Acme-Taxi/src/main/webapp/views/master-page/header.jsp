@@ -98,6 +98,8 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="reservation/user/list.do"><spring:message code="master.page.user.reservation.list"/></a></li>
+					<li><a href="review/user/list.do"><spring:message code="master.page.user.review.list"/></a></li>
+					<li><a href="review/user/list-created.do"><spring:message code="master.page.user.review.created"/></a></li>
 				</ul>
 			</li>
 		</security:authorize>
@@ -133,7 +135,7 @@
 		</li>
 		
 		<!-- Carpetas -->
-		<li><a class="fNiv" href="folder/actor/list.do"><spring:message code="master.page.folder.list"/></a></li>
+		<li><a class="fNiv" href="folder/actor/list.do"><spring:message code="master.page.folder.list"/> (<jstl:out value="${unread}"/>)</a></li>
 
 		</security:authorize>
 				

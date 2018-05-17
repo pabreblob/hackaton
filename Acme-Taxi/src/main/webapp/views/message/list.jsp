@@ -22,12 +22,31 @@
 <spring:message code="message.moment" var="momentHeader" />
 <spring:message code="moment.date.format" var="dateFormat" />
 <display:column sortable="true" title="${momentHeader}" sortName="moment">
+<jstl:if test="${!row.checked}">
+	<b><fmt:formatDate value="${row.moment}" pattern="${dateFormat}"/></b>
+</jstl:if>
+<jstl:if test="${row.checked}">
 	<fmt:formatDate value="${row.moment}" pattern="${dateFormat}"/>
+</jstl:if>
 </display:column>
 <spring:message code="message.sender" var="senderHeader"/>
-<display:column property="sender.userAccount.username" title="${senderHeader}" sortable="true" sortName="sender.userAccount.username" />
+<display:column title="${senderHeader}" sortable="true" sortName="sender.userAccount.username">
+<jstl:if test="${!row.checked}">
+	<b><jstl:out value="${row.sender.userAccount.username}"/></b>
+</jstl:if>
+<jstl:if test="${row.checked}">
+	<jstl:out value="${row.sender.userAccount.username}"/>
+</jstl:if>
+</display:column>
 <spring:message code="message.subject" var="subjectHeader"/>
-<display:column property="subject" title="${subjectHeader}" sortable="false" />
+<display:column title="${subjectHeader}" sortable="false">
+<jstl:if test="${!row.checked}">
+	<b><jstl:out value="${row.subject}"/></b>
+</jstl:if>
+<jstl:if test="${row.checked}">
+	<jstl:out value="${row.subject}"/>
+</jstl:if>
+</display:column>
 <display:column sortable="false">
 <a href="message/actor/display.do?messageId=${row.id}"><spring:message code="message.display"/></a>
 </display:column>
@@ -36,6 +55,11 @@
 </display:column>
 <display:column sortable="false">
 <a href="message/actor/move.do?messageId=${row.id}"><spring:message code="message.move"/></a>
+</display:column>
+<display:column sortable="false">
+<jstl:if test="${!row.checked}">
+<a href="message/actor/setchecked.do?messageId=${row.id}"><spring:message code="message.setchecked"/></a>
+</jstl:if>
 </display:column>
 </display:table>
 <a href="message/actor/create.do"><spring:message code="message.create" /></a>

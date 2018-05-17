@@ -12,7 +12,8 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <jstl:if test="${form == 'true' }">
-	<form:form action="review/user/save-driver.do" modelAttribute="reviewForm">
+
+	<form:form action="${action }" modelAttribute="reviewForm">
 
 		<form:hidden path="driver"/>
 		<form:hidden path="repairShop"/>

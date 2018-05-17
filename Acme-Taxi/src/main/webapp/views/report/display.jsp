@@ -17,7 +17,7 @@
 	<p style="margin-left:2%; margin-right:2%;"><jstl:out value="${report.reason}"/></p>
 	<spring:message code="report.format" var="dateFormat"/>
 	<p style="margin-left:2%;"><b><spring:message code="report.moment"/>: </b><fmt:formatDate value="${report.moment}" pattern="${dateFormat}" /></p>
-	<jstl:if test="${report.imageUrl != '' or report.imageUrl == null}">
+	<jstl:if test="${report.imageUrl != '' and report.imageUrl != null}">
 		<img id="myImg" src="<jstl:out value="${report.imageUrl}"/>" width="60%" style="margin-bottom: 2%; margin-left: auto; margin-right: auto; display:block; position:center;"/>
 		<p style="text-align: center;"><spring:message code="report.clickOnImage"/></p>
 	</jstl:if>

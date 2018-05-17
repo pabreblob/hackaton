@@ -75,6 +75,18 @@ public class SponsorshipAdminController extends AbstractController {
 
 		return res;
 	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final int sponsorshipId) {
+		ModelAndView res;
+		Sponsorship s;
+		s = this.sponsorshipService.findOne(sponsorshipId);
+		this.sponsorshipService.delete(s);
+		res = new ModelAndView("redirect:list.do");
+
+		return res;
+	}
+
 	//Displaying
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int sponsorshipId) {

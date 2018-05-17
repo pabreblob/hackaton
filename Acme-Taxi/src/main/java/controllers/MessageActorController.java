@@ -160,6 +160,20 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/setchecked", method = RequestMethod.GET)
+	public ModelAndView setChecked(@RequestParam final int messageId) {
+		ModelAndView result;
+		Assert.notNull(messageId);
+		Assert.isTrue(messageId != 0);
+		final Message message = this.messageService.findOne(messageId);
+		final Folder f = message.getFolder();
+		Assert.isTrue(f.getMessages().contains(message));
+		Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(f));
+		this.messageService.checkMessage(messageId);
+		result = new ModelAndView("redirect:list.do?folderId=" + f.getId());
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final Message message) {
 		ModelAndView result;
 

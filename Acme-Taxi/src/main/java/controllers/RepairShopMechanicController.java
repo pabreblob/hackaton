@@ -144,12 +144,14 @@ public class RepairShopMechanicController extends AbstractController {
 			final Integer total = this.serviceService.countByRepairShop(repairShopId);
 			services=this.serviceService.findByRepairShop(repairShopId, pageable);
 			final RepairShop repairShop=this.repairShopService.findOne(repairShopId);
+			boolean hasReviews=!repairShop.getReviews().isEmpty();
 			final boolean owner=this.mechanicService.findByPrincipal().getId()==repairShop.getMechanic().getId();
 			final String currency=this.configurationsService.find().getCurrency();
 			final String requestURI = "repairShop/mechanic/display.do";
 				result = new ModelAndView("repairShop/display");
 				result.addObject("repairShop", repairShop);
 				result.addObject("services", services);
+				result.addObject("hasReviews", hasReviews);
 				result.addObject("currency", currency);
 				result.addObject("requestURI", requestURI);
 				result.addObject("total", total);

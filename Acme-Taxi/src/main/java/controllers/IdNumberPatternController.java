@@ -2,6 +2,8 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -115,8 +117,12 @@ public class IdNumberPatternController extends AbstractController {
 			res.addObject("idNumberPattern", idN);
 		else
 			try {
+				Pattern.compile(idN.getPattern());
 				this.idNumberPatternService.save(idN);
 				return new ModelAndView("redirect: list.do");
+			} catch (final PatternSyntaxException patternExc) {
+				res.addObject("idNumberPattern", idN);
+				res.addObject("message", "idNumberPattern.notValid");
 			} catch (final Throwable oops) {
 				res.addObject("idNumberPattern", idN);
 				res.addObject("message", "idNumberPattern.cannotCommit");

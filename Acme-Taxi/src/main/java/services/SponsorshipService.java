@@ -73,11 +73,11 @@ public class SponsorshipService {
 		return res;
 	}
 	public void delete(final Sponsorship sponsorship) {
-		final Sponsor sponsor = this.sponsorService.findByPrincipal();
+		//		final Sponsor sponsor = this.sponsorService.findByPrincipal();
 		assert sponsorship != null;
 		assert sponsorship.getId() != 0;
 		Assert.isTrue(this.sponsorshipRepository.findOne(sponsorship.getId()) != null);
-		Assert.isTrue(sponsor.equals(sponsorship.getSponsor()));
+		//		Assert.isTrue(sponsor.equals(sponsorship.getSponsor()));
 		this.sponsorshipRepository.delete(sponsorship.getId());
 	}
 

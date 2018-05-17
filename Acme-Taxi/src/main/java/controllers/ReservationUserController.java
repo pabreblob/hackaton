@@ -3,6 +3,7 @@ package controllers;
 
 
 import java.util.Collection;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -21,8 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-
 import services.ReservationService;
 import services.ServiceService;
 import services.UserService;
@@ -93,7 +92,13 @@ public class ReservationUserController extends AbstractController {
 		ModelAndView res;
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(r);
-		else
+		else{
+			final Date now = new Date();
+			if(r.getMoment().before(now)){
+				res = this.createEditModelAndView(r, "reservation.moment.error");
+			}else{
+				
+		
 			try {
 				this.reservationService.save(r);
 				int repairShopId=r.getService().getRepairShop().getId();
@@ -101,7 +106,8 @@ public class ReservationUserController extends AbstractController {
 			} catch (final Throwable oops) {
 				res = this.createEditModelAndView(r, "reservation.commit.error");
 			}
-		return res;
+		}	}return res;
+		
 	}
 		protected ModelAndView createEditModelAndView(final Reservation r) {
 			return this.createEditModelAndView(r, null);

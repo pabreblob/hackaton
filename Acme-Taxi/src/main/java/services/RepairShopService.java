@@ -65,7 +65,10 @@ public class RepairShopService {
 				break;
 		}
 		repairShop.setMarked(spamw);
-		repairShop.getMechanic().setSuspicious(spamw);
+		if(!repairShop.getMechanic().isSuspicious()){
+			repairShop.getMechanic().setSuspicious(spamw);
+		}
+		
 		final RepairShop res = this.repairShopRepository.save(repairShop);
 		return res;
 	}
