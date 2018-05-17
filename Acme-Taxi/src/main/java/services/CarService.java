@@ -3,6 +3,7 @@ package services;
 
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import repositories.CarRepository;
 
 
 import domain.Car;
+import domain.RepairShop;
+import domain.Review;
+import domain.SpamWord;
 
 
 
@@ -26,11 +30,34 @@ public class CarService {
 	
 	@Autowired
 	private CarRepository	carRepository;
+	@Autowired
+	private RepairShopService	repairShopService;
+	@Autowired
+	private SpamWordService	spamWordService;
 
 
 	public CarService() {
 		super();
 	}
+	public Car create(int repairShopId) {
+		final Car car = new Car();
+		car.setRepairShop(this.repairShopService.findOne(repairShopId));
+		return car;
+	}
+//	public RepairShop save(final Car car) {
+//		Assert.notNull(car);
+//		final Collection<SpamWord> sw = this.spamWordService.findAll();
+//		boolean spamw = false;
+//		for (final SpamWord word : sw) {
+//			spamw = car.getCarModel().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
+//			
+//			if (spamw)
+//				break;
+//		}
+//		car.getDriver().setSuspicious(spamw);
+//		final RepairShop res = this.repairShopRepository.save(repairShop);
+//		return res;
+//	}
 
 	
 

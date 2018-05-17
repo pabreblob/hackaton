@@ -76,7 +76,10 @@ public class ReservationService {
 			if (spamw)
 				break;
 		}
-		reservation.getUser().setSuspicious(spamw);
+		if(!reservation.getUser().isSuspicious()){
+			reservation.getUser().setSuspicious(spamw);
+		}
+		
 		
 		final Reservation res = this.reservationRepository.save(reservation);
 		final Message mes = this.messageService.create();

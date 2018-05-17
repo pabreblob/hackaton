@@ -84,7 +84,7 @@ public class MechanicService {
 			final String hash = encoder.encodePassword(mechanic.getUserAccount().getPassword(), null);
 			mechanic.getUserAccount().setPassword(hash);
 		}
-
+		
 		if (mechanic.getId() == 0) {
 			mechanic.setFolders(new ArrayList<Folder>());
 			final Collection<Folder> folders = this.folderService.defaultFolders();
