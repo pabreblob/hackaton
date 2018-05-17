@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.ConfigurationService;
 import services.DriverService;
 import services.IdNumberPatternService;
+import domain.Actor;
 import domain.Driver;
 import domain.IdNumberPattern;
 import forms.DriverForm;
@@ -36,6 +38,9 @@ public class DriverController extends AbstractController {
 
 	@Autowired
 	private IdNumberPatternService	idNumberPatternService;
+
+	@Autowired
+	private ActorService			actorService;
 
 
 	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -125,8 +130,25 @@ public class DriverController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int driverId) {
 		final ModelAndView result;
+
+		final Driver d = this.driverService.findOne(driverId);
+		boolean blockeable = false;
+		boolean unblockeable = false;
+		try {
+			final Actor a = this.actorService.findByPrincipal();
+			if (a.getId() != d.getId()) {
+				if (!a.getBlockedUsers().contains(d))
+					blockeable = true;
+				if (a.getBlockedUsers().contains(d))
+					unblockeable = true;
+			}
+		} catch (final Throwable oops) {
+
+		}
 		result = new ModelAndView("driver/display");
 		result.addObject("driver", this.driverService.findOne(driverId));
+		result.addObject("blockeable", blockeable);
+		result.addObject("unblockeable", unblockeable);
 		result.addObject("requestURI", "driver/display.do");
 
 		return result;

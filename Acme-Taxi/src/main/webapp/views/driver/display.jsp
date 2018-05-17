@@ -66,12 +66,27 @@
 	<jstl:out value="${driver.meanRating}" />
 </p>
 
- <jstl:if test="${!empty driver.reviews}"> 
+<jstl:if test='${blockeable}'>
+<a href="actor/actor/block.do?actorId=${driver.id}"> <spring:message code="driver.block" />
+	</a>
+</jstl:if>
+
+<jstl:if test='${unblockeable}'>
+<a href="actor/actor/unblock.do?actorId=${driver.id}"> <spring:message code="driver.unblock" />
+	</a>
+</jstl:if><p>
+<security:authorize access="isAuthenticated()">
+<a href="report/actor/create.do?actorId=${driver.id}"> <spring:message code="driver.report" /></a>
+</security:authorize>
+</p>
+
+<jstl:if test="${!empty driver.reviews}"> 
 <a href="review/list-driver.do?driverId=${driver.id }">
 	<spring:message code="driver.reviews" />
 </a>
 </jstl:if> 
 <br/>
+
 <jstl:if test="${requestURI == 'driver/driver/display.do'}">
 <jstl:if test="${driver.car != null}"> 
 <a href="car/display.do">
@@ -84,6 +99,7 @@
 </a>
 </jstl:if>  
 </jstl:if>
+
 
 
 <jstl:if test="${requestURI != 'driver/driver/display.do'}">

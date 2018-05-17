@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.ConfigurationService;
 import services.IdNumberPatternService;
 import services.SponsorService;
+import domain.Actor;
 import domain.IdNumberPattern;
 import domain.Sponsor;
 import forms.SponsorForm;
@@ -36,6 +38,9 @@ public class SponsorController extends AbstractController {
 
 	@Autowired
 	private IdNumberPatternService	idNumberPatternService;
+
+	@Autowired
+	private ActorService			actorService;
 
 
 	//	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -124,10 +129,26 @@ public class SponsorController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam(required = false) final Integer sponsorId) {
+	public ModelAndView display(@RequestParam final Integer sponsorId) {
 		final ModelAndView result;
+		final Sponsor s = this.sponsorService.findOne(sponsorId);
+		boolean blockeable = false;
+		boolean unblockeable = false;
+		try {
+			final Actor a = this.actorService.findByPrincipal();
+			if (a.getId() != s.getId()) {
+				if (!a.getBlockedUsers().contains(s))
+					blockeable = true;
+				if (a.getBlockedUsers().contains(s))
+					unblockeable = true;
+			}
+		} catch (final Throwable oops) {
+
+		}
 		result = new ModelAndView("sponsor/display");
 		result.addObject("sponsor", this.sponsorService.findOne(sponsorId));
+		result.addObject("blockeable", blockeable);
+		result.addObject("unblockeable", unblockeable);
 		result.addObject("requestURI", "sponsor/display.do");
 
 		return result;
