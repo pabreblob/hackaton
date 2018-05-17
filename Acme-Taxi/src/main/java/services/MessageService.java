@@ -100,6 +100,7 @@ public class MessageService {
 					break;
 				} else if ((taboow || a.getBlockedUsers().contains(sender)) && f.getName().equals("Spam box")) {
 					message.setFolder(f);
+					message.setChecked(true);
 					f.getMessages().add(this.messageRepository.save(message));
 					break;
 				}
@@ -169,6 +170,7 @@ public class MessageService {
 		} else {
 			final Folder trashf = this.folderService.findFolderByNameAndActor("Trash box");
 			Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(trashf));
+			message.setChecked(true);
 			folder.getMessages().remove(message);
 			message.setFolder(trashf);
 			trashf.getMessages().add(message);
