@@ -18,6 +18,7 @@ public class RequestService {
 
 	public Request create() {
 		final Request r = new Request();
+		r.setPassengersNumber(1);
 		return r;
 	}
 }
