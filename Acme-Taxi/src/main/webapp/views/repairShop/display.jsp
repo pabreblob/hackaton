@@ -48,7 +48,10 @@
 <p>
 	<spring:message code="repairShop.meanRating" />
 	:
-	<jstl:out value="${repairShop.meanRating}" />
+	<jstl:out value="${repairShop.meanRating}" /> 
+	<jstl:if test='${hasReviews}'>
+	<a href="review/list-repairShop.do?repairShopId=${repairShop.id}"><spring:message code="repairShop.viewReviews" /> </a>
+	</jstl:if>
 </p>
 <jstl:if test='${total!=0}'>
 <display:table class="displaytag" name="services" requestURI="${requestURI}" pagesize="5" id="row" sort="external" partialList="true"

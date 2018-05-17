@@ -35,7 +35,9 @@
 	</a>
 </jstl:if><p>
 <security:authorize access="isAuthenticated()">
+<jstl:if test='${reportable}'>
 <a href="report/actor/create.do?actorId=${mechanic.id}"> <spring:message code="mechanic.report" /></a>
+</jstl:if>
 </security:authorize>
 </p>
 <spring:message code="mechanic.dateFormat2" var="dateFormat2" />
@@ -66,6 +68,10 @@
 	:
 	<jstl:out value="${mechanic.email}" />
 </p>
+<jstl:if test="${requestURI == 'mechanic/mechanic/display.do'}">
+	<a href="mechanic/mechanic/edit.do"> <spring:message code="mechanic.edit" />
+	</a>
+</jstl:if>
 <jstl:if test='${total!=0}'>
 <display:table class="displaytag" name="repairShops" requestURI="${requestURI}" pagesize="5" id="row" sort="external" partialList="true"
 size="${total}">

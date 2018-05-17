@@ -100,7 +100,7 @@ public class ReservationService {
 		final Collection<Actor> recipients = new ArrayList<Actor>();
 		recipients.add(reservation.getService().getRepairShop().getMechanic());
 		mes.setRecipients(recipients);
-		this.messageService.broadcast(mes);
+		this.messageService.notify(reservation.getService().getRepairShop().getMechanic(), mes.getSubject(), mes.getBody());
 		return res;
 	}
 
@@ -153,7 +153,28 @@ public class ReservationService {
 	public void cancel(int reservationId){
 		Reservation reservation=this.findOne(reservationId);
 		Assert.isTrue(this.userService.findByPrincipal().getId()==reservation.getUser().getId());
+		final Message mes = this.messageService.create();
+		if(reservation.getService().getRepairShop().getMechanic().getNationality().equals("Spanish")){
+			mes.setSubject("Cancelación de reserva");
+		}else{
+			mes.setSubject("Reservation cancelation");
+		}
+		if(reservation.getService().getRepairShop().getMechanic().getNationality().equals("Spanish")){
+			mes.setBody("El servicio " + reservation.getService().getTitle()+" de la tienda de reparaciones "+reservation.getService().getRepairShop().getName()+"ha sido cancelado "+reservation.getUser().getUserAccount().getUsername());	
+		}else{
+			mes.setBody("The service " + reservation.getService()+" from the repair shop "+reservation.getService().getRepairShop().getName()+"has been cancelled by "+reservation.getUser().getUserAccount().getUsername());
+		}
+		
+		mes.setPriority(Priority.NEUTRAL);
+		List<Admin> admin=new ArrayList<Admin>(this.adminService.findAll());
+		mes.setSender(admin.get(0));
+		final Collection<Actor> recipients = new ArrayList<Actor>();
+		recipients.add(reservation.getService().getRepairShop().getMechanic());
+		mes.setRecipients(recipients);
+		this.messageService.notify(reservation.getService().getRepairShop().getMechanic(), mes.getSubject(), mes.getBody());
+		
 		reservation.setCancelled(true);
+		
 	}
 	public Integer countByService(int serviceId){
 		final domain.Service service=this.serviceService.findOne(serviceId);
