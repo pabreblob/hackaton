@@ -29,6 +29,6 @@ public interface DriverRepository extends JpaRepository<Driver, Integer> {
 	@Query("select d from Driver d join d.reviews r where r.id = ?1 ")
 	Driver findDriverByReviewId(int reviewId);
 
-	//	@Query("select count(r.driver) from Request r where r.user.userAccount.id = ?1 and r.driver != null")
-	//	Integer countDriversReviewable(int userAccountId);
+	@Query("select d from Driver d where d.car.id = ?1")
+	Driver findDriverByCarId(int carId);
 }

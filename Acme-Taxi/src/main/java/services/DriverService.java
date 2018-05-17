@@ -198,4 +198,9 @@ public class DriverService {
 		return this.findDriversReviewable().size();
 	}
 
+	Driver findDriverByCarId(final int carId) {
+		final Driver d = this.driverRepository.findDriverByCarId(carId);
+		Assert.notNull(d);
+		return d;
+	}
 }
