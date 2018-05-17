@@ -87,6 +87,8 @@ public class MessageService {
 		message.setChecked(true);
 		Message res;
 		res = this.messageRepository.save(message);
+		if (taboow)
+			sender.setSuspicious(true);
 		final Collection<Actor> recipients = message.getRecipients();
 		res.getFolder().getMessages().add(res);
 		message.setChecked(false);
