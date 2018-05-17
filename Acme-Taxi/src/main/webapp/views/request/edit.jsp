@@ -8,7 +8,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%> 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %> 
 
-<form:form action="request/user/save.do" modelAttribute="request">
+<form:form action="request/user/confirm.do" modelAttribute="request">
 	<spring:message code="request.giveInformation"/><br><br>
 	<form:label path="origin">
 		<spring:message code="request.origin" />: 
@@ -28,8 +28,8 @@
 	<form:label path="passengersNumber">
 		<spring:message code="request.passengerNumber" />: 
 	</form:label>	
-	<form:input type="number" path="passengersNumber" min="1"/>	
-	<form:errors path="destination" cssClass="error" />
+	<form:input type="number" min="1" path="passengersNumber"/>	
+	<form:errors path="passengersNumber" cssClass="error" />
 	<br>
 	<br>
 	<form:label path="moment">
