@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -84,6 +85,12 @@ public class RequestService {
 	}
 
 	public Collection<Request> findRequestByDriverToDo(final int driverId) {
-		return this.findRequestByDriverToDo(driverId);
+		return this.requestRepository.findRequestByDriverToDo(driverId);
+	}
+	public Collection<Request> getRequestByUser(final int userId, final Pageable pageable) {
+		return this.requestRepository.getRequestByUser(userId, pageable).getContent();
+	}
+	public Integer countRequestByUser(final int userId) {
+		return this.requestRepository.countRequestByUser(userId);
 	}
 }

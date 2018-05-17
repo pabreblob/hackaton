@@ -22,8 +22,5 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	Page<Request> getRequestByUser(int userId, Pageable pageable);
 	@Query("select count(r) from Request r where r.user.id = ?1")
 	Integer countRequestByUser(int userId);
-	@Query("select r from Request r where r.driver = null")
-	Page<Request> getRequestWithoutDriver(Pageable pageable);
-	@Query("select count(r) from Request r where r.driver = null")
-	Integer countRequestWithoutDriver();
+
 }
