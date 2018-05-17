@@ -35,7 +35,7 @@
 	<form:label path="moment">
 		<spring:message code="request.moment" />: 
 	</form:label>	
-	<spring:message code="request.momentPlaceholder" var="placeholderMoment"/>
+	<spring:message code="request.momentValid" var="placeholderMoment"/>
 	<form:input path="moment" placeholder="${placeholderMoment}"/>	
 	<form:errors path="moment" cssClass="error" />
 	<br>

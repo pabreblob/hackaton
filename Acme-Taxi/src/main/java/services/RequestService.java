@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.joda.time.LocalDate;
@@ -80,5 +81,9 @@ public class RequestService {
 			this.userService.findByPrincipal().setSuspicious(spamw);
 		final Request saved = this.requestRepository.save(r);
 		return saved;
+	}
+
+	public Collection<Request> findRequestByDriverToDo(final int driverId) {
+		return this.findRequestByDriverToDo(driverId);
 	}
 }
