@@ -51,7 +51,7 @@
     	<bean class="converters.ReportToStringConverter" />
     	<bean class="converters.StringToActorConverter" /> 
     	<bean class="converters.ActorToStringConverter" />
-		<bean class="converters.StringToCarConverterConverter" /> 
+		<bean class="converters.StringToCarConverter" /> 
     	<bean class="converters.CarToStringConverter" />
 	</util:list>
 	
