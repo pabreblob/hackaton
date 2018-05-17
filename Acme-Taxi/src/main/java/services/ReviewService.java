@@ -90,7 +90,7 @@ public class ReviewService {
 			if (spamw)
 				break;
 		}
-		review.setMarked(spamw);
+		res.setMarked(spamw);
 		if (spamw == true)
 			review.getCreator().setSuspicious(spamw);
 		return res;
@@ -100,7 +100,7 @@ public class ReviewService {
 		final User u = this.userService.findByPrincipal();
 		final RepairShop rs = this.repairShopService.findOne(repairShopId);
 		Assert.isTrue(review.getCreator().equals(u));
-		//		Assert.isTrue(this.repairShopService.findRepairShopsReviewable().contains(rs));
+		Assert.isTrue(!this.repairShopService.findRepairShopsReviewed().contains(rs));
 		final Review res = this.reviewRepository.save(review);
 		rs.getReviews().add(res);
 		rs.setMeanRating(ReviewService.calculoRating(rs.getReviews()));
@@ -113,7 +113,7 @@ public class ReviewService {
 			if (spamw)
 				break;
 		}
-		review.setMarked(spamw);
+		res.setMarked(spamw);
 		if (spamw == true)
 			review.getCreator().setSuspicious(spamw);
 		return res;
@@ -148,7 +148,7 @@ public class ReviewService {
 			if (spamw)
 				break;
 		}
-		review.setMarked(spamw);
+		res.setMarked(spamw);
 		if (spamw == true)
 			review.getCreator().setSuspicious(spamw);
 
@@ -158,13 +158,13 @@ public class ReviewService {
 	public void delete(final int reviewId) {
 		final Review r = this.findOne(reviewId);
 		Assert.notNull(r);
-		final User creator = this.userService.findByPrincipal();
-		Assert.isTrue(creator.equals(r.getCreator()));
 		//Buscar los drivers con esa review
 		//Si nadie la tiene buscar un repairshop con esa review
 		//Si nadie la tiene buscar un user con esa review
 		final Driver d = this.driverService.findDriverByReviewId(r.getId());
+
 		final RepairShop rs = this.repairShopService.findRepairShopByReview(r.getId());
+
 		if (d != null) {
 			d.getReviews().remove(r);
 			d.setMeanRating(ReviewService.calculoRating(d.getReviews()));
@@ -227,6 +227,15 @@ public class ReviewService {
 
 	public Integer countReviewsByRepairShopId(final int repairShopId) {
 		return this.reviewRepository.countReviewsByRepairShopId(repairShopId);
+	}
+
+	public Collection<Review> findReviewsMarked(final Pageable pageable) {
+		final Collection<Review> res = this.reviewRepository.findReviewsMarked(pageable).getContent();
+		Assert.notNull(res);
+		return res;
+	}
+	public Integer countReviewsMarked() {
+		return this.reviewRepository.countReviewsMarked();
 	}
 
 	private static double calculoRating(final Collection<Review> reviews) {

@@ -28,6 +28,14 @@
 	</display:column>
 	</jstl:if>
 	
+	<security:authorize access="hasRole('ADMIN')">
+	<display:column>
+		<a href="review/admin/delete.do?reviewId=${row.id}"> <spring:message
+				code="review.delete" />
+		</a>
+	</display:column>
+	</security:authorize>
+	
 	<spring:message code="review.moment" var="momentHeader" />
 	<spring:message code="review.dateFormat2" var="dateFormatHeader" />
 	<display:column title="${momentHeader}">
@@ -56,3 +64,9 @@
 	</jstl:if>
 	
 </display:table>
+
+<jstl:if test="${requestURI == 'review/user/list-created.do' }">
+		<a href="review/user/make.do"> <spring:message
+				code="review.review" />
+		</a>
+	</jstl:if>

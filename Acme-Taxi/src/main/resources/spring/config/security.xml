@@ -73,7 +73,7 @@
 		<security:intercept-url pattern="/reservation/mechanic/**" access="hasRole('MECHANIC')" />
 		<security:intercept-url pattern="/reservation/user/**" access="hasRole('USER')" />
 		
-		<security:intercept-url pattern="/review/mechanic/**" access="hasRole('DRIVER')" />
+		<security:intercept-url pattern="/review/admin/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/review/driver/**" access="hasRole('DRIVER')" />
 		<security:intercept-url pattern="/review/user/**" access="hasRole('USER')" />
 		<security:intercept-url pattern="/review/**" access="permitAll" />

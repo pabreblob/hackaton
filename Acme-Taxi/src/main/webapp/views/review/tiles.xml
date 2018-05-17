@@ -14,6 +14,11 @@
 		<put-attribute name="title" value="List reviews" />
 		<put-attribute name="body" value="/views/review/list.jsp" />
 	</definition> 
+	
+	<definition name="review/make" extends="master.page">	
+		<put-attribute name="title" value="Write a review" />
+		<put-attribute name="body" value="/views/review/make.jsp" />
+	</definition>
 
 	<definition name="review/edit" extends="master.page">
 		<put-attribute name="title" value="Edit review" />

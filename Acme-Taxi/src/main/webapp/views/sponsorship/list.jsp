@@ -21,7 +21,8 @@
 
 
 <display:table name="sponsorships" id="sponsorship"
-	requestURI="${requestURI}" pagesize="5" class="displaytag" sort="external" partialList="true" size="${total }">
+	requestURI="${requestURI}" pagesize="5" class="displaytag"
+	sort="external" partialList="true" size="${total }">
 
 	<security:authorize access="hasRole('SPONSOR')">
 
@@ -52,6 +53,12 @@
 					<spring:message code="sponsorship.accept" />
 				</a>
 			</jstl:if>
+
+		</display:column>
+		<display:column>
+			<a href="sponsorship/admin/delete.do?sponsorshipId=${sponsorship.id}">
+				<spring:message code="sponsorship.delete" />
+			</a>
 		</display:column>
 
 		<spring:message code="sponsorship.sponsor" var="sponsorHeader" />
@@ -84,23 +91,23 @@
 			<spring:message code="sponsorship.false" />
 		</jstl:if>
 	</display:column>
-	
+
 	<security:authorize access="hasRole('SPONSOR')">
-	<display:column>
-		<a
-			href="sponsorship/sponsor/display.do?sponsorshipId=${sponsorship.id}">
-			<spring:message code="sponsorship.display" />
-		</a>
-	</display:column>
+		<display:column>
+			<a
+				href="sponsorship/sponsor/display.do?sponsorshipId=${sponsorship.id}">
+				<spring:message code="sponsorship.display" />
+			</a>
+		</display:column>
 	</security:authorize>
-	
+
 	<security:authorize access="hasRole('ADMIN')">
-	<display:column>
-		<a
-			href="sponsorship/admin/display.do?sponsorshipId=${sponsorship.id}">
-			<spring:message code="sponsorship.display" />
-		</a>
-	</display:column>
+		<display:column>
+			<a
+				href="sponsorship/admin/display.do?sponsorshipId=${sponsorship.id}">
+				<spring:message code="sponsorship.display" />
+			</a>
+		</display:column>
 	</security:authorize>
 </display:table>
 

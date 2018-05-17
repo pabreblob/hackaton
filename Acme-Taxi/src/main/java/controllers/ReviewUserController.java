@@ -45,6 +45,15 @@ public class ReviewUserController extends AbstractController {
 	private RepairShopService	repairShopService;
 
 
+	@RequestMapping(value = "/make", method = RequestMethod.GET)
+	public ModelAndView make() {
+		ModelAndView res;
+		res = new ModelAndView("review/make");
+
+		return res;
+
+	}
+
 	@RequestMapping(value = "/list-created", method = RequestMethod.GET)
 	public ModelAndView listCreated(final HttpServletRequest request) {
 		ModelAndView res;
@@ -134,7 +143,7 @@ public class ReviewUserController extends AbstractController {
 		final User u = this.userService.findByPrincipal();
 		final RepairShop rs = this.repairShopService.findOne(repairShopId);
 		Assert.notNull(rs);
-		//Assert.isTrue(this.repairShopService.findRepairShopsReviewable().contains(rs));
+		Assert.isTrue(!this.repairShopService.findRepairShopsReviewed().contains(rs));
 		reviewForm.setRepairShop(rs);
 		reviewForm.setCreator(u);
 
@@ -194,6 +203,9 @@ public class ReviewUserController extends AbstractController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int reviewId) {
 		ModelAndView res;
+		final Review r = this.reviewService.findOne(reviewId);
+		final User creator = this.userService.findByPrincipal();
+		Assert.isTrue(creator.equals(r.getCreator()));
 		this.reviewService.delete(reviewId);
 		res = new ModelAndView("redirect:list-created.do");
 		return res;
