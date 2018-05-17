@@ -12,12 +12,12 @@
 <div style="margin-left: auto; margin-right: auto; position: center; display: block; width:50%; border: black solid 1px;">
 	<h2 style="text-align: center"><spring:message code="report.report"/></h2>
 	<p style="margin-left:2%;"><b><spring:message code="report.reporting"/></b><jstl:out value="${report.reported.name}"/> <jstl:out value="${report.reported.surname}"/> (<a href="actor/display.do?actorId=${report.reported.id}"><jstl:out value="${report.reported.userAccount.username}"/></a>)</p>
-	<p style="margin-left:2%;"><b><spring:message code="report.writtenBy"/></b><jstl:out value="${report.creator.name}"/> <jstl:out value="${report.creator.surname}"/> (<a href="actor/display.do?actorId=${report.creator.id}"><jstl:out value="${report.reported.userAccount.username}"/></a>)</p>
+	<p style="margin-left:2%;"><b><spring:message code="report.writtenBy"/></b><jstl:out value="${report.creator.name}"/> <jstl:out value="${report.creator.surname}"/> (<a href="actor/display.do?actorId=${report.creator.id}"><jstl:out value="${report.creator.userAccount.username}"/></a>)</p>
 	<p style="margin-left:2%;"><b><spring:message code="report.reason"/></b></p>
 	<p style="margin-left:2%; margin-right:2%;"><jstl:out value="${report.reason}"/></p>
 	<spring:message code="report.format" var="dateFormat"/>
 	<p style="margin-left:2%;"><b><spring:message code="report.moment"/>: </b><fmt:formatDate value="${report.moment}" pattern="${dateFormat}" /></p>
-	<jstl:if test="${report.imageUrl != ''}">
+	<jstl:if test="${report.imageUrl != '' or report.imageUrl == null}">
 		<img id="myImg" src="<jstl:out value="${report.imageUrl}"/>" width="60%" style="margin-bottom: 2%; margin-left: auto; margin-right: auto; display:block; position:center;"/>
 		<p style="text-align: center;"><spring:message code="report.clickOnImage"/></p>
 	</jstl:if>
