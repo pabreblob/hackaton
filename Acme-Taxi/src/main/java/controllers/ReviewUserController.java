@@ -273,6 +273,13 @@ public class ReviewUserController extends AbstractController {
 		result = new ModelAndView("review/display");
 		final Review review = this.reviewService.findOne(reviewId);
 		Assert.isTrue(review.getCreator().equals(this.userService.findByPrincipal()));
+		final Driver d = this.driverService.findDriverByReviewId(reviewId);
+		final RepairShop rs = this.repairShopService.findRepairShopByReview(reviewId);
+		if (d != null)
+			result.addObject("driver", d);
+		if (rs != null)
+			result.addObject("repairShop", rs);
+
 		result.addObject("review", review);
 		result.addObject("requestURI", "review/user/display.do");
 

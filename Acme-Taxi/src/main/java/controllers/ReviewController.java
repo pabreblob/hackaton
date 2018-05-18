@@ -22,6 +22,8 @@ import services.DriverService;
 import services.RepairShopService;
 import services.ReviewService;
 import services.UserService;
+import domain.Driver;
+import domain.RepairShop;
 import domain.Review;
 
 @Controller
@@ -139,6 +141,13 @@ public class ReviewController extends AbstractController {
 		final ModelAndView result;
 		result = new ModelAndView("review/display");
 		final Review review = this.reviewService.findOne(reviewId);
+		final Driver d = this.driverService.findDriverByReviewId(reviewId);
+		final RepairShop rs = this.repairShopService.findRepairShopByReview(reviewId);
+		if (d != null)
+			result.addObject("driver", d);
+		if (rs != null)
+			result.addObject("repairShop", rs);
+		result.addObject("creator", review.getCreator());
 		result.addObject("review", review);
 		result.addObject("requestURI", "review/display.do");
 

@@ -15,6 +15,37 @@
 	<spring:message code="review.title" />:
 	<jstl:out value="${review.title}" />
 </p>
+<jstl:if test="${driver != null }">
+<p><spring:message code="review.reviewed" />:
+<a href = "driver/display.do?driverId=${driver.id }">
+	<jstl:out value="${driver.name}" />
+</a>
+</p>
+</jstl:if>
+
+<jstl:if test="${repairShop != null }">
+<p><spring:message code="review.reviewed" />:
+<a href = "repairShop/display.do?repairShopId=${repairShop.id }">
+	<jstl:out value="${repairShop.name}" />
+</a>
+</p>
+</jstl:if>
+
+<jstl:if test="${user != null }">
+<p><spring:message code="review.reviewed" />:
+<a href = "user/display.do?userId=${user.id }">
+	<jstl:out value="${user.name}" />
+</a>
+</p>
+</jstl:if>
+
+<jstl:if test="${creator != null }">
+<p><spring:message code="review.creator" />:
+<a href = "user/display.do?userId=${creator.id }">
+	<jstl:out value="${creator.name}" />
+</a>
+</p>
+</jstl:if>
 <p>
 	<spring:message code="review.body" />:
 	<jstl:out value="${review.body}" />

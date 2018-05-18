@@ -36,10 +36,10 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
 	@Query("select count(r) from Review r where r.id in (select rev.id from RepairShop rs join rs.reviews rev where rs.id=?1)")
 	Integer countReviewsByRepairShopId(int repairShopId);
 
-	@Query("select r from Review r where r.id in (select rev.id from RepairShop rs join rs.reviews rev where rs.id=?1)")
+	@Query("select r from Review r where r.id in (select rev.id from RepairShop rs join rs.reviews rev where rs.mechanic.id=?1)")
 	Page<Review> findReviewsByMechanicId(int mechanicId, Pageable pageable);
 
-	@Query("select count(r) from Review r where r.id in (select rev.id from RepairShop rs join rs.reviews rev where rs.id=?1)")
+	@Query("select count(r) from Review r where r.id in (select rev.id from RepairShop rs join rs.reviews rev where rs.mechanic.id=?1)")
 	Integer countReviewsByMechanicId(int mechanicId);
 
 	@Query("select r from Review r where r.marked = true")

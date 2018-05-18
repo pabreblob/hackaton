@@ -57,9 +57,9 @@
 <a href="actor/actor/unblock.do?actorId=${sponsor.id}"> <spring:message code="sponsor.unblock" />
 	</a>
 </jstl:if><p>
-<security:authorize access="isAuthenticated()">
+<jstl:if test='${me == false}'>
 <a href="report/actor/create.do?actorId=${sponsor.id}"> <spring:message code="sponsor.report" /></a>
-</security:authorize>
+</jstl:if>
 </p>
 
 <jstl:if test="${requestURI == 'sponsor/sponsor/display.do'}">

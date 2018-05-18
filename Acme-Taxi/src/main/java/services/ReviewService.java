@@ -238,6 +238,16 @@ public class ReviewService {
 		return this.reviewRepository.countReviewsMarked();
 	}
 
+	public Collection<Review> findReviewsByMechanicId(final int mechanicId, final Pageable pageable) {
+		final Collection<Review> res = this.reviewRepository.findReviewsByMechanicId(mechanicId, pageable).getContent();
+		Assert.notNull(res);
+		return res;
+	}
+
+	public Integer countReviewsByMechanicId(final int mechanicId) {
+		return this.reviewRepository.countReviewsByMechanicId(mechanicId);
+	}
+
 	private static double calculoRating(final Collection<Review> reviews) {
 		final int total = reviews.size();
 		double rating = 0.0;
