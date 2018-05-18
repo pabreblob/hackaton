@@ -2571,7 +2571,7 @@
 	</bean>
 	<bean id="Request3" class="domain.Request">
 		<property name="user" ><ref bean="User1"></ref></property>
-		<property name="driver" ><null/></property>
+		<property name="driver" ><ref bean="Driver1"></ref></property>
 		<property name="origin" value="street4"/>
 		<property name="destination" value="street5"/>
 		<property name="distance" value="3.72"/>

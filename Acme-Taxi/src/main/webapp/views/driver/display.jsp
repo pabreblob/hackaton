@@ -89,12 +89,12 @@
 
 <jstl:if test="${requestURI == 'driver/driver/display.do'}">
 <jstl:if test="${driver.car != null}"> 
-<a href="car/display.do">
+<a href="car/driver/display.do">
 	<spring:message code="driver.displaycar" />
 </a>
 </jstl:if>
 <jstl:if test="${driver.car == null}"> 
-<a href="car/create.do">
+<a href="car/driver/create.do">
 	<spring:message code="driver.createcar"/>
 </a>
 </jstl:if>  

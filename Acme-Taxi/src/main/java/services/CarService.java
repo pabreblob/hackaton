@@ -21,6 +21,7 @@ import repositories.CarRepository;
 import domain.Car;
 import domain.Driver;
 import domain.RepairShop;
+import domain.Request;
 
 import domain.SpamWord;
 
@@ -40,6 +41,8 @@ public class CarService {
 	@Autowired
 	private DriverService	driverService;
 	@Autowired
+	private RequestService	requestService;
+	@Autowired
 	private Validator	validator;
 
 
@@ -57,7 +60,8 @@ public class CarService {
 			Driver driver=this.driverService.findDriverByCarId(car.getId());
 			Assert.isTrue(this.driverService.findByPrincipal().getId()==driver.getId());
 		}
-		
+		Collection<Request> pendingRequests=this.requestService.findRequestByDriverToDo(this.driverService.findByPrincipal().getId());
+		Assert.isTrue(pendingRequests.isEmpty());
 		final Collection<SpamWord> sw = this.spamWordService.findAll();
 		boolean spamw = false;
 		for (final SpamWord word : sw) {
@@ -107,8 +111,8 @@ public class CarService {
 		RepairShop repairShop=this.repairShopService.findOne(repairShopId);
 		car.setRepairShop(repairShop);
 	}
-	public void RemoveRepairShop(final int carId) {
-		Car car=this.findOne(carId);
+	public void RemoveRepairShop() {
+		Car car=this.driverService.findByPrincipal().getCar();
 		Assert.isTrue(this.driverService.findByPrincipal().getId()==this.driverService.findDriverByCarId(car.getId()).getId());
 		car.setRepairShop(null);
 	}
