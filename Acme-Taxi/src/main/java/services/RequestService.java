@@ -120,4 +120,16 @@ public class RequestService {
 	public Integer countFinishedRequest() {
 		return this.requestRepository.countFinishedRequest(this.driverService.findByPrincipal().getId());
 	}
+	public Collection<Request> getMarked(final Pageable pageable) {
+		return this.requestRepository.getMarked(pageable).getContent();
+	}
+	public Integer countMarked() {
+		return this.requestRepository.countMarked();
+	}
+	public Collection<Request> getAll(final Pageable pageable) {
+		return this.requestRepository.getAll(pageable).getContent();
+	}
+	public Integer countAll() {
+		return this.requestRepository.countAll();
+	}
 }

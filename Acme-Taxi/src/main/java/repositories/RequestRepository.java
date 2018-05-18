@@ -38,4 +38,13 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	@Query("select count(r) from Request r where r.driver.id = ?1 and (r.cancelled = true or r.moment <= CURRENT_TIMESTAMP)")
 	Integer countFinishedRequest(int driverId);
 
+	@Query("select r from Request r where r.marked = true")
+	Page<Request> getMarked(Pageable pageable);
+	@Query("select count(r) from Request r where r.marked = true")
+	Integer countMarked();
+
+	@Query("select r from Request r")
+	Page<Request> getAll(Pageable pageable);
+	@Query("select count(r) from Request r")
+	Integer countAll();
 }
