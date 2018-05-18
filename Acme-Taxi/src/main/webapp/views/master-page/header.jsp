@@ -112,6 +112,7 @@
 			<li><a class="fNiv"><spring:message code="master.page.driver"/></a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="review/driver/list.do"><spring:message code="master.page.driver.review.list"/></a></li>
 					<li><a href="request/driver/listToAccept.do"><spring:message code="master.page.driver.request.listAccept"/></a></li>
 					<li><a href="request/driver/listToDo.do"><spring:message code="master.page.driver.request.listDo"/></a></li>
 					<li><a href="request/driver/oldList.do"><spring:message code="master.page.driver.request.listOld"/></a></li>
