@@ -132,4 +132,16 @@ public class RequestService {
 	public Integer countAll() {
 		return this.requestRepository.countAll();
 	}
+	public Request findOne(final int requestId) {
+		final Request res = this.requestRepository.findOne(requestId);
+		Assert.notNull(res);
+		return res;
+	}
+	public void adminDelete(final int requestId) {
+		final Request r = this.findOne(requestId);
+		Assert.notNull(r);
+		Assert.isNull(r.getDriver());
+		this.requestRepository.delete(requestId);
+
+	}
 }

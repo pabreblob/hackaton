@@ -88,7 +88,7 @@ public class RequestAdminController extends AbstractController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(final Integer requestId) {
 		try {
-			//this.requestService.delete(requestId);
+			this.requestService.adminDelete(requestId);
 			return new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			return new ModelAndView("redirect:list.do");
