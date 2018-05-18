@@ -99,8 +99,16 @@
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<jstl:if test="${row.driver eq null and not row.cancelled and row.moment > now}">
-				<a href="request/user/delete.do?requestId=${row.id}"><spring:message code="request.delete"/></a>
+				<a href="request/admin/delete.do?requestId=${row.id}"><spring:message code="request.delete"/></a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
+	<security:authorize access="hasRole('DRIVER')">
+		<display:column>
+			<jstl:if test="${row.driver eq null and row.moment > now}">
+				<a href="request/driver/accept.do?requestId=${row.id}"><spring:message code="request.accept"/></a>
+			</jstl:if>
+		</display:column>
+	</security:authorize>
+	
 </display:table>
