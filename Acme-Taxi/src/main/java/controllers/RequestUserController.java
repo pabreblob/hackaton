@@ -151,5 +151,14 @@ public class RequestUserController extends AbstractController {
 			return new ModelAndView("redirect:list.do");
 		}
 	}
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(final int requestId) {
+		try {
+			this.requestService.delete(requestId);
+			return new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			return new ModelAndView("redirect:list.do");
+		}
+	}
 
 }

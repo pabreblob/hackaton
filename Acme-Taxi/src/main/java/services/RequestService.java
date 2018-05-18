@@ -145,7 +145,7 @@ public class RequestService {
 		Assert.notNull(res);
 		return res;
 	}
-	public void adminDelete(final int requestId) {
+	public void delete(final int requestId) {
 		final Request r = this.findOne(requestId);
 		Assert.notNull(r);
 		Assert.isNull(r.getDriver());

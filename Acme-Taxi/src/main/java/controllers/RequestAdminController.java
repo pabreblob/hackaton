@@ -88,7 +88,7 @@ public class RequestAdminController extends AbstractController {
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(final Integer requestId, final String requestUri) {
 		try {
-			this.requestService.adminDelete(requestId);
+			this.requestService.delete(requestId);
 			if (requestUri == null || requestUri.equals("request/admin/list.do"))
 				return new ModelAndView("redirect:list.do");
 			else
