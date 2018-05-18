@@ -108,4 +108,28 @@ public class RequestService {
 		else
 			return this.requestRepository.countRequestToAccept(this.driverService.findByPrincipal().getCar().getMaxPassengers());
 	}
+	public Collection<Request> getRequestToDo(final Pageable pageable) {
+		return this.requestRepository.getRequestToDo(this.driverService.findByPrincipal().getId(), pageable).getContent();
+	}
+	public Integer countRequestToDo() {
+		return this.requestRepository.countRequestToDo(this.driverService.findByPrincipal().getId());
+	}
+	public Collection<Request> getFinishedRequest(final Pageable pageable) {
+		return this.requestRepository.getFinishedRequest(this.driverService.findByPrincipal().getId(), pageable).getContent();
+	}
+	public Integer countFinishedRequest() {
+		return this.requestRepository.countFinishedRequest(this.driverService.findByPrincipal().getId());
+	}
+	public Collection<Request> getMarked(final Pageable pageable) {
+		return this.requestRepository.getMarked(pageable).getContent();
+	}
+	public Integer countMarked() {
+		return this.requestRepository.countMarked();
+	}
+	public Collection<Request> getAll(final Pageable pageable) {
+		return this.requestRepository.getAll(pageable).getContent();
+	}
+	public Integer countAll() {
+		return this.requestRepository.countAll();
+	}
 }
