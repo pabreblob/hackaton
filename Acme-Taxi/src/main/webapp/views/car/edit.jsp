@@ -19,20 +19,25 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="service/mechanic/edit.do" modelAttribute="service">
+<form:form action="car/driver/edit.do" modelAttribute="car">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<form:hidden path="suspended" />
-	<form:hidden path="repairShop" />
-	<acme:textbox code="service.title" path="title" /><br />
-	<acme:textbox code="service.price" path="price" /><br />
-	<acme:submit name="save" code="service.save"  />
-	<jstl:if test="${repairShop.id != 0}">
+	<acme:textbox code="car.carModel" path="carModel" /><br />
+	<acme:textbox code="car.numberPlate" path="numberPlate" /><br />
+	<acme:textbox code="car.maxPassengers" path="maxPassengers" /><br />
+
+	<acme:submit name="save" code="car.save"  />
+	<jstl:if test="${car.id != 0}">
 	<input type="submit" name="delete"
-				value="<spring:message code="service.delete" />"
-				onclick="return confirm('<spring:message code="service.confirm.delete" />')" />
+				value="<spring:message code="car.delete" />"
+				onclick="return confirm('<spring:message code="car.confirm.delete" />')" />
 	</jstl:if>
-	<acme:cancel code="service.cancel" url="/repairShop/mechanic/display.do?repairShopId=${service.repairShop.id}" /><br />	
+	<jstl:if test="${car.id == 0}">
+	<acme:cancel code="car.cancel" url="/driver/driver/display.do?driverId=${driver.id}" /><br />
+	</jstl:if>
+	<jstl:if test="${car.id != 0}">
+	<acme:cancel code="car.cancel" url="/car/driver/display.do" /><br />
+	</jstl:if>	
 </form:form>
 
 

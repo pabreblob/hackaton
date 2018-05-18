@@ -37,6 +37,14 @@
 
 		</display:column>
 </jstl:if>
+<jstl:if test="${requestURI == 'repairShop/driver/select.do' }">
+<display:column>
+			<a href="car/driver/select-shop.do?repairShopId=${row.id}"> <spring:message
+					code="repairShop.select" />
+			</a>
+
+		</display:column>
+</jstl:if>
 <jstl:if test="${requestURI == 'repairShop/user/list-reviewable.do' }">
 <display:column>
 			<a href="review/user/create-repairShop.do?repairShopId=${row.id}"> <spring:message

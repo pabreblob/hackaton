@@ -96,11 +96,29 @@
 	
 </p>
 </security:authorize>
+<p>
 <jstl:if test="${requestURI == 'car/driver/display.do'}">
-<jstl:if test="${owner}">
+<jstl:if test='${pendingRequests==0}'>
 <a href="car/driver/edit.do?carId=${car.id}"> <spring:message code="car.edit" />
 	</a>
 </jstl:if>
+
+
 </jstl:if>
+</p>
+<jstl:if test="${requestURI == 'car/driver/display.do'}">
+<p>
+<a href="repairShop/driver/select.do"> <spring:message code="car.selectRepair" />
+	</a>
+	</p>
+<jstl:if test="${repairShop!=null}">
+<p>
+<a href="car/driver/remove-shop.do"> <spring:message code="car.removeRepair" /></a>
+</p>
+	</jstl:if>
+	
+</jstl:if>
+
+
 
 

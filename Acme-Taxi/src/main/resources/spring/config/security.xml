@@ -68,7 +68,8 @@
 		<security:intercept-url pattern="/repairShop/list-search.do" access="permitAll" />
 		<security:intercept-url pattern="/repairShop/mechanic/**" access="hasRole('MECHANIC')" />
 		<security:intercept-url pattern="/repairShop/admin/**" access="hasRole('ADMIN')" />
-		<security:intercept-url pattern="/repairShop/user/**" access="hasRole('USER')" />		
+		<security:intercept-url pattern="/repairShop/user/**" access="hasRole('USER')" />
+		<security:intercept-url pattern="/repairShop/driver/**" access="hasRole('DRIVER')" />		
 		<security:intercept-url pattern="/service/mechanic/**" access="hasRole('MECHANIC')" />
 		<security:intercept-url pattern="/reservation/mechanic/**" access="hasRole('MECHANIC')" />
 		<security:intercept-url pattern="/reservation/user/**" access="hasRole('USER')" />
