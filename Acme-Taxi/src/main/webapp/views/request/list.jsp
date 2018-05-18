@@ -41,25 +41,7 @@
 		<jstl:if test="${row.cancelled}">
 			<spring:message code="request.cancelled"/>
 		</jstl:if>
-		<jstl:if test="${row.driver != null}">
-			<spring:message code="request.accepted"/>
-		</jstl:if>
-		<jstl:if test="${row.moment > now and row.cancelled eq false and row.driver eq null}">
-			<spring:message code="request.waiting"/>
-		</jstl:if>
-		<jstl:if test="${row.moment <= now and row.cancelled eq false and row.driver eq null}">
-			<spring:message code="request.noDriver"/>
-		</jstl:if>
-	</display:column>
-	</security:authorize>
-	
-	<security:authorize access="hasRole('ADMIN')">
-	<spring:message code="request.status" var="statusHeader"/>
-	<display:column title="${statusHeader}">
-		<jstl:if test="${row.cancelled}">
-			<spring:message code="request.cancelled"/>
-		</jstl:if>
-		<jstl:if test="${row.driver != null}">
+		<jstl:if test="${row.driver != null and row.moment > now and row.cancelled eq false}">
 			<spring:message code="request.accepted"/>
 		</jstl:if>
 		<jstl:if test="${row.moment > now and row.cancelled eq false and row.driver eq null}">
@@ -74,6 +56,37 @@
 	</display:column>
 	</security:authorize>
 	
+	<security:authorize access="hasRole('ADMIN')">
+	<spring:message code="request.status" var="statusHeader"/>
+	<display:column title="${statusHeader}">
+		<jstl:if test="${row.cancelled}">
+			<spring:message code="request.cancelled"/>
+		</jstl:if>
+		<jstl:if test="${row.driver != null and row.moment > now and row.cancelled eq false}">
+			<spring:message code="request.accepted"/>
+		</jstl:if>
+		<jstl:if test="${row.moment > now and row.cancelled eq false and row.driver eq null}">
+			<spring:message code="request.waiting"/>
+		</jstl:if>
+		<jstl:if test="${row.moment <= now and row.cancelled eq false and row.driver eq null}">
+			<spring:message code="request.noDriver"/>
+		</jstl:if>
+		<jstl:if test="${row.moment <= now and row.cancelled eq false and row.driver != null}">
+			<spring:message code="request.finished"/>
+		</jstl:if>
+	</display:column>
+	</security:authorize>
+	<jstl:if test="${requestURI == 'request/driver/oldList.do'}">
+		<spring:message code="request.status" var="statusHeader"/>
+		<display:column title="${statusHeader}">
+		<jstl:if test="${row.cancelled}">
+			<spring:message code="request.cancelled"/>
+		</jstl:if>
+		<jstl:if test="${row.driver != null}">
+			<spring:message code="request.accepted"/>
+		</jstl:if>
+	</display:column>
+	</jstl:if>
 	<display:column>
 		<a href="request/user/display.do?requestId=${row.id}"><spring:message code="request.display"/></a>
 	</display:column>

@@ -51,7 +51,7 @@ public class RequestDriverController extends AbstractController {
 			pageable = new PageRequest(pageNum, 5, dir, sortAtt);
 		else
 			pageable = new PageRequest(pageNum, 5);
-		final ModelAndView res = new ModelAndView("request/list");
+		final ModelAndView res = new ModelAndView("request/listToAccept");
 		res.addObject("requests", this.requestService.getRequestToAccept(pageable));
 		res.addObject("total", this.requestService.countRequestToAccept());
 		res.addObject("now", new Date());
@@ -59,6 +59,62 @@ public class RequestDriverController extends AbstractController {
 		res.addObject("requestURI", "request/driver/listToAccept.do");
 		if (this.driverService.findByPrincipal().getCar() == null)
 			res.addObject("message", "request.noCar");
+		return res;
+	}
+
+	@RequestMapping(value = "/listToDo", method = RequestMethod.GET)
+	public ModelAndView listToDo(final HttpServletRequest request) {
+		Pageable pageable;
+		Direction dir = null;
+		Integer pageNum = 0;
+		final String pageNumStr = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_PAGE));
+		final String sortAtt = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_SORT));
+		final String sortOrder = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_ORDER));
+		if (sortOrder != null)
+			if (sortOrder.equals("1"))
+				dir = Direction.ASC;
+			else
+				dir = Direction.DESC;
+		if (pageNumStr != null)
+			pageNum = Integer.parseInt(pageNumStr) - 1;
+		if (sortAtt != null && dir != null)
+			pageable = new PageRequest(pageNum, 5, dir, sortAtt);
+		else
+			pageable = new PageRequest(pageNum, 5);
+		final ModelAndView res = new ModelAndView("request/listToDo");
+		res.addObject("requests", this.requestService.getRequestToDo(pageable));
+		res.addObject("total", this.requestService.countRequestToDo());
+		res.addObject("now", new Date());
+		res.addObject("currency", this.configurationService.find().getCurrency());
+		res.addObject("requestURI", "request/driver/listToDo.do");
+		return res;
+	}
+
+	@RequestMapping(value = "/oldList", method = RequestMethod.GET)
+	public ModelAndView listOld(final HttpServletRequest request) {
+		Pageable pageable;
+		Direction dir = null;
+		Integer pageNum = 0;
+		final String pageNumStr = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_PAGE));
+		final String sortAtt = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_SORT));
+		final String sortOrder = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_ORDER));
+		if (sortOrder != null)
+			if (sortOrder.equals("1"))
+				dir = Direction.ASC;
+			else
+				dir = Direction.DESC;
+		if (pageNumStr != null)
+			pageNum = Integer.parseInt(pageNumStr) - 1;
+		if (sortAtt != null && dir != null)
+			pageable = new PageRequest(pageNum, 5, dir, sortAtt);
+		else
+			pageable = new PageRequest(pageNum, 5);
+		final ModelAndView res = new ModelAndView("request/oldList");
+		res.addObject("requests", this.requestService.getFinishedRequest(pageable));
+		res.addObject("total", this.requestService.countFinishedRequest());
+		res.addObject("now", new Date());
+		res.addObject("currency", this.configurationService.find().getCurrency());
+		res.addObject("requestURI", "request/driver/oldList.do");
 		return res;
 	}
 }
