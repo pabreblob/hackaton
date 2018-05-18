@@ -119,17 +119,39 @@ public class ReviewService {
 		return res;
 	}
 
+	public Review saveUser(final Review review, final int userId) {
+		final User creator = this.userService.findByPrincipal();
+		final User user = this.userService.findOne(userId);
+		Assert.isTrue(review.getCreator().equals(creator));
+		Assert.isTrue(!this.userService.findUsersReviewable().contains(user));
+		final Review res = this.reviewRepository.save(review);
+		user.getReviews().add(res);
+		user.setMeanRating(ReviewService.calculoRating(user.getReviews()));
+
+		final Collection<SpamWord> sw = this.spamWordService.findAll();
+		boolean spamw = false;
+		for (final SpamWord word : sw) {
+			spamw = review.getTitle().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
+			spamw |= review.getBody().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
+			if (spamw)
+				break;
+		}
+		res.setMarked(spamw);
+		if (spamw == true)
+			review.getCreator().setSuspicious(spamw);
+		return res;
+	}
+
 	public Review update(final Review review) {
 		final User u = this.userService.findByPrincipal();
 		Assert.isTrue(review.getCreator().equals(u));
-
 		final Review res = this.reviewRepository.save(review);
-
 		//Buscar los drivers con esa review
 		//Si nadie la tiene buscar un repairshop con esa review
 		//Si nadie la tiene buscar un user con esa review
 		final Driver d = this.driverService.findDriverByReviewId(review.getId());
 		final RepairShop rs = this.repairShopService.findRepairShopByReview(review.getId());
+		final User user = this.userService.findUserByReviewId(review.getId());
 		if (d != null) {
 			d.getReviews().remove(review);
 			d.getReviews().add(res);
@@ -138,8 +160,11 @@ public class ReviewService {
 			rs.getReviews().remove(review);
 			rs.getReviews().add(res);
 			rs.setMeanRating(ReviewService.calculoRating(rs.getReviews()));
+		} else if (user != null) {
+			user.getReviews().remove(review);
+			user.getReviews().add(res);
+			user.setMeanRating(ReviewService.calculoRating(user.getReviews()));
 		}
-
 		final Collection<SpamWord> sw = this.spamWordService.findAll();
 		boolean spamw = false;
 		for (final SpamWord word : sw) {
@@ -162,8 +187,8 @@ public class ReviewService {
 		//Si nadie la tiene buscar un repairshop con esa review
 		//Si nadie la tiene buscar un user con esa review
 		final Driver d = this.driverService.findDriverByReviewId(r.getId());
-
 		final RepairShop rs = this.repairShopService.findRepairShopByReview(r.getId());
+		final User user = this.userService.findUserByReviewId(r.getId());
 
 		if (d != null) {
 			d.getReviews().remove(r);
@@ -171,6 +196,10 @@ public class ReviewService {
 		} else if (rs != null) {
 			rs.getReviews().remove(r);
 			rs.setMeanRating(ReviewService.calculoRating(rs.getReviews()));
+		} else if (user != null) {
+			user.getReviews().remove(r);
+
+			user.setMeanRating(ReviewService.calculoRating(user.getReviews()));
 		}
 
 		this.reviewRepository.delete(r.getId());
