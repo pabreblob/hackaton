@@ -17,11 +17,17 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("select u from User u where u.userAccount.id = ?1")
 	User findUserByUserAccountId(int UserAccountId);
 
-	@Query("select distinct a.attendants from User u join u.announcements a where u.id = ?1")
+	@Query("select distinct a.attendants, a.creator from User u join u.announcements a where u.id = ?1 and a.cancelled = false and a.moment > CURRENT_TIMESTAMP")
 	Page<User> findUsersReviewable(int userId, Pageable pageable);
 
-	@Query("select distinct a.attendants from User u join u.announcements a where u.id = ?1")
+	@Query("select distinct a.attendants, a.creator from User u join u.announcements a where u.id = ?1 and a.cancelled = false and a.moment > CURRENT_TIMESTAMP")
 	Collection<User> findUsersReviewable(int userId);
+
+	@Query("select distinct a.attendants from Announcement a where a.creator.id = ?1 and a.cancelled = false and a.moment > CURRENT_TIMESTAMP")
+	Page<User> findUsersReviewableByCreator(int userId, Pageable pageable);
+
+	@Query("select distinct a.attendants from Announcement a where a.creator.id = ?1 and a.cancelled = false and a.moment > CURRENT_TIMESTAMP")
+	Collection<User> findUsersReviewableByCreator(int userId);
 
 	@Query("select u from User u join u.reviews r where r.creator.id = ?1")
 	Collection<User> findUserWithReviewByUserId(int userId);

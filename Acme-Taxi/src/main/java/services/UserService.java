@@ -167,18 +167,22 @@ public class UserService {
 
 	public Collection<User> findUsersReviewable(final Pageable pageable) {
 		final Collection<User> res = this.userRepository.findUsersReviewable(this.findByPrincipal().getId(), pageable).getContent();
+		res.addAll(this.userRepository.findUsersReviewableByCreator(this.findByPrincipal().getId()));
 		final Collection<User> revisados = this.findUsersWithReviewByPrincipal();
 		final Collection<User> result = new ArrayList<>(res);
 		result.removeAll(revisados);
+		result.remove(this.findByPrincipal());
 
 		return result;
 	}
 
 	public Collection<User> findUsersReviewable() {
 		final Collection<User> res = this.userRepository.findUsersReviewable(this.findByPrincipal().getId());
+		res.addAll(this.userRepository.findUsersReviewableByCreator(this.findByPrincipal().getId()));
 		final Collection<User> revisados = this.findUsersWithReviewByPrincipal();
 		final Collection<User> result = new ArrayList<>(res);
 		result.removeAll(revisados);
+		result.remove(this.findByPrincipal());
 
 		return result;
 	}

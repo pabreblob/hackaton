@@ -45,14 +45,16 @@
 					<li><a href="sponsorship/admin/list.do"><spring:message code="master.page.admin.sponsorship.list" /></a></li>
 					<li><a href="report/admin/list.do"><spring:message code="master.page.admin.report.list" /></a></li>
 					<li><a href="report/admin/listUnread.do"><spring:message code="master.page.admin.report.unread" /></a></li>
-								
+					<li><a href="request/admin/list.do"><spring:message code="master.page.admin.request.list"/></a></li>	
 				</ul>
 			</li>
 			
 			<li><a class="fNiv"><spring:message code="master.page.admin.marked"/></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="repairShop/admin/list-marked.do"><spring:message code="master.page.admin.repairshop.marked" /></a></li>		
+					<li><a href="repairShop/admin/list-marked.do"><spring:message code="master.page.admin.repairshop.marked" /></a></li>
+					<li><a href="review/admin/list.do"><spring:message code="master.page.admin.review.marked"/></a></li>
+					<li><a href="request/admin/markedList.do"><spring:message code="master.page.admin.request.marked"/></a></li>			
 				</ul>
 			</li>
 			
@@ -98,8 +100,21 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="reservation/user/list.do"><spring:message code="master.page.user.reservation.list"/></a></li>
+					<li><a href="request/user/create.do"><spring:message code="master.page.user.request.create"/></a></li>
+					<li><a href="request/user/list.do"><spring:message code="master.page.user.request.list"/></a></li>
 					<li><a href="review/user/list.do"><spring:message code="master.page.user.review.list"/></a></li>
 					<li><a href="review/user/list-created.do"><spring:message code="master.page.user.review.created"/></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('DRIVER')">
+			<li><a class="fNiv"><spring:message code="master.page.driver"/></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="request/driver/listToAccept.do"><spring:message code="master.page.driver.request.listAccept"/></a></li>
+					<li><a href="request/driver/listToDo.do"><spring:message code="master.page.driver.request.listDo"/></a></li>
+					<li><a href="request/driver/oldList.do"><spring:message code="master.page.driver.request.listOld"/></a></li>
 				</ul>
 			</li>
 		</security:authorize>
