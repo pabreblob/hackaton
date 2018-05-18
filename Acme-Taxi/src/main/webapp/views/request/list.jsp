@@ -111,7 +111,7 @@
 	</security:authorize>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
-			<jstl:if test="${row.driver eq null and not row.cancelled and row.moment > now}">
+			<jstl:if test="${row.driver eq null}">
 				<a href="request/admin/delete.do?requestId=${row.id}"><spring:message code="request.delete"/></a>
 			</jstl:if>
 		</display:column>

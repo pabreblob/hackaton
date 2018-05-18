@@ -84,4 +84,14 @@ public class RequestAdminController extends AbstractController {
 		res.addObject("requestURI", "request/admin/list.do");
 		return res;
 	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(final Integer requestId) {
+		try {
+			//this.requestService.delete(requestId);
+			return new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			return new ModelAndView("redirect:list.do");
+		}
+	}
 }
