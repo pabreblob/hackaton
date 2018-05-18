@@ -149,6 +149,9 @@ public class RequestService {
 		final Request r = this.findOne(requestId);
 		Assert.notNull(r);
 		Assert.isNull(r.getDriver());
+		final LocalDate now = new LocalDate();
+		final LocalDate moment = new LocalDate(r.getMoment());
+		Assert.isTrue(moment.isAfter(now));
 		this.requestRepository.delete(requestId);
 	}
 	@SuppressWarnings("deprecation")
@@ -157,6 +160,9 @@ public class RequestService {
 		Assert.notNull(r);
 		Assert.notNull(r.getDriver());
 		Assert.isTrue(!r.isCancelled());
+		final LocalDate now = new LocalDate();
+		final LocalDate moment = new LocalDate(r.getMoment());
+		Assert.isTrue(moment.isAfter(now));
 		r.setCancelled(true);
 		this.requestRepository.save(r);
 
@@ -173,12 +179,45 @@ public class RequestService {
 			mes.setBody("The user " + r.getUser().getName() + " " + r.getUser().getSurname() + " cancelled the request from " + r.getOrigin() + " to " + r.getDestination() + "on " + (r.getMoment().getYear() + 1900) + "/" + (r.getMoment().getMonth() + 1)
 				+ "/" + r.getMoment().getDate());
 
-		mes.setPriority(Priority.NEUTRAL);
+		mes.setPriority(Priority.HIGH);
+		final List<Admin> admin = new ArrayList<Admin>(this.adminService.findAll());
+		mes.setSender(admin.get(0));
+		final Collection<Actor> recipients = new ArrayList<Actor>();
+		recipients.add(r.getDriver());
+		mes.setRecipients(recipients);
+		this.messageService.notify(r.getDriver(), mes.getSubject(), mes.getBody());
+	}
+
+	public void accept(final int requestId) {
+		final Request r = this.requestRepository.findOne(requestId);
+		Assert.notNull(r);
+		Assert.isNull(r.getDriver());
+		Assert.isTrue(!r.isCancelled());
+		final LocalDate now = new LocalDate();
+		final LocalDate moment = new LocalDate(r.getMoment());
+		Assert.isTrue(moment.isAfter(now));
+		r.setDriver(this.driverService.findByPrincipal());
+		this.requestRepository.save(r);
+
+		//=====================================================================
+		final Message mes = this.messageService.create();
+		if (r.getDriver().getNationality().equals("Spanish"))
+			mes.setSubject("Solicitud aceptada");
+		else
+			mes.setSubject("Request accepted");
+		if (r.getDriver().getNationality().equals("Spanish"))
+			mes.setBody("Le comunicamos que el conductor " + r.getDriver().getName() + " " + r.getDriver().getSurname() + " ha aceptado la solicitud del " + r.getMoment().getDate() + "/" + (r.getMoment().getMonth() + 1) + "/"
+				+ (r.getMoment().getYear() + 1900) + " para ir de " + r.getOrigin() + " a " + r.getDestination());
+		else
+			mes.setBody("The driver " + r.getDriver().getName() + " " + r.getDriver().getSurname() + " accepted the request from " + r.getOrigin() + " to " + r.getDestination() + "on " + (r.getMoment().getYear() + 1900) + "/"
+				+ (r.getMoment().getMonth() + 1) + "/" + r.getMoment().getDate());
+
+		mes.setPriority(Priority.HIGH);
 		final List<Admin> admin = new ArrayList<Admin>(this.adminService.findAll());
 		mes.setSender(admin.get(0));
 		final Collection<Actor> recipients = new ArrayList<Actor>();
 		recipients.add(r.getUser());
 		mes.setRecipients(recipients);
-		this.messageService.notify(r.getDriver(), mes.getSubject(), mes.getBody());
+		this.messageService.notify(r.getUser(), mes.getSubject(), mes.getBody());
 	}
 }

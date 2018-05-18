@@ -117,4 +117,14 @@ public class RequestDriverController extends AbstractController {
 		res.addObject("requestURI", "request/driver/oldList.do");
 		return res;
 	}
+
+	@RequestMapping(value = "/accept", method = RequestMethod.GET)
+	public ModelAndView accept(final int requestId) {
+		try {
+			this.requestService.accept(requestId);
+			return new ModelAndView("redirect:listToDo.do");
+		} catch (final Throwable oops) {
+			return new ModelAndView("redirect:listToAccept.do");
+		}
+	}
 }
