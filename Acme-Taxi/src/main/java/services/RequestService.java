@@ -16,7 +16,11 @@ import org.springframework.validation.Validator;
 
 import repositories.RequestRepository;
 import utilities.GoogleMaps;
+import domain.Actor;
+import domain.Admin;
 import domain.Configuration;
+import domain.Message;
+import domain.Message.Priority;
 import domain.Request;
 import domain.SpamWord;
 
@@ -36,6 +40,10 @@ public class RequestService {
 	private SpamWordService			spamWordService;
 	@Autowired
 	private DriverService			driverService;
+	@Autowired
+	private MessageService			messageService;
+	@Autowired
+	private AdminService			adminService;
 
 
 	public Request create() {
@@ -142,6 +150,35 @@ public class RequestService {
 		Assert.notNull(r);
 		Assert.isNull(r.getDriver());
 		this.requestRepository.delete(requestId);
+	}
+	@SuppressWarnings("deprecation")
+	public void cancel(final int requestId) {
+		final Request r = this.findOne(requestId);
+		Assert.notNull(r);
+		Assert.notNull(r.getDriver());
+		Assert.isTrue(!r.isCancelled());
+		r.setCancelled(true);
+		this.requestRepository.save(r);
 
+		//===================================
+		final Message mes = this.messageService.create();
+		if (r.getDriver().getNationality().equals("Spanish"))
+			mes.setSubject("Solicitud cancelada");
+		else
+			mes.setSubject("Request cancelled");
+		if (r.getDriver().getNationality().equals("Spanish"))
+			mes.setBody("Sentimos comunicarle que el usuario " + r.getUser().getName() + " " + r.getUser().getSurname() + " ha cancelado la solicitud del " + r.getMoment().getDate() + "/" + (r.getMoment().getMonth() + 1) + "/"
+				+ (r.getMoment().getYear() + 1900) + " para ir de " + r.getOrigin() + " a " + r.getDestination());
+		else
+			mes.setBody("The user " + r.getUser().getName() + " " + r.getUser().getSurname() + " cancelled the request from " + r.getOrigin() + " to " + r.getDestination() + "on " + (r.getMoment().getYear() + 1900) + "/" + (r.getMoment().getMonth() + 1)
+				+ "/" + r.getMoment().getDate());
+
+		mes.setPriority(Priority.NEUTRAL);
+		final List<Admin> admin = new ArrayList<Admin>(this.adminService.findAll());
+		mes.setSender(admin.get(0));
+		final Collection<Actor> recipients = new ArrayList<Actor>();
+		recipients.add(r.getUser());
+		mes.setRecipients(recipients);
+		this.messageService.notify(r.getDriver(), mes.getSubject(), mes.getBody());
 	}
 }

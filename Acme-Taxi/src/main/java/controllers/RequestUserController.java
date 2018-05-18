@@ -142,4 +142,14 @@ public class RequestUserController extends AbstractController {
 		return res;
 	}
 
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(final int requestId) {
+		try {
+			this.requestService.cancel(requestId);
+			return new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			return new ModelAndView("redirect:list.do");
+		}
+	}
+
 }
