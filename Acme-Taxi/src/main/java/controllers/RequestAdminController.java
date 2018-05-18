@@ -86,12 +86,21 @@ public class RequestAdminController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(final Integer requestId) {
+	public ModelAndView delete(final Integer requestId, final String requestUri) {
 		try {
 			this.requestService.adminDelete(requestId);
-			return new ModelAndView("redirect:list.do");
+			if (requestUri == null || requestUri.equals("request/admin/list.do"))
+				return new ModelAndView("redirect:list.do");
+			else
+				return new ModelAndView("redirect:markedList.do");
 		} catch (final Throwable oops) {
-			return new ModelAndView("redirect:list.do");
+			if (requestUri == null)
+				return new ModelAndView("redirect:list.do");
+			if (requestUri.equals("request/admin/list.do"))
+				return new ModelAndView("redirect:list.do");
+			else
+				return new ModelAndView("redirect:markedList.do");
 		}
 	}
+
 }

@@ -112,7 +112,7 @@
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<jstl:if test="${row.driver eq null}">
-				<a href="request/admin/delete.do?requestId=${row.id}"><spring:message code="request.delete"/></a>
+				<a href="request/admin/delete.do?requestId=${row.id}&requestUri=${requestURI}"><spring:message code="request.delete"/></a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
