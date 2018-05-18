@@ -1,11 +1,13 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -32,6 +34,8 @@ public class RequestService {
 	private ConfigurationService	configurationService;
 	@Autowired
 	private SpamWordService			spamWordService;
+	@Autowired
+	private DriverService			driverService;
 
 
 	public Request create() {
@@ -85,5 +89,23 @@ public class RequestService {
 
 	public Collection<Request> findRequestByDriverToDo(final int driverId) {
 		return this.requestRepository.findRequestByDriverToDo(driverId);
+	}
+	public Collection<Request> getRequestByUser(final int userId, final Pageable pageable) {
+		return this.requestRepository.getRequestByUser(userId, pageable).getContent();
+	}
+	public Integer countRequestByUser(final int userId) {
+		return this.requestRepository.countRequestByUser(userId);
+	}
+	public Collection<Request> getRequestToAccept(final Pageable pageable) {
+		if (this.driverService.findByPrincipal().getCar() == null)
+			return new ArrayList<>();
+		else
+			return this.requestRepository.getRequestToAccept(this.driverService.findByPrincipal().getCar().getMaxPassengers(), pageable).getContent();
+	}
+	public Integer countRequestToAccept() {
+		if (this.driverService.findByPrincipal().getCar() == null)
+			return 0;
+		else
+			return this.requestRepository.countRequestToAccept(this.driverService.findByPrincipal().getCar().getMaxPassengers());
 	}
 }

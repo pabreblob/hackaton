@@ -1,10 +1,18 @@
 
 package controllers;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.displaytag.tags.TableTagParameters;
+import org.displaytag.util.ParamEncoder;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -14,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ConfigurationService;
 import services.RequestService;
+import services.UserService;
 import utilities.GoogleMaps;
 import domain.Configuration;
 import domain.Request;
@@ -26,6 +35,8 @@ public class RequestUserController extends AbstractController {
 	private RequestService			requestService;
 	@Autowired
 	private ConfigurationService	configurationService;
+	@Autowired
+	private UserService				userService;
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -100,6 +111,35 @@ public class RequestUserController extends AbstractController {
 			res.addObject("message", "request.cannotCommit");
 			return res;
 		}
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list(final HttpServletRequest request) {
+		Pageable pageable;
+		Direction dir = null;
+		Integer pageNum = 0;
+		final String pageNumStr = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_PAGE));
+		final String sortAtt = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_SORT));
+		final String sortOrder = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_ORDER));
+		if (sortOrder != null)
+			if (sortOrder.equals("1"))
+				dir = Direction.ASC;
+			else
+				dir = Direction.DESC;
+		if (pageNumStr != null)
+			pageNum = Integer.parseInt(pageNumStr) - 1;
+		if (sortAtt != null && dir != null)
+			pageable = new PageRequest(pageNum, 5, dir, sortAtt);
+		else
+			pageable = new PageRequest(pageNum, 5);
+
+		final ModelAndView res = new ModelAndView("request/list");
+		res.addObject("requests", this.requestService.getRequestByUser(this.userService.findByPrincipal().getId(), pageable));
+		res.addObject("total", this.requestService.countRequestByUser(this.userService.findByPrincipal().getId()));
+		res.addObject("now", new Date());
+		res.addObject("currency", this.configurationService.find().getCurrency());
+		res.addObject("requestURI", "request/user/list.do");
+		return res;
 	}
 
 }

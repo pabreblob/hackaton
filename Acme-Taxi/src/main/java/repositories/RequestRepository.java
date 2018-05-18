@@ -14,7 +14,7 @@ import domain.Request;
 @Repository
 public interface RequestRepository extends JpaRepository<Request, Integer> {
 
-	@Query("select r from Request r where r.driver.id = ?1 and r.cancelled = false and r.moment < CURRENT_TIMESTAMP")
+	@Query("select r from Request r where r.driver.id = ?1 and r.cancelled = false and r.moment > CURRENT_TIMESTAMP")
 	Collection<Request> findRequestByDriverToDo(int driverId);
 
 	//Listas
@@ -22,8 +22,10 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 	Page<Request> getRequestByUser(int userId, Pageable pageable);
 	@Query("select count(r) from Request r where r.user.id = ?1")
 	Integer countRequestByUser(int userId);
-	@Query("select r from Request r where r.driver = null")
-	Page<Request> getRequestWithoutDriver(Pageable pageable);
-	@Query("select count(r) from Request r where r.driver = null")
-	Integer countRequestWithoutDriver();
+
+	@Query("select r from Request r where r.passengersNumber < ?1 and r.driver = null and r.moment > CURRENT_TIMESTAMP")
+	Page<Request> getRequestToAccept(int numberInCar, Pageable pageable);
+	@Query("select count(r) from Request r where r.passengersNumber < ?1 and r.driver = null and r.moment > CURRENT_TIMESTAMP")
+	Integer countRequestToAccept(int numberInCar);
+
 }
