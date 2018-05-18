@@ -91,7 +91,7 @@
 </p>
 <security:authorize access="hasRole('ADMIN')">
 <p>
-	<a href="car/admin/delete.do?carId=${car.id}"> <spring:message code="car.delete" />
+	<a href="car/admin/delete.do?carId=${car.id}" onclick="return confirm('<spring:message code="carconfirm.delete" />')"> <spring:message code="car.delete" />
 	</a>
 	
 </p>

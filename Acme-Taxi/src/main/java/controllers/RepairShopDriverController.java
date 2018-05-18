@@ -18,13 +18,13 @@ import org.springframework.util.Assert;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ConfigurationService;
+
 import services.DriverService;
 import services.RepairShopService;
-import services.ServiceService;
+
 
 import domain.Driver;
 import domain.RepairShop;
@@ -37,10 +37,7 @@ public class RepairShopDriverController extends AbstractController {
 
 	@Autowired
 	private RepairShopService		repairShopService;
-	@Autowired
-	private ServiceService		serviceService;
-	@Autowired
-	private ConfigurationService		configurationsService;
+
 	@Autowired
 	private DriverService		driverService;
 

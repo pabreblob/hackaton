@@ -54,14 +54,15 @@
 		</display:column>
 		</jstl:if>
 <security:authorize access="hasRole('ADMIN')">
+
 <display:column>
-			<a href="repairShop/admin/delete.do?repairShopId=${row.id}&requestURI=${requestURI}"> <spring:message
+			<a href="repairShop/admin/delete.do?repairShopId=${row.id}&requestURI=${requestURI}" onclick="return confirm('<spring:message code="repairShop.confirm.delete" />')"> <spring:message
 					code="repairShop.delete" />
 			</a>
 </display:column>
 </security:authorize>
-<spring:message code="repairShop.name" var="nameHeader" />
-<display:column property="name" title="${nameHeader}" />
+<spring:message code="repairShop.name" var="nameHeader"  />
+<display:column property="name" title="${nameHeader}" sortable="true" sortName="name"  />
 <spring:message code="repairShop.location" var="locationHeader" />
 <display:column property="location" title="${locationHeader}" sortable="true" sortName="location" />
 <spring:message code="repairShop.meanRating" var="meanRatingHeader" />
@@ -108,4 +109,9 @@
 
 
 
-
+<script type="text/javascript">
+	function confirm_click(){
+			return confirm("<spring:message code='repairShop.confirm.delete'/>");
+		
+	}
+</script>
