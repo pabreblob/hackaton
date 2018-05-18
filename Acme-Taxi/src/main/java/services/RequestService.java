@@ -16,7 +16,11 @@ import org.springframework.validation.Validator;
 
 import repositories.RequestRepository;
 import utilities.GoogleMaps;
+import domain.Actor;
+import domain.Admin;
 import domain.Configuration;
+import domain.Message;
+import domain.Message.Priority;
 import domain.Request;
 import domain.SpamWord;
 
@@ -36,6 +40,10 @@ public class RequestService {
 	private SpamWordService			spamWordService;
 	@Autowired
 	private DriverService			driverService;
+	@Autowired
+	private MessageService			messageService;
+	@Autowired
+	private AdminService			adminService;
 
 
 	public Request create() {
@@ -131,5 +139,87 @@ public class RequestService {
 	}
 	public Integer countAll() {
 		return this.requestRepository.countAll();
+	}
+	public Request findOne(final int requestId) {
+		final Request res = this.requestRepository.findOne(requestId);
+		Assert.notNull(res);
+		return res;
+	}
+	public void delete(final int requestId) {
+		final Request r = this.findOne(requestId);
+		Assert.notNull(r);
+		Assert.isNull(r.getDriver());
+		final LocalDate now = new LocalDate();
+		final LocalDate moment = new LocalDate(r.getMoment());
+		Assert.isTrue(moment.isAfter(now));
+		this.requestRepository.delete(requestId);
+	}
+	@SuppressWarnings("deprecation")
+	public void cancel(final int requestId) {
+		final Request r = this.findOne(requestId);
+		Assert.notNull(r);
+		Assert.notNull(r.getDriver());
+		Assert.isTrue(!r.isCancelled());
+		final LocalDate now = new LocalDate();
+		final LocalDate moment = new LocalDate(r.getMoment());
+		Assert.isTrue(moment.isAfter(now));
+		r.setCancelled(true);
+		this.requestRepository.save(r);
+
+		//===================================
+		final Message mes = this.messageService.create();
+		if (r.getDriver().getNationality().equals("Spanish"))
+			mes.setSubject("Solicitud cancelada");
+		else
+			mes.setSubject("Request cancelled");
+		if (r.getDriver().getNationality().equals("Spanish"))
+			mes.setBody("Sentimos comunicarle que el usuario " + r.getUser().getName() + " " + r.getUser().getSurname() + " ha cancelado la solicitud del " + r.getMoment().getDate() + "/" + (r.getMoment().getMonth() + 1) + "/"
+				+ (r.getMoment().getYear() + 1900) + " para ir de " + r.getOrigin() + " a " + r.getDestination());
+		else
+			mes.setBody("The user " + r.getUser().getName() + " " + r.getUser().getSurname() + " cancelled the request from " + r.getOrigin() + " to " + r.getDestination() + "on " + (r.getMoment().getYear() + 1900) + "/" + (r.getMoment().getMonth() + 1)
+				+ "/" + r.getMoment().getDate());
+
+		mes.setPriority(Priority.HIGH);
+		final List<Admin> admin = new ArrayList<Admin>(this.adminService.findAll());
+		mes.setSender(admin.get(0));
+		final Collection<Actor> recipients = new ArrayList<Actor>();
+		recipients.add(r.getDriver());
+		mes.setRecipients(recipients);
+		this.messageService.notify(r.getDriver(), mes.getSubject(), mes.getBody());
+	}
+
+	@SuppressWarnings("deprecation")
+	public void accept(final int requestId) {
+		final Request r = this.requestRepository.findOne(requestId);
+		Assert.notNull(r);
+		Assert.isNull(r.getDriver());
+		Assert.isTrue(!r.isCancelled());
+		Assert.isTrue(this.driverService.findByPrincipal().getCar().getMaxPassengers() > r.getPassengersNumber());
+		final LocalDate now = new LocalDate();
+		final LocalDate moment = new LocalDate(r.getMoment());
+		Assert.isTrue(moment.isAfter(now));
+		r.setDriver(this.driverService.findByPrincipal());
+		this.requestRepository.save(r);
+
+		//=====================================================================
+		final Message mes = this.messageService.create();
+		if (r.getDriver().getNationality().equals("Spanish"))
+			mes.setSubject("Solicitud aceptada");
+		else
+			mes.setSubject("Request accepted");
+		if (r.getDriver().getNationality().equals("Spanish"))
+			mes.setBody("Le comunicamos que el conductor " + r.getDriver().getName() + " " + r.getDriver().getSurname() + " ha aceptado la solicitud del " + r.getMoment().getDate() + "/" + (r.getMoment().getMonth() + 1) + "/"
+				+ (r.getMoment().getYear() + 1900) + " para ir de " + r.getOrigin() + " a " + r.getDestination());
+		else
+			mes.setBody("The driver " + r.getDriver().getName() + " " + r.getDriver().getSurname() + " accepted the request from " + r.getOrigin() + " to " + r.getDestination() + "on " + (r.getMoment().getYear() + 1900) + "/"
+				+ (r.getMoment().getMonth() + 1) + "/" + r.getMoment().getDate());
+
+		mes.setPriority(Priority.HIGH);
+		final List<Admin> admin = new ArrayList<Admin>(this.adminService.findAll());
+		mes.setSender(admin.get(0));
+		final Collection<Actor> recipients = new ArrayList<Actor>();
+		recipients.add(r.getUser());
+		mes.setRecipients(recipients);
+		this.messageService.notify(r.getUser(), mes.getSubject(), mes.getBody());
 	}
 }

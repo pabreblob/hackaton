@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,6 +21,8 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ConfigurationService;
 import services.DriverService;
 import services.RequestService;
+import domain.Configuration;
+import domain.Request;
 
 @Controller
 @RequestMapping("/request/driver")
@@ -116,5 +120,42 @@ public class RequestDriverController extends AbstractController {
 		res.addObject("currency", this.configurationService.find().getCurrency());
 		res.addObject("requestURI", "request/driver/oldList.do");
 		return res;
+	}
+
+	@RequestMapping(value = "/accept", method = RequestMethod.GET)
+	public ModelAndView accept(final int requestId) {
+		try {
+			this.requestService.accept(requestId);
+			return new ModelAndView("redirect:listToDo.do");
+		} catch (final Throwable oops) {
+			return new ModelAndView("redirect:listToAccept.do");
+		}
+	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(final int requestId) {
+		try {
+			final Request r = this.requestService.findOne(requestId);
+			Assert.notNull(r);
+			if (!r.getDriver().equals(null)) {
+				final LocalDate moment = new LocalDate(r.getMoment());
+				final LocalDate now = new LocalDate();
+				Assert.isTrue(moment.isAfter(now));
+			}
+			final ModelAndView res = new ModelAndView("request/display");
+			final Configuration conf = this.configurationService.find();
+			res.addObject("currency", conf.getCurrency());
+			res.addObject("request", r);
+			String estimated = "";
+			final int hours = (int) (r.getEstimatedTime() / 3600);
+			final int minutes = (int) ((r.getEstimatedTime() - hours * 3600) / 60);
+			estimated = hours + "h " + minutes + "min";
+			res.addObject("estimated", estimated);
+			res.addObject("maxPass", this.driverService.findByPrincipal().getCar().getMaxPassengers());
+			res.addObject("now", new Date());
+			return res;
+		} catch (final Throwable oops) {
+			return new ModelAndView("redirect:/welcome/index.do");
+		}
 	}
 }

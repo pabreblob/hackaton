@@ -79,17 +79,31 @@
 	<jstl:if test="${requestURI == 'request/driver/oldList.do'}">
 		<spring:message code="request.status" var="statusHeader"/>
 		<display:column title="${statusHeader}">
-		<jstl:if test="${row.cancelled}">
+		<jstl:if test="${row.cancelled and row.driver != null}">
 			<spring:message code="request.cancelled"/>
 		</jstl:if>
-		<jstl:if test="${row.driver != null}">
+		<jstl:if test="${row.driver != null and row.cancelled eq false}">
 			<spring:message code="request.accepted"/>
 		</jstl:if>
 	</display:column>
 	</jstl:if>
-	<display:column>
-		<a href="request/user/display.do?requestId=${row.id}"><spring:message code="request.display"/></a>
-	</display:column>
+	<security:authorize access="hasRole('USER')">
+		<display:column>
+			<a href="request/user/display.do?requestId=${row.id}"><spring:message code="request.display"/></a>
+		</display:column>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column>
+			<a href="request/admin/display.do?requestId=${row.id}"><spring:message code="request.display"/></a>
+		</display:column>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('DRIVER')">
+		<display:column>
+			<a href="request/driver/display.do?requestId=${row.id}"><spring:message code="request.display"/></a>
+		</display:column>
+	</security:authorize>
 	
 	<security:authorize access="hasRole('USER')">
 	<display:column>
@@ -112,7 +126,7 @@
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<jstl:if test="${row.driver eq null}">
-				<a href="request/admin/delete.do?requestId=${row.id}"><spring:message code="request.delete"/></a>
+				<a href="request/admin/delete.do?requestId=${row.id}&requestUri=${requestURI}"><spring:message code="request.delete"/></a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>

@@ -12,12 +12,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ConfigurationService;
 import services.RequestService;
+import domain.Configuration;
+import domain.Request;
 
 @Controller
 @RequestMapping("/request/admin")
@@ -86,12 +89,42 @@ public class RequestAdminController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(final Integer requestId) {
+	public ModelAndView delete(final Integer requestId, final String requestUri) {
 		try {
-			//this.requestService.delete(requestId);
-			return new ModelAndView("redirect:list.do");
+			this.requestService.delete(requestId);
+			if (requestUri == null || requestUri.equals("request/admin/list.do"))
+				return new ModelAndView("redirect:list.do");
+			else
+				return new ModelAndView("redirect:markedList.do");
 		} catch (final Throwable oops) {
-			return new ModelAndView("redirect:list.do");
+			if (requestUri == null)
+				return new ModelAndView("redirect:list.do");
+			if (requestUri.equals("request/admin/list.do"))
+				return new ModelAndView("redirect:list.do");
+			else
+				return new ModelAndView("redirect:markedList.do");
 		}
 	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(final int requestId) {
+		try {
+			final Request r = this.requestService.findOne(requestId);
+			Assert.notNull(r);
+			final ModelAndView res = new ModelAndView("request/display");
+			final Configuration conf = this.configurationService.find();
+			res.addObject("currency", conf.getCurrency());
+			res.addObject("request", r);
+			String estimated = "";
+			final int hours = (int) (r.getEstimatedTime() / 3600);
+			final int minutes = (int) ((r.getEstimatedTime() - hours * 3600) / 60);
+			estimated = hours + "h " + minutes + "min";
+			res.addObject("estimated", estimated);
+			res.addObject("now", new Date());
+			return res;
+		} catch (final Throwable oops) {
+			return new ModelAndView("redirect:/welcome/index.do");
+		}
+	}
+
 }
