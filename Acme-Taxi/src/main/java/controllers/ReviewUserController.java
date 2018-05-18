@@ -156,6 +156,26 @@ public class ReviewUserController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/create-user", method = RequestMethod.GET)
+	public ModelAndView createUser(@RequestParam final int userId) {
+		final ModelAndView result;
+		final ReviewForm reviewForm = new ReviewForm();
+		final User creator = this.userService.findByPrincipal();
+		final User user = this.userService.findOne(userId);
+		Assert.notNull(user);
+		Assert.isTrue(!this.userService.findUsersReviewable().contains(user));
+		reviewForm.setUser(user);
+		reviewForm.setCreator(creator);
+
+		result = new ModelAndView("review/edit");
+		result.addObject("reviewForm", reviewForm);
+		result.addObject("form", "true");
+		result.addObject("action", "review/user/save-user.do");
+		result.addObject("cancel", "driver/user/list.do");
+
+		return result;
+	}
+
 	@RequestMapping(value = "/save-driver", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveDriver(final ReviewForm reviewForm, final BindingResult binding) {
 		ModelAndView result;
@@ -192,6 +212,27 @@ public class ReviewUserController extends AbstractController {
 		else
 			try {
 				this.reviewService.saveRepairShop(r, reviewForm.getRepairShop().getId());
+				result = new ModelAndView("redirect:list-created.do");
+			} catch (final Throwable oops) {
+				result = this.createEditModelAndViewForm(reviewForm, "review.commit.error");
+			}
+		return result;
+
+	}
+
+	@RequestMapping(value = "/save-user", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveUser(final ReviewForm reviewForm, final BindingResult binding) {
+		ModelAndView result;
+		reviewForm.setMoment(new Date(System.currentTimeMillis() - 1000));
+		Assert.isNull(reviewForm.getDriver());
+		Assert.isNull(reviewForm.getRepairShop());
+		Assert.notNull(reviewForm.getUser());
+		final Review r = this.reviewService.reconstruct(reviewForm, binding);
+		if (binding.hasErrors())
+			result = this.createEditModelAndViewForm(reviewForm);
+		else
+			try {
+				this.reviewService.saveUser(r, reviewForm.getUser().getId());
 				result = new ModelAndView("redirect:list-created.do");
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndViewForm(reviewForm, "review.commit.error");
@@ -273,6 +314,15 @@ public class ReviewUserController extends AbstractController {
 		result = new ModelAndView("review/display");
 		final Review review = this.reviewService.findOne(reviewId);
 		Assert.isTrue(review.getCreator().equals(this.userService.findByPrincipal()));
+		final Driver d = this.driverService.findDriverByReviewId(reviewId);
+		final RepairShop rs = this.repairShopService.findRepairShopByReview(reviewId);
+		final User u = this.userService.findUserByReviewId(reviewId);
+		if (d != null)
+			result.addObject("driver", d);
+		if (rs != null)
+			result.addObject("repairShop", rs);
+		if (u != null)
+			result.addObject("user", u);
 		result.addObject("review", review);
 		result.addObject("requestURI", "review/user/display.do");
 

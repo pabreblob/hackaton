@@ -27,7 +27,6 @@ import domain.Car;
 import domain.Driver;
 import domain.RepairShop;
 import domain.Request;
-import domain.Service;
 
 
 
@@ -117,19 +116,17 @@ public class CarDriverController extends AbstractController {
 			return res;
 		}
 		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-		public ModelAndView delete(final Car c, final BindingResult binding) {
+		public ModelAndView delete() {
 			ModelAndView result;
-			final Car car = this.carService.reconstruct(c, binding);
-			if (binding.hasErrors())
-				result= this.createEditModelAndView(car);
-			else
+			Car car=this.driverService.findByPrincipal().getCar();
 			try {
+				Assert.isTrue(car!=null);
 				Collection<Request> pendingRequests=this.requestService.findRequestByDriverToDo(this.driverService.findByPrincipal().getId());
 				Assert.isTrue(pendingRequests.isEmpty());
 				this.carService.delete(car);
 				result = new ModelAndView("redirect:/driver/driver/display.do");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(c, "car.delete.error");
+				result = this.createEditModelAndView(car, "car.delete.error");
 			}
 
 			return result;

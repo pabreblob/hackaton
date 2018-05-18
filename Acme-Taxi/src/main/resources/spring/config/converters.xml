@@ -55,6 +55,10 @@
     	<bean class="converters.CarToStringConverter" />
     	<bean class="converters.StringToRequestConverter" /> 
     	<bean class="converters.RequestToStringConverter" />
+		<bean class="converters.StringToReviewConverter" /> 
+    	<bean class="converters.ReviewToStringConverter" />
+    	<bean class="converters.StringToCreditCardConverter" /> 
+    	<bean class="converters.CreditCardToStringConverter" />
 	</util:list>
 	
 </beans>

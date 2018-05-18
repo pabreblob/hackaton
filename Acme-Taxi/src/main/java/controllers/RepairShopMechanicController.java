@@ -162,11 +162,9 @@ public class RepairShopMechanicController extends AbstractController {
 		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 		public ModelAndView delete(final RepairShop r, final BindingResult binding) {
 			ModelAndView result;
-			final RepairShop repairShop = this.repairShopService.reconstruct(r, binding);
-			if (binding.hasErrors())
-				result= this.createEditModelAndView(repairShop);
-			else
+			final RepairShop repairShop = this.repairShopService.findOne(r.getId());
 			try {
+				Assert.isTrue(repairShop.getMechanic().getId()==this.mechanicService.findByPrincipal().getId());
 				final Collection<Service> services=this.serviceService.findAllByRepairShop(repairShop.getId());
 				Assert.isTrue(services.isEmpty());
 				this.repairShopService.delete(repairShop);

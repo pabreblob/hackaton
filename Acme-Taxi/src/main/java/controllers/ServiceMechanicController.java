@@ -123,11 +123,8 @@ public class ServiceMechanicController extends AbstractController {
 			return result;
 		}
 		@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-		public ModelAndView delete(final @Valid Service service, final BindingResult binding) {
+		public ModelAndView delete(final Service service) {
 			ModelAndView result;
-			if (binding.hasErrors())
-				result= this.createEditModelAndView(service);
-			else
 			try {
 				int pendingReservations=this.reservationService.countByService(service.getId());
 				Assert.isTrue(pendingReservations==0);

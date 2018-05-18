@@ -22,7 +22,10 @@ import services.DriverService;
 import services.RepairShopService;
 import services.ReviewService;
 import services.UserService;
+import domain.Driver;
+import domain.RepairShop;
 import domain.Review;
+import domain.User;
 
 @Controller
 @RequestMapping("/review")
@@ -139,6 +142,16 @@ public class ReviewController extends AbstractController {
 		final ModelAndView result;
 		result = new ModelAndView("review/display");
 		final Review review = this.reviewService.findOne(reviewId);
+		final Driver d = this.driverService.findDriverByReviewId(reviewId);
+		final RepairShop rs = this.repairShopService.findRepairShopByReview(reviewId);
+		final User u = this.userService.findUserByReviewId(reviewId);
+		if (d != null)
+			result.addObject("driver", d);
+		if (rs != null)
+			result.addObject("repairShop", rs);
+		if (u != null)
+			result.addObject("user", u);
+		result.addObject("creator", review.getCreator());
 		result.addObject("review", review);
 		result.addObject("requestURI", "review/display.do");
 

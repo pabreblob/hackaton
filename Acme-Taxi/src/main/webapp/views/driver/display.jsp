@@ -75,9 +75,9 @@
 <a href="actor/actor/unblock.do?actorId=${driver.id}"> <spring:message code="driver.unblock" />
 	</a>
 </jstl:if><p>
-<security:authorize access="isAuthenticated()">
+<jstl:if test='${me == false}'>
 <a href="report/actor/create.do?actorId=${driver.id}"> <spring:message code="driver.report" /></a>
-</security:authorize>
+</jstl:if>
 </p>
 
 <jstl:if test="${!empty driver.reviews}"> 
