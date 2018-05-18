@@ -188,11 +188,13 @@ public class RequestService {
 		this.messageService.notify(r.getDriver(), mes.getSubject(), mes.getBody());
 	}
 
+	@SuppressWarnings("deprecation")
 	public void accept(final int requestId) {
 		final Request r = this.requestRepository.findOne(requestId);
 		Assert.notNull(r);
 		Assert.isNull(r.getDriver());
 		Assert.isTrue(!r.isCancelled());
+		Assert.isTrue(this.driverService.findByPrincipal().getCar().getMaxPassengers() > r.getPassengersNumber());
 		final LocalDate now = new LocalDate();
 		final LocalDate moment = new LocalDate(r.getMoment());
 		Assert.isTrue(moment.isAfter(now));

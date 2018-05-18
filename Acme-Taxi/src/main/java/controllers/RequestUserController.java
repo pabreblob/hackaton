@@ -161,4 +161,26 @@ public class RequestUserController extends AbstractController {
 		}
 	}
 
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(final int requestId) {
+		try {
+			final Request r = this.requestService.findOne(requestId);
+			Assert.notNull(r);
+			Assert.isTrue(r.getUser().getId() == this.userService.findByPrincipal().getId());
+			final ModelAndView res = new ModelAndView("request/display");
+			final Configuration conf = this.configurationService.find();
+			res.addObject("currency", conf.getCurrency());
+			res.addObject("request", r);
+			String estimated = "";
+			final int hours = (int) (r.getEstimatedTime() / 3600);
+			final int minutes = (int) ((r.getEstimatedTime() - hours * 3600) / 60);
+			estimated = hours + "h " + minutes + "min";
+			res.addObject("estimated", estimated);
+			res.addObject("now", new Date());
+			return res;
+		} catch (final Throwable oops) {
+			return new ModelAndView("redirect:/welcome/index.do");
+		}
+	}
+
 }
