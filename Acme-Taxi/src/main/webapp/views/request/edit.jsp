@@ -8,7 +8,8 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%> 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %> 
 
-<form:form action="request/user/confirm.do" modelAttribute="request">
+<form:form action="${requestUri}" modelAttribute="request">
+	<form:hidden path="id"/>
 	<spring:message code="request.giveInformation"/><br><br>
 	<form:label path="origin">
 		<spring:message code="request.origin" />: 

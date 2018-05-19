@@ -11,6 +11,10 @@
 <jstl:if test="${request.cancelled}">
 	<p><spring:message code="request.cancelled"/></p>
 </jstl:if>
+<p><spring:message code="request.user"/>: <jstl:out value="${request.user.name}"/> <jstl:out value="${request.user.surname}"/> (<a href="actor/display.do?actorId=${request.user.id}"><jstl:out value="${request.user.userAccount.username}"/></a>)</p>
+<jstl:if test="${request.driver != null}">
+	<p><spring:message code="request.driver"/>: <jstl:out value="${request.driver.name}"/> <jstl:out value="${request.driver.surname}"/> (<a href="actor/display.do?actorId=${request.driver.id}"><jstl:out value="${request.driver.userAccount.username}"/></a>)</p>
+</jstl:if>
 <p><spring:message code="request.origin"/>: <jstl:out value="${request.origin}"/></p>
 <p><spring:message code="request.destination"/>: <jstl:out value="${request.destination}"/></p>
 <spring:message code="request.momentPlaceholder" var="dateFormat"/>

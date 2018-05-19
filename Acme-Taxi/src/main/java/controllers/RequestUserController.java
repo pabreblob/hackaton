@@ -43,7 +43,82 @@ public class RequestUserController extends AbstractController {
 	public ModelAndView create() {
 		final ModelAndView res = new ModelAndView("request/edit");
 		res.addObject("request", this.requestService.create());
+		res.addObject("requestUri", "request/user/confirm.do");
 		return res;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(final int requestId) {
+		final ModelAndView res = new ModelAndView("request/edit");
+		final Request r = this.requestService.findOne(requestId);
+		Assert.notNull(r);
+		Assert.isNull(r.getDriver());
+		final LocalDate now = new LocalDate();
+		final LocalDate moment = new LocalDate(r.getMoment());
+		Assert.isTrue(moment.isAfter(now));
+		Assert.isTrue(!r.isCancelled());
+		res.addObject("request", r);
+		res.addObject("requestUri", "request/user/confirmEdit.do");
+		return res;
+	}
+
+	@RequestMapping(value = "/confirmEdit", method = RequestMethod.POST)
+	public ModelAndView confirmEdit(final Request request, final BindingResult bindingResult) {
+		final Request r = this.requestService.reconstructEdit(request, bindingResult);
+		if (bindingResult.hasErrors()) {
+			final ModelAndView res = new ModelAndView("request/edit");
+			res.addObject("request", r);
+			res.addObject("requestUri", "request/user/confirmEdit.do");
+			return res;
+		}
+		final List<Integer> distanciaYTiempo = GoogleMaps.getDistanceAndDuration(request.getOrigin(), request.getDestination());
+		final LocalDate now = new LocalDate();
+		final LocalDate moment = new LocalDate(r.getMoment());
+		try {
+			Assert.notNull(distanciaYTiempo);
+			Assert.isTrue(moment.isAfter(now));
+			final Configuration conf = this.configurationService.find();
+			double price = (1 + conf.getVat()) * (conf.getMinimumFee() + (conf.getPricePerKm() * (distanciaYTiempo.get(0) * 1.0 / 1000)));
+			int temp = (int) (price * 100);
+			price = (temp * 1.0) / 100;
+			r.setPrice(price);
+			r.setDistance(distanciaYTiempo.get(0));
+			double time = 1.0 * distanciaYTiempo.get(1) / 3600;
+			temp = (int) (time * 100);
+			time = (temp * 1.0) / 100;
+			r.setEstimatedTime(time);
+
+			final ModelAndView res = new ModelAndView("request/confirmEdit");
+			res.addObject("currency", conf.getCurrency());
+			res.addObject("request", r);
+			String estimated = "";
+			final int hours = distanciaYTiempo.get(1) / 3600;
+			final int minutes = (distanciaYTiempo.get(1) - hours * 3600) / 60;
+			estimated = hours + "h " + minutes + "min";
+			res.addObject("estimated", estimated);
+			return res;
+		} catch (final Throwable oops) {
+			if (distanciaYTiempo == null) {
+				final ModelAndView res = new ModelAndView("request/edit");
+				res.addObject("request", r);
+				res.addObject("message", "request.originOrDestinationFail");
+				res.addObject("requestUri", "request/user/confirmEdit.do");
+				return res;
+			}
+			if (!moment.isAfter(now)) {
+				final ModelAndView res = new ModelAndView("request/edit");
+				res.addObject("request", r);
+				res.addObject("message", "request.dateMustBeFuture");
+				res.addObject("requestUri", "request/user/confirmEdit.do");
+				return res;
+			}
+			final ModelAndView res = new ModelAndView("request/edit");
+			res.addObject("request", r);
+			res.addObject("message", "request.cannotCommit");
+			res.addObject("requestUri", "request/user/confirmEdit.do");
+			return res;
+		}
+
 	}
 
 	@RequestMapping(value = "/confirm", method = RequestMethod.POST)
@@ -52,6 +127,7 @@ public class RequestUserController extends AbstractController {
 		if (bindingResult.hasErrors()) {
 			final ModelAndView res = new ModelAndView("request/edit");
 			res.addObject("request", r);
+			res.addObject("requestUri", "request/user/confirm.do");
 			return res;
 		}
 		final List<Integer> distanciaYTiempo = GoogleMaps.getDistanceAndDuration(request.getOrigin(), request.getDestination());
@@ -84,17 +160,20 @@ public class RequestUserController extends AbstractController {
 				final ModelAndView res = new ModelAndView("request/edit");
 				res.addObject("request", r);
 				res.addObject("message", "request.originOrDestinationFail");
+				res.addObject("requestUri", "request/user/confirm.do");
 				return res;
 			}
 			if (!moment.isAfter(now)) {
 				final ModelAndView res = new ModelAndView("request/edit");
 				res.addObject("request", r);
 				res.addObject("message", "request.dateMustBeFuture");
+				res.addObject("requestUri", "request/user/confirm.do");
 				return res;
 			}
 			final ModelAndView res = new ModelAndView("request/edit");
 			res.addObject("request", r);
 			res.addObject("message", "request.cannotCommit");
+			res.addObject("requestUri", "request/user/confirm.do");
 			return res;
 		}
 	}
@@ -108,6 +187,22 @@ public class RequestUserController extends AbstractController {
 		} catch (final Throwable oops) {
 			final ModelAndView res = new ModelAndView("request/edit");
 			res.addObject("request", r);
+			res.addObject("requestUri", "request/user/confirm.do");
+			res.addObject("message", "request.cannotCommit");
+			return res;
+		}
+	}
+
+	@RequestMapping(value = "/saveEdit", method = RequestMethod.POST)
+	public ModelAndView saveEdit(final Request request, final BindingResult bindingResult) {
+		final Request r = this.requestService.reconstructEdit(request, bindingResult);
+		try {
+			final Request saved = this.requestService.save(r);
+			return new ModelAndView("redirect:/request/user/display.do?requestId=" + saved.getId());
+		} catch (final Throwable oops) {
+			final ModelAndView res = new ModelAndView("request/edit");
+			res.addObject("request", r);
+			res.addObject("requestUri", "request/user/confirmEdit.do");
 			res.addObject("message", "request.cannotCommit");
 			return res;
 		}
