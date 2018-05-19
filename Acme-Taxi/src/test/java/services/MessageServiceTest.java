@@ -45,7 +45,7 @@ public class MessageServiceTest extends AbstractTest {
 	 * <p>
 	 * This method is used to test the creation of empty messages before passing them to the corresponding views.
 	 * <p>
-	 * 13.1. An actor who is authenticated must be able to: Exchange messages with other actors and manage them, which includes deleting and moving them from one folder to another fodler.
+	 * 14.2. An actor who is authenticated must be able to: Send a message to another user.
 	 * 
 	 */
 	@Test
@@ -61,7 +61,7 @@ public class MessageServiceTest extends AbstractTest {
 	 * <p>
 	 * This method tests the creation and later saving of messages as it would be done by a user in the corresponding views.
 	 * <p>
-	 * 13.1. An actor who is authenticated must be able to: Exchange messages with other actors and manage them, which includes deleting and moving them from one folder to another folder.
+	 * 14.2. An actor who is authenticated must be able to: Send a message to another user.
 	 * 
 	 * Case 1: User1 creates a message. No exception is expected.
 	 * 
@@ -150,7 +150,7 @@ public class MessageServiceTest extends AbstractTest {
 	 * This method defines the template used for the tests that check the broadcasting of messages.
 	 * 
 	 * @param username
-	 *            The username of the user that logs in.
+	 *            The username of the actor that logs in.
 	 * @param expected
 	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
 	 */
@@ -186,11 +186,13 @@ public class MessageServiceTest extends AbstractTest {
 	 * <p>
 	 * This method tests the creation and later notification of messages.
 	 * <p>
-	 * 13.2. An actor who is authenticated as an administrator must be able to: Broadcast a message to the actors of the system.
+	 * 15.7 & 15.8.
 	 * 
-	 * Case 1: The admin broadcasts a message. No exception is expected.
+	 * Case 1: A notification is sent to the user1. No exception is expected.
 	 * 
-	 * Case 2: An unauthenticated user tries to broadcast a message. An IllegalArgumentException is expected.
+	 * Case 2: A notification is sent to the driver1. No exception is expected.
+	 * 
+	 * Case 3: A notification is sent to an unauthenticated actor. An IndexOutOfBoundsException is expected.
 	 */
 	@Test
 	public void driverNotifyMessage() {
@@ -213,7 +215,7 @@ public class MessageServiceTest extends AbstractTest {
 	 * This method defines the template used for the tests that check notifications.
 	 * 
 	 * @param username
-	 *            The username of the user that logs in.
+	 *            The username of the actor that will receive the notification.
 	 * @param expected
 	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
 	 */
@@ -239,11 +241,11 @@ public class MessageServiceTest extends AbstractTest {
 	 * <p>
 	 * This method tests the creation and later deletion of messages as it would be done by a user in the corresponding views.
 	 * <p>
-	 * 13.1. An actor who is authenticated must be able to: Exchange messages with other actors and manage them, which includes deleting and moving them from one folder to another folder.
+	 * 14.3. An actor who is authenticated must be able to: Manage the messages in their folders, which includes deleting them and marking them as spam.
 	 * 
-	 * Case 1: User1 deletes a message. No exception is expected.
+	 * Case 1: Mechanic1 deletes a message. No exception is expected.
 	 * 
-	 * Case 2: Customer1 deletes a message. No exception is expected.
+	 * Case 2: User1 deletes a message. No exception is expected.
 	 * 
 	 * Case 3: An unauthenticated user tries to delete a message. An IllegalArgumentException is expected.
 	 */
@@ -268,7 +270,7 @@ public class MessageServiceTest extends AbstractTest {
 	 * This method defines the template used for the tests that check the deletion of messages that are not in the Trash box.
 	 * 
 	 * @param username
-	 *            The username of the user that logs in.
+	 *            The username of the actor that logs in.
 	 * @param expected
 	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
 	 */
@@ -305,11 +307,11 @@ public class MessageServiceTest extends AbstractTest {
 	 * <p>
 	 * This method tests the creation and later deletion of messages from the Trash box as it would be done by a user in the corresponding views.
 	 * <p>
-	 * 13.1. An actor who is authenticated must be able to: Exchange messages with other actors and manage them, which includes deleting and moving them from one folder to another folder.
+	 * 14.3. An actor who is authenticated must be able to: Manage the messages in their folders, which includes deleting them and marking them as spam.
 	 * 
-	 * Case 1: User1 permanently deletes a message. No exception is expected.
+	 * Case 1: Mechanic1 permanently deletes a message. No exception is expected.
 	 * 
-	 * Case 2: Customer1 permanently deletes a message. No exception is expected.
+	 * Case 2: User1 permanently deletes a message. No exception is expected.
 	 * 
 	 * Case 3: An unauthenticated user tries to permanently delete a message. An IllegalArgumentException is expected.
 	 */
@@ -334,7 +336,7 @@ public class MessageServiceTest extends AbstractTest {
 	 * This method defines the template used for the tests that check the deletion of messages from the Trash box.
 	 * 
 	 * @param username
-	 *            The username of the user that logs in.
+	 *            The username of the actor that logs in.
 	 * @param expected
 	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
 	 */
@@ -372,13 +374,13 @@ public class MessageServiceTest extends AbstractTest {
 	 * <p>
 	 * This method tests the creation and later moving of messages as it would be done by a user in the corresponding views.
 	 * <p>
-	 * 13.1. An actor who is authenticated must be able to: Exchange messages with other actors and manage them, which includes deleting and moving them from one folder to another folder.
+	 * 14.3. An actor who is authenticated must be able to: Manage the messages in their folders, which includes deleting them and marking them as spam.
 	 * 
-	 * Case 1: User1 moves a message to their Notification box. No exception is expected.
+	 * Case 1: Mechanic1 moves a message to their Notification box. No exception is expected.
 	 * 
-	 * Case 2: User1 moves a message to their Spam box. No exception is expected.
+	 * Case 2: Mechanic1 moves a message to their Spam box. No exception is expected.
 	 * 
-	 * Case 2: Customer1 moves a message to their Notification box. No exception is expected.
+	 * Case 2: User1 moves a message to their Notification box. No exception is expected.
 	 * 
 	 * Case 3: An unauthenticated user tries to move a message. An IllegalArgumentException is expected.
 	 */
@@ -405,7 +407,7 @@ public class MessageServiceTest extends AbstractTest {
 	 * This method defines the template used for the tests that check the moving of messages.
 	 * 
 	 * @param username
-	 *            The username of the user that logs in.
+	 *            The username of the actor that logs in.
 	 * @param targetFolder
 	 *            The target folder.
 	 * @param expected
