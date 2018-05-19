@@ -16,6 +16,8 @@ public interface RepairShopRepository extends JpaRepository<RepairShop, Integer>
 
 	@Query("select r from RepairShop r where r.mechanic.id= ?1")
 	Page<RepairShop> findRepairShopsByMechanic(int MechanicId,Pageable pageable);
+	@Query("select r from RepairShop r where r.mechanic.id= ?1")
+	Collection<RepairShop> findRepairShopsByMechanic(int MechanicId);
 	@Query("select count (r) from RepairShop r where r.mechanic.id= ?1")
 	Integer countRepairShopsByMechanic(int MechanicId);
 	@Query("select r from RepairShop r ")

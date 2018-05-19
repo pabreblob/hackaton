@@ -566,7 +566,7 @@
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="20668400W" />
 		<property name="nationality" value="Spanish" />
-		<property name="car" ><ref bean="Car3"/></property>
+		<property name="car" ><null/></property>
 		<property name="reviews">
 		<list>
 		</list>	
@@ -860,13 +860,7 @@
 		
 	</bean>
 	
-	<bean id="Car3" class="domain.Car">
-		<property name="carModel" value="Toyota Auris" />
-		<property name="maxPassengers" value="3" />
-		<property name="numberPlate" value="3112ACB" />
-		<property name="repairShop" ><null/></property>
-		
-	</bean>
+	
 	
 	<bean id="AdminInbox" class="domain.Folder">
 		<property name="parent"><null/></property>
@@ -2509,7 +2503,7 @@
 	<bean id="Reservation2" class="domain.Reservation">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="service" ><ref bean="Service2"></ref></property>
-		<property name="moment" value="2019/02/21 17:10" />
+		<property name="moment" value="2016/02/21 17:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="cancelled" value="false" />
 	</bean>
@@ -2585,7 +2579,7 @@
 	</bean>
 	<bean id="Request4" class="domain.Request">
 		<property name="user" ><ref bean="User1"></ref></property>
-		<property name="driver" ><ref bean="Driver3"></ref></property>
+		<property name="driver" ><ref bean="Driver2"></ref></property>
 		<property name="origin" value="street1"/>
 		<property name="destination" value="street3"/>
 		<property name="distance" value="15.17"/>
@@ -2605,7 +2599,7 @@
 		<property name="distance" value="3.72"/>
 		<property name="estimatedTime" value="8.90"/>
 		<property name="price" value="5.58"/>
-		<property name="moment" value="2018/09/15 12:10" />
+		<property name="moment" value="2017/09/15 12:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="passengersNumber" value="1" />
 		<property name="cancelled" value="false" />

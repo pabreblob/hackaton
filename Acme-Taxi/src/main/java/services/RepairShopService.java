@@ -104,6 +104,11 @@ public class RepairShopService {
 		Integer res=this.repairShopRepository.countRepairShopsByMechanic(mechanicId);
 		return res;
 	}
+	public Collection<RepairShop> findByMechanic(final int mechanicId) {
+		final Collection<RepairShop> res;
+		res = this.repairShopRepository.findRepairShopsByMechanic(mechanicId);
+		return res;
+	}
 	public Collection<RepairShop> listByKeyword(final String keyword,final Pageable pageable) {
 		final Collection<RepairShop> res;
 		res = this.repairShopRepository.findRepairShopsByKeyword(keyword, pageable).getContent();

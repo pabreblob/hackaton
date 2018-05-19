@@ -5,6 +5,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,19 +69,22 @@ public class ReservationService {
 		Collection<domain.Service> reservedServices=this.serviceService.findByUser(this.userService.findByPrincipal().getId());
 		Assert.isTrue(!reservation.getService().isSuspended());
 		Assert.isTrue(!reservedServices.contains(reservation.getService()));
-		
-		final Collection<SpamWord> sw = this.spamWordService.findAll();
-		boolean spamw = false;
-		for (final SpamWord word : sw) {
-			spamw = reservation.getComment().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
-			if (spamw)
-				break;
+		if(reservation.getComment()!=null){
+			final Collection<SpamWord> sw = this.spamWordService.findAll();
+			boolean spamw = false;
+			for (final SpamWord word : sw) {
+				spamw = reservation.getComment().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
+				if (spamw)
+					break;
+			}
+			if(!reservation.getUser().isSuspicious()){
+				reservation.getUser().setSuspicious(spamw);
+			}
+			
 		}
-		if(!reservation.getUser().isSuspicious()){
-			reservation.getUser().setSuspicious(spamw);
-		}
 		
 		
+		Assert.isTrue(reservation.getMoment().after(new Date(System.currentTimeMillis()-1000)));
 		final Reservation res = this.reservationRepository.save(reservation);
 		final Message mes = this.messageService.create();
 		if(reservation.getService().getRepairShop().getMechanic().getNationality().equals("Spanish")){
@@ -153,6 +157,8 @@ public class ReservationService {
 	public void cancel(int reservationId){
 		Reservation reservation=this.findOne(reservationId);
 		Assert.isTrue(this.userService.findByPrincipal().getId()==reservation.getUser().getId());
+		
+		Assert.isTrue(reservation.getMoment().after(new Date(System.currentTimeMillis()-1000)));
 		final Message mes = this.messageService.create();
 		if(reservation.getService().getRepairShop().getMechanic().getNationality().equals("Spanish")){
 			mes.setSubject("Cancelación de reserva");
