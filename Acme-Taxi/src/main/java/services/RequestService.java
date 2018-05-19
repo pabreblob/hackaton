@@ -65,6 +65,18 @@ public class RequestService {
 		this.validator.validate(request, bindingResult);
 		return request;
 	}
+	public Request reconstructEdit(final Request request, final BindingResult bindingResult) {
+		request.setCancelled(false);
+		request.setVersion(this.findOne(request.getId()).getVersion());
+		request.setDistance(0);
+		request.setDriver(null);
+		request.setEstimatedTime(0);
+		request.setPrice(0);
+		request.setMarked(false);
+		request.setUser(this.userService.findByPrincipal());
+		this.validator.validate(request, bindingResult);
+		return request;
+	}
 
 	public Request save(final Request r) {
 		final LocalDate now = new LocalDate();
@@ -89,7 +101,7 @@ public class RequestService {
 				break;
 		}
 		r.setMarked(spamw);
-		if (spamw)
+		if (!this.userService.findByPrincipal().isSuspicious() && spamw)
 			this.userService.findByPrincipal().setSuspicious(spamw);
 		final Request saved = this.requestRepository.save(r);
 		return saved;
