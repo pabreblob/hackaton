@@ -79,6 +79,9 @@ public class MechanicService {
 		final LocalDate now = new LocalDate();
 		age=Years.yearsBetween(birth, now).getYears();
 		Assert.isTrue(age>=18);
+		if(mechanic.getId()!=0){
+			Assert.isTrue(mechanic.getId()==this.findByPrincipal().getId());
+		}
 		if (mechanic.getId() == 0) {
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			final String hash = encoder.encodePassword(mechanic.getUserAccount().getPassword(), null);
