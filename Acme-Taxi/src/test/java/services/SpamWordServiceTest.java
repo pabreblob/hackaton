@@ -82,7 +82,7 @@ public class SpamWordServiceTest extends AbstractTest {
 	 * considered necessary.
 	 * <p>
 	 * Case 1: An Administrator deletes a Spam Word. No exception is expected.<br>
-	 * Case 2: A User tries to delete a Spam Word. Use <code>null</code> if no exception is expected.
+	 * Case 2: A User tries to delete a Spam Word. An <code>IllegalArgumentException</code> is expected.<br>
 	 */
 	@Test
 	public void driverDelete() {
