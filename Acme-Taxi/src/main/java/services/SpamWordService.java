@@ -18,6 +18,8 @@ public class SpamWordService {
 
 	@Autowired
 	private SpamWordRepository	spamWordRepository;
+	@Autowired
+	private AdminService		adminService;
 
 
 	public SpamWord create() {
@@ -42,10 +44,10 @@ public class SpamWordService {
 	public void delete(final SpamWord sw) {
 		Assert.notNull(sw);
 		Assert.notNull(sw.getWord());
+		Assert.notNull(this.adminService.findByPrincipal());
 		Assert.isTrue(sw.getId() > 0);
 		this.spamWordRepository.delete(sw);
 	}
-
 	public SpamWord findOne(final int id) {
 		final SpamWord sp = this.spamWordRepository.findOne(id);
 		Assert.notNull(sp);
