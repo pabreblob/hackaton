@@ -90,7 +90,7 @@ public class MessageServiceTest extends AbstractTest {
 	 * This method defines the template used for the tests that check the saving of messages.
 	 * 
 	 * @param username
-	 *            The username of the user that logs in.
+	 *            The username of the actor that logs in.
 	 * @param expected
 	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
 	 */
@@ -380,9 +380,9 @@ public class MessageServiceTest extends AbstractTest {
 	 * 
 	 * Case 2: Mechanic1 moves a message to their Spam box. No exception is expected.
 	 * 
-	 * Case 2: User1 moves a message to their Notification box. No exception is expected.
+	 * Case 3: User1 moves a message to their Notification box. No exception is expected.
 	 * 
-	 * Case 3: An unauthenticated user tries to move a message. An IllegalArgumentException is expected.
+	 * Case 4: An unauthenticated user tries to move a message. An IllegalArgumentException is expected.
 	 */
 	@Test
 	public void driverMoveMessage() {

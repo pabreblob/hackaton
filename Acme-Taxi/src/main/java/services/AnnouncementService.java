@@ -50,9 +50,9 @@ public class AnnouncementService {
 	}
 
 	public Announcement findOne(final int announcementId) {
+		Assert.notNull(announcementId);
 		Announcement res;
 		res = this.announcementRepository.findOne(announcementId);
-		Assert.notNull(res);
 		return res;
 	}
 
@@ -150,28 +150,28 @@ public class AnnouncementService {
 		this.announcementRepository.delete(a);
 	}
 
-	public Collection<Announcement> getCreatedAnnouncementsByUserId(final int userId, final Pageable pageable) {
-		Assert.notNull(userId);
-		Assert.isTrue(userId != 0);
-		return this.announcementRepository.findCreatedAnnouncementsByUserId(userId, pageable).getContent();
+	public Collection<Announcement> getCreatedAnnouncementsByUserId(final Pageable pageable) {
+		final User u = this.userService.findByPrincipal();
+		Assert.notNull(u);
+		return this.announcementRepository.findCreatedAnnouncementsByUserId(u.getId(), pageable).getContent();
 	}
 
-	public Integer countCreatedAnnouncementsByUserId(final int userId) {
-		Assert.notNull(userId);
-		Assert.isTrue(userId != 0);
-		return this.announcementRepository.countCreatedAnnouncementsByUserId(userId);
+	public Integer countCreatedAnnouncementsByUserId() {
+		final User u = this.userService.findByPrincipal();
+		Assert.notNull(u);
+		return this.announcementRepository.countCreatedAnnouncementsByUserId(u.getId());
 	}
 
-	public Collection<Announcement> getJoinedAnnouncementsByUserId(final int userId, final Pageable pageable) {
-		Assert.notNull(userId);
-		Assert.isTrue(userId != 0);
-		return this.announcementRepository.findJoinedAnnouncementsByUserId(userId, pageable).getContent();
+	public Collection<Announcement> getJoinedAnnouncementsByUserId(final Pageable pageable) {
+		final User u = this.userService.findByPrincipal();
+		Assert.notNull(u);
+		return this.announcementRepository.findJoinedAnnouncementsByUserId(u.getId(), pageable).getContent();
 	}
 
-	public Integer countJoinedAnnouncementsByUserId(final int userId) {
-		Assert.notNull(userId);
-		Assert.isTrue(userId != 0);
-		return this.announcementRepository.countJoinedAnnouncementsByUserId(userId);
+	public Integer countJoinedAnnouncementsByUserId() {
+		final User u = this.userService.findByPrincipal();
+		Assert.notNull(u);
+		return this.announcementRepository.countJoinedAnnouncementsByUserId(u.getId());
 	}
 
 	public Announcement reconstruct(final Announcement announcement, final BindingResult binding) {
