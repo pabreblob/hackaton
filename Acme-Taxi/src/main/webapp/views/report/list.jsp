@@ -19,19 +19,34 @@
 	<jstl:if test="${not justOne}">
 		<spring:message code="report.creator" var="creatorHeader"/>
 		<display:column title="${creatorHeader}" sortable="true" sortName="creator.userAccount.username">
-			<jstl:out value="${row.creator.userAccount.username}"/> (<a href="actor/display.do?actorId=${row.creator.id}"><spring:message code="report.viewProfile"/></a>)
+			<jstl:if test="${row.checked}">
+				<jstl:out value="${row.creator.userAccount.username}"/> (<a href="actor/display.do?actorId=${row.creator.id}"><spring:message code="report.viewProfile"/></a>)
+			</jstl:if>
+			<jstl:if test="${not row.checked}">
+				<b><jstl:out value="${row.creator.userAccount.username}"/></b> (<a href="actor/display.do?actorId=${row.creator.id}"><spring:message code="report.viewProfile"/></a>)
+			</jstl:if>
 		</display:column>	
 	</jstl:if>
 	
 	<spring:message code="report.reported" var="reportedHeader"/>
 	<display:column title="${reportedHeader}" sortable="true" sortName="reported.userAccount.username">
-		<jstl:out value="${row.reported.userAccount.username}"/> (<a href="actor/display.do?actorId=${row.reported.id}"><spring:message code="report.viewProfile"/></a>)
+		<jstl:if test="${row.checked}">
+			<jstl:out value="${row.reported.userAccount.username}"/> (<a href="actor/display.do?actorId=${row.reported.id}"><spring:message code="report.viewProfile"/></a>)
+		</jstl:if>
+		<jstl:if test="${not row.checked}">
+			<b><jstl:out value="${row.reported.userAccount.username}"/></b> (<a href="actor/display.do?actorId=${row.reported.id}"><spring:message code="report.viewProfile"/></a>)
+		</jstl:if>
 	</display:column>	
 	
 	<spring:message code="report.moment" var="momentHeader" />
 	<spring:message code="report.format" var="dateFormat" />
 	<display:column title="${momentHeader}" sortable="true" sortName="moment">
-		<fmt:formatDate value="${row.moment}" pattern="${dateFormat}"/>
+		<jstl:if test="${row.checked}">
+			<fmt:formatDate value="${row.moment}" pattern="${dateFormat}"/>
+		</jstl:if>
+		<jstl:if test="${not row.checked}">
+			<b><fmt:formatDate value="${row.moment}" pattern="${dateFormat}"/></b>
+		</jstl:if>
 	</display:column>
 	
 	<spring:message code="report.display" var="displayHeader"/>
