@@ -76,6 +76,7 @@
 		<security:intercept-url pattern="/car/**"	access="permitAll" />
 		<security:intercept-url pattern="/car/admin/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/car/driver/**" access="hasRole('DRIVER')"/>
+		<security:intercept-url pattern="/announcement/user/**" access="hasRole('USER')"/>
 		
 		<security:intercept-url pattern="/review/mechanic/**" access="hasRole('MECHANIC')" />
 		<security:intercept-url pattern="/review/admin/**" access="hasRole('ADMIN')" />

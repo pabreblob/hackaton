@@ -59,6 +59,8 @@
     	<bean class="converters.ReviewToStringConverter" />
     	<bean class="converters.StringToCreditCardConverter" /> 
     	<bean class="converters.CreditCardToStringConverter" />
+	<bean class="converters.StringToAnnouncementConverter" /> 
+    	<bean class="converters.AnnouncementToStringConverter" />
 	</util:list>
 	
 </beans>

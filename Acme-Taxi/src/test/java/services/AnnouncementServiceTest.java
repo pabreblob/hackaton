@@ -251,7 +251,7 @@ public class AnnouncementServiceTest extends AbstractTest {
 				super.authenticate(null);
 				super.authenticate("user1");
 			}
-			this.announcementService.delete(saved.getId());
+			this.announcementService.delete(saved);
 			final Announcement found3 = this.announcementService.findOne(saved.getId());
 			Assert.isTrue(found3 == null);
 			super.authenticate(null);
@@ -616,6 +616,75 @@ public class AnnouncementServiceTest extends AbstractTest {
 			this.announcementService.join(saved.getId());
 			final Collection<Announcement> joined = this.announcementService.getJoinedAnnouncementsByUserId(new PageRequest(0, 10));
 			Assert.isTrue(joined.contains(found));
+			super.authenticate(null);
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+		this.checkExceptions(expected, caught);
+	}
+
+	/**
+	 * Tests the listing of available announcements.
+	 * <p>
+	 * This method tests the creation and later listing of available announcements as it would be done by a user in the corresponding views.
+	 * <p>
+	 * 15.8. An actor who is authenticated as a user must be able to: Join any announcement as long as there's still more than 2 hours left until the car departs and there are any seats left.
+	 * 
+	 * Case 1: User1 creates an announcement and user2 lists available announcements. No exception is expected.
+	 * 
+	 * Case 2: User2 creates an announcement and user1 lists available announcements. No exception is expected.
+	 * 
+	 * Case 3: An unauthenticated user tries to list available announcements. An IllegalArgumentException is expected.
+	 */
+	@Test
+	public void driverListAvailableAnnouncements() {
+		final Object testingData[][] = {
+			{
+				"user1", "user2", null
+			}, {
+				"user2", "user1", null
+			}, {
+				"user1", null, IllegalArgumentException.class
+			}
+		};
+		for (int i = 0; i < testingData.length; i++)
+			this.templateListAvailableAnnouncements((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
+	/**
+	 * Template for testing the listing of available announcements.
+	 * <p>
+	 * This method defines the template used for the tests that check the listing of available announcements.
+	 * 
+	 * @param username
+	 *            The username of the user that logs in and creates an announcement.
+	 * @param username2
+	 *            The username of the user that logs in and lists available announcements.
+	 * @param expected
+	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
+	 */
+	public void templateListAvailableAnnouncements(final String username, final String username2, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		try {
+			super.authenticate(username);
+			final Announcement res = this.announcementService.create();
+			res.setTitle("Title");
+			res.setDescription("Hello");
+			res.setOrigin("Sevilla");
+			res.setDestination("Madrid");
+			res.setPricePerPerson(5);
+			res.setMoment(new Date(System.currentTimeMillis() + 9999999));
+			res.setSeats(4);
+			final Announcement saved = this.announcementService.save(res);
+			final Announcement found = this.announcementService.findOne(saved.getId());
+			Assert.isTrue(found.equals(saved));
+			Assert.isTrue(this.userService.findByPrincipal().equals(saved.getCreator()));
+			Assert.isTrue(saved.getAttendants().isEmpty());
+			super.authenticate(null);
+			super.authenticate(username2);
+			final Collection<Announcement> available = this.announcementService.getAvailableAnnouncements(new PageRequest(0, 10));
+			Assert.isTrue(available.contains(found));
 			super.authenticate(null);
 		} catch (final Throwable oops) {
 			caught = oops.getClass();

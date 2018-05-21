@@ -118,6 +118,7 @@ public class AnnouncementService {
 		final LocalDateTime now = new LocalDateTime();
 		final LocalDateTime moment = new LocalDateTime(a.getMoment());
 		Assert.isTrue(now.isBefore(moment));
+		Assert.isTrue(!a.isCancelled());
 		a.getAttendants().remove(this.userService.findByPrincipal());
 		this.userService.findByPrincipal().getAnnouncements().remove(a);
 		this.messageService.notify(a.getCreator(), "A user has dropped out", "The user " + this.userService.findByPrincipal().getUserAccount().getUsername() + " has dropped out from your announcement \"" + a.getTitle() + "\".");
@@ -137,11 +138,10 @@ public class AnnouncementService {
 			this.messageService.notify(u, "An announcement has been cancelled", "The announcement \"" + a.getTitle() + "\" has been cancelled by its creator. Sorry for the inconvenience.");
 	}
 
-	public void delete(final int announcementId) {
-		Assert.notNull(announcementId);
-		Assert.isTrue(announcementId != 0);
-		final Announcement a = this.announcementRepository.findOne(announcementId);
+	public void delete(final Announcement a) {
 		Assert.notNull(a);
+		Assert.notNull(a.getId());
+		Assert.isTrue(a.getId() != 0);
 		Assert.isTrue(a.getCreator().equals(this.userService.findByPrincipal()));
 		final LocalDateTime now = new LocalDateTime();
 		final LocalDateTime moment = new LocalDateTime(a.getMoment());
@@ -174,12 +174,31 @@ public class AnnouncementService {
 		return this.announcementRepository.countJoinedAnnouncementsByUserId(u.getId());
 	}
 
+	public Collection<Announcement> getAvailableAnnouncements(final Pageable pageable) {
+		final User u = this.userService.findByPrincipal();
+		Assert.notNull(u);
+		return this.announcementRepository.findAvailableAnnouncements(u.getId(), pageable).getContent();
+	}
+
+	public Integer countAvailableAnnouncements() {
+		final User u = this.userService.findByPrincipal();
+		Assert.notNull(u);
+		return this.announcementRepository.countAvailableAnnouncements(u.getId());
+	}
+
 	public Announcement reconstruct(final Announcement announcement, final BindingResult binding) {
 		Announcement res;
 		res = announcement;
 		res.setAttendants(new ArrayList<User>());
-		res.setCancelled(false);
-		res.setMarked(false);
+		if (announcement.getId() != 0) {
+			final Announcement a = this.findOne(announcement.getId());
+			Assert.notNull(a);
+			res.setCancelled(a.isCancelled());
+			res.setMarked(a.isMarked());
+		} else {
+			res.setCancelled(false);
+			res.setMarked(false);
+		}
 		res.setCreator(this.userService.findByPrincipal());
 
 		this.validator.validate(res, binding);
