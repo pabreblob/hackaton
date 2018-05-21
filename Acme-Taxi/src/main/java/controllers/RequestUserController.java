@@ -71,7 +71,7 @@ public class RequestUserController extends AbstractController {
 			res.addObject("requestUri", "request/user/confirmEdit.do");
 			return res;
 		}
-		final List<Integer> distanciaYTiempo = GoogleMaps.getDistanceAndDuration(request.getOrigin(), request.getDestination());
+		final List<Integer> distanciaYTiempo = GoogleMaps.getDistanceAndDuration(request.getOrigin(), request.getDestination(), this.configurationService.find().isUseApi());
 		final LocalDate now = new LocalDate();
 		final LocalDate moment = new LocalDate(r.getMoment());
 		try {
@@ -130,7 +130,7 @@ public class RequestUserController extends AbstractController {
 			res.addObject("requestUri", "request/user/confirm.do");
 			return res;
 		}
-		final List<Integer> distanciaYTiempo = GoogleMaps.getDistanceAndDuration(request.getOrigin(), request.getDestination());
+		final List<Integer> distanciaYTiempo = GoogleMaps.getDistanceAndDuration(request.getOrigin(), request.getDestination(), this.configurationService.find().isUseApi());
 		final LocalDate now = new LocalDate();
 		final LocalDate moment = new LocalDate(r.getMoment());
 		try {

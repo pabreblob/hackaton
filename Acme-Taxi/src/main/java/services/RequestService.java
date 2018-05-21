@@ -83,7 +83,7 @@ public class RequestService {
 		final LocalDate moment = new LocalDate(r.getMoment());
 		Assert.isTrue(moment.isAfter(now));
 
-		final List<Integer> distanceAndTime = GoogleMaps.getDistanceAndDuration(r.getOrigin(), r.getDestination());
+		final List<Integer> distanceAndTime = GoogleMaps.getDistanceAndDuration(r.getOrigin(), r.getDestination(), this.configurationService.find().isUseApi());
 		Assert.notNull(distanceAndTime);
 
 		r.setDistance(distanceAndTime.get(0));
