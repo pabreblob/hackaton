@@ -119,14 +119,14 @@
 	<security:authorize access="hasRole('USER')">
 		<display:column>
 			<jstl:if test="${row.driver eq null and not row.cancelled and row.moment > now}">
-				<a href="request/user/delete.do?requestId=${row.id}"><spring:message code="request.delete"/></a>
+				<a href="request/user/delete.do?requestId=${row.id}" onclick="return confirm('<spring:message code="request.confirmDelete" />')"><spring:message code="request.delete"/></a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
 	<security:authorize access="hasRole('ADMIN')">
 		<display:column>
 			<jstl:if test="${row.driver eq null}">
-				<a href="request/admin/delete.do?requestId=${row.id}&requestUri=${requestURI}"><spring:message code="request.delete"/></a>
+				<a href="request/admin/delete.do?requestId=${row.id}&requestUri=${requestURI}" onclick="return confirm('<spring:message code="request.confirmDelete" />')"><spring:message code="request.delete"/></a>
 			</jstl:if>
 		</display:column>
 	</security:authorize>
