@@ -231,7 +231,7 @@
 		<property name="limitReportsWeek" value="50" />
 		<property name="footer" value="Copyright 2018 Acme,Inc" />
 		<property name="vat" value="0.21" />
-		<property name="legalTextEng" value="This is the legal text" />
+		<property name="legalTextEng" value="This is legal text" />
 		<property name="legalTextEsp" value="Este es el texto legal" />
 		<property name="cookiesPolicyEng" value="This is the cookies policy" />
 		<property name="cookiesPolicyEsp" value="Esta es la política de cookies" />
@@ -2538,11 +2538,11 @@
 	<bean id="Request1" class="domain.Request">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="driver" ><null/></property>
-		<property name="origin" value="street1"/>
-		<property name="destination" value="street2"/>
-		<property name="distance" value="3.72"/>
-		<property name="estimatedTime" value="8.90"/>
-		<property name="price" value="5.58"/>
+		<property name="origin" value="Reina Mercedes, Sevilla, Sevilla, España"/>
+		<property name="destination" value="Greco, Sevilla, Sevilla, España"/>
+		<property name="distance" value="5100"/>
+		<property name="estimatedTime" value="995"/>
+		<property name="price" value="15"/>
 		<property name="moment" value="2018/09/25 12:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="passengersNumber" value="1" />
@@ -2552,11 +2552,11 @@
 	<bean id="Request2" class="domain.Request">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="driver" ><ref bean="Driver2"></ref></property>
-		<property name="origin" value="street3"/>
-		<property name="destination" value="street4"/>
-		<property name="distance" value="7.89"/>
-		<property name="estimatedTime" value="17.50"/>
-		<property name="price" value="16.83"/>
+		<property name="origin" value="San Pablo, Ubrique, Cadiz, España"/>
+		<property name="destination" value="Avenida de España, Ubrique, Cadiz, España"/>
+		<property name="distance" value="876"/>
+		<property name="estimatedTime" value="301"/>
+		<property name="price" value="7"/>
 		<property name="moment" value="2017/09/25 12:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="passengersNumber" value="2" />
@@ -2566,11 +2566,11 @@
 	<bean id="Request3" class="domain.Request">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="driver" ><ref bean="Driver1"></ref></property>
-		<property name="origin" value="street4"/>
-		<property name="destination" value="street5"/>
-		<property name="distance" value="3.72"/>
-		<property name="estimatedTime" value="8.90"/>
-		<property name="price" value="5.58"/>
+		<property name="origin" value="Bami, Sevilla, Sevilla, España"/>
+		<property name="destination" value="Jabugo, Sevilla, Sevilla, España"/>
+		<property name="distance" value="5184"/>
+		<property name="estimatedTime" value="1035"/>
+		<property name="price" value="15"/>
 		<property name="moment" value="2018/09/25 12:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="passengersNumber" value="1" />
@@ -2580,11 +2580,11 @@
 	<bean id="Request4" class="domain.Request">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="driver" ><ref bean="Driver2"></ref></property>
-		<property name="origin" value="street1"/>
-		<property name="destination" value="street3"/>
-		<property name="distance" value="15.17"/>
-		<property name="estimatedTime" value="28.00"/>
-		<property name="price" value="27.75"/>
+		<property name="origin" value="Greco, Sevilla, Sevilla, España"/>
+		<property name="destination" value="Jabugo, Sevilla, Sevilla, España"/>
+		<property name="distance" value="1823"/>
+		<property name="estimatedTime" value="476"/>
+		<property name="price" value="9"/>
 		<property name="moment" value="2018/10/25 12:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="passengersNumber" value="2" />
@@ -2594,11 +2594,11 @@
 	<bean id="Request5" class="domain.Request">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="driver" ><ref bean="Driver3"></ref></property>
-		<property name="origin" value="street1"/>
-		<property name="destination" value="street2"/>
-		<property name="distance" value="3.72"/>
-		<property name="estimatedTime" value="8.90"/>
-		<property name="price" value="5.58"/>
+		<property name="origin" value="Bami, Sevilla, Sevilla, España"/>
+		<property name="destination" value="Jabugo, Sevilla, Sevilla, España"/>
+		<property name="distance" value="5184"/>
+		<property name="estimatedTime" value="1035"/>
+		<property name="price" value="15"/>
 		<property name="moment" value="2017/09/15 12:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="passengersNumber" value="1" />
@@ -2608,11 +2608,11 @@
 	<bean id="Request6" class="domain.Request">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="driver" ><null/></property>
-		<property name="origin" value="street1"/>
-		<property name="destination" value="street2"/>
-		<property name="distance" value="3.72"/>
-		<property name="estimatedTime" value="8.90"/>
-		<property name="price" value="5.58"/>
+		<property name="origin" value="San Pablo, Ubrique, Cadiz, España"/>
+		<property name="destination" value="Avenida de España, Ubrique, Cadiz, España"/>
+		<property name="distance" value="876"/>
+		<property name="estimatedTime" value="301"/>
+		<property name="price" value="7"/>
 		<property name="moment" value="2017/03/15 12:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="passengersNumber" value="1" />
@@ -2622,11 +2622,11 @@
 	<bean id="Request7" class="domain.Request">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="driver" ><ref bean="Driver2"></ref></property>
-		<property name="origin" value="street1"/>
-		<property name="destination" value="street2"/>
-		<property name="distance" value="3.72"/>
-		<property name="estimatedTime" value="8.90"/>
-		<property name="price" value="5.58"/>
+		<property name="origin" value="Reina Mercedes, Sevilla, Sevilla, España"/>
+		<property name="destination" value="Greco, Sevilla, Sevilla, España"/>
+		<property name="distance" value="5100"/>
+		<property name="estimatedTime" value="995"/>
+		<property name="price" value="15"/>
 		<property name="moment" value="2018/09/15 22:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="passengersNumber" value="1" />
@@ -2636,11 +2636,11 @@
 	<bean id="Request8" class="domain.Request">
 		<property name="user" ><ref bean="User3"></ref></property>
 		<property name="driver" ><null/></property>
-		<property name="origin" value="street6"/>
-		<property name="destination" value="street7"/>
-		<property name="distance" value="8.82"/>
-		<property name="estimatedTime" value="20.00"/>
-		<property name="price" value="18.23"/>
+		<property name="origin" value="Reina Mercedes, Sevilla, Sevilla, España"/>
+		<property name="destination" value="Greco, Sevilla, Sevilla, España"/>
+		<property name="distance" value="5100"/>
+		<property name="estimatedTime" value="995"/>
+		<property name="price" value="15"/>
 		<property name="moment" value="2015/10/05 12:10" />
 		<property name="comment" value="testcomment"/>
 		<property name="passengersNumber" value="2" />
@@ -2650,11 +2650,11 @@
 	<bean id="Request9" class="domain.Request">
 		<property name="user" ><ref bean="User2"></ref></property>
 		<property name="driver" ><null/></property>
-		<property name="origin" value="street6"/>
-		<property name="destination" value="street7"/>
-		<property name="distance" value="8.82"/>
-		<property name="estimatedTime" value="20.00"/>
-		<property name="price" value="18.23"/>
+		<property name="origin" value="Reina Mercedes, Sevilla, Sevilla, España"/>
+		<property name="destination" value="Greco, Sevilla, Sevilla, España"/>
+		<property name="distance" value="5100"/>
+		<property name="estimatedTime" value="995"/>
+		<property name="price" value="15"/>
 		<property name="moment" value="2019/01/25 12:10" />
 		<property name="comment" value="sex"/>
 		<property name="passengersNumber" value="1" />

@@ -12,7 +12,8 @@
 <security:authorize access="isAnonymous()">
 <form:form
 	action="mechanic/save.do"
-	modelAttribute="mechanicForm">
+	modelAttribute="mechanicForm"
+	onsubmit="checkPhone()">
 	
 	<acme:textbox code="mechanic.username" path="userAccount.username" /><br/>
 	<acme:password code="mechanic.password" path="userAccount.password" /><br/>
@@ -59,14 +60,14 @@
 	</p>
 	<acme:textbox code="mechanic.idNumber" path="idNumber" /><br/>
 	<acme:textbox code="mechanic.photo" path="photoUrl" /><br/>
-	<acme:submit name="save" code="mechanic.save"  />
+	<input type="submit" name="save"
+		value="<spring:message code="mechanic.save" />"/>
 	<acme:cancel code="mechanic.cancel" url="welcome/index.do" />
 </form:form>
 </security:authorize>
 <script type="text/javascript">
 	function checkPhone(){
 		var phone = $("input#phone").val();
-		//alert(phone);
 		//var pat = new RegExp("[1-9]");
 		var pat = /^(\+[1-9][0-9]{0,2}\s(\([1-9][0-9]{0,2}\)\s){0,1}){0,1}[0-9]{4,}$/; 
 		//var pat = new RegExp("^(\+[1-9][0-9]{0,2}\s(\([1-9][0-9]{0,2}\)\s){0,1}){0,1}[0-9]{4,}$");
