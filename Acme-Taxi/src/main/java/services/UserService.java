@@ -87,7 +87,7 @@ public class UserService {
 
 			final List<Authority> authorities = new ArrayList<Authority>();
 			final Authority auth = new Authority();
-			auth.setAuthority(Authority.DRIVER);
+			auth.setAuthority(Authority.USER);
 			authorities.add(auth);
 			u.getUserAccount().setAuthorities(authorities);
 			final UserAccount ua = this.userAccountService.save(u.getUserAccount());
