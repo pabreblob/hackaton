@@ -96,7 +96,8 @@ public class DriverService {
 			d.getUserAccount().setAuthorities(authorities);
 			final UserAccount ua = this.userAccountService.save(d.getUserAccount());
 			d.setUserAccount(ua);
-		}
+		} else
+			Assert.isTrue(d.equals(this.findByPrincipal()));
 
 		if (d.getPhone() != null && d.getPhone() != "")
 			if (!d.getPhone().trim().startsWith("+"))

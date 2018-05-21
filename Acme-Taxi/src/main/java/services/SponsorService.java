@@ -94,7 +94,8 @@ public class SponsorService {
 			sponsor.getUserAccount().setAuthorities(authorities);
 			final UserAccount ua = this.userAccountService.save(sponsor.getUserAccount());
 			sponsor.setUserAccount(ua);
-		}
+		} else
+			Assert.isTrue(sponsor.equals(this.findByPrincipal()));
 
 		if (sponsor.getPhone() != null && sponsor.getPhone() != "")
 			if (!sponsor.getPhone().trim().startsWith("+"))
