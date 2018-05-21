@@ -159,6 +159,8 @@ public class MechanicController extends AbstractController {
 			result = new ModelAndView("mechanic/display");
 		boolean blockeable=false;
 		boolean unblockeable=false;
+		boolean reportable=false;
+		boolean banned=false;
 		try{
 			Actor a=this.actorService.findByPrincipal();
 			if(a.getId()!=mechanic.getId()){
@@ -169,6 +171,12 @@ public class MechanicController extends AbstractController {
 					unblockeable=true;
 				}
 			}
+			if(a.getId()!=mechanic.getId()){
+				reportable=true;
+			}
+			if(mechanic.getUserAccount().isBanned()){
+				banned=true;
+			}
 		}catch(Throwable oops){
 			
 		}
@@ -176,6 +184,8 @@ public class MechanicController extends AbstractController {
 			result.addObject("blockeable", blockeable);
 			result.addObject("unblockeable", unblockeable);
 			result.addObject("repairShops", repairShops);
+			result.addObject("reportable", reportable);
+			result.addObject("banned", banned);
 			result.addObject("requestURI", requestURI);
 			result.addObject("total", total);
 				

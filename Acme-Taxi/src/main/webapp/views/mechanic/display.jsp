@@ -38,8 +38,17 @@
 <jstl:if test='${reportable}'>
 <a href="report/actor/create.do?actorId=${mechanic.id}"> <spring:message code="mechanic.report" /></a>
 </jstl:if>
+</security:authorize></p>
+<security:authorize access="hasRole('ADMIN')">
+<jstl:if test='${!banned}'>
+<a href="actor/admin/ban.do?actorId=${mechanic.id}"> <spring:message code="mechanic.ban" /></a>
+</jstl:if>
+
+<jstl:if test='${banned}'>
+<a href="actor/admin/unban.do?actorId=${mechanic.id}"> <spring:message code="mechanic.unban" /></a>
+</jstl:if>
 </security:authorize>
-</p>
+
 <spring:message code="mechanic.dateFormat2" var="dateFormat2" />
 <p>
 <spring:message code="mechanic.birthdate"/>:<fmt:formatDate value="${mechanic.birthdate}" pattern="${dateFormat2}" />
