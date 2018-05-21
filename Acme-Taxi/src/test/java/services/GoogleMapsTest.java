@@ -10,7 +10,7 @@ public class GoogleMapsTest {
 	public static void main(final String[] args) {
 		final String origen = "Calle Bami, Sevilla, España";
 		final String destino = "Nervión, Sevilla, España ";
-		final List<Integer> data = GoogleMaps.getDistanceAndDuration(origen, destino);
+		final List<Integer> data = GoogleMaps.getDistanceAndDuration(origen, destino, false);
 		if (data == null)
 			System.out.println("Error al leer el origen o el destino");
 		else {
