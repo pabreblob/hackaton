@@ -25,4 +25,10 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 
 	@Query("select count(a) from Actor a where a.suspicious = true")
 	Integer countSuspiciousActor();
+
+	@Query("select a from Actor a where a.userAccount.banned = true")
+	Page<Actor> getBannedActor(Pageable page);
+
+	@Query("select count(a) from Actor a where a.userAccount.banned = true")
+	Integer countBannedActor();
 }

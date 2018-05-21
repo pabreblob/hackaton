@@ -24,6 +24,11 @@
 	<definition name="actor/listSuspicious" extends="master.page">	
 		<put-attribute name="title" value="Lista de sospechosos" />
 		<put-attribute name="body" value="/views/actor/listSuspicious.jsp" />
-	</definition>
+	</definition>		
+	
+	<definition name="actor/listBanned" extends="master.page">	
+		<put-attribute name="title" value="Lista de bloqueados" />
+		<put-attribute name="body" value="/views/actor/listBanned.jsp" />
+	</definition>	
 	
 </tiles-definitions>

@@ -65,9 +65,19 @@ public class ActorService {
 	public Collection<Actor> getSuspiciousActor(final Pageable pageable) {
 		return this.actorRepository.getSuspiciousActor(pageable).getContent();
 	}
+
 	public Integer countSuspiciousActor() {
 		return this.actorRepository.countSuspiciousActor();
 	}
+
+	public Collection<Actor> getBannedActor(final Pageable pageable) {
+		return this.actorRepository.getBannedActor(pageable).getContent();
+	}
+
+	public Integer countBannedActor() {
+		return this.actorRepository.countBannedActor();
+	}
+
 	public void ban(final int actorId) {
 		final Actor a = this.findOne(actorId);
 		Assert.isTrue(!(a instanceof Admin));
