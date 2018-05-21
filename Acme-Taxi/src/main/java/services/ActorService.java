@@ -70,6 +70,7 @@ public class ActorService {
 	}
 	public void ban(final int actorId) {
 		final Actor a = this.findOne(actorId);
+		Assert.isTrue(!(a instanceof Admin));
 		Assert.notNull(a);
 		a.getUserAccount().setBanned(true);
 		this.save(a);
