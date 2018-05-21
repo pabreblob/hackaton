@@ -211,6 +211,7 @@ public class RequestService {
 		Assert.notNull(r);
 		Assert.isNull(r.getDriver());
 		Assert.isTrue(!r.isCancelled());
+		Assert.notNull(this.driverService.findByPrincipal());
 		Assert.isTrue(this.driverService.findByPrincipal().getCar().getMaxPassengers() > r.getPassengersNumber());
 		final LocalDate now = new LocalDate();
 		final LocalDate moment = new LocalDate(r.getMoment());
