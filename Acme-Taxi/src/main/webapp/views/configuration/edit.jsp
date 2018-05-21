@@ -33,6 +33,7 @@
 	<acme:textarea code="configuration.acceptCookiesEng" path="acceptCookiesEng"/>
 	<acme:textarea code="configuration.acceptCookiesEsp" path="acceptCookiesEsp"/>
 	<acme:textbox code="configuration.nationalities" path="nationalities"/>
+	<acme:checkbox code="configuration.useapi" path="useApi"/>
 	
 	<acme:submit name="submit" code="configuration.submit"/>
 	<acme:cancel url="configuration/admin/display.do" code="configuration.cancel"/>

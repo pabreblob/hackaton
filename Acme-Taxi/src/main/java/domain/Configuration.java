@@ -42,6 +42,7 @@ public class Configuration extends DomainEntity {
 	private String				acceptCookiesEng;
 	private String				acceptCookiesEsp;
 	private Collection<String>	nationalities;
+	private boolean				useApi;
 
 
 	public Configuration() {
@@ -152,7 +153,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.RELAXED)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	@Column(length = Integer.MAX_VALUE)
 	public String getLegalTextEng() {
 		return this.legalTextEng;
@@ -163,7 +164,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.RELAXED)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	@Column(length = Integer.MAX_VALUE)
 	public String getLegalTextEsp() {
 		return this.legalTextEsp;
@@ -174,7 +175,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.RELAXED)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	@Column(length = Integer.MAX_VALUE)
 	public String getCookiesPolicyEng() {
 		return this.cookiesPolicyEng;
@@ -185,7 +186,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.RELAXED)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	@Column(length = Integer.MAX_VALUE)
 	public String getCookiesPolicyEsp() {
 		return this.cookiesPolicyEsp;
@@ -196,7 +197,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.RELAXED)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	@Column(length = Integer.MAX_VALUE)
 	public String getContactEng() {
 		return this.contactEng;
@@ -207,7 +208,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.RELAXED)
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	@Column(length = Integer.MAX_VALUE)
 	public String getContactEsp() {
 		return this.contactEsp;
@@ -258,6 +259,14 @@ public class Configuration extends DomainEntity {
 
 	public void setNationalities(final Collection<String> nationalities) {
 		this.nationalities = nationalities;
+	}
+
+	public boolean isUseApi() {
+		return this.useApi;
+	}
+
+	public void setUseApi(final boolean useApi) {
+		this.useApi = useApi;
 	}
 
 }

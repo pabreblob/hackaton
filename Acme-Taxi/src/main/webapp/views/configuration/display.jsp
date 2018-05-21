@@ -54,6 +54,17 @@ tr:nth-child(even){
 	<tr>
 		<td><b><spring:message code="configuration.footer"/></b></td><td style="text-align: center"><jstl:out value="${config.footer}"/></td>
 	</tr>
+	<tr>
+		<td><b><spring:message code="configuration.useapi"/></b></td><td style="text-align: center">
+			<jstl:if test="${config.useApi == true}">
+				<spring:message code="configuration.yes" var="useApi"/>
+			</jstl:if>
+			<jstl:if test="${config.useApi == false}">
+				<spring:message code="configuration.no" var="useApi"/>
+			</jstl:if>
+			<jstl:out value="${useApi}"/>
+		</td>
+	</tr>
 </table>
 <h2><spring:message code="configuration.texts"/></h2>
 <table>
