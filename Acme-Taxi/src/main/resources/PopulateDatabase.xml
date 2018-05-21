@@ -246,6 +246,7 @@
 		<value>British</value>
 		</list>
 		</property>
+		<property name="useApi" value="true" />
 		
 	</bean> 
 	<bean id="SpamWord1" class="domain.SpamWord">
@@ -843,7 +844,7 @@
 		</property>
 		<property name="IdNumber" value="88547463Q" />
 		<property name="nationality" value="Spanish" />
-		<property name="banned" value="True" />
+		
 		
 	</bean>
 	<bean id="Car1" class="domain.Car">
