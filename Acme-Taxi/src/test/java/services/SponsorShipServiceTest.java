@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
+import domain.CreditCard;
 import domain.Sponsorship;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -77,6 +78,15 @@ public class SponsorShipServiceTest extends AbstractTest {
 			final Sponsorship sp = this.sponsorshipService.create();
 			sp.setAccepted(accepted);
 			sp.setCancelled(cancelled);
+			final CreditCard cd = new CreditCard();
+			cd.setHolderName("Manuel");
+			cd.setBrandName("Visa");
+			cd.setNumber("4411870029323103");
+			cd.setExpMonth(11);
+			cd.setExpYear(19);
+			cd.setCvv(333);
+			sp.setCreditCard(cd);
+			sp.setPictureUrl("http://www.image.es");
 			this.sponsorshipService.save(sp);
 			super.authenticate(null);
 		} catch (final Throwable oops) {
@@ -197,42 +207,28 @@ public class SponsorShipServiceTest extends AbstractTest {
 	 * 
 	 */
 	@Test
-	public void driverListCreatedAnnouncements() {
-		final Object testingData[][] = {
-			{
-				null
-			}
-		};
-		for (int i = 0; i < testingData.length; i++)
-			this.templateListSponsorshipNotAccepted((Class<?>) testingData[i][1]);
-	}
+	public void testListSponsorshipNotAccepted() {
 
-	/**
-	 * Template for testing the listing of created announcements.
-	 * <p>
-	 * This method defines the template used for the tests that check the listing of created announcements.
-	 * 
-	 * @param expected
-	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
-	 */
-	public void templateListSponsorshipNotAccepted(final Class<?> expected) {
-		Class<?> caught;
-		caught = null;
-		try {
-			super.authenticate("sponsor2");
-			final Sponsorship sp = this.sponsorshipService.create();
-			this.sponsorshipService.save(sp);
-			final Sponsorship saved = this.sponsorshipService.save(sp);
-			final Sponsorship found = this.sponsorshipService.findOne(saved.getId());
-			Assert.isTrue(found.equals(saved));
-			Assert.isTrue(this.sponsorService.findByPrincipal().equals(saved.getSponsor()));
-			final Collection<Sponsorship> notAccepted = this.sponsorshipService.findSponsorshipNotAccepted(new PageRequest(0, 10));
-			Assert.isTrue(notAccepted.contains(found));
-			super.authenticate(null);
-		} catch (final Throwable oops) {
-			caught = oops.getClass();
-		}
-		this.checkExceptions(expected, caught);
+		super.authenticate("sponsor2");
+		final Sponsorship sp = this.sponsorshipService.create();
+		final CreditCard cd = new CreditCard();
+		cd.setHolderName("Manuel");
+		cd.setBrandName("Visa");
+		cd.setNumber("4411870029323103");
+		cd.setExpMonth(11);
+		cd.setExpYear(19);
+		cd.setCvv(333);
+		sp.setCreditCard(cd);
+		sp.setPictureUrl("http://www.image.es");
+		this.sponsorshipService.save(sp);
+		final Sponsorship saved = this.sponsorshipService.save(sp);
+		final Sponsorship found = this.sponsorshipService.findOne(saved.getId());
+		Assert.isTrue(found.equals(saved));
+		Assert.isTrue(this.sponsorService.findByPrincipal().equals(saved.getSponsor()));
+		final Collection<Sponsorship> notAccepted = this.sponsorshipService.findSponsorshipNotAccepted(new PageRequest(0, 10));
+		Assert.isTrue(notAccepted.contains(found));
+		super.authenticate(null);
+
 	}
 
 }
