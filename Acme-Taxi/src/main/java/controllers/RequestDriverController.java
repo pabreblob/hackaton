@@ -137,7 +137,7 @@ public class RequestDriverController extends AbstractController {
 		try {
 			final Request r = this.requestService.findOne(requestId);
 			Assert.notNull(r);
-			if (!r.getDriver().equals(null)) {
+			if (!(r.getDriver() == null)) {
 				final LocalDate moment = new LocalDate(r.getMoment());
 				final LocalDate now = new LocalDate();
 				Assert.isTrue(moment.isAfter(now));
