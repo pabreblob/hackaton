@@ -82,6 +82,7 @@ public class ConfigurationAdminController extends AbstractController {
 			}
 		return res;
 	}
+
 	@RequestMapping("/edit-legaltexteng")
 	public ModelAndView editLegEng() {
 		final LegalTextForm legalText = new LegalTextForm();
@@ -121,10 +122,10 @@ public class ConfigurationAdminController extends AbstractController {
 				res = new ModelAndView("configuration/display");
 				res.addObject("config", configuration);
 			} catch (final Throwable oops) {
-				res = new ModelAndView("configuration/edit-legalText");
+				res = new ModelAndView("configuration/edit-legaltext");
 				res.addObject("legalText", legalText);
 				res.addObject("eng", true);
-				res.addObject("message", "configuration.error");
+				res.addObject("message", "configuration.legalText.error");
 			}
 		return res;
 	}
@@ -147,7 +148,7 @@ public class ConfigurationAdminController extends AbstractController {
 				res = new ModelAndView("configuration/edit-legalText");
 				res.addObject("legalText", legalText);
 				res.addObject("eng", false);
-				res.addObject("message", "configuration.error");
+				res.addObject("message", "configuration.legalText.error");
 			}
 		return res;
 	}
