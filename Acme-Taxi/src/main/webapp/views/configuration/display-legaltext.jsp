@@ -10,7 +10,7 @@
 
 
 <div>
-	<jstl:out value="${legalText}"></jstl:out>
+	${legalText}
 </div>
 
 <jstl:if test="${eng == true}">
