@@ -69,6 +69,8 @@ public class SponsorshipService {
 	public Sponsorship save(final Sponsorship sponsorship) {
 		final Sponsor sponsor = this.sponsorService.findByPrincipal();
 		Assert.isTrue(sponsorship.getSponsor().equals(sponsor));
+		Assert.isTrue(!sponsorship.isAccepted());
+		Assert.isTrue(!sponsorship.isCancelled());
 		final Sponsorship res = this.sponsorshipRepository.save(sponsorship);
 		return res;
 	}
