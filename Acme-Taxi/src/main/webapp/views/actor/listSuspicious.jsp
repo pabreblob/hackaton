@@ -11,7 +11,7 @@
 	pagesize="5" id="row" keepStatus="true">
 	
 	<display:column>
-		<jstl:if test="${row.banned}">
+		<jstl:if test="${row.userAccount.banned}">
 			<div style="background-color:red">
 				<spring:message code="actor.banned"/>
 			</div>
@@ -53,10 +53,10 @@
 	
 	<spring:message code="actor.ban" var="banHeader"/>
 	<display:column title="${banHeader}">
-		<jstl:if test="${row.banned}">
+		<jstl:if test="${row.userAccount.banned}">
 			<a href="actor/admin/unban.do?actorId=${row.id}"><spring:message code="actor.unban"/></a>
 		</jstl:if>
-		<jstl:if test="${not row.banned}">
+		<jstl:if test="${not row.userAccount.banned}">
 			<a href="actor/admin/ban.do?actorId=${row.id}"><spring:message code="actor.ban"/></a>
 		</jstl:if>
 	</display:column>

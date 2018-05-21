@@ -71,14 +71,14 @@ public class ActorService {
 	public void ban(final int actorId) {
 		final Actor a = this.findOne(actorId);
 		Assert.notNull(a);
-		a.setBanned(true);
+		a.getUserAccount().setBanned(true);
 		this.save(a);
 	}
 
 	public void unban(final int actorId) {
 		final Actor a = this.findOne(actorId);
 		Assert.notNull(a);
-		a.setBanned(false);
+		a.getUserAccount().setBanned(false);
 		this.save(a);
 	}
 

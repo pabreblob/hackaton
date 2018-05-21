@@ -37,7 +37,7 @@ public abstract class Actor extends DomainEntity {
 	private String				email;
 	private String				phone;
 	private boolean				suspicious;
-	private boolean				banned;
+	// boolean				banned;
 
 	private Collection<Folder>	folders;
 	private Collection<Actor>	blockedUsers;
@@ -109,13 +109,13 @@ public abstract class Actor extends DomainEntity {
 		this.suspicious = suspicious;
 	}
 
-	public boolean isBanned() {
-		return this.banned;
-	}
-
-	public void setBanned(final boolean banned) {
-		this.banned = banned;
-	}
+	//	public boolean isBanned() {
+	//		return this.banned;
+	//	}
+	//
+	//	public void setBanned(final boolean banned) {
+	//		this.banned = banned;
+	//	}
 
 	@NotNull
 	@NotEmpty
