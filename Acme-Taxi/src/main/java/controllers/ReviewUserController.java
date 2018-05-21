@@ -151,7 +151,7 @@ public class ReviewUserController extends AbstractController {
 		result.addObject("reviewForm", reviewForm);
 		result.addObject("form", "true");
 		result.addObject("action", "review/user/save-repairShop.do");
-		result.addObject("cancel", "driver/user/list.do");
+		result.addObject("cancel", "repairShop/user/list-reviewable.do");
 
 		return result;
 	}
@@ -163,7 +163,7 @@ public class ReviewUserController extends AbstractController {
 		final User creator = this.userService.findByPrincipal();
 		final User user = this.userService.findOne(userId);
 		Assert.notNull(user);
-		Assert.isTrue(!this.userService.findUsersReviewable().contains(user));
+		Assert.isTrue(this.userService.findUsersReviewable().contains(user));
 		reviewForm.setUser(user);
 		reviewForm.setCreator(creator);
 
@@ -171,7 +171,7 @@ public class ReviewUserController extends AbstractController {
 		result.addObject("reviewForm", reviewForm);
 		result.addObject("form", "true");
 		result.addObject("action", "review/user/save-user.do");
-		result.addObject("cancel", "driver/user/list.do");
+		result.addObject("cancel", "user/user/list-reviewable.do");
 
 		return result;
 	}
@@ -185,7 +185,7 @@ public class ReviewUserController extends AbstractController {
 		Assert.isNull(reviewForm.getUser());
 		final Review r = this.reviewService.reconstruct(reviewForm, binding);
 		if (binding.hasErrors())
-			result = this.createEditModelAndViewForm(reviewForm);
+			result = this.createEditModelAndViewForm(reviewForm, "driver/user/list.do");
 		else
 			try {
 				this.reviewService.saveDriver(r, reviewForm.getDriver().getId());
@@ -208,7 +208,7 @@ public class ReviewUserController extends AbstractController {
 		final Review r = this.reviewService.reconstruct(reviewForm, binding);
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndViewForm(reviewForm);
+			result = this.createEditModelAndViewForm(reviewForm, "repairShop/user/list-reviewable.do");
 		else
 			try {
 				this.reviewService.saveRepairShop(r, reviewForm.getRepairShop().getId());
@@ -229,7 +229,7 @@ public class ReviewUserController extends AbstractController {
 		Assert.notNull(reviewForm.getUser());
 		final Review r = this.reviewService.reconstruct(reviewForm, binding);
 		if (binding.hasErrors())
-			result = this.createEditModelAndViewForm(reviewForm);
+			result = this.createEditModelAndViewForm(reviewForm, "user/user/list-reviewable.do");
 		else
 			try {
 				this.reviewService.saveUser(r, reviewForm.getUser().getId());
@@ -278,18 +278,18 @@ public class ReviewUserController extends AbstractController {
 
 	}
 
-	protected ModelAndView createEditModelAndViewForm(final ReviewForm reviewForm) {
+	protected ModelAndView createEditModelAndViewForm(final ReviewForm reviewForm, final String cancel) {
 		final ModelAndView result;
-		result = this.createEditModelAndViewForm(reviewForm, null);
+		result = this.createEditModelAndViewForm(reviewForm, cancel, null);
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndViewForm(final ReviewForm reviewForm, final String messageCode) {
+	protected ModelAndView createEditModelAndViewForm(final ReviewForm reviewForm, final String cancel, final String messageCode) {
 		final ModelAndView result;
 		result = new ModelAndView("review/edit");
 		result.addObject("reviewForm", reviewForm);
 		result.addObject("form", "true");
-		result.addObject("cancel", "driver/user/list.do");
+		result.addObject("cancel", cancel);
 		result.addObject("message", messageCode);
 
 		return result;
@@ -303,7 +303,7 @@ public class ReviewUserController extends AbstractController {
 		res = new ModelAndView("review/edit");
 		res.addObject("review", r);
 		res.addObject("form", "false");
-		res.addObject("cancel", "driver/user/list.do");
+		res.addObject("cancel", "review/user/list-created.do");
 		res.addObject("message", messageCode);
 		return res;
 	}

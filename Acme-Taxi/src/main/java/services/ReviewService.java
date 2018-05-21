@@ -123,7 +123,7 @@ public class ReviewService {
 		final User creator = this.userService.findByPrincipal();
 		final User user = this.userService.findOne(userId);
 		Assert.isTrue(review.getCreator().equals(creator));
-		Assert.isTrue(!this.userService.findUsersReviewable().contains(user));
+		Assert.isTrue(this.userService.findUsersReviewable().contains(user));
 		final Review res = this.reviewRepository.save(review);
 		user.getReviews().add(res);
 		user.setMeanRating(ReviewService.calculoRating(user.getReviews()));
