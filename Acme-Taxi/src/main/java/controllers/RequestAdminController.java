@@ -121,6 +121,7 @@ public class RequestAdminController extends AbstractController {
 			estimated = hours + "h " + minutes + "min";
 			res.addObject("estimated", estimated);
 			res.addObject("now", new Date());
+			res.addObject("useApi", this.configurationService.find().isUseApi());
 			return res;
 		} catch (final Throwable oops) {
 			return new ModelAndView("redirect:/welcome/index.do");

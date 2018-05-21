@@ -19,12 +19,14 @@
 	<p><spring:message code="request.commentNoOptional"/>: <jstl:out value="${request.comment}"/></p>
 </jstl:if>
 
+<jstl:if test="${useApi}">
 <iframe
   width="700"
   height="500"
   frameborder="0" style="border:0"
   src="https://www.google.com/maps/embed/v1/directions?key=&origin=<jstl:out value="${request.origin}"/>&destination=<jstl:out value="${request.destination}"/>&avoid=ferries|tolls&mode=driving" allowfullscreen>
 </iframe>
+</jstl:if>
 
 <p><spring:message code="request.price"/>: <jstl:out value="${request.price}"/> <jstl:out value="${currency}"/></p>
 <p><spring:message code="request.estimatedTime"/>: <jstl:out value="${estimated}"/> (<spring:message code="request.timeCanChange"/>)</p>
