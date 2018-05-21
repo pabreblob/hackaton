@@ -54,10 +54,10 @@
 	<spring:message code="actor.ban" var="banHeader"/>
 	<display:column title="${banHeader}">
 		<jstl:if test="${row.userAccount.banned}">
-			<a href="actor/admin/unban.do?actorId=${row.id}"><spring:message code="actor.unban"/></a>
+			<a href="actor/admin/unban.do?actorId=${row.id}&returnUri=suspicious"><spring:message code="actor.unban"/></a>
 		</jstl:if>
 		<jstl:if test="${not row.userAccount.banned}">
-			<a href="actor/admin/ban.do?actorId=${row.id}"><spring:message code="actor.ban"/></a>
+			<a href="actor/admin/ban.do?actorId=${row.id}&returnUri=suspicious"><spring:message code="actor.ban"/></a>
 		</jstl:if>
 	</display:column>
 </display:table>
