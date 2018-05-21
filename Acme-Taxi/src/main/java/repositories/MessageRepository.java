@@ -20,4 +20,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 
 	@Query("select count(m) from Folder f join f.messages m where f.id = ?1 and m.checked is false")
 	Integer countUnreadMessages(int folderId);
+
+	@Query("select count(m) from Actor a join a.folders f join f.messages m where a.id = ?1 and m.checked is false")
+	Integer countTotalUnreadMessages(int actorId);
 }

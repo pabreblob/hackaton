@@ -21,12 +21,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
 import services.ConfigurationService;
 import services.MessageService;
 import services.SponsorshipService;
-import domain.Actor;
-import domain.Folder;
 
 @Controller
 public class AbstractController {
@@ -35,8 +32,6 @@ public class AbstractController {
 	private ConfigurationService	configurationService;
 	@Autowired
 	private SponsorshipService		sponsorshipService;
-	@Autowired
-	private ActorService			actorService;
 	@Autowired
 	private MessageService			messageService;
 
@@ -53,10 +48,7 @@ public class AbstractController {
 		model.addAttribute("footer", this.configurationService.find().getFooter());
 		model.addAttribute("spons", this.sponsorshipService.getRandomSponsorship().getPictureUrl());
 		try {
-			int unread = 0;
-			final Actor a = this.actorService.findByPrincipal();
-			for (final Folder f : a.getFolders())
-				unread += this.messageService.countUnreadMessages(f.getId());
+			final Integer unread = this.messageService.countTotalUnreadMessages();
 			model.addAttribute("unread", unread);
 		} catch (final Throwable oops) {
 

@@ -177,6 +177,24 @@ public class MessageService {
 		}
 	}
 
+	public void markAsSpam(final Message message) {
+		Assert.notNull(message);
+		final Folder folder = message.getFolder();
+		Assert.notNull(folder);
+		Assert.isTrue(!folder.getName().equals("Spam box") && !folder.getName().equals("Out box"));
+		Assert.isTrue(message.getId() != 0);
+		Assert.isTrue(folder.getId() != 0);
+		Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(folder));
+		Assert.isTrue(this.messageRepository.exists(message.getId()));
+		Assert.isTrue(folder.getMessages().contains(message));
+		final Folder spamf = this.folderService.findFolderByNameAndActor("Spam box");
+		Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(spamf));
+		message.setChecked(true);
+		folder.getMessages().remove(message);
+		message.setFolder(spamf);
+		spamf.getMessages().add(message);
+	}
+
 	public void moveToFolder(final Message message, final Folder target) {
 		Assert.notNull(message);
 		final Folder source = message.getFolder();
@@ -187,6 +205,7 @@ public class MessageService {
 		Assert.isTrue(target.getId() != 0);
 		Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(source));
 		Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(target));
+		Assert.isTrue(!target.getName().equals("Spam box") && !target.getName().equals("Trash box"));
 		Assert.isTrue(this.messageRepository.exists(message.getId()));
 		Assert.isTrue(source.getMessages().contains(message));
 		source.getMessages().remove(message);
@@ -237,6 +256,13 @@ public class MessageService {
 		Assert.notNull(folderId);
 		Assert.isTrue(folderId != 0);
 		return this.messageRepository.countUnreadMessages(folderId);
+	}
+
+	public Integer countTotalUnreadMessages() {
+		final Actor a = this.actorService.findByPrincipal();
+		Assert.notNull(a);
+		final Integer res = this.messageRepository.countTotalUnreadMessages(a.getId());
+		return res;
 	}
 
 	public void checkMessage(final int messageId) {
