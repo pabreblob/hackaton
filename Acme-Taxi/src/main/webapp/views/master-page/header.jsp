@@ -104,6 +104,10 @@
 					<li><a href="request/user/list.do"><spring:message code="master.page.user.request.list"/></a></li>
 					<li><a href="review/user/list.do"><spring:message code="master.page.user.review.list"/></a></li>
 					<li><a href="review/user/list-created.do"><spring:message code="master.page.user.review.created"/></a></li>
+					<li><a href="announcement/user/create.do"><spring:message code="master.page.user.announcement.create"/></a></li>
+					<li><a href="announcement/user/list.do"><spring:message code="master.page.user.announcement.list"/></a></li>
+					<li><a href="announcement/user/list-created.do"><spring:message code="master.page.user.announcement.created"/></a></li>
+					<li><a href="announcement/user/list-joined.do"><spring:message code="master.page.user.announcement.joined"/></a></li>
 				</ul>
 			</li>
 		</security:authorize>
