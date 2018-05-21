@@ -23,6 +23,9 @@ public class IdNumberPatternService {
 	@Autowired
 	private ConfigurationService		configurationService;
 
+	@Autowired
+	private AdminService				adminService;
+
 
 	public IdNumberPattern create() {
 		final IdNumberPattern idN = new IdNumberPattern();
@@ -41,6 +44,7 @@ public class IdNumberPatternService {
 	public void delete(final IdNumberPattern idN) {
 		Assert.notNull(idN);
 		Assert.isTrue(idN.getId() > 0);
+		Assert.notNull(this.adminService.findByPrincipal());
 		this.idNumberPatternRepository.delete(idN);
 	}
 	public void delete(final int id) {
