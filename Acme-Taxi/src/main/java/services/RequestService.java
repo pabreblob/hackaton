@@ -157,6 +157,9 @@ public class RequestService {
 		Assert.notNull(res);
 		return res;
 	}
+	public Collection<Request> findAll() {
+		return this.requestRepository.findAll();
+	}
 	public void delete(final int requestId) {
 		final Request r = this.findOne(requestId);
 		Assert.notNull(r);
@@ -164,6 +167,7 @@ public class RequestService {
 		final LocalDate now = new LocalDate();
 		final LocalDate moment = new LocalDate(r.getMoment());
 		Assert.isTrue(moment.isAfter(now));
+		Assert.isTrue(r.getUser().getId() == this.userService.findByPrincipal().getId());
 		this.requestRepository.delete(requestId);
 	}
 	@SuppressWarnings("deprecation")
@@ -172,6 +176,7 @@ public class RequestService {
 		Assert.notNull(r);
 		Assert.notNull(r.getDriver());
 		Assert.isTrue(!r.isCancelled());
+		Assert.isTrue(r.getUser().getId() == this.userService.findByPrincipal().getId());
 		final LocalDate now = new LocalDate();
 		final LocalDate moment = new LocalDate(r.getMoment());
 		Assert.isTrue(moment.isAfter(now));
