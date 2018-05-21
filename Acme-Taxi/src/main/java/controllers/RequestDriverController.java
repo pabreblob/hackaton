@@ -153,6 +153,7 @@ public class RequestDriverController extends AbstractController {
 			res.addObject("estimated", estimated);
 			res.addObject("maxPass", this.driverService.findByPrincipal().getCar().getMaxPassengers());
 			res.addObject("now", new Date());
+			res.addObject("useApi", this.configurationService.find().isUseApi());
 			return res;
 		} catch (final Throwable oops) {
 			return new ModelAndView("redirect:/welcome/index.do");
