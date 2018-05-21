@@ -370,6 +370,82 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	/**
+	 * Tests the marking of messages as spam.
+	 * <p>
+	 * This method tests the creation and later marking of messages as spam as it would be done by a user in the corresponding views.
+	 * <p>
+	 * 14.3. An actor who is authenticated must be able to: Manage the messages in their folders, which includes deleting them and marking them as spam.
+	 * 
+	 * Case 1: Mechanic1 marks a message as spam. No exception is expected.
+	 * 
+	 * Case 2: User1 marks a message as spam. No exception is expected.
+	 * 
+	 * Case 3: Mechanic1 marks a message from their Out box as spam. An IllegalArgumentException is expected.
+	 * 
+	 * Case 4: An unauthenticated user tries to permanently delete a message. An IllegalArgumentException is expected.
+	 */
+	@Test
+	public void driverMarkAsSpamMessage() {
+		final Object testingData[][] = {
+			{
+				"mechanic1", true, null
+			}, {
+				"user1", true, null
+			}, {
+				"mechanic1", false, IllegalArgumentException.class
+			}, {
+				null, false, IllegalArgumentException.class
+			}
+		};
+		for (int i = 0; i < testingData.length; i++)
+			this.templateMarkAsSpamMessage((String) testingData[i][0], (boolean) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
+	/**
+	 * Template for testing the marking of messages as spam.
+	 * <p>
+	 * This method defines the template used for the tests that check the marking of messages as spam.
+	 * 
+	 * @param username
+	 *            The username of the actor that logs in.
+	 * @param move
+	 *            Specify if the message will be moved out of the Out box.
+	 * @param expected
+	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
+	 */
+	public void templateMarkAsSpamMessage(final String username, final boolean move, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		try {
+			super.authenticate(username);
+			final Message res = this.messageService.create();
+			res.setSubject("Subject");
+			res.setBody("Hello");
+			res.setPriority(Priority.NEUTRAL);
+			final Collection<Actor> recipients = new ArrayList<Actor>();
+			final List<Mechanic> rangers = new ArrayList<Mechanic>(this.mechanicService.findAll());
+			recipients.add(rangers.get(0));
+			res.setRecipients(recipients);
+			Message saved = this.messageService.save(res);
+			if (move) {
+				final Folder notiff = this.folderService.findFolderByNameAndActor("Notification box");
+				this.messageService.moveToFolder(saved, notiff);
+				saved = this.messageService.findOne(saved.getId());
+			}
+			final Folder spamf = this.folderService.findFolderByNameAndActor("Spam box");
+			this.messageService.markAsSpam(saved);
+			final Message found = this.messageService.findOne(saved.getId());
+			Assert.isTrue(found != null);
+			Assert.isTrue(found.getFolder().getName().equals("Spam box"));
+			Assert.isTrue(spamf.getMessages().contains(found));
+			super.authenticate(null);
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+		this.checkExceptions(expected, caught);
+	}
+
+	/**
 	 * Tests the moving of messages.
 	 * <p>
 	 * This method tests the creation and later moving of messages as it would be done by a user in the corresponding views.
@@ -378,7 +454,7 @@ public class MessageServiceTest extends AbstractTest {
 	 * 
 	 * Case 1: Mechanic1 moves a message to their Notification box. No exception is expected.
 	 * 
-	 * Case 2: Mechanic1 moves a message to their Spam box. No exception is expected.
+	 * Case 2: Mechanic1 moves a message to their In box. No exception is expected.
 	 * 
 	 * Case 3: User1 moves a message to their Notification box. No exception is expected.
 	 * 
@@ -390,7 +466,7 @@ public class MessageServiceTest extends AbstractTest {
 			{
 				"mechanic1", "Notification box", null
 			}, {
-				"mechanic1", "Spam box", null
+				"mechanic1", "In box", null
 			}, {
 				"user1", "Notification box", null
 			}, {

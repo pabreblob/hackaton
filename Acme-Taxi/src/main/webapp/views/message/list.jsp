@@ -56,11 +56,16 @@
 <display:column sortable="false">
 <a href="message/actor/move.do?messageId=${row.id}"><spring:message code="message.move"/></a>
 </display:column>
+<jstl:if test="${folder.name != 'Spam box' and folder.name != 'Out box'}">
 <display:column sortable="false">
 <jstl:if test="${!row.checked}">
 <a href="message/actor/setchecked.do?messageId=${row.id}"><spring:message code="message.setchecked"/></a>
 </jstl:if>
 </display:column>
+<display:column sortable="false">
+<a href="message/actor/markasspam.do?messageId=${row.id}"><spring:message code="message.markspam"/></a>
+</display:column>
+</jstl:if>
 </display:table>
 <a href="message/actor/create.do"><spring:message code="message.create" /></a>
 <security:authorize access="hasRole('ADMIN')">

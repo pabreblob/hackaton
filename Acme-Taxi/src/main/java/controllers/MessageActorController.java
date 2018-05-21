@@ -122,6 +122,8 @@ public class MessageActorController extends AbstractController {
 		final Folder origin = message.getFolder();
 		final Collection<Folder> available = new ArrayList<Folder>(this.actorService.findByPrincipal().getFolders());
 		available.remove(origin);
+		available.remove(this.folderService.findFolderByNameAndActor("Trash box"));
+		available.remove(this.folderService.findFolderByNameAndActor("Spam box"));
 		result = new ModelAndView("message/move");
 		result.addObject("mess", message);
 		result.addObject("origin", origin);
@@ -170,6 +172,21 @@ public class MessageActorController extends AbstractController {
 		Assert.isTrue(f.getMessages().contains(message));
 		Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(f));
 		this.messageService.checkMessage(messageId);
+		result = new ModelAndView("redirect:list.do?folderId=" + f.getId());
+		return result;
+	}
+
+	@RequestMapping(value = "/markasspam", method = RequestMethod.GET)
+	public ModelAndView markAsSpam(@RequestParam final int messageId) {
+		ModelAndView result;
+		Assert.notNull(messageId);
+		Assert.isTrue(messageId != 0);
+		final Message message = this.messageService.findOne(messageId);
+		final Folder f = message.getFolder();
+		Assert.isTrue(!f.getName().equals("Spam box") && !f.getName().equals("Out box"));
+		Assert.isTrue(f.getMessages().contains(message));
+		Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(f));
+		this.messageService.markAsSpam(message);
 		result = new ModelAndView("redirect:list.do?folderId=" + f.getId());
 		return result;
 	}
