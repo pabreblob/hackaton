@@ -1,6 +1,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,4 +31,13 @@ public interface AnnouncementRepository extends JpaRepository<Announcement, Inte
 
 	@Query("select count(a) from Announcement a where a.moment > CURRENT_TIMESTAMP and a.cancelled is false and a.creator.id != ?1")
 	Integer countAvailableAnnouncements(int userId);
+
+	@Query("select a from Announcement a")
+	Page<Announcement> findAllAnnouncements(Pageable pageable);
+
+	@Query("select count(a) from Announcement a")
+	Integer countAllAnnouncements();
+
+	@Query("select a from Announcement a where a.creator.id = ?1 or a.id in (select ann.id from Announcement ann join ann.attendants att where att.id = ?1) order by a.moment desc")
+	Collection<Announcement> findLastCreatedOrJoinedAnnouncements(int userId);
 }

@@ -31,6 +31,9 @@
 <p><spring:message code="announcement.cancelled" />: <jstl:if test="${!announcement.cancelled}"><spring:message code="announcement.no"/></jstl:if><jstl:if test="${announcement.cancelled}"><spring:message code="announcement.yes"/></jstl:if></p>
 <p><spring:message code="announcement.seats" />: <jstl:out value="${announcement.seats}"/></p>
 <p><spring:message code="announcement.remaining" />: <jstl:out value="${remaining}"/></p>
+<jstl:if test="${requestURI == 'announcement/admin/display.do'}">
+<p><spring:message code="announcement.marked" />: <jstl:if test="${!announcement.marked}"><spring:message code="announcement.no"/></jstl:if><jstl:if test="${announcement.marked}"><spring:message code="announcement.yes"/></jstl:if></p>
+</jstl:if>
 <p><spring:message code="announcement.attendants"/></p>
 <display:table name="attendants" id="row" requestURI="${requestURI}" class="displaytag">
 <spring:message code="announcement.username" var="userHeader"/> 
@@ -45,4 +48,7 @@
 <jstl:if test="${requestURI == 'announcement/user/display.do'}">
 <jstl:if test="${joined}"><a href="announcement/user/dropout.do?announcementId=${announcement.id}"><spring:message code="announcement.dropout"/></a></jstl:if>
 <jstl:if test="${joinable}"><a href="announcement/user/join.do?announcementId=${announcement.id}"><spring:message code="announcement.join"/></a></jstl:if>
+</jstl:if>
+<jstl:if test="${requestURI == 'announcement/admin/display.do'}">
+<a href="announcement/admin/delete.do?announcementId=${announcement.id}" onclick="return confirm('<spring:message code="announcement.confirm.delete"/>')"><spring:message code="announcement.delete"/></a>
 </jstl:if>

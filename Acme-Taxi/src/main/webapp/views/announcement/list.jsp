@@ -90,6 +90,20 @@
 	<a href="announcement/user/display.do?announcementId=${row.id}"><spring:message code="announcement.display"/></a>
 </display:column>
 </jstl:if>
+<jstl:if test="${requestURI == 'announcement/admin/list.do'}">
+<spring:message code="announcement.marked" var="markedHeader"/>
+<display:column title="${markedHeader}">
+<jstl:if test="${!row.marked}">
+	<spring:message code="announcement.no"/>
+</jstl:if>
+<jstl:if test="${row.marked}">
+	<spring:message code="announcement.yes"/>
+</jstl:if>
+</display:column>
+<display:column>
+	<a href="announcement/admin/display.do?announcementId=${row.id}"><spring:message code="announcement.display"/></a>
+</display:column>
+</jstl:if>
 </display:table>
 <jstl:if test="${requestURI == 'announcement/user/list-created.do'}">
 <a href="announcement/user/create.do"><spring:message code="announcement.create" /></a>

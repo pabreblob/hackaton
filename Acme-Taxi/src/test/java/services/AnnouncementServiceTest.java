@@ -262,6 +262,70 @@ public class AnnouncementServiceTest extends AbstractTest {
 	}
 
 	/**
+	 * Tests the deletion of announcements by the admin.
+	 * <p>
+	 * This method tests the creation and later deletion of announcements as it would be done by the admin in the corresponding views.
+	 * <p>
+	 * 19.13. An actor who is authenticated as an admin must be able to: Delete any content that he may consider inappropriate, excluding private messages.
+	 * 
+	 * Case 1: User1 creates an announcement and the admin deletes it. No exception is expected.
+	 * 
+	 * Case 2: User2 creates an announcement and the admin deletes it. No exception is expected.
+	 */
+	@Test
+	public void driverDeleteAdminAnnouncement() {
+		final Object testingData[][] = {
+			{
+				"user1", null
+			}, {
+				"user2", null
+			}
+		};
+		for (int i = 0; i < testingData.length; i++)
+			this.templateDeleteAdminAnnouncement((String) testingData[i][0], (Class<?>) testingData[i][1]);
+	}
+
+	/**
+	 * Template for testing the deletion of announcements by the admin.
+	 * <p>
+	 * This method defines the template used for the tests that check the deletion of announcements by the admin.
+	 * 
+	 * @param username
+	 *            The username of the user that logs in.
+	 * @param expected
+	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
+	 */
+	public void templateDeleteAdminAnnouncement(final String username, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		try {
+			super.authenticate(username);
+			final Announcement res = this.announcementService.create();
+			res.setTitle("Title");
+			res.setDescription("Hello");
+			res.setOrigin("Sevilla");
+			res.setDestination("Madrid");
+			res.setPricePerPerson(5);
+			res.setMoment(new Date(System.currentTimeMillis() + 9999999));
+			res.setSeats(4);
+			final Announcement saved = this.announcementService.save(res);
+			final Announcement found = this.announcementService.findOne(saved.getId());
+			Assert.isTrue(found.equals(saved));
+			Assert.isTrue(this.userService.findByPrincipal().equals(saved.getCreator()));
+			Assert.isTrue(saved.getAttendants().isEmpty());
+			super.authenticate(null);
+			super.authenticate("admin");
+			this.announcementService.deleteAdmin(saved.getId());
+			final Announcement found3 = this.announcementService.findOne(saved.getId());
+			Assert.isTrue(found3 == null);
+			super.authenticate(null);
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+		this.checkExceptions(expected, caught);
+	}
+
+	/**
 	 * Tests the joining of announcements.
 	 * <p>
 	 * This method tests the creation and later joining of announcements as it would be done by the users in the corresponding views.
@@ -685,6 +749,72 @@ public class AnnouncementServiceTest extends AbstractTest {
 			super.authenticate(username2);
 			final Collection<Announcement> available = this.announcementService.getAvailableAnnouncements(new PageRequest(0, 10));
 			Assert.isTrue(available.contains(found));
+			super.authenticate(null);
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+		this.checkExceptions(expected, caught);
+	}
+
+	/**
+	 * Tests the listing of created or joined announcements.
+	 * <p>
+	 * This method tests the creation and later listing of created or joined announcements as it would be done by an actor in the corresponding views.
+	 * <p>
+	 * 13.4. An actor who is not authenticated must be able to: Access to the profile of the user that has published an announcement. In the user's profile, the last 10 announcements he has joined or created must be listed.
+	 * 
+	 * Case 1: User1 lists their created or joined announcements. No exception is expected.
+	 * 
+	 * Case 2: An unauthenticated user tries to list the created or joined announcements of user1. No exception is expected.
+	 */
+	@Test
+	public void driverListCreatedOrJoinedAnnouncements() {
+		final Object testingData[][] = {
+			{
+				"user1", null
+			}, {
+				"user2", null
+			}, {
+				null, null
+			}
+		};
+		for (int i = 0; i < testingData.length; i++)
+			this.templateListCreatedOrJoinedAnnouncements((String) testingData[i][0], (Class<?>) testingData[i][1]);
+	}
+
+	/**
+	 * Template for testing the listing of created or joined announcements.
+	 * <p>
+	 * This method defines the template used for the tests that check the listing of created or joined announcements.
+	 * 
+	 * @param username
+	 *            The username of the user that logs in.
+	 * @param expected
+	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected.
+	 */
+	public void templateListCreatedOrJoinedAnnouncements(final String username, final Class<?> expected) {
+		Class<?> caught;
+		caught = null;
+		try {
+			super.authenticate("user1");
+			final Announcement res = this.announcementService.create();
+			res.setTitle("Title");
+			res.setDescription("Hello");
+			res.setOrigin("Sevilla");
+			res.setDestination("Madrid");
+			res.setPricePerPerson(5);
+			res.setMoment(new Date(System.currentTimeMillis() + 9999999));
+			res.setSeats(4);
+			final Announcement saved = this.announcementService.save(res);
+			final Announcement found = this.announcementService.findOne(saved.getId());
+			Assert.isTrue(found.equals(saved));
+			Assert.isTrue(this.userService.findByPrincipal().equals(saved.getCreator()));
+			Assert.isTrue(saved.getAttendants().isEmpty());
+			final int userId = this.userService.findByPrincipal().getId();
+			super.authenticate(null);
+			super.authenticate(username);
+			final Collection<Announcement> createdOrJoined = this.announcementService.getLastCreatedOrJoinedAnnouncements(userId);
+			Assert.isTrue(createdOrJoined.size() <= 10);
 			super.authenticate(null);
 		} catch (final Throwable oops) {
 			caught = oops.getClass();

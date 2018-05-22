@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.joda.time.Hours;
 import org.joda.time.LocalDateTime;
@@ -16,6 +17,7 @@ import org.springframework.validation.Validator;
 
 import repositories.AnnouncementRepository;
 import domain.Announcement;
+import domain.Comment;
 import domain.SpamWord;
 import domain.User;
 
@@ -34,6 +36,9 @@ public class AnnouncementService {
 
 	@Autowired
 	private SpamWordService			spamWordService;
+
+	@Autowired
+	private CommentService			commentService;
 
 	@Autowired
 	private Validator				validator;
@@ -150,6 +155,21 @@ public class AnnouncementService {
 		this.announcementRepository.delete(a);
 	}
 
+	public void deleteAdmin(final int announcementId) {
+		Assert.notNull(announcementId);
+		Assert.isTrue(announcementId != 0);
+		final Announcement a = this.findOne(announcementId);
+		Assert.notNull(a);
+		for (final Comment c : this.commentService.findCommentsOrdered(announcementId))
+			this.commentService.delete(c);
+		for (final User u : a.getAttendants()) {
+			u.getAnnouncements().remove(a);
+			this.messageService.notify(u, "An announcement has been deleted by the admin", "The announcement \"" + a.getTitle() + "\" has been deleted by the admin. Sorry for the inconvenience.");
+		}
+		this.messageService.notify(a.getCreator(), "One of your announcements has been deleted by the admin", "Your announcement \"" + a.getTitle() + "\" has been deleted by the admin.");
+		this.announcementRepository.delete(a);
+	}
+
 	public Collection<Announcement> getCreatedAnnouncementsByUserId(final Pageable pageable) {
 		final User u = this.userService.findByPrincipal();
 		Assert.notNull(u);
@@ -184,6 +204,22 @@ public class AnnouncementService {
 		final User u = this.userService.findByPrincipal();
 		Assert.notNull(u);
 		return this.announcementRepository.countAvailableAnnouncements(u.getId());
+	}
+
+	public Collection<Announcement> getAllAnnouncements(final Pageable pageable) {
+		return this.announcementRepository.findAllAnnouncements(pageable).getContent();
+	}
+
+	public Integer countAllAnnouncements() {
+		return this.announcementRepository.countAllAnnouncements();
+	}
+
+	public Collection<Announcement> getLastCreatedOrJoinedAnnouncements(final int userId) {
+		Assert.notNull(userId);
+		Assert.isTrue(userId != 0);
+		final List<Announcement> announcements = new ArrayList<Announcement>(this.announcementRepository.findLastCreatedOrJoinedAnnouncements(userId));
+		final Collection<Announcement> res = announcements.subList(0, announcements.size() < 10 ? announcements.size() : 10);
+		return res;
 	}
 
 	public Announcement reconstruct(final Announcement announcement, final BindingResult binding) {

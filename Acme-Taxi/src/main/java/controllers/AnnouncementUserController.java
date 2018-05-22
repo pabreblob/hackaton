@@ -221,42 +221,6 @@ public class AnnouncementUserController extends AbstractController {
 		return res;
 	}
 
-	/*
-	 * @RequestMapping(value = "/delete", method = RequestMethod.GET)
-	 * public ModelAndView delete(@RequestParam final int messageId) {
-	 * ModelAndView result;
-	 * final Message message = this.messageService.findOne(messageId);
-	 * final Folder toDelete = message.getFolder();
-	 * this.messageService.delete(message);
-	 * result = new ModelAndView("redirect:list.do?folderId=" + toDelete.getId());
-	 * return result;
-	 * }
-	 * 
-	 * @RequestMapping(value = "/move", method = RequestMethod.GET)
-	 * public ModelAndView move(@RequestParam final int messageId) {
-	 * ModelAndView result;
-	 * final Message message = this.messageService.findOne(messageId);
-	 * final Folder origin = message.getFolder();
-	 * final Collection<Folder> available = new ArrayList<Folder>(this.actorService.findByPrincipal().getFolders());
-	 * available.remove(origin);
-	 * result = new ModelAndView("message/move");
-	 * result.addObject("mess", message);
-	 * result.addObject("origin", origin);
-	 * result.addObject("folders", available);
-	 * return result;
-	 * }
-	 * 
-	 * @RequestMapping(value = "/moveToFolder", method = RequestMethod.POST)
-	 * public ModelAndView moveToFolder(final HttpServletRequest request) {
-	 * ModelAndView result;
-	 * final Message message = this.messageService.findOne(Integer.valueOf(request.getParameter("mess")));
-	 * final Folder target = this.folderService.findOne(Integer.valueOf(request.getParameter("target")));
-	 * Assert.notNull(target);
-	 * this.messageService.moveToFolder(message, target);
-	 * result = new ModelAndView("redirect:/message/actor/list.do?folderId=" + target.getId());
-	 * return result;
-	 * }
-	 */
 	@RequestMapping(value = "/display-created", method = RequestMethod.GET)
 	public ModelAndView displayCreated(@RequestParam final int announcementId) {
 		ModelAndView result;
@@ -299,21 +263,6 @@ public class AnnouncementUserController extends AbstractController {
 		return result;
 	}
 
-	/*
-	 * @RequestMapping(value = "/setchecked", method = RequestMethod.GET)
-	 * public ModelAndView setChecked(@RequestParam final int messageId) {
-	 * ModelAndView result;
-	 * Assert.notNull(messageId);
-	 * Assert.isTrue(messageId != 0);
-	 * final Message message = this.messageService.findOne(messageId);
-	 * final Folder f = message.getFolder();
-	 * Assert.isTrue(f.getMessages().contains(message));
-	 * Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(f));
-	 * this.messageService.checkMessage(messageId);
-	 * result = new ModelAndView("redirect:list.do?folderId=" + f.getId());
-	 * return result;
-	 * }
-	 */
 	protected ModelAndView createEditModelAndView(final Announcement announcement) {
 		ModelAndView result;
 
@@ -330,14 +279,4 @@ public class AnnouncementUserController extends AbstractController {
 		result.addObject("message", messageCode);
 		return result;
 	}
-	/*
-	 * private Collection<Folder> getAllAvailable(final Folder f) {
-	 * final Collection<Folder> res = new ArrayList<Folder>();
-	 * res.add(f);
-	 * if (!f.getChildren().isEmpty())
-	 * for (final Folder fc : f.getChildren())
-	 * res.addAll(this.getAllAvailable(fc));
-	 * return res;
-	 * }
-	 */
 }
