@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
@@ -214,12 +215,27 @@ public class AnnouncementService {
 		return this.announcementRepository.countAllAnnouncements();
 	}
 
+	public Collection<Announcement> getCurrentAnnouncements(final Pageable pageable) {
+		return this.announcementRepository.findCurrentAnnouncements(pageable).getContent();
+	}
+
+	public Integer countCurrentAnnouncements() {
+		return this.announcementRepository.countCurrentAnnouncements();
+	}
+
 	public Collection<Announcement> getLastCreatedOrJoinedAnnouncements(final int userId) {
 		Assert.notNull(userId);
 		Assert.isTrue(userId != 0);
 		final List<Announcement> announcements = new ArrayList<Announcement>(this.announcementRepository.findLastCreatedOrJoinedAnnouncements(userId));
 		final Collection<Announcement> res = announcements.subList(0, announcements.size() < 10 ? announcements.size() : 10);
 		return res;
+	}
+
+	public Collection<Announcement> findAnnouncementsByKeyword(final String keyword) {
+		if (StringUtils.isEmpty(keyword))
+			return new ArrayList<Announcement>();
+		else
+			return this.announcementRepository.findAnnouncementsByKeyword(keyword);
 	}
 
 	public Announcement reconstruct(final Announcement announcement, final BindingResult binding) {

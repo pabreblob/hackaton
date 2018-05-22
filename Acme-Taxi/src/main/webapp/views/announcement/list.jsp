@@ -90,6 +90,11 @@
 	<a href="announcement/user/display.do?announcementId=${row.id}"><spring:message code="announcement.display"/></a>
 </display:column>
 </jstl:if>
+<jstl:if test="${requestURI == 'announcement/list.do'}">
+<display:column>
+	<a href="announcement/display.do?announcementId=${row.id}"><spring:message code="announcement.display"/></a>
+</display:column>
+</jstl:if>
 <jstl:if test="${requestURI == 'announcement/admin/list.do'}">
 <spring:message code="announcement.marked" var="markedHeader"/>
 <display:column title="${markedHeader}">

@@ -21,6 +21,7 @@
 <jstl:if test="${announcement.description != ''}">
 <p><spring:message code="announcement.description" />: <jstl:out value="${announcement.description}"/></p>
 </jstl:if>
+<p><spring:message code="announcement.creator" />: <a href="user/display.do?userId=${announcement.creator.id}"><jstl:out value="${announcement.creator.userAccount.username}"/></a></p>
 <p><spring:message code="announcement.origin" />: <jstl:out value="${announcement.origin}"/></p>
 <p><spring:message code="announcement.destination" />: <jstl:out value="${announcement.destination}"/></p>
 <p><spring:message code="announcement.price" />: <jstl:out value="${announcement.pricePerPerson}"/> <jstl:out value="${currency}"/></p>

@@ -40,4 +40,13 @@ public interface AnnouncementRepository extends JpaRepository<Announcement, Inte
 
 	@Query("select a from Announcement a where a.creator.id = ?1 or a.id in (select ann.id from Announcement ann join ann.attendants att where att.id = ?1) order by a.moment desc")
 	Collection<Announcement> findLastCreatedOrJoinedAnnouncements(int userId);
+
+	@Query("select a from Announcement a where a.moment > CURRENT_TIMESTAMP")
+	Page<Announcement> findCurrentAnnouncements(Pageable pageable);
+
+	@Query("select count(a) from Announcement a where a.moment > CURRENT_TIMESTAMP")
+	Integer countCurrentAnnouncements();
+
+	@Query("select a from Announcement a where a.title like concat('%', ?1, '%') or a.description like concat('%', ?1, '%') or a.origin like concat('%', ?1, '%') or a.destination like concat('%', ?1, '%')")
+	Collection<Announcement> findAnnouncementsByKeyword(String keyword);
 }
