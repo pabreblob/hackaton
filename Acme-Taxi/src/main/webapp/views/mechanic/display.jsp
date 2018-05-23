@@ -41,11 +41,11 @@
 </security:authorize></p>
 <security:authorize access="hasRole('ADMIN')">
 <jstl:if test='${!banned}'>
-<a href="actor/admin/ban.do?actorId=${mechanic.id}"> <spring:message code="mechanic.ban" /></a>
+<a href="actor/admin/ban.do?actorId=${mechanic.id}&returnUri=mechanic"> <spring:message code="mechanic.ban" /></a>
 </jstl:if>
 
 <jstl:if test='${banned}'>
-<a href="actor/admin/unban.do?actorId=${mechanic.id}"> <spring:message code="mechanic.unban" /></a>
+<a href="actor/admin/unban.do?actorId=${mechanic.id}&returnUri=mechanic"> <spring:message code="mechanic.unban" /></a>
 </jstl:if>
 </security:authorize>
 
