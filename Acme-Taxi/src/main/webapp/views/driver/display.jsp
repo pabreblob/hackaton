@@ -64,6 +64,58 @@
 <p>
 	<spring:message code="driver.rating" />:
 	<jstl:out value="${driver.meanRating}" />
+	
+	<jstl:if test="${driver.meanRating == 0}">
+	 <span class="valoracion val-0"></span>
+	</jstl:if>
+	<jstl:if test="${driver.meanRating > 0}">
+	<jstl:if test="${driver.meanRating <= 0.5}">
+	 <span class="valoracion val-5"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${driver.meanRating > 0.5}">
+	<jstl:if test="${driver.meanRating <= 1}">
+	 <span class="valoracion val-10"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${driver.meanRating > 1}">
+	<jstl:if test="${driver.meanRating <= 1.5}">
+	 <span class="valoracion val-15"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${driver.meanRating > 1.5}">
+	<jstl:if test="${driver.meanRating <= 2}">
+	 <span class="valoracion val-20"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${driver.meanRating > 2}">
+	<jstl:if test="${driver.meanRating <= 2.5}">
+	 <span class="valoracion val-25"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${driver.meanRating > 2.5}">
+	<jstl:if test="${driver.meanRating <= 3}">
+	 <span class="valoracion val-30"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${driver.meanRating > 3}">
+	<jstl:if test="${driver.meanRating <= 3.5}">
+	 <span class="valoracion val-35"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${driver.meanRating > 3.5}">
+	<jstl:if test="${driver.meanRating <= 4}">
+	 <span class="valoracion val-40"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${driver.meanRating > 4}">
+	<jstl:if test="${driver.meanRating <= 4.5}">
+	 <span class="valoracion val-45"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${driver.meanRating > 4.5}">
+	 <span class="valoracion val-50"></span>
+	</jstl:if>
 </p>
 
 <jstl:if test='${blockeable}'>

@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="styles/common.css" type="text/css">
 <link rel="stylesheet" href="styles/jmenu.css" media="screen" type="text/css" />
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
+<link rel="stylesheet" href="styles/rating.css" type="text/css">
 
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 
