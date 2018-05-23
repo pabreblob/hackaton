@@ -90,6 +90,7 @@
 					<li><a href="repairShop/mechanic/list-created.do"><spring:message code="master.page.mechanic.repairshop.created"/></a></li>
 					<li><a href="repairShop/mechanic/create.do"><spring:message code="master.page.mechanic.repairshop.create"/></a></li>
 					<li><a href="reservation/mechanic/list.do"><spring:message code="master.page.mechanic.reservation.list"/></a></li>
+					<li><a href="review/mechanic/list.do"><spring:message code="master.page.mechanic.review.list"/></a></li>
 				</ul>
 			</li>
 		</security:authorize>

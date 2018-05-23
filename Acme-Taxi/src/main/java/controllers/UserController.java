@@ -1,6 +1,8 @@
 
 package controllers;
 
+import java.util.Collection;
+
 import org.joda.time.LocalDate;
 import org.joda.time.Years;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
+import services.AnnouncementService;
 import services.UserService;
 import domain.Actor;
+import domain.Announcement;
 import domain.User;
 import forms.UserForm;
 
@@ -22,9 +26,11 @@ import forms.UserForm;
 public class UserController extends AbstractController {
 
 	@Autowired
-	private UserService		userService;
+	private UserService			userService;
 	@Autowired
-	private ActorService	actorService;
+	private ActorService		actorService;
+	@Autowired
+	private AnnouncementService	announcementService;
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -87,6 +93,9 @@ public class UserController extends AbstractController {
 		final ModelAndView result;
 
 		final User u = this.userService.findOne(userId);
+
+		final Collection<Announcement> anns = this.announcementService.getLastCreatedOrJoinedAnnouncements(u.getId());
+
 		boolean blockeable = false;
 		boolean unblockeable = false;
 		boolean me = true;
@@ -102,11 +111,19 @@ public class UserController extends AbstractController {
 		} catch (final Throwable oops) {
 
 		}
+
+		boolean banned = false;
+
+		if (this.userService.findOne(u.getId()).getUserAccount().isBanned())
+			banned = true;
+
 		result = new ModelAndView("user/display");
 		result.addObject("user", this.userService.findOne(userId));
 		result.addObject("blockeable", blockeable);
 		result.addObject("unblockeable", unblockeable);
+		result.addObject("announcements", anns);
 		result.addObject("me", me);
+		result.addObject("banned", banned);
 		result.addObject("requestURI", "user/display.do");
 
 		return result;

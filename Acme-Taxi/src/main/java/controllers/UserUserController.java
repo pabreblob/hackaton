@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AnnouncementService;
 import services.UserService;
+import domain.Announcement;
 import domain.User;
 
 @Controller
@@ -27,11 +29,10 @@ import domain.User;
 public class UserUserController extends AbstractController {
 
 	@Autowired
-	private UserService	userService;
+	private UserService			userService;
+	@Autowired
+	private AnnouncementService	announcementService;
 
-
-	//	@Autowired
-	//	private AnnouncementService	announcementService;
 
 	@RequestMapping(value = "/list-reviewable", method = RequestMethod.GET)
 	public ModelAndView list(final HttpServletRequest request) {
@@ -67,28 +68,11 @@ public class UserUserController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(final HttpServletRequest request) {
 		final ModelAndView result;
-		//		Pageable pageable;
-		//		Direction dir = null;
-		//		Integer pageNum = 0;
-		//		final String pageNumStr = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_PAGE));
-		//		final String sortAtt = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_SORT));
-		//		final String sortOrder = request.getParameter(new ParamEncoder("row").encodeParameterName(TableTagParameters.PARAMETER_ORDER));
-		//		if (sortOrder != null)
-		//			if (sortOrder.equals("1"))
-		//				dir = Direction.ASC;
-		//			else
-		//				dir = Direction.DESC;
-		//		if (pageNumStr != null)
-		//			pageNum = Integer.parseInt(pageNumStr) - 1;
-		//		if (sortAtt != null && dir != null)
-		//			pageable = new PageRequest(pageNum, 5, dir, sortAtt);
-		//		else
-		//			pageable = new PageRequest(pageNum, 5);
-		//		Collection<Announcement> anns = this.announcementService.getCreatedAnnouncementsByUserId(pageable);
-		//		anns.addAll(this.announcementService.getJoinedAnnouncementsByUserId(pageable));
-		//		
+		final Collection<Announcement> anns = this.announcementService.getLastCreatedOrJoinedAnnouncements(this.userService.findByPrincipal().getId());
+
 		result = new ModelAndView("user/display");
 		result.addObject("user", this.userService.findByPrincipal());
+		result.addObject("announcements", anns);
 		result.addObject("requestURI", "user/user/display.do");
 		return result;
 	}

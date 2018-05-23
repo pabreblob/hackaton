@@ -10,8 +10,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <style>
+.COMMENT {
+	background-color: Aquamarine;
+	font-size: 110%;
+}
 
+.REPLY {
+	background-color: lightcyan;
+}
 
+.MOMENT {
+	color: grey;
+}
 </style>
 <head>
 
