@@ -14,182 +14,37 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<style type="text/css">
-	.headerImg{
-	height: auto;
-	max-height: 350px;
-	width: auto;
-	max-width: 955px; 
-	
-	}
-</style>
-<div>
-	<a href="welcome/index.do"><img class="headerImg" src='<jstl:out value="${bannerUrl}"/>' alt="Acme Taxi Co., Inc." /></a>
+<div class="container-fluid">
+<div class="row">
+<div class="col-2 col-sm-2 col-lg-4"></div>
+<div class="col-8 col-sm-8 col-lg-4 ">
+	<a href="welcome/index.do"><img style="max-width: 100%; max-heigh:50vh" class="img-responsive" src='<jstl:out value="${bannerUrl}"/>' alt="Acme Taxi Co., Inc." /></a>
+</div>
+<div class="col-2 col-sm-2 col-lg-4"></div></div>
 </div>
 
-<div>
-	<ul id="jMenu">
-		<!-- Do not forget the "fNiv" class for the first level links !! -->
-		
-		
-		
-		<security:authorize access="hasRole('ADMIN')">
-		
-		<!-- Acciones de Admin -->
-			<li><a class="fNiv"><spring:message	code="master.page.admin" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="configuration/admin/display.do"><spring:message code="master.page.admin.configuration.display" /></a></li>
-					<li><a href="spamWord/admin/list.do"><spring:message code="master.page.admin.spamword.list" /></a></li>
-					<li><a href="idNumberPattern/admin/list.do"><spring:message code="master.page.admin.idnumber.list" /></a></li>
-					<li><a href="sponsorship/admin/list.do"><spring:message code="master.page.admin.sponsorship.list" /></a></li>
-					<li><a href="report/admin/list.do"><spring:message code="master.page.admin.report.list" /></a></li>
-					<li><a href="report/admin/listUnread.do"><spring:message code="master.page.admin.report.unread" /></a></li>
-					<li><a href="request/admin/list.do"><spring:message code="master.page.admin.request.list"/></a></li>	
-				</ul>
-			</li>
-			
-			<li><a class="fNiv"><spring:message code="master.page.admin.marked"/></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="repairShop/admin/list-marked.do"><spring:message code="master.page.admin.repairshop.marked" /></a></li>
-					<li><a href="review/admin/list.do"><spring:message code="master.page.admin.review.marked"/></a></li>
-					<li><a href="request/admin/markedList.do"><spring:message code="master.page.admin.request.marked"/></a></li>			
-				</ul>
-			</li>
-			
-			<li><a class="fNiv"><spring:message code="master.page.admin.actor.marked"/></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="actor/admin/listSuspicious.do"><spring:message code="master.page.admin.actor.suspicious" /></a></li>
-					<li><a href="actor/admin/listBanned.do"><spring:message code="master.page.admin.actor.banned" /></a></li>		
-				</ul>
-			</li>
-			
-		</security:authorize>
-		
-		<security:authorize access="hasRole('SPONSOR')">
-		
-		<!-- Acciones de Sponsor -->
-			<li><a class="fNiv"><spring:message	code="master.page.sponsor" /></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="sponsorship/sponsor/create.do"><spring:message code="master.page.sponsor.sponsorship.create" /></a></li>
-					<li><a href="sponsorship/sponsor/list.do"><spring:message code="master.page.sponsor.sponsorship.list" /></a></li>					
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="hasRole('MECHANIC')">
-			
-		<!-- Acciones de Mechanic -->
-			<li><a class="fNiv"><spring:message code="master.page.mechanic"/></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="repairShop/mechanic/list-created.do"><spring:message code="master.page.mechanic.repairshop.created"/></a></li>
-					<li><a href="repairShop/mechanic/create.do"><spring:message code="master.page.mechanic.repairshop.create"/></a></li>
-					<li><a href="reservation/mechanic/list.do"><spring:message code="master.page.mechanic.reservation.list"/></a></li>
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="hasRole('USER')">
-		
-		<!-- Acciones de User -->
-			<li><a class="fNiv"><spring:message code="master.page.user"/></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="reservation/user/list.do"><spring:message code="master.page.user.reservation.list"/></a></li>
-					<li><a href="request/user/create.do"><spring:message code="master.page.user.request.create"/></a></li>
-					<li><a href="request/user/list.do"><spring:message code="master.page.user.request.list"/></a></li>
-					<li><a href="review/user/list.do"><spring:message code="master.page.user.review.list"/></a></li>
-					<li><a href="review/user/list-created.do"><spring:message code="master.page.user.review.created"/></a></li>
-					<li><a href="announcement/user/create.do"><spring:message code="master.page.user.announcement.create"/></a></li>
-					<li><a href="announcement/user/list.do"><spring:message code="master.page.user.announcement.list"/></a></li>
-					<li><a href="announcement/user/list-created.do"><spring:message code="master.page.user.announcement.created"/></a></li>
-					<li><a href="announcement/user/list-joined.do"><spring:message code="master.page.user.announcement.joined"/></a></li>
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="hasRole('DRIVER')">
-			<li><a class="fNiv"><spring:message code="master.page.driver"/></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="review/driver/list.do"><spring:message code="master.page.driver.review.list"/></a></li>
-					<li><a href="request/driver/listToAccept.do"><spring:message code="master.page.driver.request.listAccept"/></a></li>
-					<li><a href="request/driver/listToDo.do"><spring:message code="master.page.driver.request.listDo"/></a></li>
-					<li><a href="request/driver/oldList.do"><spring:message code="master.page.driver.request.listOld"/></a></li>
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="isAuthenticated()">
-		
-		<!-- Acciones del perfil -->
-		<li><a class="fNiv"><spring:message code="master.page.profile" /></a>
-			<ul>
-			
-			<!-- Ver perfil -->
-				<li class="arrow"></li>
-				<security:authorize access="hasRole('MECHANIC')">
-					<li><a href="mechanic/mechanic/display.do"><spring:message code="master.page.profile.display"/></a></li>
-				</security:authorize>
-				
-				<security:authorize access="hasRole('SPONSOR')">
-					<li><a href="sponsor/sponsor/display.do"><spring:message code="master.page.profile.display"/></a></li>
-				</security:authorize>
-				
-				<security:authorize access="hasRole('USER')">
-					<li><a href="user/user/display.do"><spring:message code="master.page.profile.display"/></a></li>
-				</security:authorize>
-				
-				<security:authorize access="hasRole('DRIVER')">
-					<li><a href="driver/driver/display.do"><spring:message code="master.page.profile.display"/></a></li>
-				</security:authorize>
-				
-				<security:authorize access="hasRole('ADMIN')">
-					<li><a href="admin/admin/display.do"><spring:message code="master.page.profile.display"/></a></li>
-				</security:authorize>
-			</ul>
-		</li>
-		
-		<!-- Carpetas -->
-		<li><a class="fNiv" href="folder/actor/list.do"><spring:message code="master.page.folder.list"/> (<jstl:out value="${unread}"/>)</a></li>
-
-		</security:authorize>
-				
-		<security:authorize access="isAnonymous()">
-		
-		<!-- Acceder al sistema -->
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
-			<li><a class="fNiv"><spring:message code="master.page.access"/></a>
-				<ul>
-					<li class="arrow"></li>
-					<li><a href="mechanic/create.do"><spring:message code="master.page.mechanic.register" /></a></li>
-					<li><a href="sponsor/create.do"><spring:message code="master.page.sponsor.register" /></a></li>
-					<li><a href="user/create.do"><spring:message code="master.page.user.register" /></a></li>
-					<li><a href="driver/create.do"><spring:message code="master.page.driver.register" /></a></li>
-				</ul>
-			</li>
-		</security:authorize>
-		
-		<security:authorize access="isAuthenticated()">
-		
-		<!-- Salir del sistema -->
-			<li><a class="fNiv" href="j_spring_security_logout"><spring:message code="master.page.logout" /></a></li>
-		</security:authorize>
-		
-		<!-- Búsqueda de Actores -->
-		<li><a class="fNiv" href="actor/list.do"><spring:message code="master.page.search.actor"/></a></li>
-		
-		<!-- Lista de Talleres -->
-		<li><a class="fNiv" href="repairShop/list.do"><spring:message code="master.page.repairshop.list"/></a>
-		
-		<!-- Cambio de Idioma -->
-		<li id="rightB">
-			<a class="fNiv" href="<spring:message code="master.page.language.url"/>"><spring:message code="master.page.language"/></a>
-		</li>
-	</ul>
-</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a class="navbar-brand" href="#">Acme-Taxi</a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="welcome/index.do">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav navbar-right">
+    	<security:authorize access="isAnonymous()">
+    		 <li><a class="nav-link" href="security/login.do">Login</a></li>
+    	</security:authorize>
+    	<security:authorize access="isAuthenticated()">
+    		 <li><a class="nav-link" href="j_spring_security_logout">Logout</a></li>
+    	</security:authorize>
+    </ul>
+  </div>
+</nav>
 
