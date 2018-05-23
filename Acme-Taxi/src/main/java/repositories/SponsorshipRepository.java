@@ -17,6 +17,9 @@ public interface SponsorshipRepository extends JpaRepository<Sponsorship, Intege
 	@Query("select s from Sponsorship s where s.sponsor.id=?1")
 	Page<Sponsorship> findSponsorshipBySponsorId(int sponsorId, Pageable pageable);
 
+	@Query("select s from Sponsorship s where s.sponsor.id=?1 order by s.id asc")
+	Collection<Sponsorship> findSponsorshipBySponsorId(int sponsorId);
+
 	@Query("select count(s) from Sponsorship s where s.sponsor.id=?1")
 	Integer countSponsorshipBySponsorId(int sponsorId);
 

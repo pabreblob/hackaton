@@ -1,8 +1,10 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -87,6 +89,9 @@ public class SponsorshipSponsorController extends AbstractController {
 	public ModelAndView create() {
 		final ModelAndView res;
 		final Sponsorship sponsorship = this.sponsorshipService.create();
+		final List<Sponsorship> sponsorships = new ArrayList<>(this.sponsorshipService.findSponsorshipByPrincipal());
+		if (sponsorships.size() != 0)
+			sponsorship.setCreditCard(sponsorships.get(sponsorships.size() - 1).getCreditCard());
 		res = this.createEditModelAndView(sponsorship);
 		return res;
 	}

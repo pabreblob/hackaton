@@ -125,11 +125,11 @@
 
 <security:authorize access="hasRole('ADMIN')">
 <jstl:if test='${!banned}'>
-<a href="actor/admin/ban.do?actorId=${driver.id}"> <spring:message code="driver.ban" /></a>
+<a href="actor/admin/ban.do?actorId=${driver.id}&returnUri=driver"> <spring:message code="driver.ban" /></a>
 </jstl:if>
 
 <jstl:if test='${banned}'>
-<a href="actor/admin/unban.do?actorId=${driver.id}"> <spring:message code="driver.unban" /></a>
+<a href="actor/admin/unban.do?actorId=${driver.id}&returnUri=driver"> <spring:message code="driver.unban" /></a>
 </jstl:if>
 </security:authorize>
 

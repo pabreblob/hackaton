@@ -123,6 +123,13 @@ public class SponsorshipService {
 		return res;
 	}
 
+	public Collection<Sponsorship> findSponsorshipByPrincipal() {
+		final Sponsor s = this.sponsorService.findByPrincipal();
+		final Collection<Sponsorship> res = this.sponsorshipRepository.findSponsorshipBySponsorId(s.getId());
+		Assert.notNull(res);
+		return res;
+	}
+
 	public Integer countSponsorshipBySponsorId() {
 		final Sponsor s = this.sponsorService.findByPrincipal();
 		return this.sponsorshipRepository.countSponsorshipBySponsorId(s.getId());
