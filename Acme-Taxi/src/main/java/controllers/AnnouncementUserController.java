@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -12,6 +13,8 @@ import org.hibernate.Hibernate;
 import org.joda.time.Hours;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -46,6 +49,9 @@ public class AnnouncementUserController extends AbstractController {
 
 	@Autowired
 	private CommentService			commentService;
+
+	@Autowired
+	private MessageSource			messageSource;
 
 
 	@RequestMapping(value = "/list-created", method = RequestMethod.GET)
@@ -285,6 +291,33 @@ public class AnnouncementUserController extends AbstractController {
 		result.addObject("isCreator", false);
 		result.addObject("requestURI", "announcement/user/display.do");
 		return result;
+	}
+
+	@RequestMapping("/finder")
+	public ModelAndView finder() {
+		final ModelAndView res = new ModelAndView("announcement/finder");
+		return res;
+	}
+
+	@RequestMapping(value = "/finderresult", method = RequestMethod.GET)
+	public ModelAndView finderResult(@RequestParam(value = "keyword", required = false) final String keyword, @RequestParam(value = "minPrice", required = false) final Double minPrice,
+		@RequestParam(value = "maxPrice", required = false) final Double maxPrice, @RequestParam(value = "moment", required = false) final String moment, @RequestParam(value = "origin", required = false) final String origin, @RequestParam(
+			value = "destination", required = false) final String destination) {
+		ModelAndView res;
+		try {
+			Date parsedMoment = null;
+			if (moment != null && !moment.equals(""))
+				parsedMoment = new SimpleDateFormat(this.messageSource.getMessage("moment.date.format", null, LocaleContextHolder.getLocale())).parse(moment);
+			final Collection<Announcement> announcements = this.announcementService.findAnnouncementsFinder(keyword, minPrice, maxPrice, parsedMoment, origin, destination);
+			Assert.notNull(announcements);
+			res = new ModelAndView("announcement/finderresult");
+			res.addObject("announcements", announcements);
+			res.addObject("currency", this.configurationService.find().getCurrency());
+		} catch (final Throwable oops) {
+			res = new ModelAndView("announcement/finder");
+			res.addObject("errormessage", this.messageSource.getMessage("announcement.commit.error", null, LocaleContextHolder.getLocale()));
+		}
+		return res;
 	}
 
 	protected ModelAndView createEditModelAndView(final Announcement announcement) {

@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.joda.time.Hours;
@@ -236,6 +237,23 @@ public class AnnouncementService {
 			return new ArrayList<Announcement>();
 		else
 			return this.announcementRepository.findAnnouncementsByKeyword(keyword);
+	}
+
+	public Collection<Announcement> findAnnouncementsFinder(final String keyword, final Double minPrice, final Double maxPrice, final Date moment, final String origin, final String destination) {
+		final Collection<Announcement> found;
+		if (keyword != null && !keyword.equals(""))
+			found = this.announcementRepository.finderAnnouncementsKeyword(keyword, this.userService.findByPrincipal().getId());
+		else
+			found = this.announcementRepository.finderAnnouncements(this.userService.findByPrincipal().getId());
+		final Collection<Announcement> toReturn = new ArrayList<Announcement>();
+		for (final Announcement a : found)
+			if (minPrice == null || a.getPricePerPerson() >= minPrice)
+				if (maxPrice == null || a.getPricePerPerson() <= maxPrice)
+					if (moment == null || moment.equals(a.getMoment()))
+						if (origin == null || origin.equals("") || origin.equals(a.getOrigin()))
+							if (destination == null || destination.equals("") || destination.equals(a.getDestination()))
+								toReturn.add(a);
+		return toReturn;
 	}
 
 	public Announcement reconstruct(final Announcement announcement, final BindingResult binding) {

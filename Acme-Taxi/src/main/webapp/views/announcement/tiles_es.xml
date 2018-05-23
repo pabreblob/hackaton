@@ -36,4 +36,9 @@
 		<put-attribute name="body" value="/views/announcement/search.jsp" />
 	</definition>
 	
+	<definition name="announcement/finderresult" extends="master.page">
+		<put-attribute name="title" value="Resultados de la búsqueda de anuncios" />
+		<put-attribute name="body" value="/views/announcement/finderresult.jsp" />
+	</definition>
+	
 </tiles-definitions>

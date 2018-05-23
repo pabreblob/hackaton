@@ -49,4 +49,10 @@ public interface AnnouncementRepository extends JpaRepository<Announcement, Inte
 
 	@Query("select a from Announcement a where a.title like concat('%', ?1, '%') or a.description like concat('%', ?1, '%') or a.origin like concat('%', ?1, '%') or a.destination like concat('%', ?1, '%')")
 	Collection<Announcement> findAnnouncementsByKeyword(String keyword);
+
+	@Query("select a from Announcement a where a.moment > CURRENT_TIMESTAMP and a.cancelled is false and a.creator.id != ?1")
+	Collection<Announcement> finderAnnouncements(int userId);
+
+	@Query("select a from Announcement a where a.moment > CURRENT_TIMESTAMP and a.cancelled is false and a.creator.id != ?2 and (a.title like concat('%', ?1, '%') or a.description like concat('%', ?1, '%') or a.origin like concat('%', ?1, '%') or a.destination like concat('%', ?1, '%'))")
+	Collection<Announcement> finderAnnouncementsKeyword(String keyword, int userId);
 }
