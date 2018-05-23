@@ -18,11 +18,6 @@
 
 <div>
 	
-	<spring:message code="terms.text3"/><br>
-	<spring:message code="terms.text4"/><br>
-	<spring:message code="terms.text5"/><br>
-	<spring:message code="terms.text6"/><br>
-	<spring:message code="terms.text7"/><br>
-	<spring:message code="terms.text8"/><br>
+	${contact}
 	
 </div>

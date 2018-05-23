@@ -17,11 +17,5 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <div>
-	
-	<spring:message code="terms.text27"/><br>
-	<spring:message code="terms.text28"/><br>
-	<spring:message code="terms.text29"/><br>
-	<spring:message code="terms.text30"/><br>
-	<spring:message code="terms.text31"/><br>
-	<spring:message code="terms.text32"/>
+	${cookies}
 </div>

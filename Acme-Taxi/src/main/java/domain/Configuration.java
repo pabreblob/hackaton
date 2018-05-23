@@ -153,7 +153,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml(whitelistType = WhiteListType.RELAXED)
 	@Column(length = Integer.MAX_VALUE)
 	public String getLegalTextEng() {
 		return this.legalTextEng;
@@ -164,7 +164,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml(whitelistType = WhiteListType.RELAXED)
 	@Column(length = Integer.MAX_VALUE)
 	public String getLegalTextEsp() {
 		return this.legalTextEsp;
@@ -175,7 +175,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml(whitelistType = WhiteListType.RELAXED)
 	@Column(length = Integer.MAX_VALUE)
 	public String getCookiesPolicyEng() {
 		return this.cookiesPolicyEng;
@@ -186,7 +186,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml(whitelistType = WhiteListType.RELAXED)
 	@Column(length = Integer.MAX_VALUE)
 	public String getCookiesPolicyEsp() {
 		return this.cookiesPolicyEsp;
@@ -197,7 +197,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml(whitelistType = WhiteListType.RELAXED)
 	@Column(length = Integer.MAX_VALUE)
 	public String getContactEng() {
 		return this.contactEng;
@@ -208,7 +208,7 @@ public class Configuration extends DomainEntity {
 	}
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml(whitelistType = WhiteListType.RELAXED)
 	@Column(length = Integer.MAX_VALUE)
 	public String getContactEsp() {
 		return this.contactEsp;
