@@ -19,6 +19,14 @@
 	<definition name="admin/dashboard" extends="master.page">	
 		<put-attribute name="title" value="Dashboard" />
 		<put-attribute name="body" value="/views/admin/dashboard.jsp" />
-	</definition>	
+	</definition>
+	<definition name="admin/display" extends="master.page">	
+		<put-attribute name="title" value="Display admin" />
+		<put-attribute name="body" value="/views/admin/display.jsp" />
+	</definition>
+	<definition name="admin/edit" extends="master.page">	
+		<put-attribute name="title" value="Edit admin" />
+		<put-attribute name="body" value="/views/admin/edit.jsp" />
+	</definition>		
 	
 </tiles-definitions>

@@ -431,7 +431,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount2" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/92.jpg" />
+		<property name="photoUrl" value="https://assets.entrepreneur.com/content/3x2/1300/20150406145944-dos-donts-taking-perfect-linkedin-profile-picture-selfie-mobile-camera-2.jpeg" />
 		<property name="meanRating" value="4.0" />	
 		<property name="location" value="Sevilla" />
 		<property name="announcements">
@@ -471,7 +471,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount3" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/85.jpg" />
+		<property name="photoUrl" value="https://i2.cdn.turner.com/cnnnext/dam/assets/140926165711-john-sutter-profile-image-large-169.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="announcements">
 		<list>
@@ -510,7 +510,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount4" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/40.jpg" />
+		<property name="photoUrl" value="http://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="announcements">
 		<list>
@@ -548,7 +548,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount5" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/women/65.jpg" />
+		<property name="photoUrl" value="https://i.pinimg.com/236x/c6/a4/64/c6a4645d9f9af45a9c9d7b094c18a47a--portrait-ideas-girl-photos.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="announcements">
 		<list>
@@ -585,7 +585,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount6" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/58.jpg" />
+		<property name="photoUrl" value="https://cdn.business2community.com/wp-content/uploads/2014/04/profile-picture-300x300.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="44394959Z" />
 		<property name="nationality" value="Spanish" />
@@ -621,7 +621,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount7" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/women/53.jpg" />
+		<property name="photoUrl" value="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__180.png" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="71808857M" />
 		<property name="nationality" value="Spanish" />
@@ -659,7 +659,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount8" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/79.jpg" />
+		<property name="photoUrl" value="https://www.cheme.cornell.edu/engineering/customcf/iws_ai_faculty_display/ai_images/mjp31-profile.jpg" />
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="20668400W" />
 		<property name="nationality" value="Spanish" />
@@ -694,7 +694,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount9" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/women/32.jpg" />
+		<property name="photoUrl" value="http://www.eas.cornell.edu/engineering/customcf/iws_ai_faculty_display/ai_images/nmm63-profile.jpg" />
 
 		<property name="location" value="Sevilla" />
 		<property name="IdNumber" value="56228561R" />
@@ -731,7 +731,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount10" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/52.jpg" />
+		<property name="photoUrl" value="https://uttarauniversity.edu.bd/department/assets/eee/assets/pages/media/profile/profile-img.jpg" />
 		<property name="IdNumber" value="73028767H" />
 		<property name="nationality" value="Spanish" />
 		
@@ -761,7 +761,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount11" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/82.jpg" />
+		<property name="photoUrl" value="https://www.planetdance.com.au/wp-content/uploads/2017/12/jade-profile.jpg" />
 		<property name="IdNumber" value="66296704D" />
 		<property name="nationality" value="Spanish" />
 		
@@ -791,7 +791,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount12" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/women/71.jpg" />
+		<property name="photoUrl" value="https://www.planetdance.com.au/wp-content/uploads/2017/12/clive-smither-profile.jpg" />
 		<property name="IdNumber" value="92976051T" />
 		<property name="nationality" value="Spanish" />
 		
@@ -821,7 +821,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="userAccount">
 			<ref bean="userAccount13" />
 		</property>
-		<property name="photoUrl" value="https://randomuser.me/api/portraits/men/38.jpg" />
+		<property name="photoUrl" value="https://www.planetdance.com.au/wp-content/uploads/2017/12/robert-jeffrey-profile.jpg" />
 		<property name="IdNumber" value="22102911A" />
 		<property name="nationality" value="Spanish" />
 		

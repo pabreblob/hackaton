@@ -20,5 +20,12 @@
 		<put-attribute name="title" value="Panel de control" />
 		<put-attribute name="body" value="/views/admin/dashboard.jsp" />
 	</definition>
+	<definition name="admin/display" extends="master.page">	
+		<put-attribute name="title" value="Mostrar administrador" />
+		<put-attribute name="body" value="/views/admin/display.jsp" />
+	</definition>
+	<definition name="admin/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar administrador" />
+		<put-attribute name="body" value="/views/admin/edit.jsp" />
 	
 </tiles-definitions>

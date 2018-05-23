@@ -5,17 +5,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.joda.time.LocalDate;
+import org.joda.time.Years;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.AdminRepository;
+
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Admin;
 import domain.Driver;
+
 import domain.Mechanic;
 import domain.User;
 
@@ -25,46 +32,32 @@ public class AdminService {
 
 	@Autowired
 	private AdminRepository	adminRepository;
+	@Autowired
+	private ConfigurationService		configurationService;
+	@Autowired
+	private Validator		validator;
 
 
 	public AdminService() {
 		super();
 	}
 
-	//	public Admin create() {
-	//		Admin res;
-	//		res = new Admin();
-	//		final UserAccount ua = this.userAccountService.create();
-	//		res.setUserAccount(ua);
-	//
-	//		final List<Authority> authorities = new ArrayList<Authority>();
-	//		final Authority auth = new Authority();
-	//		auth.setAuthority(Authority.ADMIN);
-	//		authorities.add(auth);
-	//		res.getUserAccount().setAuthorities(authorities);
-	//
-	//		return res;
-	//	}
+	@SuppressWarnings("deprecation")
+	public Admin save(final Admin admin) {
+		int age;
+		final LocalDate birth = new LocalDate(admin.getBirthdate().getYear() + 1900, admin.getBirthdate().getMonth() + 1, admin.getBirthdate().getDate());
+		final LocalDate now = new LocalDate();
+		age=Years.yearsBetween(birth, now).getYears();
+		Assert.isTrue(age>=18);
+		Assert.isTrue(admin.getId()==this.findByPrincipal().getId());
+		if (admin.getPhone() != null && admin.getPhone() != "")
+			if (!admin.getPhone().trim().startsWith("+"))
+				admin.setPhone("+" + this.configurationService.find().getCountryCode() + " " + admin.getPhone().trim());
+		
 
-	//	public Admin save(final Admin admin) {
-	//		Assert.notNull(admin);
-	//
-	//		if (admin.getId() == 0) {
-	//			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
-	//			final String hash = encoder.encodePassword(admin.getUserAccount().getPassword(), null);
-	//			admin.getUserAccount().setPassword(hash);
-	//		}
-	//
-	//		final List<Authority> authorities = new ArrayList<Authority>();
-	//		final Authority auth = new Authority();
-	//		auth.setAuthority(Authority.ADMIN);
-	//		authorities.add(auth);
-	//		admin.getUserAccount().setAuthorities(authorities);
-	//		final UserAccount ua = this.userAccountService.save(admin.getUserAccount());
-	//		admin.setUserAccount(ua);
-	//		final Admin res = this.adminRepository.save(admin);
-	//		return res;
-	//	}
+		final Admin res = this.adminRepository.save(admin);
+		return res;
+	}
 
 	public Admin findOne(final int idAdmin) {
 		Assert.isTrue(idAdmin != 0);
@@ -169,5 +162,14 @@ public class AdminService {
 	public Collection<Actor> getMostReportsReceived() {
 		final List<Actor> res = new ArrayList<Actor>(this.adminRepository.getMostReportsReceived());
 		return res.subList(0, res.size() < 10 ? res.size() : 10);
+	}
+	public Admin reconstruct(final Admin admin, final BindingResult binding) {
+		final Admin res = admin;
+		Assert.isTrue(admin.getId()==this.findByPrincipal().getId());
+		res.setBlockedUsers(this.findOne(admin.getId()).getBlockedUsers());
+		res.setFolders(this.findOne(admin.getId()).getFolders());
+		res.setUserAccount(this.findOne(admin.getId()).getUserAccount());
+		this.validator.validate(res, binding);
+		return res;
 	}
 }
