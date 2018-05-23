@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -77,21 +78,30 @@ public class ActorAdminController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/ban", method = RequestMethod.GET)
-	public ModelAndView ban(final Integer actorId) {
+	public ModelAndView ban(final Integer actorId, @RequestParam(required = false) final String returnUri) {
 		try {
 			this.actorService.ban(actorId);
 		} catch (final Throwable oops) {
 		}
-		return new ModelAndView("redirect: listSuspicious.do");
+		if (returnUri == null)
+			return new ModelAndView("redirect: ");
+		else if (returnUri.equals("suspicious"))
+			return new ModelAndView("redirect: listSuspicious.do");
+		else
+			return new ModelAndView("redirect:/actor/display.do?actorId=" + actorId);
 	}
 
 	@RequestMapping(value = "/unban", method = RequestMethod.GET)
-	public ModelAndView unban(final Integer actorId) {
+	public ModelAndView unban(final Integer actorId, @RequestParam(required = false) final String returnUri) {
 		try {
 			this.actorService.unban(actorId);
 		} catch (final Throwable oops) {
 		}
-		return new ModelAndView("redirect: listSuspicious.do");
+		if (returnUri == null)
+			return new ModelAndView("redirect: ");
+		else if (returnUri.equals("suspicious"))
+			return new ModelAndView("redirect: listSuspicious.do");
+		else
+			return new ModelAndView("redirect:/actor/display.do?actorId=" + actorId);
 	}
-
 }
