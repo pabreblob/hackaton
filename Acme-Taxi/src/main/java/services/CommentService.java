@@ -15,6 +15,7 @@ import org.springframework.validation.Validator;
 import repositories.CommentRepository;
 import domain.Announcement;
 import domain.Comment;
+import domain.SpamWord;
 
 @Service
 @Transactional
@@ -22,14 +23,12 @@ public class CommentService {
 
 	@Autowired
 	private CommentRepository	commentRepository;
-	//	@Autowired
-	//	private UserService			userService;
-	//	@Autowired
-	//	private AnnouncementService	rendezvousService;
-	//	@Autowired
-	//	private AdminService adminService;
-	//	@Autowired
-	//	private SpamWordService spamWordService;
+	@Autowired
+	private UserService			userService;
+	@Autowired
+	private AdminService		adminService;
+	@Autowired
+	private SpamWordService		spamWordService;
 	@Autowired
 	private Validator			validator;
 
@@ -38,37 +37,36 @@ public class CommentService {
 		super();
 	}
 
-	public Comment create(final Comment c, final Announcement a) {
-		//final User author = this.userService.findByPrincipal();
-		//Assert.isTrue(author.getReservedRendezvous().contains(rendezvous));
-		Assert.isTrue(!a.equals(null) || !c.equals(null));
+	public Comment create() {
+		Assert.notNull(this.userService.findByPrincipal());
 
 		final Comment res = new Comment();
-
-		if (!c.equals(null))
-			res.setComment(c);
 
 		return res;
 	}
 
 	public Comment save(final Comment comment) {
+		System.out.println("holi");
 		Assert.notNull(comment);
 		Assert.isTrue(comment.getId() == 0);
-		//Assert.isTrue(comment.getAuthor().equals(this.userService.findByPrincipal()));
+		Assert.isTrue(comment.getCreator().equals(this.userService.findByPrincipal()));
 
 		comment.setMoment(new Date(System.currentTimeMillis() - 1000));
 
-		//		final Collection<SpamWord> sw = this.spamWordService.findAll();
-		//		boolean spamw = false;
-		//		for (final SpamWord word : sw) {
-		//			spamw = comment.getBody().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
-		//			if (spamw)
-		//				break;
-		//		}
-		//		if (spamw)
-		//			comment.setMarked(true);
+		final Collection<SpamWord> sw = this.spamWordService.findAll();
+		boolean spamw = false;
+		for (final SpamWord word : sw) {
+			spamw = comment.getBody().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
+			if (spamw)
+				break;
+		}
+		if (spamw)
+			comment.setMarked(true);
 
 		final Comment res = this.commentRepository.save(comment);
+
+		if (res.getComment() != null)
+			res.getComment().getReplies().add(res);
 
 		return res;
 
@@ -85,7 +83,7 @@ public class CommentService {
 
 	public void delete(final Comment comment) {
 		Assert.notNull(comment);
-		//Assert.notNull(this.adminService.findByPrincipal());
+		Assert.notNull(this.adminService.findByPrincipal());
 		comment.getReplies().removeAll(comment.getReplies());
 		this.commentRepository.delete(comment);
 	}
@@ -99,13 +97,28 @@ public class CommentService {
 		return this.commentRepository.findCommentsOrdered(announcementId);
 	}
 
-	public Comment reconstruct(final Comment comment, final BindingResult binding) {
+	public Collection<Comment> findCommentsByParentId(final int commentId) {
+		return this.commentRepository.findCommentsByParentId(commentId);
+	}
+
+	public Comment reconstruct(final Comment comment, final Comment c, final Announcement a, final BindingResult binding) {
+		Assert.notNull(comment);
+		Assert.notNull(binding);
+		Assert.notNull(this.userService.findByPrincipal());
+		Assert.notNull(a);
+
 		final Collection<Comment> replies = new ArrayList<Comment>();
 		comment.setReplies(replies);
-		final Date moment = new Date(System.currentTimeMillis() - 1000);
 
+		final Date moment = new Date(System.currentTimeMillis() - 1000);
 		comment.setMoment(moment);
-		//comment.setCreator(this.userService.findByPrincipal());
+
+		if (c != null)
+			comment.setComment(c);
+
+		comment.setAnnouncement(a);
+
+		comment.setCreator(this.userService.findByPrincipal());
 		comment.setMarked(false);
 		this.validator.validate(comment, binding);
 		return comment;

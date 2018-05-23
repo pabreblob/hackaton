@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
+import org.hibernate.Hibernate;
 import org.joda.time.Hours;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AnnouncementService;
+import services.CommentService;
 import services.ConfigurationService;
 import services.UserService;
 import domain.Announcement;
+import domain.Comment;
 import domain.User;
 
 @Controller
@@ -40,6 +43,9 @@ public class AnnouncementUserController extends AbstractController {
 
 	@Autowired
 	private ConfigurationService	configurationService;
+
+	@Autowired
+	private CommentService			commentService;
 
 
 	@RequestMapping(value = "/list-created", method = RequestMethod.GET)
@@ -230,11 +236,20 @@ public class AnnouncementUserController extends AbstractController {
 		Assert.notNull(announcement);
 		Assert.isTrue(announcement.getCreator().equals(this.userService.findByPrincipal()));
 		final Collection<User> attendants = announcement.getAttendants();
+
+		final Collection<Comment> comments = this.commentService.findCommentsOrdered(announcementId);
+		final boolean hasComment = !comments.isEmpty();
+		for (final Comment c : comments)
+			Hibernate.initialize(c.getReplies());
+
 		result = new ModelAndView("announcement/display");
 		result.addObject("announcement", announcement);
 		result.addObject("attendants", attendants);
 		result.addObject("currency", this.configurationService.find().getCurrency());
 		result.addObject("remaining", announcement.getSeats() - announcement.getAttendants().size());
+		result.addObject("comments", comments);
+		result.addObject("hasComment", hasComment);
+		result.addObject("isCreator", true);
 		result.addObject("requestURI", "announcement/user/display-created.do");
 		return result;
 	}
@@ -252,6 +267,12 @@ public class AnnouncementUserController extends AbstractController {
 		final LocalDateTime now = new LocalDateTime();
 		final LocalDateTime moment = new LocalDateTime(announcement.getMoment());
 		final boolean joinable = !joined && !announcement.isCancelled() && Hours.hoursBetween(now, moment).getHours() >= 2 && announcement.getAttendants().size() < announcement.getSeats();
+
+		final Collection<Comment> comments = this.commentService.findCommentsOrdered(announcementId);
+		final boolean hasComment = !comments.isEmpty();
+		for (final Comment c : comments)
+			Hibernate.initialize(c.getReplies());
+
 		result = new ModelAndView("announcement/display");
 		result.addObject("announcement", announcement);
 		result.addObject("attendants", attendants);
@@ -259,6 +280,9 @@ public class AnnouncementUserController extends AbstractController {
 		result.addObject("remaining", announcement.getSeats() - announcement.getAttendants().size());
 		result.addObject("joined", joined);
 		result.addObject("joinable", joinable);
+		result.addObject("comments", comments);
+		result.addObject("hasComment", hasComment);
+		result.addObject("isCreator", false);
 		result.addObject("requestURI", "announcement/user/display.do");
 		return result;
 	}

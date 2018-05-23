@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -24,8 +25,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.AnnouncementService;
+import services.CommentService;
 import services.ConfigurationService;
 import domain.Announcement;
+import domain.Comment;
 import domain.User;
 
 @Controller
@@ -40,6 +43,9 @@ public class AnnouncementController extends AbstractController {
 
 	@Autowired
 	private MessageSource			messageSource;
+
+	@Autowired
+	private CommentService			commentService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -82,11 +88,19 @@ public class AnnouncementController extends AbstractController {
 		final Announcement announcement = this.announcementService.findOne(announcementId);
 		Assert.notNull(announcement);
 		final Collection<User> attendants = announcement.getAttendants();
+
+		final Collection<Comment> comments = this.commentService.findCommentsOrdered(announcementId);
+		final boolean hasComment = !comments.isEmpty();
+		for (final Comment c : comments)
+			Hibernate.initialize(c.getReplies());
+
 		result = new ModelAndView("announcement/display");
 		result.addObject("announcement", announcement);
 		result.addObject("attendants", attendants);
 		result.addObject("currency", this.configurationService.find().getCurrency());
 		result.addObject("remaining", announcement.getSeats() - announcement.getAttendants().size());
+		result.addObject("comments", comments);
+		result.addObject("hasComment", hasComment);
 		result.addObject("requestURI", "announcement/display.do");
 		return result;
 	}

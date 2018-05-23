@@ -46,6 +46,88 @@
 <spring:message code="announcement.email" var="emailHeader"/> 
 <display:column property="email" title="${emailHeader}"/>
 </display:table><br/>
+
+<br/>
+<h2>
+<spring:message code="announcement.comments" var="commentHeader"/>
+<jstl:out value="${commentHeader}"></jstl:out>
+</h2>
+
+<jstl:if test="${hasComment == true}">
+	<jstl:forEach var="comment" items="${comments}">
+		
+		<div class="COMMENT">
+		
+			<div class="COMMENT">
+				<a href="user/display.do?userId=${comment.creator.id}"><jstl:out value="${comment.creator.userAccount.username}"/></a>			
+					<span class="MOMENT">
+						(<fmt:formatDate value="${comment.moment}" pattern="${dateFormat}" />)
+					</span>:
+			</div>
+			<div class="COMMENT">
+				&emsp;<jstl:out value="${comment.body}"/>
+			</div>
+
+		</div>
+		<div>			
+			<security:authorize access="hasRole('ADMIN')">
+				<a href="comment/admin/delete.do?commentId=${comment.id}"><spring:message code="comment.delete"/></a>
+			</security:authorize>
+		</div>	
+		<jstl:forEach var="reply" items="${comment.replies}">
+		<div class="REPLY">
+			
+				<div>
+					&emsp;&emsp;<a href="user/display.do?userId=${reply.creator.id}"><jstl:out value="${reply.creator.userAccount.username}"/></a>
+							<span class="MOMENT">
+								(<fmt:formatDate value="${reply.moment}" pattern="${dateFormat}" />)
+							</span>:	
+				</div>
+				<div>
+					&emsp;&emsp;&emsp;<jstl:out value="${reply.body}"/>
+				</div>
+				<security:authorize access="hasRole('ADMIN')">
+					<a href="reply/admin/delete.do?replyId=${reply.id}"><spring:message code="comment.reply.delete"/></a>
+				</security:authorize>
+				
+		</div>
+		
+		</jstl:forEach>
+		
+		<security:authorize access="hasRole('USER')">
+			<jstl:if test="${isCreator == true}">
+				<div>
+					<a href="comment/user/create-reply.do?commentId=${comment.id}&c=t"><spring:message code="comment.reply.new"/></a>
+				</div>
+			</jstl:if>
+			<jstl:if test="${isCreator == false}">
+				<div>
+					<a href="comment/user/create-reply.do?commentId=${comment.id}&c=f"><spring:message code="comment.reply.new"/></a>
+				</div>
+			</jstl:if>
+		</security:authorize>
+		
+		<br/>
+		
+	</jstl:forEach>
+</jstl:if>
+
+<jstl:if test="${hasComment == false}">
+		<p><i><spring:message code="comment.empty"/></i></p>
+</jstl:if>
+
+<jstl:if test="${isCreator == true}">
+	<security:authorize access="hasRole('USER')">
+			<a href="comment/user/create-comment.do?announcementId=${announcement.id}&c=t"><spring:message code="comment.new"/></a><br>
+	</security:authorize>
+</jstl:if>
+
+<jstl:if test="${isCreator == false}">
+	<security:authorize access="hasRole('USER')">
+			<a href="comment/user/create-comment.do?announcementId=${announcement.id}&c=f"><spring:message code="comment.new"/></a><br>
+	</security:authorize>
+</jstl:if>	
+
 <jstl:if test="${requestURI == 'announcement/user/display.do'}">
 <jstl:if test="${joined}"><a href="announcement/user/dropout.do?announcementId=${announcement.id}"><spring:message code="announcement.dropout"/></a></jstl:if>
 <jstl:if test="${joinable}"><a href="announcement/user/join.do?announcementId=${announcement.id}"><spring:message code="announcement.join"/></a></jstl:if>

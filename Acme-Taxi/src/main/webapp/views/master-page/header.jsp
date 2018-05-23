@@ -45,7 +45,8 @@
 					<li><a href="sponsorship/admin/list.do"><spring:message code="master.page.admin.sponsorship.list" /></a></li>
 					<li><a href="report/admin/list.do"><spring:message code="master.page.admin.report.list" /></a></li>
 					<li><a href="report/admin/listUnread.do"><spring:message code="master.page.admin.report.unread" /></a></li>
-					<li><a href="request/admin/list.do"><spring:message code="master.page.admin.request.list"/></a></li>	
+					<li><a href="request/admin/list.do"><spring:message code="master.page.admin.request.list"/></a></li>
+					<li><a href="announcement/admin/list.do"><spring:message code="master.page.admin.announcement.list"/></a></li>
 				</ul>
 			</li>
 			
