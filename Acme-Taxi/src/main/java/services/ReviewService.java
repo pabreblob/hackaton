@@ -1,6 +1,8 @@
 
 package services;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -284,7 +286,10 @@ public class ReviewService {
 			rating += review.getRating();
 		if (total > 0)
 			rating = rating / total;
-		return rating;
+		final DecimalFormat df = new DecimalFormat("#.#");
+		df.setRoundingMode(RoundingMode.FLOOR);
+		final double result = new Double(df.format(rating));
+		return result;
 	}
 	//
 	//	public Collection<Sponsorship> findSponsorshipNotAccepted(final Pageable pageable) {
