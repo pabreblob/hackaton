@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +13,11 @@ import org.springframework.util.Assert;
 import repositories.AdminRepository;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
 import domain.Admin;
+import domain.Driver;
+import domain.Mechanic;
+import domain.User;
 
 @Service
 @Transactional
@@ -85,4 +91,83 @@ public class AdminService {
 		return res;
 	}
 
+	public Integer getMaxAttendants() {
+		final Integer res = this.adminRepository.getMaxAttendants();
+		if (res == null)
+			return 0;
+		else
+			return res;
+	}
+
+	public Integer getMinAttendants() {
+		final Integer res = this.adminRepository.getMinAttendants();
+		if (res == null)
+			return 0;
+		else
+			return res;
+	}
+
+	public Double getAvgAttendants() {
+		final Double res = this.adminRepository.getAvgAttendants();
+		if (res == null)
+			return 0.;
+		else
+			return res;
+	}
+
+	public Double getStandardDeviationAttendants() {
+		final Double res = this.adminRepository.getStandardDeviationAttendants();
+		if (res == null)
+			return 0.;
+		else
+			return res;
+	}
+
+	public Collection<User> getTopUsers() {
+		final List<User> res = new ArrayList<User>(this.adminRepository.getTopUsers());
+		return res.subList(0, res.size() < 10 ? res.size() : 10);
+	}
+
+	public Collection<Driver> getTopDrivers() {
+		final List<Driver> res = new ArrayList<Driver>(this.adminRepository.getTopDrivers());
+		return res.subList(0, res.size() < 10 ? res.size() : 10);
+	}
+
+	public Collection<Mechanic> getTopMechanics() {
+		final List<Mechanic> res = new ArrayList<Mechanic>(this.adminRepository.getTopMechanics());
+		return res.subList(0, res.size() < 10 ? res.size() : 10);
+	}
+
+	public Collection<User> getWorstUsers() {
+		final List<User> res = new ArrayList<User>(this.adminRepository.getWorstUsers());
+		return res.subList(0, res.size() < 10 ? res.size() : 10);
+	}
+
+	public Collection<Driver> getWorstDrivers() {
+		final List<Driver> res = new ArrayList<Driver>(this.adminRepository.getWorstDrivers());
+		return res.subList(0, res.size() < 10 ? res.size() : 10);
+	}
+
+	public Collection<Mechanic> getWorstMechanics() {
+		final List<Mechanic> res = new ArrayList<Mechanic>(this.adminRepository.getWorstMechanics());
+		return res.subList(0, res.size() < 10 ? res.size() : 10);
+	}
+
+	public Double getRatioCancelledAnnouncements() {
+		final Double res = this.adminRepository.getRatioCancelledAnnouncements();
+		if (res == null)
+			return 0.;
+		else
+			return res;
+	}
+
+	public Collection<Actor> getMostReportsWritten() {
+		final List<Actor> res = new ArrayList<Actor>(this.adminRepository.getMostReportsWritten());
+		return res.subList(0, res.size() < 10 ? res.size() : 10);
+	}
+
+	public Collection<Actor> getMostReportsReceived() {
+		final List<Actor> res = new ArrayList<Actor>(this.adminRepository.getMostReportsReceived());
+		return res.subList(0, res.size() < 10 ? res.size() : 10);
+	}
 }
