@@ -69,50 +69,72 @@
 <jstl:if test='${blockeable}'>
 <a href="actor/actor/block.do?actorId=${driver.id}"> <spring:message code="driver.block" />
 	</a>
+	<br>
+	<br>
+
 </jstl:if>
 
 <jstl:if test='${unblockeable}'>
 <a href="actor/actor/unblock.do?actorId=${driver.id}"> <spring:message code="driver.unblock" />
 	</a>
-</jstl:if><p>
+	<br>
+	<br>
+<br>
+</jstl:if>
 <jstl:if test='${me == false}'>
 <a href="report/actor/create.do?actorId=${driver.id}"> <spring:message code="driver.report" /></a>
+<br>
+<br>
 </jstl:if>
-</p>
+
 
 <jstl:if test="${!empty driver.reviews}"> 
 <a href="review/list-driver.do?driverId=${driver.id }">
 	<spring:message code="driver.reviews" />
 </a>
+<br>
+<br>
 </jstl:if> 
-<br/>
 
 <jstl:if test="${requestURI == 'driver/driver/display.do'}">
 <jstl:if test="${driver.car != null}"> 
 <a href="car/driver/display.do">
 	<spring:message code="driver.displaycar" />
 </a>
+<br>
+<br>
 </jstl:if>
 <jstl:if test="${driver.car == null}"> 
 <a href="car/driver/create.do">
 	<spring:message code="driver.createcar"/>
 </a>
+<br>
+<br>
 </jstl:if>  
 </jstl:if>
-
-
 
 <jstl:if test="${requestURI != 'driver/driver/display.do'}">
 <jstl:if test="${driver.car != null}"> 
 <a href="car/display.do?carId=${driver.car.id }">
 	<spring:message code="driver.displaycar" />
 </a>
+<br>
+<br>
 </jstl:if>
 </jstl:if>
+
+<security:authorize access="hasRole('ADMIN')">
+<jstl:if test='${!banned}'>
+<a href="actor/admin/ban.do?actorId=${driver.id}"> <spring:message code="driver.ban" /></a>
+</jstl:if>
+
+<jstl:if test='${banned}'>
+<a href="actor/admin/unban.do?actorId=${driver.id}"> <spring:message code="driver.unban" /></a>
+</jstl:if>
+</security:authorize>
 
 
 <jstl:if test="${requestURI == 'driver/driver/display.do'}">
-<br />
 	<a href="driver/driver/edit.do"> <spring:message code="driver.edit" />
 	</a>
 </jstl:if>

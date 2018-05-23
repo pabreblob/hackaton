@@ -135,6 +135,7 @@ public class SponsorController extends AbstractController {
 		boolean blockeable = false;
 		boolean unblockeable = false;
 		boolean me = true;
+		boolean banned = false;
 		try {
 			final Actor a = this.actorService.findByPrincipal();
 			if (a.getId() != s.getId()) {
@@ -147,11 +148,15 @@ public class SponsorController extends AbstractController {
 		} catch (final Throwable oops) {
 
 		}
+		if (this.sponsorService.findOne(sponsorId).getUserAccount().isBanned())
+			banned = true;
+
 		result = new ModelAndView("sponsor/display");
 		result.addObject("sponsor", this.sponsorService.findOne(sponsorId));
 		result.addObject("blockeable", blockeable);
 		result.addObject("unblockeable", unblockeable);
 		result.addObject("me", me);
+		result.addObject("banned", banned);
 		result.addObject("requestURI", "sponsor/display.do");
 
 		return result;

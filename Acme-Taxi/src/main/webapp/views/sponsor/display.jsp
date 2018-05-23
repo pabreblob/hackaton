@@ -62,6 +62,16 @@
 </jstl:if>
 </p>
 
+<security:authorize access="hasRole('ADMIN')">
+<jstl:if test='${!banned}'>
+<a href="actor/admin/ban.do?actorId=${sponsor.id}"> <spring:message code="sponsor.ban" /></a>
+</jstl:if>
+
+<jstl:if test='${banned}'>
+<a href="actor/admin/unban.do?actorId=${sponsor.id}"> <spring:message code="sponsor.unban" /></a>
+</jstl:if>
+</security:authorize>
+
 <jstl:if test="${requestURI == 'sponsor/sponsor/display.do'}">
 <a href = "sponsor/sponsor/edit.do">
 <spring:message code="sponsor.edit" />

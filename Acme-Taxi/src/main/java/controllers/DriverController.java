@@ -135,6 +135,7 @@ public class DriverController extends AbstractController {
 		boolean blockeable = false;
 		boolean unblockeable = false;
 		boolean me = true;
+		boolean banned = false;
 		try {
 			final Actor a = this.actorService.findByPrincipal();
 			if (a.getId() != d.getId()) {
@@ -147,11 +148,14 @@ public class DriverController extends AbstractController {
 		} catch (final Throwable oops) {
 
 		}
+		if (this.driverService.findOne(driverId).getUserAccount().isBanned())
+			banned = true;
 		result = new ModelAndView("driver/display");
 		result.addObject("driver", this.driverService.findOne(driverId));
 		result.addObject("blockeable", blockeable);
 		result.addObject("unblockeable", unblockeable);
 		result.addObject("me", me);
+		result.addObject("banned", banned);
 		result.addObject("requestURI", "driver/display.do");
 
 		return result;
