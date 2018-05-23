@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +38,7 @@ public class IdNumberPatternService {
 		Assert.isTrue(!StringUtils.isEmpty(idN.getPattern()));
 		Assert.isTrue(this.configurationService.find().getNationalities().contains(idN.getNationality()));
 		Assert.isTrue(!this.idNumberPatternRepository.findPatternsByNationality(idN.getNationality()).contains(idN.getPattern()));
+		Pattern.compile(idN.getPattern());
 		idN.setPattern(idN.getPattern().trim());
 		final IdNumberPattern saved = this.idNumberPatternRepository.save(idN);
 		return saved;
