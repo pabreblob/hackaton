@@ -19,7 +19,7 @@ import domain.Actor;
 	"classpath:spring/junit.xml"
 })
 @Transactional
-public class ActorServiceTests extends AbstractTest {
+public class ActorServiceTest extends AbstractTest {
 
 	@Autowired
 	private ActorService	actorService;
@@ -35,6 +35,7 @@ public class ActorServiceTests extends AbstractTest {
 	 * <p>
 	 * Case 1: Banning user1. No exception is expected.<br>
 	 * Case 2: Banning an admin. An <code>IllegalArgumentException</code> is expected.<br>
+	 * Case 3: Banning a non existing actor. An <code>IllegalArgumentException</code> is expected.<br>
 	 */
 	@Test
 	public void driverBan() {
@@ -43,6 +44,8 @@ public class ActorServiceTests extends AbstractTest {
 				"user1", null
 			}, {
 				"admin", IllegalArgumentException.class
+			}, {
+				"non-existing", IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -62,12 +65,17 @@ public class ActorServiceTests extends AbstractTest {
 	private void templateBan(final String actor, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
-			super.authenticate("admin");
-			final Actor a = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
-			this.actorService.ban(a.getId());
-			final Actor after = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
-			Assert.isTrue(after.getId() == a.getId());
-			Assert.isTrue(a.getUserAccount().isBanned());
+			if (actor.equals("non-existing")) {
+				super.authenticate("admin");
+				this.actorService.ban(0);
+			} else {
+				super.authenticate("admin");
+				final Actor a = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
+				this.actorService.ban(a.getId());
+				final Actor after = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
+				Assert.isTrue(after.getId() == a.getId());
+				Assert.isTrue(a.getUserAccount().isBanned());
+			}
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
@@ -83,6 +91,7 @@ public class ActorServiceTests extends AbstractTest {
 	 * <p>
 	 * Case 1: Banning and unbanning user1. No exception is expected.<br>
 	 * Case 2: Banning and unbanning admin. An <code>IllegalArgumentException</code> is expected.<br>
+	 * Case 3: Unbanning a non existing actor. An <code>IllegalArgumentException</code> is expected.<br>
 	 */
 	@Test
 	public void driverBanAndUnban() {
@@ -91,6 +100,8 @@ public class ActorServiceTests extends AbstractTest {
 				"user1", null
 			}, {
 				"admin", IllegalArgumentException.class
+			}, {
+				"non-existing", IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -110,23 +121,27 @@ public class ActorServiceTests extends AbstractTest {
 	private void templateBanAndUnban(final String actor, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
-			super.authenticate("admin");
-			final Actor banning = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
-			this.actorService.ban(banning.getId());
-			final Actor banned = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
-			Assert.isTrue(banning.getId() == banned.getId());
-			Assert.isTrue(banning.getUserAccount().isBanned());
-			this.actorService.unban(banned.getId());
-			final Actor unbanned = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
-			Assert.isTrue(banned.getId() == unbanned.getId());
-			Assert.isTrue(!unbanned.getUserAccount().isBanned());
+			if (actor.equals("non-existing")) {
+				super.authenticate("admin");
+				this.actorService.unban(0);
+			} else {
+				super.authenticate("admin");
+				final Actor banning = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
+				this.actorService.ban(banning.getId());
+				final Actor banned = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
+				Assert.isTrue(banning.getId() == banned.getId());
+				Assert.isTrue(banning.getUserAccount().isBanned());
+				this.actorService.unban(banned.getId());
+				final Actor unbanned = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
+				Assert.isTrue(banned.getId() == unbanned.getId());
+				Assert.isTrue(!unbanned.getUserAccount().isBanned());
+			}
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
 		super.unauthenticate();
 		this.checkExceptions(expected, caught);
 	}
-
 	/**
 	 * Tests the blocking and unblocking of an actor.
 	 * <p>
@@ -135,6 +150,7 @@ public class ActorServiceTests extends AbstractTest {
 	 * <p>
 	 * Case 1: Blocking and unblocking user1. No exception is expected.<br>
 	 * Case 2: Blocking and unblocking admin. An <code>IllegalArgumentException</code> is expected.<br>
+	 * Case 3: Blocking a non existing actor. An <code>IllegalArgumentException</code> is expected.<br>
 	 */
 	@Test
 	public void driverBlockAndUnblock() {
@@ -143,6 +159,8 @@ public class ActorServiceTests extends AbstractTest {
 				"user1", null
 			}, {
 				"admin", IllegalArgumentException.class
+			}, {
+				"non-existing", IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -162,21 +180,25 @@ public class ActorServiceTests extends AbstractTest {
 	private void templateBlockAndUnblock(final String actor, final Class<?> expected) {
 		Class<?> caught = null;
 		try {
-			super.authenticate("user2");
-			final Actor blocking = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
-			this.actorService.block(blocking.getId());
-			final Actor blocked = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
-			Assert.isTrue(blocked.getId() == blocking.getId());
-			Assert.isTrue(this.userService.findByPrincipal().getBlockedUsers().contains(blocked));
-			this.actorService.unblock(blocked.getId());
-			final Actor unblocked = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
-			Assert.isTrue(unblocked.getId() == blocked.getId());
-			Assert.isTrue(!this.userService.findByPrincipal().getBlockedUsers().contains(blocked));
+			if (actor.equals("non-existing")) {
+				super.authenticate("user1");
+				this.actorService.block(0);
+			} else {
+				super.authenticate("user2");
+				final Actor blocking = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
+				this.actorService.block(blocking.getId());
+				final Actor blocked = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
+				Assert.isTrue(blocked.getId() == blocking.getId());
+				Assert.isTrue(this.userService.findByPrincipal().getBlockedUsers().contains(blocked));
+				this.actorService.unblock(blocked.getId());
+				final Actor unblocked = new ArrayList<Actor>(this.actorService.findByUsername(actor)).get(0);
+				Assert.isTrue(unblocked.getId() == blocked.getId());
+				Assert.isTrue(!this.userService.findByPrincipal().getBlockedUsers().contains(blocked));
+			}
 		} catch (final Throwable oops) {
 			caught = oops.getClass();
 		}
 		super.unauthenticate();
 		this.checkExceptions(expected, caught);
 	}
-
 }
