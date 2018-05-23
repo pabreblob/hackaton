@@ -37,6 +37,7 @@ public class ReportServiceTest extends AbstractTest {
 	 * <p>
 	 * Case 1: An report is created by user1 and it's reporting user2. No exception is expected.<br>
 	 * Case 2: An report is created by user1 and it's reporting admin. An <code>IllegalArgumentException</code> is expected.<br>
+	 * Case 3: An report is created by user1 and it's reporting user1. An <code>IllegalArgumentException</code> is expected.<br>
 	 */
 	@Test
 	public void driverCreateAndSave() {
@@ -45,6 +46,8 @@ public class ReportServiceTest extends AbstractTest {
 				"user1", "user2", null
 			}, {
 				"user1", "admin", IllegalArgumentException.class
+			}, {
+				"user1", "user1", IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -102,6 +105,8 @@ public class ReportServiceTest extends AbstractTest {
 				"user1", "user2", null
 			}, {
 				"user1", "admin", IllegalArgumentException.class
+			}, {
+				"user1", "user1", IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
