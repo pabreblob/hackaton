@@ -34,6 +34,7 @@ public class SpamWordServiceTest extends AbstractTest {
 	 * <p>
 	 * Case 1: An spam word is created. No exception is expected.<br>
 	 * Case 2: An empty spam word is created. An <code>IllegalArgumentException</code> is expected.<br>
+	 * Case 3: An spam word whose word is an empty space is created. An <code>IllegalArgumentException</code> is expected.<br>
 	 */
 	@Test
 	public void driverCreateAndSave() {
@@ -42,6 +43,8 @@ public class SpamWordServiceTest extends AbstractTest {
 				"spamWord", null
 			}, {
 				"", IllegalArgumentException.class
+			}, {
+				" ", IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -83,6 +86,7 @@ public class SpamWordServiceTest extends AbstractTest {
 	 * <p>
 	 * Case 1: An Administrator deletes a Spam Word. No exception is expected.<br>
 	 * Case 2: A User tries to delete a Spam Word. An <code>IllegalArgumentException</code> is expected.<br>
+	 * Case 3: A Driver tries to delete a Spam Word. An <code>IllegalArgumentException</code> is expected.<br>
 	 */
 	@Test
 	public void driverDelete() {
@@ -91,6 +95,8 @@ public class SpamWordServiceTest extends AbstractTest {
 				"admin", null
 			}, {
 				"user1", IllegalArgumentException.class
+			}, {
+				"driver1", IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)

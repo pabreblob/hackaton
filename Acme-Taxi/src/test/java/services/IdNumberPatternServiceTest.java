@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +35,7 @@ public class IdNumberPatternServiceTest extends AbstractTest {
 	 * <p>
 	 * Case 1: An id number pattern is created. No exception is expected.<br>
 	 * Case 2: An empty id number pattern is created. An <code>IllegalArgumentException</code> is expected.<br>
+	 * Case 3: A non valid regular expression is created. An <code>PatternSyntaxException</code> is expected.<br>
 	 */
 	@Test
 	public void driverCreateAndSave() {
@@ -42,6 +44,8 @@ public class IdNumberPatternServiceTest extends AbstractTest {
 				"^$", null
 			}, {
 				"", IllegalArgumentException.class
+			}, {
+				"(^$", PatternSyntaxException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -84,6 +88,7 @@ public class IdNumberPatternServiceTest extends AbstractTest {
 	 * <p>
 	 * Case 1: An Administrator deletes a Id Number Pattern. No exception is expected.<br>
 	 * Case 2: A User tries to delete a Id Number Pattern. An <code>IllegalArgumentException</code> is expected.<br>
+	 * Case 3: A Driver tries to delete a Id Number Pattern. An <code>IllegalArgumentException</code> is expected.<br>
 	 */
 	@Test
 	public void driverDelete() {
@@ -92,6 +97,8 @@ public class IdNumberPatternServiceTest extends AbstractTest {
 				"admin", null
 			}, {
 				"user1", IllegalArgumentException.class
+			}, {
+				"driver1", IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
