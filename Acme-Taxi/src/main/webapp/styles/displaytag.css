@@ -10,7 +10,7 @@
  
 table {
 	border: 1px solid #666;
-	width: 80%;
+	width: 100%;
 	margin: 20px 0 20px 0 !important;
 }
 
@@ -75,7 +75,7 @@ div.exportlinks {
 	border: 1px dotted #999;
 	padding: 2px 4px 2px 4px;
 	margin: 2px 0 10px 0;
-	width: 79%;
+	width: 100%;
 }
 
 span.export {
@@ -109,7 +109,7 @@ span.pagebanner {
 	background-color: #eee;
 	border: 1px dotted #999;
 	padding: 2px 4px 2px 4px;
-	width: 79%;
+	width: 100%;
 	margin-top: 10px;
 	display: block;
 	border-bottom: none;
@@ -119,7 +119,7 @@ span.pagelinks {
 	background-color: #eee;
 	border: 1px dotted #999;
 	padding: 2px 4px 2px 4px;
-	width: 79%;
+	width: 100%;
 	display: block;
 	border-top: none;
 	margin-bottom: -5px;
