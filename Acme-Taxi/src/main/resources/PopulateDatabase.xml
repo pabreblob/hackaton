@@ -221,7 +221,7 @@
 	
 	
 	<bean id="Configurations" class="domain.Configuration">
-		<property name="bannerUrl" value="http://imgs.ntdtv.com/pic/2017/3-7/p8049361a90343536.jpg" />
+		<property name="bannerUrl" value="https://i.imgur.com/rpE1yjp.png" />
 		<property name="currency" value="€" />
 		<property name="pricePerKm" value="1.5" />
 		<property name="minimumFee" value="5.0" />
