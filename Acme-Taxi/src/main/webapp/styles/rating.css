@@ -1,4 +1,6 @@
-
+/*
+Display
+*/
 .val-fieldset {
 width:100px;
 border:none;
@@ -9,7 +11,7 @@ font-size:12px;
 width: 100px;
 height: 21px;
 display: block;
-background:url('estrellas.png') 0 0 no-repeat;
+background:url('../images/estrellas.png') 0 0 no-repeat;
 }
 .val-0 {background-position: -100px -0;}
 .val-5 {background-position: -81px -21px;}
@@ -22,3 +24,46 @@ background:url('estrellas.png') 0 0 no-repeat;
 .val-40 {background-position: -21px 0;} 
 .val-45 {background-position: 0 -21px;}
 .val-50 {background-position: 0 0;}
+
+/*
+Edition
+*/
+
+.form {
+    margin:0;
+    padding:0;
+}
+
+.form li {
+    list-style:none;
+}
+
+.hide {
+    display:none;
+}
+
+.rating input[type="radio"] {
+    position:absolute;
+    filter:alpha(opacity=0);
+    -moz-opacity:0;
+    -khtml-opacity:0;
+    opacity:0;
+    cursor:pointer;
+    width:17px;
+}
+
+.rating span {
+    width:24px;
+    height:16px;
+    line-height:16px;
+    padding:1px 22px 1px 0; /* 1px FireFox fix */
+    background:url('../images/stars.png') no-repeat -22px 0;
+}
+
+.rating input[type="radio"]:checked + span {
+    background-position:-22px 0;
+}
+
+.rating input[type="radio"]:checked + span ~ span {
+    background-position:0 0;
+}

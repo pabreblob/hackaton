@@ -73,7 +73,7 @@ public class Review extends DomainEntity {
 		this.moment = moment;
 	}
 
-	@Range(max = 5, min = 0)
+	@Range(max = 5, min = 1)
 	public int getRating() {
 		return this.rating;
 	}
