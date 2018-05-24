@@ -46,22 +46,41 @@
 
      <!-- Acciones de usuario -->
      <security:authorize access="hasRole('USER')">
-      <li class="nav-item dropdown">
+     <li class="nav-item dropdown">
       	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        	<spring:message code="master.page.user"/>
+        	<spring:message code="master.page.user.announcement"/>
       	</a>
       	<div class="dropdown-menu">
-        	<a class="dropdown-item" href="reservation/user/list.do"><spring:message code="master.page.user.reservation.list"/></a>
-          	<a class="dropdown-item" href="request/user/create.do"><spring:message code="master.page.user.request.create"/></a> 
-          	<a class="dropdown-item" href="request/user/list.do"><spring:message code="master.page.user.request.list"/></a>
-          	<a class="dropdown-item" href="review/user/list.do"><spring:message code="master.page.user.review.list"/></a>
-          	<a class="dropdown-item" href="review/user/list-created.do"><spring:message code="master.page.user.review.created"/></a> 
           	<a class="dropdown-item" href="announcement/user/create.do"><spring:message code="master.page.user.announcement.create"/></a> 
           	<a class="dropdown-item" href="announcement/user/list.do"><spring:message code="master.page.user.announcement.list"/></a>
           	<a class="dropdown-item" href="announcement/user/list-created.do"><spring:message code="master.page.user.announcement.created"/></a>
           	<a class="dropdown-item" href="announcement/user/list-joined.do"><spring:message code="master.page.user.announcement.joined"/></a>
       	</div>
    	 </li>
+   	 
+	 <li class="nav-item dropdown">
+      	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        	<spring:message code="master.page.user.request"/>
+      	</a>
+      	<div class="dropdown-menu">
+          	<a class="dropdown-item" href="request/user/create.do"><spring:message code="master.page.user.request.create"/></a> 
+          	<a class="dropdown-item" href="request/user/list.do"><spring:message code="master.page.user.request.list"/></a>
+      	</div>
+   	 </li>
+   	 
+	<li class="nav-item dropdown">
+      	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        	<spring:message code="master.page.user.review"/>
+      	</a>
+      	<div class="dropdown-menu">
+          	<a class="dropdown-item" href="review/user/list.do"><spring:message code="master.page.user.review.list"/></a>
+          	<a class="dropdown-item" href="review/user/list-created.do"><spring:message code="master.page.user.review.created"/></a> 
+      	</div>
+   	 </li>
+   	 
+   	 <li class="nav-item">
+        <a class="nav-link" href="reservation/user/list.do"><spring:message code="master.page.user.reservation"/></a>
+      </li>
      </security:authorize>
      
      <!-- Acciones de mecánico -->
@@ -134,7 +153,8 @@
       		<a class="dropdown-item" href="repairShop/admin/list-marked.do"><spring:message code="master.page.admin.repairshop.marked" /></a>
           	<a class="dropdown-item" href="review/admin/list.do"><spring:message code="master.page.admin.review.marked"/></a>
           	<a class="dropdown-item" href="request/admin/markedList.do"><spring:message code="master.page.admin.request.marked"/></a>
-      	</div>
+          	<a class="dropdown-item" href="comment/admin/list.do"><spring:message code="master.page.admin.comment.marked"/></a>
+        </div>
    	 </li>
    	 
    	 <li class="nav-item dropdown">
