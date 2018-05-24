@@ -94,6 +94,7 @@
 	<div class="col-12 col-xs-12 col-md-3">
 		<br/>
 		<br/>
+		<p><spring:message code="master.page.advertisement"/></p>
 		<img style="width:100%;" class="img-responsive" src='<jstl:out value="${spons}"/>' />
 	</div> 
 	</div>
