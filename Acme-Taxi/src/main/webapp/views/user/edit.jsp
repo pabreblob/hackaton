@@ -12,7 +12,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <security:authorize access="isAnonymous()">
-	<form:form action="user/save.do" modelAttribute="userForm" onsubmit="checkPhone()">
+	<form:form action="user/save.do" modelAttribute="userForm" onsubmit="return checkPhone()">
 
 		<acme:textbox code="user.username" path="username" />
 		<acme:password code="user.password" path="password" />
@@ -38,7 +38,7 @@
 </security:authorize>
 
 <security:authorize access="hasRole('USER')">
-	<form:form action="user/user/save.do" modelAttribute="user" onsubmit="checkPhone()">
+	<form:form action="user/user/save.do" modelAttribute="user" onsubmit="return checkPhone()">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		
