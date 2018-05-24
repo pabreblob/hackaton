@@ -35,7 +35,7 @@
 
 <%-- Definition --%>
 
-<div>
+<div class="form-check">
 	<form:label path="${path}">
 		<spring:message code="${code}" />
 	</form:label>	
