@@ -2973,6 +2973,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 			</list>
 		</property>
 		<property name="announcement"><ref bean="Announcement3" /></property>
+		<property name="marked" value="true" />
 	</bean>
 	<bean id="Review1" class="domain.Review">
 		<property name="title" value="review1" />
