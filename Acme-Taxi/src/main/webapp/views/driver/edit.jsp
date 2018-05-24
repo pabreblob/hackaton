@@ -12,7 +12,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <security:authorize access="isAnonymous()">
-	<form:form action="driver/save.do" modelAttribute="driverForm" onsubmit="checkPhone()">
+	<form:form action="driver/save.do" modelAttribute="driverForm" onsubmit="return checkPhone()">
 
 		<acme:textbox code="driver.username" path="username" />
 		<acme:password code="driver.password" path="password" />
@@ -46,7 +46,7 @@
 </security:authorize>
 
 <security:authorize access="hasRole('DRIVER')">
-	<form:form action="driver/driver/save.do" modelAttribute="driver" onsubmit="checkPhone()">
+	<form:form action="driver/driver/save.do" modelAttribute="driver" onsubmit="return checkPhone()">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		

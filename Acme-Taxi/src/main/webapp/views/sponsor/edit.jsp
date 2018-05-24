@@ -12,7 +12,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <security:authorize access="isAnonymous()">
-	<form:form action="sponsor/save.do" modelAttribute="sponsorForm" onsubmit="checkPhone()">
+	<form:form action="sponsor/save.do" modelAttribute="sponsorForm" onsubmit="return checkPhone()">
 
 		<acme:textbox code="sponsor.username" path="username" />
 		<acme:password code="sponsor.password" path="password" />
@@ -44,7 +44,7 @@
 </security:authorize>
 
 <security:authorize access="hasRole('SPONSOR')">
-	<form:form action="sponsor/sponsor/save.do" modelAttribute="sponsor" onsubmit="checkPhone()">
+	<form:form action="sponsor/sponsor/save.do" modelAttribute="sponsor" onsubmit="return checkPhone()">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		

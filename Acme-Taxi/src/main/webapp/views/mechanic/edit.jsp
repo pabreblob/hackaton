@@ -13,7 +13,7 @@
 <form:form
 	action="mechanic/save.do"
 	modelAttribute="mechanicForm"
-	onsubmit="checkPhone()">
+	onsubmit="return checkPhone()">
 	
 	<acme:textbox code="mechanic.username" path="userAccount.username" /><br/>
 	<acme:password code="mechanic.password" path="userAccount.password" /><br/>
@@ -42,7 +42,7 @@
 <security:authorize access="hasRole('MECHANIC')">
 <form:form
 	action="mechanic/mechanic/save.do"
-	modelAttribute="mechanic">
+	modelAttribute="mechanic" onsubmit="return checkPhone()">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<acme:textbox code="mechanic.name" path="name" /><br/>

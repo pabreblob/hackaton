@@ -14,7 +14,7 @@
 
 <form:form
 	action="admin/admin/save.do"
-	modelAttribute="admin" onsubmit="checkPhone()">
+	modelAttribute="admin" onsubmit="return checkPhone()">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<acme:textbox code="admin.name" path="name" /><br/>
