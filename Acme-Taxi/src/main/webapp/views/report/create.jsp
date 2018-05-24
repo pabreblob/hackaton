@@ -11,21 +11,15 @@
 
 <h4><spring:message code="report.reporting"/><jstl:out value="${reported}"/></h4>
 <form:form action="report/actor/save.do" modelAttribute="report">
-	<form:hidden path="reported"/>
-	<form:label path="reason">
-		<spring:message code="report.reason" /><br>
-	</form:label>
-	<form:textarea path="reason" rows="5" style="width:80%"/><br>
-	<form:errors path="reason" cssClass="error" />
-	<br>
-	<br>
+	<acme:textarea code="report.reason" path="reason"/>
+	
+	<div class="form-group">
 	<form:label path="imageUrl">
 		<spring:message code="report.image" /><br>
 	</form:label>	
-	<form:input id="url" autocomplete="off" path="imageUrl" style="width:80%" placeholder="https://www.google.com" />	
+	<form:input class="form-control" id="url" autocomplete="off" path="imageUrl" placeholder="https://www.google.com" />	
 	<form:errors path="imageUrl" cssClass="error" />
-	<br>
-	<br>
+	</div>
 	<div style="display:none" id="imageBox">
 		<hr>
 		<b><spring:message code="report.imagePreview"/></b><br>
