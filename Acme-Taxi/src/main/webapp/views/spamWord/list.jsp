@@ -8,8 +8,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%> 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %> 
  
-<a href="spamWord/create.do"><spring:message code="spamWord.create"/></a> 
-
+<acme:button url="spamWord/create.do" code="spamWord.create"/>
 <display:table class="displaytag"  requestURI="spamWord/list.do" name="spamWords" sort="external" partialList="true" size="${total}"
 	pagesize="5" id="row">   
   <spring:message code="spamWord.word" var="word"/> 
