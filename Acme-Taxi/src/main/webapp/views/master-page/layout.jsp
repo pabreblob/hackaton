@@ -60,7 +60,7 @@
 		font-family: Arial, sans-serif;
 	}
 </style>
-<body>
+<body onload="startTime()">
 	
 	<div style="background-color: rgba(0,0,255,0.25)">
 		<tiles:insertAttribute name="header" />
