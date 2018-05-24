@@ -12,8 +12,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <p>
-	<spring:message code="car.driver" />
-	:
+	<spring:message code="car.driver" />:
 	<a href="driver/display.do?driverId=${driver.id}"> <jstl:out value="${driver.userAccount.username}" />
 	</a>
 	
@@ -21,8 +20,7 @@
 <jstl:if test='${repairShop!=null}'>
 <security:authorize access="hasRole('USER')">
 <p>
-	<spring:message code="car.repairShop" />
-	:
+	<spring:message code="car.repairShop" />:
 	<a href="repairShop/user/display.do?repairShopId=${repairShop.id}"> <jstl:out value="${repairShop.name}" />
 	</a>
 	
@@ -30,8 +28,7 @@
 </security:authorize>
 <security:authorize access="hasRole('MECHANIC')">
 <p>
-	<spring:message code="car.repairShop" />
-	:
+	<spring:message code="car.repairShop" />:
 	<a href="repairShop/mechanic/display.do?repairShopId=${repairShop.id}"> <jstl:out value="${repairShop.name}" />
 	</a>
 	
@@ -39,8 +36,7 @@
 </security:authorize>
 <security:authorize access="hasRole('ADMIN')">
 <p>
-	<spring:message code="car.repairShop" />
-	:
+	<spring:message code="car.repairShop" />:
 	<a href="repairShop/display.do?repairShopId=${repairShop.id}"> <jstl:out value="${repairShop.name}" />
 	</a>
 	
@@ -48,8 +44,7 @@
 </security:authorize>
 <security:authorize access="hasRole('DRIVER')">
 <p>
-	<spring:message code="car.repairShop" />
-	:
+	<spring:message code="car.repairShop" />:
 	<a href="repairShop/display.do?repairShopId=${repairShop.id}"> <jstl:out value="${repairShop.name}" />
 	</a>
 	
@@ -57,8 +52,7 @@
 </security:authorize>
 <security:authorize access="hasRole('SPONSOR')">
 <p>
-	<spring:message code="car.repairShop" />
-	:
+	<spring:message code="car.repairShop" />:
 	<a href="repairShop/display.do?repairShopId=${repairShop.id}"> <jstl:out value="${repairShop.name}" />
 	</a>
 	
@@ -66,8 +60,7 @@
 </security:authorize>
 <security:authorize access="isAnonymous()">
 <p>
-	<spring:message code="car.repairShop" />
-	:
+	<spring:message code="car.repairShop" />:
 	<a href="repairShop/display.do?repairShopId=${repairShop.id}"> <jstl:out value="${repairShop.name}" />
 	</a>
 	
@@ -75,18 +68,15 @@
 </security:authorize>
 </jstl:if>
 <p>
-	<spring:message code="car.carModel" />
-	:
+	<spring:message code="car.carModel" />:
 	<jstl:out value="${car.carModel}" />
 </p>
 <p>
-	<spring:message code="car.maxPassengers" />
-	:
+	<spring:message code="car.maxPassengers" />:
 	<jstl:out value="${car.maxPassengers}" />
 </p>
 <p>
-	<spring:message code="car.numberPlate" />
-	:
+	<spring:message code="car.numberPlate" />:
 	<jstl:out value="${car.numberPlate}" />
 </p>
 <security:authorize access="hasRole('ADMIN')">

@@ -12,13 +12,11 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <p>
-	<spring:message code="service.title" />
-	:
+	<spring:message code="service.title" />:
 	<jstl:out value="${service.title}" />
 </p>
 <p>
-	<spring:message code="service.price" />
-	:
+	<spring:message code="service.price" />:
 	<jstl:out value="${service.price}" /><jstl:out value="${currency}"/>
 </p>
 <jstl:if test='${pendingReservations==0}'>

@@ -19,22 +19,22 @@
 	
 
 	<definition name="repairShop/list" extends="master.page">	
-		<put-attribute name="title" value="Listar tiendas de reparaciones" />
+		<put-attribute name="title" value="Listar talleres" />
 		<put-attribute name="body" value="/views/repairShop/list.jsp" />
 	</definition>
 	
 	
 	
 	<definition name="repairShop/display" extends="master.page">	
-		<put-attribute name="title" value="Detalles de tienda de reparaciones" />
+		<put-attribute name="title" value="Detalles de taller" />
 		<put-attribute name="body" value="/views/repairShop/display.jsp" />
 	</definition>
 	<definition name="repairShop/search" extends="master.page">	
-		<put-attribute name="title" value="Buscar tiendas de reparaciones" />
+		<put-attribute name="title" value="Buscar talleres" />
 		<put-attribute name="body" value="/views/repairShop/search.jsp" />
 	</definition>
 	<definition name="repairShop/edit" extends="master.page">	
-		<put-attribute name="title" value="Editar tienda de reparaciones" />
+		<put-attribute name="title" value="Editar talleres" />
 		<put-attribute name="body" value="/views/repairShop/edit.jsp" />
 	</definition>
 </tiles-definitions>

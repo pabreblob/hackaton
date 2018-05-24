@@ -12,26 +12,22 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <p>
-	<spring:message code="repairShop.name" />
-	:
+	<spring:message code="repairShop.name" />:
 	<jstl:out value="${repairShop.name}" />
 </p>
 <p>
-	<spring:message code="repairShop.mechanic" />
-	:
+	<spring:message code="repairShop.mechanic" />:
 	<a href="mechanic/display.do?mechanicId=${repairShop.mechanic.id}"> <jstl:out value="${repairShop.mechanic.userAccount.username}" />
 	</a>
 	
 </p>
 <p>
-	<spring:message code="repairShop.description" />
-	:
+	<spring:message code="repairShop.description" />:
 	<jstl:out value="${repairShop.description}" />
 </p>
 
 <p>
-	<spring:message code="repairShop.phone" />
-	:
+	<spring:message code="repairShop.phone" />:
 	<jstl:out value="${repairShop.phone}" />
 </p>
 <jstl:if test='${not empty repairShop.photoUrl}'>
@@ -41,13 +37,11 @@
 </p>
 </jstl:if>
 <p>
-	<spring:message code="repairShop.location" />
-	:
+	<spring:message code="repairShop.location" />:
 	<jstl:out value="${repairShop.location}" />
 </p>
 <p>
-	<spring:message code="repairShop.meanRating" />
-	:
+	<spring:message code="repairShop.meanRating" />:
 	<jstl:out value="${repairShop.meanRating}" /> 
 	<jstl:if test='${hasReviews}'>
 	<a href="review/list-repairShop.do?repairShopId=${repairShop.id}"><spring:message code="repairShop.viewReviews" /> </a>

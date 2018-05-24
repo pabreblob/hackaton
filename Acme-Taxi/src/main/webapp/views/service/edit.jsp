@@ -24,15 +24,15 @@
 	<form:hidden path="version" />
 	<form:hidden path="suspended" />
 	<form:hidden path="repairShop" />
-	<acme:textbox code="service.title" path="title" /><br />
-	<acme:textbox code="service.price" path="price" /><br />
+	<acme:textbox code="service.title" path="title" />
+	<acme:textbox code="service.price" path="price" />
 	<acme:submit name="save" code="service.save"  />
 	<jstl:if test="${repairShop.id != 0}">
 	<input type="submit" name="delete"
 				value="<spring:message code="service.delete" />"
 				onclick="return confirm('<spring:message code="service.confirm.delete" />')" />
 	</jstl:if>
-	<acme:cancel code="service.cancel" url="/repairShop/mechanic/display.do?repairShopId=${service.repairShop.id}" /><br />	
+	<acme:cancel code="service.cancel" url="/repairShop/mechanic/display.do?repairShopId=${service.repairShop.id}" />
 </form:form>
 
 

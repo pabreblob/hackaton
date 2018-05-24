@@ -22,18 +22,18 @@
 <form:form action="repairShop/mechanic/edit.do" modelAttribute="repairShop">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<acme:textbox code="repairShop.name" path="name" /><br />
-	<acme:textarea code="repairShop.description" path="description" /><br />
-	<acme:textbox code="repairShop.location" path="location"/><br />
-	<acme:textbox code="repairShop.phone" path="phone"/><br />
-	<acme:textbox code="repairShop.photo" path="photoUrl"/><br />
+	<acme:textbox code="repairShop.name" path="name" />
+	<acme:textarea code="repairShop.description" path="description" />
+	<acme:textbox code="repairShop.location" path="location"/>
+	<acme:textbox code="repairShop.phone" path="phone"/>
+	<acme:textbox code="repairShop.photo" path="photoUrl"/>
 	<acme:submit name="save" code="repairShop.save"  />
 	<jstl:if test="${repairShop.id != 0}">
 	<input type="submit" name="delete"
 				value="<spring:message code="repairShop.delete" />"
 				onclick="return confirm('<spring:message code="repairShop.confirm.delete" />')" />
 	</jstl:if> 
-	<acme:cancel code="repairShop.cancel" url="/repairShop/mechanic/list-created.do" /><br />	
+	<acme:cancel code="repairShop.cancel" url="/repairShop/mechanic/list-created.do" />	
 </form:form>
 
 

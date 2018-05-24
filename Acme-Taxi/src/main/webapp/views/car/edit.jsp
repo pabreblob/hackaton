@@ -22,9 +22,9 @@
 <form:form action="car/driver/edit.do" modelAttribute="car">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<acme:textbox code="car.carModel" path="carModel" /><br />
-	<acme:textbox code="car.numberPlate" path="numberPlate" /><br />
-	<acme:textbox code="car.maxPassengers" path="maxPassengers" /><br />
+	<acme:textbox code="car.carModel" path="carModel" />
+	<acme:textbox code="car.numberPlate" path="numberPlate" />
+	<acme:textbox code="car.maxPassengers" path="maxPassengers" />
 
 	<acme:submit name="save" code="car.save"  />
 	<jstl:if test="${car.id != 0}">
@@ -33,10 +33,10 @@
 				onclick="return confirm('<spring:message code="car.confirm.delete" />')" />
 	</jstl:if>
 	<jstl:if test="${car.id == 0}">
-	<acme:cancel code="car.cancel" url="/driver/driver/display.do?driverId=${driver.id}" /><br />
+	<acme:cancel code="car.cancel" url="/driver/driver/display.do?driverId=${driver.id}" />
 	</jstl:if>
 	<jstl:if test="${car.id != 0}">
-	<acme:cancel code="car.cancel" url="/car/driver/display.do" /><br />
+	<acme:cancel code="car.cancel" url="/car/driver/display.do" />
 	</jstl:if>	
 </form:form>
 

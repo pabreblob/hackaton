@@ -11,18 +11,15 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <p>
-	<spring:message code="mechanic.username" />
-	:
+	<spring:message code="mechanic.username" />:
 	<jstl:out value="${mechanic.userAccount.username}" />
 </p>
 <p>
-	<spring:message code="mechanic.name" />
-	:
+	<spring:message code="mechanic.name" />:
 	<jstl:out value="${mechanic.name}" />
 </p>
 <p>
-	<spring:message code="mechanic.surname" />
-	:
+	<spring:message code="mechanic.surname" />:
 	<jstl:out value="${mechanic.surname}" />
 </p>
 <jstl:if test='${blockeable}'>

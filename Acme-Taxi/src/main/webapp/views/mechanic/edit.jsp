@@ -15,14 +15,14 @@
 	modelAttribute="mechanicForm"
 	onsubmit="return checkPhone()">
 	
-	<acme:textbox code="mechanic.username" path="userAccount.username" /><br/>
-	<acme:password code="mechanic.password" path="userAccount.password" /><br/>
-	<acme:password code="mechanic.confirmPassword" path="confirmPass" /><br/>
-	<acme:textbox code="mechanic.name" path="name" /><br/>
-	<acme:textbox code="mechanic.surname" path="surname" /><br/>
+	<acme:textbox code="mechanic.username" path="userAccount.username" />
+	<acme:password code="mechanic.password" path="userAccount.password" />
+	<acme:password code="mechanic.confirmPassword" path="confirmPass" />
+	<acme:textbox code="mechanic.name" path="name" />
+	<acme:textbox code="mechanic.surname" path="surname" />
 	<spring:message code="mechanic.placeholderEmail" var="emailplaceholder"/>
-	<acme:textbox code="mechanic.email" path="email" placeholder='${emailplaceholder}' /><br/>
-	<acme:textbox code="mechanic.phone" path="phone" /><br/>
+	<acme:textbox code="mechanic.email" path="email" placeholder='${emailplaceholder}' />
+	<acme:textbox code="mechanic.phone" path="phone" />
 	<spring:message code="mechanic.placeholderDate" var="dateplaceholder"/>
 	<acme:textbox code="mechanic.birthdate" path="birthdate" placeholder='${dateplaceholder}' />
 	<p>
@@ -31,9 +31,9 @@
 <form:options items="${nationalities}"  />
 </form:select>
 </p>
-	<acme:textbox code="mechanic.idNumber" path="idNumber" /><br/>
-	<acme:textbox code="mechanic.photo" path="photoUrl" /><br/>
-	<a href="misc/terms.do" target="_blank"><spring:message code="mechanic.acceptTerms"/></a><acme:checkbox code="mechanic.blank" path="acceptTerms"/><br/>
+	<acme:textbox code="mechanic.idNumber" path="idNumber" />
+	<acme:textbox code="mechanic.photo" path="photoUrl" />
+	<a href="misc/terms.do" target="_blank"><spring:message code="mechanic.acceptTerms"/></a><acme:checkbox code="mechanic.blank" path="acceptTerms"/>
 	<acme:submit name="save" code="mechanic.save"  />
 	<acme:cancel code="mechanic.cancel" url="welcome/index.do" />
 </form:form>
@@ -45,11 +45,11 @@
 	modelAttribute="mechanic" onsubmit="return checkPhone()">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-	<acme:textbox code="mechanic.name" path="name" /><br/>
-	<acme:textbox code="mechanic.surname" path="surname" /><br/>
+	<acme:textbox code="mechanic.name" path="name" />
+	<acme:textbox code="mechanic.surname" path="surname" />
 	<spring:message code="mechanic.placeholderEmail" var="emailplaceholder"/>
 	<acme:textbox code="mechanic.email" path="email" placeholder='${emailplaceholder}' /><br/>
-	<acme:textbox code="mechanic.phone" path="phone" /><br/>
+	<acme:textbox code="mechanic.phone" path="phone" />
 	<spring:message code="mechanic.placeholderDate" var="dateplaceholder"/>
 	<acme:textbox code="mechanic.birthdate" path="birthdate" placeholder='${dateplaceholder}' />
 	<p>
@@ -58,8 +58,8 @@
 <form:options items="${nationalities}" />
 </form:select>
 	</p>
-	<acme:textbox code="mechanic.idNumber" path="idNumber" /><br/>
-	<acme:textbox code="mechanic.photo" path="photoUrl" /><br/>
+	<acme:textbox code="mechanic.idNumber" path="idNumber" />
+	<acme:textbox code="mechanic.photo" path="photoUrl" />
 	<input type="submit" name="save"
 		value="<spring:message code="mechanic.save" />"/>
 	<acme:cancel code="mechanic.cancel" url="welcome/index.do" />

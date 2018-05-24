@@ -93,7 +93,7 @@ public class ReservationService {
 			mes.setSubject("New Reservation");
 		}
 		if(reservation.getService().getRepairShop().getMechanic().getNationality().equals("Spanish")){
-			mes.setBody("Una reserva para el servicio " + reservation.getService().getTitle()+" de la tienda de reparaciones "+reservation.getService().getRepairShop().getName()+"ha sido solicitada por "+reservation.getUser().getUserAccount().getUsername());	
+			mes.setBody("Una reserva para el servicio " + reservation.getService().getTitle()+" del taller "+reservation.getService().getRepairShop().getName()+"ha sido solicitada por "+reservation.getUser().getUserAccount().getUsername());	
 		}else{
 			mes.setBody("A reservation for the service " + reservation.getService()+" from the repair shop "+reservation.getService().getRepairShop().getName()+"has been made by "+reservation.getUser().getUserAccount().getUsername());
 		}
@@ -166,7 +166,7 @@ public class ReservationService {
 			mes.setSubject("Reservation cancelation");
 		}
 		if(reservation.getService().getRepairShop().getMechanic().getNationality().equals("Spanish")){
-			mes.setBody("El servicio " + reservation.getService().getTitle()+" de la tienda de reparaciones "+reservation.getService().getRepairShop().getName()+"ha sido cancelado "+reservation.getUser().getUserAccount().getUsername());	
+			mes.setBody("El servicio " + reservation.getService().getTitle()+" del taller "+reservation.getService().getRepairShop().getName()+"ha sido cancelado "+reservation.getUser().getUserAccount().getUsername());	
 		}else{
 			mes.setBody("The service " + reservation.getService()+" from the repair shop "+reservation.getService().getRepairShop().getName()+"has been cancelled by "+reservation.getUser().getUserAccount().getUsername());
 		}

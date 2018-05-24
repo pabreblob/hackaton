@@ -26,10 +26,10 @@
 	<form:hidden path="user" />
 	<form:hidden path="cancelled" />
 	<spring:message code="reservation.placeholderDate" var="dateplaceholder"/>
-	<acme:textbox code="reservation.moment" path="moment" placeholder='${dateplaceholder}' /><br />
-	<acme:textarea code="reservation.comment" path="comment" /><br />
+	<acme:textbox code="reservation.moment" path="moment" placeholder='${dateplaceholder}' />
+	<acme:textarea code="reservation.comment" path="comment" /><
 	<acme:submit name="save" code="reservation.save"  />
-	<acme:cancel code="reservation.cancel" url="/reservation/user/list.do" /><br />	
+	<acme:cancel code="reservation.cancel" url="/reservation/user/list.do" />
 </form:form>
 
 
