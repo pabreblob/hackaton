@@ -8,8 +8,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<a href="idNumberPattern/create.do"><spring:message code="idNumberPattern.create"/></a>
-<br>
 <jstl:if test="${nationalityFilter != null}">
 	<h3><spring:message code="idNumberPattern.filteringBy"/><jstl:out value="${nationalityFilter}"/></h3>
 </jstl:if>
@@ -25,7 +23,7 @@
 		<form:option value="" label="${showAll}" />		
 		<form:options items="${nationalities}"/>
 	</form:select>
-	<acme:submit name="submit" code="idNumberPattern.submit"/>
+	<acme:submit name="submit" code="idNumberPattern.submit"/><acme:button url="idNumberPattern/create.do" code="idNumberPattern.create"/>
 </form:form>
 <display:table class="displaytag" requestURI="idNumberPattern/list.do" name="idNumberPatterns" id="row" 
 	pagesize="5" sort="external" partialList="true" size="${total}">	

@@ -72,6 +72,7 @@ public class UserUserController extends AbstractController {
 
 		result = new ModelAndView("user/display");
 		result.addObject("user", this.userService.findByPrincipal());
+		result.addObject("me", true);
 		result.addObject("announcements", anns);
 		result.addObject("requestURI", "user/user/display.do");
 		return result;

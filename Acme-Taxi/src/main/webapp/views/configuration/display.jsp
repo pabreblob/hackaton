@@ -8,7 +8,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<style>
+<!--<style>
 table{
 	border-collapse: collapse;
 }
@@ -25,10 +25,11 @@ tr:nth-child(even){
 	background-color: lightblue;
 }
 </style>
+-->
 
-<table>
+<table class="table table-hover table-bordered">
 	<tr>
-		<td style="width: 15%"><b><spring:message code="configuration.bannerUrl"/></b></td><td style="text-align: center"><jstl:out value="${config.bannerUrl}"/></td>
+		<td><b><spring:message code="configuration.bannerUrl"/></b></td><td style="text-align: center"><jstl:out value="${config.bannerUrl}"/></td>
 	</tr>
 	<tr>
 		<td><b><spring:message code="configuration.currency"/></b></td><td style="text-align: center"><jstl:out value="${config.currency}"/></td>
@@ -67,7 +68,8 @@ tr:nth-child(even){
 	</tr>
 </table>
 <h2><spring:message code="configuration.texts"/></h2>
-<table>
+
+<table class="table table-bordered table-hover">
 	<tr>
 		<th></th><th style="text-align: center"><spring:message code="configuration.english"/></th><th style="text-align: center"><spring:message code="configuration.spanish"/></th>
 	</tr>
@@ -91,7 +93,7 @@ tr:nth-child(even){
 <spring:message code="configuration.nationalities" var="nationalitiesHeader"/>
 <h2><jstl:out value="${nationalitiesHeader}:" /></h2>
 
-<table>
+<table class="table table-bordered table-hover">
 	<jstl:forEach var="nationality" items="${config.nationalities}">
 		<tr><td>&nbsp; &nbsp;<jstl:out value="- ${nationality}"/></td></tr>
 	</jstl:forEach>

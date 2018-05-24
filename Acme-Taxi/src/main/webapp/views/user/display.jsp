@@ -137,14 +137,15 @@
 </jstl:if>
 </p>
 </security:authorize>
-
+<p>
 <jstl:if test="${!empty user.reviews}"> 
 <a href="review/list-user.do?userId=${user.id }">
 	<spring:message code="user.reviews" />
 </a>
 </jstl:if> 
 <br/>
-
+</p>
+<p>
 <security:authorize access="hasRole('ADMIN')">
 <jstl:if test='${!banned}'>
 <a href="actor/admin/ban.do?actorId=${user.id}&returnUri=user"> <spring:message code="user.ban" /></a>
@@ -154,7 +155,7 @@
 <a href="actor/admin/unban.do?actorId=${user.id}&returnUri=user"> <spring:message code="user.unban" /></a>
 </jstl:if>
 </security:authorize>
-
+</p>
 <jstl:if test="${requestURI == 'user/user/display.do'}">
 <br />
 	<a href="user/user/edit.do"> <spring:message code="user.edit" />
@@ -165,36 +166,50 @@
 <spring:message code="user.announcements" var="annsHeader"/>
 <h2><jstl:out value="${annsHeader}"/></h2>
 
-<display:table name="announcements" id="row" requestURI="${requestURI}" class="displaytag" pagesize="10">
+<display:table name="announcements" id="row" requestURI="${requestURI}" class="displaytag" pagesize="10" defaultsort="2" defaultorder="descending">
 
 	<spring:message code="announcement.title" var="titleHeader"/> 
 	<display:column property="title" sortable="true" sortName="title" title="${titleHeader}"/>
 	
+	<spring:message code="announcement.moment" var="momentHeader" />
+	<spring:message code="moment.date.format" var="dateFormat" />
+	<display:column sortable="true" title="${momentHeader}" sortName="moment">
+		<fmt:formatDate value="${row.moment}" pattern="${dateFormat}"/>
+	</display:column>
+	
+	<spring:message code="announcement.link" var="linkHeader"/>
 	<security:authorize access="hasRole('USER')">
 		<jstl:if test="${me == true}">	
 			<jstl:if test="${user.id == row.creator.id}">
-				<display:column>
+				<display:column title="${linkHeader}">
 					<a href="announcement/user/display-created.do?announcementId=${row.id}"><spring:message code="announcement.display"/></a>
 				</display:column>
 			</jstl:if>
-		
+			
+
 			<jstl:if test="${user.id != row.creator.id}">
-				<display:column>
+				<display:column title="${linkHeader}">
 					<a href="announcement/user/display.do?announcementId=${row.id}"><spring:message code="announcement.display"/></a>
 				</display:column>
 			</jstl:if>
 		</jstl:if>
 		
 		<jstl:if test="${me == false}">
-			<display:column>
+			<display:column title="${linkHeader}">
 				<a href="announcement/user/display.do?announcementId=${row.id}"><spring:message code="announcement.display"/></a>
 			</display:column>
 		</jstl:if>
 	</security:authorize>
 	
-	<security:authorize access="!hasRole('USER')">
-		<display:column>
+	<security:authorize access="!hasRole('USER') && !hasRole('ADMIN')">
+		<display:column title="${linkHeader}">
 			<a href="announcement/display.do?announcementId=${row.id}"><spring:message code="announcement.display"/></a>
+		</display:column>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('ADMIN')">
+		<display:column title="${linkHeader}">
+			<a href="announcement/admin/display.do?announcementId=${row.id}"><spring:message code="announcement.display"/></a>
 		</display:column>
 	</security:authorize>
 

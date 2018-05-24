@@ -11,43 +11,25 @@
 <form:form action="${requestUri}" modelAttribute="request">
 	<form:hidden path="id"/>
 	<spring:message code="request.giveInformation"/><br><br>
-	<form:label path="origin">
-		<spring:message code="request.origin" />: 
-	</form:label>	
+
 	<spring:message code="request.placeholderPlace" var="placeholderHeader"/>
-	<form:input path="origin" size="50" placeholder="${placeholderHeader}" />	
-	<form:errors path="origin" cssClass="error" />
-	<br>
-	<br>
-	<form:label path="destination">
-		<spring:message code="request.destination" />: 
-	</form:label>	
-	<form:input path="destination" size="50" placeholder="${placeholderHeader}" />	
-	<form:errors path="destination" cssClass="error" />
-	<br>
-	<br>
-	<form:label path="passengersNumber">
-		<spring:message code="request.passengerNumber" />: 
-	</form:label>	
-	<form:input type="number" min="1" path="passengersNumber"/>	
-	<form:errors path="passengersNumber" cssClass="error" />
-	<br>
-	<br>
-	<form:label path="moment">
-		<spring:message code="request.moment" />: 
-	</form:label>	
+	<acme:textbox code="request.origin" path="origin" placeholder="${placeholderHeader}" />
+	<acme:textbox code="request.destination" path="destination" placeholder="${placeholderHeader}" />
+
+	<acme:textbox code="request.passengerNumber" path="passengersNumber" />
+
 	<spring:message code="request.momentValid" var="placeholderMoment"/>
-	<form:input path="moment" placeholder="${placeholderMoment}"/>	
-	<form:errors path="moment" cssClass="error" />
-	<br>
-	<br>
-	<p id="anyComment"><spring:message code="request.anyComment"/><br><br></p>
+	<acme:textbox code="request.moment" path="moment" placeholder="${placeholderMoment}"/>
+
+	<p id="anyComment"><spring:message code="request.anyComment"/><br></p>
 	<div style="display:none" id="commentBox">
+		<div class="form-group">
 		<form:label path="comment">
-			<spring:message code="request.comment" />:<br> 
+			<spring:message code="request.comment" />: 
 		</form:label>	
-		<form:textarea id="commentInput" path="comment" rows="5" style="width:50%"/><br>	
-		<form:errors path="comment" cssClass="error" /><br><br>		
+		<form:textarea class="form-control" id="commentInput" path="comment"/>	
+		<form:errors path="comment" cssClass="error" />
+		</div>
 	</div>
 	<acme:submit name="submit" code="request.submit"/>
 	<acme:cancel url="/welcome/index.do" code="request.cancel"/>
