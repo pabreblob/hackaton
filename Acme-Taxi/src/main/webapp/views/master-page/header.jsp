@@ -43,9 +43,6 @@
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <a class="navbar-brand" href="#">Acme-Taxi</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-     <li class="nav-item">
-     	<a class="nav-link" href="welcome/index.do">Home</a>
-     </li>
 
      <!-- Acciones de usuario -->
      <security:authorize access="hasRole('USER')">
