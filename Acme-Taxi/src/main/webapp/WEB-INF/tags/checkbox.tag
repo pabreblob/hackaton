@@ -35,10 +35,7 @@
 
 <%-- Definition --%>
 
-<div class="form-check">
-	<form:label path="${path}">
-		<spring:message code="${code}" />
-	</form:label>	
-	<form:checkbox path="${path}" />	
+<div class="checkbox">
+	<label><form:checkbox path="${path}" />&#160;&#160;<spring:message code="${code}" /></label>	
 	<form:errors path="${path}" cssClass="error" />
 </div>
