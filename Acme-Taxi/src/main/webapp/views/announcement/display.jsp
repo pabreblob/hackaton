@@ -68,11 +68,11 @@
 				&emsp;<jstl:out value="${comment.body}"/>
 			</div>
 
-		</div>
-		<div>			
-			<security:authorize access="hasRole('ADMIN')">
-				<a href="comment/admin/delete.do?commentId=${comment.id}"><spring:message code="comment.delete"/></a>
-			</security:authorize>
+			<div>			
+				<security:authorize access="hasRole('ADMIN')">
+					<a href="comment/admin/delete.do?commentId=${comment.id}"><spring:message code="comment.delete"/></a>
+				</security:authorize>
+			</div>
 		</div>	
 		<jstl:forEach var="reply" items="${comment.replies}">
 		<div class="REPLY">
@@ -87,7 +87,7 @@
 					&emsp;&emsp;&emsp;<jstl:out value="${reply.body}"/>
 				</div>
 				<security:authorize access="hasRole('ADMIN')">
-					<a href="reply/admin/delete.do?replyId=${reply.id}"><spring:message code="comment.reply.delete"/></a>
+					&emsp;&emsp;<a href="comment/admin/delete.do?commentId=${reply.id}"><spring:message code="comment.reply.delete"/></a>
 				</security:authorize>
 				
 		</div>

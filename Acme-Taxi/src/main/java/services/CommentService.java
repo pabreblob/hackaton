@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -46,7 +47,6 @@ public class CommentService {
 	}
 
 	public Comment save(final Comment comment) {
-		System.out.println("holi");
 		Assert.notNull(comment);
 		Assert.isTrue(comment.getId() == 0);
 		Assert.isTrue(comment.getCreator().equals(this.userService.findByPrincipal()));
@@ -84,7 +84,8 @@ public class CommentService {
 	public void delete(final Comment comment) {
 		Assert.notNull(comment);
 		Assert.notNull(this.adminService.findByPrincipal());
-		comment.getReplies().removeAll(comment.getReplies());
+		if (comment.getComment() != null)
+			comment.getComment().getReplies().remove(comment);
 		this.commentRepository.delete(comment);
 	}
 	//Other
@@ -99,6 +100,10 @@ public class CommentService {
 
 	public Collection<Comment> findCommentsByParentId(final int commentId) {
 		return this.commentRepository.findCommentsByParentId(commentId);
+	}
+
+	public Collection<Comment> findMarkedComments(final Pageable pageable) {
+		return this.commentRepository.findMarkedComments(pageable).getContent();
 	}
 
 	public Comment reconstruct(final Comment comment, final Comment c, final Announcement a, final BindingResult binding) {
