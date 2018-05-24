@@ -12,7 +12,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <security:authorize access="isAnonymous()">
-	<form:form action="sponsor/save.do" modelAttribute="sponsorForm">
+	<form:form action="sponsor/save.do" modelAttribute="sponsorForm" onsubmit="checkPhone()">
 
 		<acme:textbox code="sponsor.username" path="username" />
 		<acme:password code="sponsor.password" path="password" />
@@ -44,7 +44,7 @@
 </security:authorize>
 
 <security:authorize access="hasRole('SPONSOR')">
-	<form:form action="sponsor/sponsor/save.do" modelAttribute="sponsor">
+	<form:form action="sponsor/sponsor/save.do" modelAttribute="sponsor" onsubmit="checkPhone()">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		
@@ -69,3 +69,19 @@
 	<acme:cancel code="sponsor.cancel" url="welcome/index.do" />
 	</form:form>
 </security:authorize>
+
+<script type="text/javascript">
+	function checkPhone(){
+		var phone = $("input#phone").val();
+		//var pat = new RegExp("[1-9]");
+		var pat = /^(\+[1-9][0-9]{0,2}\s(\([1-9][0-9]{0,2}\)\s){0,1}){0,1}[0-9]{4,}$/; 
+		//var pat = new RegExp("^(\+[1-9][0-9]{0,2}\s(\([1-9][0-9]{0,2}\)\s){0,1}){0,1}[0-9]{4,}$");
+		//alert("P");
+		//if(pat.test(phone)){
+		if(phone.search(pat) != -1){
+			return true;
+		} else {
+			return confirm("<spring:message code='sponsor.checkPhone'/>");
+		}
+	}
+</script>

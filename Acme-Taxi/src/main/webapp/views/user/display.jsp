@@ -120,6 +120,47 @@
 	
 </p>
 
+<jstl:if test='${blockeable}'>
+<a href="actor/actor/block.do?actorId=${user.id}"> <spring:message code="user.block" />
+	</a>
+</jstl:if>
+
+<jstl:if test='${unblockeable}'>
+<a href="actor/actor/unblock.do?actorId=${user.id}"> <spring:message code="user.unblock" />
+	</a>
+</jstl:if>
+
+<security:authorize access="isAuthenticated()">
+<p>
+<jstl:if test='${me == false}'>
+<a href="report/actor/create.do?actorId=${user.id}"> <spring:message code="user.report" /></a>
+</jstl:if>
+</p>
+</security:authorize>
+
+<jstl:if test="${!empty user.reviews}"> 
+<a href="review/list-user.do?userId=${user.id }">
+	<spring:message code="user.reviews" />
+</a>
+</jstl:if> 
+<br/>
+
+<security:authorize access="hasRole('ADMIN')">
+<jstl:if test='${!banned}'>
+<a href="actor/admin/ban.do?actorId=${user.id}&returnUri=user"> <spring:message code="user.ban" /></a>
+</jstl:if>
+
+<jstl:if test='${banned}'>
+<a href="actor/admin/unban.do?actorId=${user.id}&returnUri=user"> <spring:message code="user.unban" /></a>
+</jstl:if>
+</security:authorize>
+
+<jstl:if test="${requestURI == 'user/user/display.do'}">
+<br />
+	<a href="user/user/edit.do"> <spring:message code="user.edit" />
+	</a>
+</jstl:if>
+
 <br/>
 <spring:message code="user.announcements" var="annsHeader"/>
 <h2><jstl:out value="${annsHeader}"/></h2>
@@ -161,44 +202,4 @@
 <br/>
 <br/>
 
-<jstl:if test='${blockeable}'>
-<a href="actor/actor/block.do?actorId=${user.id}"> <spring:message code="user.block" />
-	</a>
-</jstl:if>
-
-<jstl:if test='${unblockeable}'>
-<a href="actor/actor/unblock.do?actorId=${user.id}"> <spring:message code="user.unblock" />
-	</a>
-</jstl:if>
-
-<security:authorize access="isAuthenticated()">
-<p>
-<jstl:if test='${me == false}'>
-<a href="report/actor/create.do?actorId=${user.id}"> <spring:message code="user.report" /></a>
-</jstl:if>
-</p>
-</security:authorize>
-
-<jstl:if test="${!empty user.reviews}"> 
-<a href="review/list-user.do?userId=${user.id }">
-	<spring:message code="user.reviews" />
-</a>
-</jstl:if> 
-<br/>
-
-<security:authorize access="hasRole('ADMIN')">
-<jstl:if test='${!banned}'>
-<a href="actor/admin/ban.do?actorId=${user.id}"> <spring:message code="user.ban" /></a>
-</jstl:if>
-
-<jstl:if test='${banned}'>
-<a href="actor/admin/unban.do?actorId=${user.id}"> <spring:message code="user.unban" /></a>
-</jstl:if>
-</security:authorize>
-
-<jstl:if test="${requestURI == 'user/user/display.do'}">
-<br />
-	<a href="user/user/edit.do"> <spring:message code="user.edit" />
-	</a>
-</jstl:if>
 

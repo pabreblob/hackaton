@@ -95,27 +95,29 @@ public class UserController extends AbstractController {
 		final User u = this.userService.findOne(userId);
 
 		final Collection<Announcement> anns = this.announcementService.getLastCreatedOrJoinedAnnouncements(u.getId());
-
-		boolean blockeable = false;
-		boolean unblockeable = false;
-		boolean me = true;
-		try {
-			final Actor a = this.actorService.findByPrincipal();
-			if (a.getId() != u.getId()) {
-				me = false;
-				if (!a.getBlockedUsers().contains(u))
-					blockeable = true;
-				if (a.getBlockedUsers().contains(u))
-					unblockeable = true;
+		boolean blockeable=false;
+		boolean unblockeable=false;
+		boolean me=false;
+		boolean banned=false;
+		try{
+			Actor a=this.actorService.findByPrincipal();
+			if(a.getId()!=u.getId()){
+				if(!a.getBlockedUsers().contains(u)){
+					blockeable=true;
+				}
+				if(a.getBlockedUsers().contains(u)){
+					unblockeable=true;
+				}
+			}
+			if(a.getId()!=u.getId()){
+				me=true;
+			}
+			if(u.getUserAccount().isBanned()){
+				banned=true;
 			}
 		} catch (final Throwable oops) {
 
 		}
-
-		boolean banned = false;
-
-		if (this.userService.findOne(u.getId()).getUserAccount().isBanned())
-			banned = true;
 
 		result = new ModelAndView("user/display");
 		result.addObject("user", this.userService.findOne(userId));

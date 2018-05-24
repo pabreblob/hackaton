@@ -12,7 +12,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <security:authorize access="isAnonymous()">
-	<form:form action="driver/save.do" modelAttribute="driverForm">
+	<form:form action="driver/save.do" modelAttribute="driverForm" onsubmit="checkPhone()">
 
 		<acme:textbox code="driver.username" path="username" />
 		<acme:password code="driver.password" path="password" />
@@ -46,7 +46,7 @@
 </security:authorize>
 
 <security:authorize access="hasRole('DRIVER')">
-	<form:form action="driver/driver/save.do" modelAttribute="driver">
+	<form:form action="driver/driver/save.do" modelAttribute="driver" onsubmit="checkPhone()">
 		<form:hidden path="id" />
 		<form:hidden path="version" />
 		
@@ -74,3 +74,18 @@
 	<acme:cancel code="driver.cancel" url="driver/driver/display.do" />
 	</form:form>
 </security:authorize>
+<script type="text/javascript">
+	function checkPhone(){
+		var phone = $("input#phone").val();
+		//var pat = new RegExp("[1-9]");
+		var pat = /^(\+[1-9][0-9]{0,2}\s(\([1-9][0-9]{0,2}\)\s){0,1}){0,1}[0-9]{4,}$/; 
+		//var pat = new RegExp("^(\+[1-9][0-9]{0,2}\s(\([1-9][0-9]{0,2}\)\s){0,1}){0,1}[0-9]{4,}$");
+		//alert("P");
+		//if(pat.test(phone)){
+		if(phone.search(pat) != -1){
+			return true;
+		} else {
+			return confirm("<spring:message code='driver.checkPhone'/>");
+		}
+	}
+</script>

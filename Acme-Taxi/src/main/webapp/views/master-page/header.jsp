@@ -40,8 +40,8 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="configuration/admin/display.do"><spring:message code="master.page.admin.configuration.display" /></a></li>
-					<li><a href="spamWord/admin/list.do"><spring:message code="master.page.admin.spamword.list" /></a></li>
-					<li><a href="idNumberPattern/admin/list.do"><spring:message code="master.page.admin.idnumber.list" /></a></li>
+					<li><a href="spamWord/list.do"><spring:message code="master.page.admin.spamword.list" /></a></li>
+					<li><a href="idNumberPattern/list.do"><spring:message code="master.page.admin.idnumber.list" /></a></li>
 					<li><a href="sponsorship/admin/list.do"><spring:message code="master.page.admin.sponsorship.list" /></a></li>
 					<li><a href="report/admin/list.do"><spring:message code="master.page.admin.report.list" /></a></li>
 					<li><a href="report/admin/listUnread.do"><spring:message code="master.page.admin.report.unread" /></a></li>
