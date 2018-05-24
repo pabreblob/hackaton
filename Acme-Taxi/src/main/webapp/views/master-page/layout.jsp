@@ -29,6 +29,7 @@
 	href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/" />
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <link rel="shortcut icon" href="favicon.ico"/> 
 
@@ -41,12 +42,11 @@
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
 <link rel="stylesheet" href="styles/rating.css" type="text/css">
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#jMenu").jMenu();
-	});
 
 	function askSubmission(msg, form) {
 		if (confirm(msg))
@@ -70,14 +70,17 @@
 		font-size: 17px;
 		font-family: Arial, sans-serif;
 	}
-
 </style>
-<body>
+<body onload="startTime()">
 	
-	<div>
+	<div style="background-color: rgba(0,0,255,0.25)">
 		<tiles:insertAttribute name="header" />
 	</div>
-	<div>
+	
+	<div class="container">
+	<div class="row">
+	<div class="col-12 col-xs-12 col-md-9">
+		<br>
 		<h1>
 			<tiles:insertAttribute name="title" />
 		</h1>
@@ -88,17 +91,21 @@
 		</jstl:if>	
 	</div>
 	
-	<div>
+	<div class="col-12 col-xs-12 col-md-3">
 		<br/>
 		<br/>
-		<img src='<jstl:out value="${spons}"/>' />
+		<img style="width:100%;" class="img-responsive" src='<jstl:out value="${spons}"/>' />
 	</div> 
-	
-	<div>
-		<tiles:insertAttribute name="footer" />
+	</div>
 	</div>
 	
+	<div class="container">
+		<div  style="margin-bottom: 2%;margin-top: 2%;" class="row">
+		<tiles:insertAttribute name="footer" />
+	</div></div>
+		
+	
 
-
-</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script></body>
 </html>

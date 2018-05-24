@@ -17,23 +17,33 @@
 <jsp:useBean id="date" class="java.util.Date" />
 
 <hr />
+<style>
+	.footerB:hover{
+		background-color: rgba(0,0,255,0.2);
+		transition: 0.3s;
+	}
+</style>
 
+<div class="col-12 col-xs-12 col-lg-3">
 <b><jstl:out value="${footer}"/></b>
-<div>
-<a href="misc/terms.do">
-	<spring:message code="master.page.terms"/>
-	</a>
 </div>
-<div>
+
+<div class="footerB col-12 col-xs-12 col-lg-3">
 	<a href="misc/contact.do">
 	<spring:message code="master.page.contact"/>
 	</a>
 </div>
-<div>
+<div class="footerB col-12 col-xs-12 col-lg-3">
 	<a href="misc/cookies.do">
 	<spring:message code="master.page.cookies"/>
 	</a>
 </div>
+<div class="footerB col-12 col-xs-12 col-lg-3">
+<a href="misc/terms.do">
+	<spring:message code="master.page.terms"/>
+	</a>
+</div>
+
 <br />
 <div id="pruebacookie"></div>
 
