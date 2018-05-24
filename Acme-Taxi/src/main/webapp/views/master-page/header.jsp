@@ -120,8 +120,8 @@
       	</a>
       	<div class="dropdown-menu">
           <a class="dropdown-item" href="configuration/admin/display.do"><spring:message code="master.page.admin.configuration.display" /></a> 
-          <a class="dropdown-item" href="spamWord/admin/list.do"><spring:message code="master.page.admin.spamword.list" /></a>
-          <a class="dropdown-item" href="idNumberPattern/admin/list.do"><spring:message code="master.page.admin.idnumber.list" /></a> 
+          <a class="dropdown-item" href="spamWord/list.do"><spring:message code="master.page.admin.spamword.list" /></a>
+          <a class="dropdown-item" href="idNumberPattern/list.do"><spring:message code="master.page.admin.idnumber.list" /></a> 
           <a class="dropdown-item" href="sponsorship/admin/list.do"><spring:message code="master.page.admin.sponsorship.list" /></a> 
           <a class="dropdown-item" href="report/admin/list.do"><spring:message code="master.page.admin.report.list" /></a>
           <a class="dropdown-item" href="report/admin/listUnread.do"><spring:message code="master.page.admin.report.unread" /></a> 
@@ -184,7 +184,9 @@
      <security:authorize access="isAuthenticated()">
 	 	<li><a class="nav-link" href="folder/actor/list.do"><spring:message code="master.page.folder.list" />(<jstl:out value="${unread}"/>)</a></li>	     
      </security:authorize>
-     	       
+    	<li class="nav-item">
+        	<a class="nav-link" href="<spring:message code="master.page.language.url"/>"><spring:message code="master.page.language"/></a>
+      	</li> 	       
     </ul>
     <ul class="navbar-nav navbar-right">
     	<!-- Reloj -->
