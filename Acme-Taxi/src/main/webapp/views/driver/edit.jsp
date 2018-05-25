@@ -63,12 +63,14 @@
 		<acme:textbox code="driver.phone" path="phone" />
 		<acme:textbox code="driver.birthdate" path="birthdate" />
 		
+		<div class="form-group">
 			<form:label path="nationality">
 				<spring:message code="driver.nacionality" />
 			</form:label>
-			<form:select path="nationality">
+			<form:select class="form-control" path="nationality">
 				<form:options items="${nationalities}" />
 			</form:select>
+		</div>
 		
 		<acme:textbox code="driver.idNumber" path="idNumber" />
 		<acme:textbox code="driver.photo" path="photoUrl" placeholder="http://www.photo.com"/>
