@@ -28,10 +28,12 @@
 
 		<acme:textbox code="user.photo" path="photo" placeholder="http://www.photo.com"/>
 		<acme:textbox code="user.location" path="location" />
-		<br />
-		<a href="misc/terms.do" target="_blank"><spring:message
-				code="user.acceptTerms" /></a>
-		<acme:checkbox code="user.blank" path="acceptTerms" />
+		
+		<div class="checkbox">
+			<label><form:checkbox path="acceptTerms" />&#160;&#160;<a href="misc/terms.do" target="_blank"><spring:message code="user.acceptTerms" /></a></label>	
+			<form:errors path="acceptTerms" cssClass="error" />
+		</div>		
+		
 		<acme:submit name="save" code="user.save" />
 		<acme:cancel code="user.cancel" url="welcome/index.do" />
 	</form:form>
