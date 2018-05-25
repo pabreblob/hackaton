@@ -25,15 +25,20 @@
 	<acme:textbox code="mechanic.phone" path="phone" />
 	<spring:message code="mechanic.placeholderDate" var="dateplaceholder"/>
 	<acme:textbox code="mechanic.birthdate" path="birthdate" placeholder='${dateplaceholder}' />
-	<p>
-	<form:label path="nationality"><spring:message code="mechanic.nationality"/></form:label>
-<form:select path="nationality" >
-<form:options items="${nationalities}"  />
-</form:select>
-</p>
+	<div class="form-group">
+		<form:label path="nationality">
+			<spring:message code="mechanic.nationality" />
+		</form:label>
+		<form:select class="form-control" path="nationality">
+			<form:options items="${nationalities}" />
+		</form:select>
+	</div>
 	<acme:textbox code="mechanic.idNumber" path="idNumber" />
 	<acme:textbox code="mechanic.photo" path="photoUrl" />
-	<a href="misc/terms.do" target="_blank"><spring:message code="mechanic.acceptTerms"/></a><acme:checkbox code="mechanic.blank" path="acceptTerms"/>
+	<div class="checkbox">
+			<label><form:checkbox path="acceptTerms" />&#160;&#160;<a href="misc/terms.do" target="_blank"><spring:message code="mechanic.acceptTerms" /></a></label>	
+			<form:errors path="acceptTerms" cssClass="error" />
+	</div>
 	<acme:submit name="save" code="mechanic.save"  />
 	<acme:cancel code="mechanic.cancel" url="welcome/index.do" />
 </form:form>
@@ -52,12 +57,14 @@
 	<acme:textbox code="mechanic.phone" path="phone" />
 	<spring:message code="mechanic.placeholderDate" var="dateplaceholder"/>
 	<acme:textbox code="mechanic.birthdate" path="birthdate" placeholder='${dateplaceholder}' />
-	<p>
-	<form:label path="nationality"><spring:message code="mechanic.nationality"/></form:label>
-<form:select path="nationality" >
-<form:options items="${nationalities}" />
-</form:select>
-	</p>
+	<div class="form-group">
+		<form:label path="nationality">
+			<spring:message code="mechanic.nationality" />
+		</form:label>
+		<form:select class="form-control" path="nationality">
+			<form:options items="${nationalities}" />
+		</form:select>
+	</div>
 	<acme:textbox code="mechanic.idNumber" path="idNumber" />
 	<acme:textbox code="mechanic.photo" path="photoUrl" />
 	<input type="submit" name="save"
