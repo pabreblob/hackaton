@@ -28,16 +28,19 @@
 		<acme:textbox code="sponsor.idNumber" path="idNumber" />
 		<%-- <acme:textbox code="sponsor.nacionality" path="nacionality" /> --%>
 		<%-- <acme:select items="${nacionalities }" itemLabel="nationality" code="sponsor.nacionality" path="nacionality"/> --%>
-		<form:label path="nationality">
-			<spring:message code="sponsor.nacionality" />
-		</form:label>
-		<form:select path="nationality">
-			<form:options items="${nationalities}" />
-		</form:select>
-		<br />
-		<a href="misc/terms.do" target="_blank"><spring:message
-				code="sponsor.acceptTerms" /></a>
-		<acme:checkbox code="sponsor.blank" path="acceptTerms" />
+		<div class="form-group">
+			<form:label path="nationality">
+				<spring:message code="sponsor.nacionality" />
+			</form:label>
+			<form:select class="form-control" path="nationality">
+				<form:options items="${nationalities}" />
+			</form:select>
+		</div>
+		
+		<div class="checkbox">
+			<label><form:checkbox path="acceptTerms" />&#160;&#160;<a href="misc/terms.do" target="_blank"><spring:message code="mechanic.acceptTerms" /></a></label>	
+			<form:errors path="acceptTerms" cssClass="error" />
+		</div>
 		<acme:submit name="save" code="sponsor.save" />
 		<acme:cancel code="sponsor.cancel" url="welcome/index.do" />
 	</form:form>
@@ -56,14 +59,14 @@
 			placeholder='${emailplaceholder}' />
 		<acme:textbox code="sponsor.phone" path="phone" />
 		<acme:textbox code="sponsor.birthdate" path="birthdate" />
-		<p>
+		<div class="form-group">
 			<form:label path="nationality">
 				<spring:message code="sponsor.nacionality" />
 			</form:label>
-			<form:select path="nationality">
+			<form:select class="form-control" path="nationality">
 				<form:options items="${nationalities}" />
 			</form:select>
-		</p>
+		</div>
 		<acme:textbox code="sponsor.idNumber" path="idNumber" />
 		<acme:submit name="save" code="sponsor.save"  />
 	<acme:cancel code="sponsor.cancel" url="welcome/index.do" />
