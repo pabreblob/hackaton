@@ -155,6 +155,7 @@ public class RequestUserController extends AbstractController {
 			final int minutes = (distanciaYTiempo.get(1) - hours * 3600) / 60;
 			estimated = hours + "h " + minutes + "min";
 			res.addObject("estimated", estimated);
+			res.addObject("useApi", this.configurationService.find().isUseApi());
 			return res;
 		} catch (final Throwable oops) {
 			if (distanciaYTiempo == null) {
