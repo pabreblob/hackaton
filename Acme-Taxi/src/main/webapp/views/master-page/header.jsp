@@ -103,15 +103,19 @@
      <security:authorize access="hasRole('DRIVER')">
       <li class="nav-item dropdown">
       	<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-        	<spring:message code="master.page.driver"/>
+        	<spring:message code="master.page.user.request"/>
       	</a>
       	<div class="dropdown-menu">
-        	<a class="dropdown-item" href="review/driver/list.do"><spring:message code="master.page.driver.review.list"/></a>
             <a class="dropdown-item" href="request/driver/listToAccept.do"><spring:message code="master.page.driver.request.listAccept"/></a> 
             <a class="dropdown-item" href="request/driver/listToDo.do"><spring:message code="master.page.driver.request.listDo"/></a> 
             <a class="dropdown-item" href="request/driver/oldList.do"><spring:message code="master.page.driver.request.listOld"/></a>
       	</div>
    	 </li>
+   	 
+   	 <li class="nav-item">
+        <a class="nav-link" href="review/driver/list.do"><spring:message code="master.page.user.review"/></a>
+     </li>
+      
      </security:authorize>
      
      <!-- Acciones del sponsor -->
