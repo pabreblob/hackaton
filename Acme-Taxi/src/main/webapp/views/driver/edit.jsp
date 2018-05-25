@@ -28,18 +28,22 @@
 		<acme:textbox code="driver.idNumber" path="idNumber" />
 		<%-- <acme:textbox code="sponsor.nacionality" path="nacionality" /> --%>
 		<%-- <acme:select items="${nacionalities }" itemLabel="nationality" code="sponsor.nacionality" path="nacionality"/> --%>
+		<div class="form-group">
 		<form:label path="nationality">
 			<spring:message code="driver.nacionality" />
 		</form:label>
-		<form:select path="nationality">
+		<form:select class="form-control" path="nationality">
 			<form:options items="${nationalities}" />
 		</form:select>
+		</div>
 		<acme:textbox code="driver.photo" path="photo" placeholder="http://www.photo.com"/>
 		<acme:textbox code="driver.location" path="location" />
-		<br />
-		<a href="misc/terms.do" target="_blank"><spring:message
-				code="driver.acceptTerms" /></a>
-		<acme:checkbox code="driver.blank" path="acceptTerms" />
+		
+		<div class="checkbox">
+			<label><form:checkbox path="acceptTerms" />&#160;&#160;<a href="misc/terms.do" target="_blank"><spring:message code="driver.acceptTerms" /></a></label>	
+			<form:errors path="acceptTerms" cssClass="error" />
+		</div>
+		
 		<acme:submit name="save" code="driver.save" />
 		<acme:cancel code="driver.cancel" url="welcome/index.do" />
 	</form:form>
