@@ -17,14 +17,8 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="message/actor/edit.do" modelAttribute="mess">
-<form:hidden path="id"/>
-<form:hidden path="version"/>
-<form:label path="recipients"><spring:message code="message.recipient"/></form:label>
-<form:select path="recipients" multiple="true">
-<form:options items="${actors}" itemValue="id" itemLabel="name" />
-</form:select>
-<form:errors cssClass="error" path="recipients"/><br/>
+<form:form action="message/actor/edit.do" modelAttribute="messageForm">
+<acme:textbox code="message.recipient" path="recipients"/>
 <acme:textbox code="message.subject" path="subject"/>
 <form:label path="priority"><spring:message code="message.priority"/></form:label>
 <form:select path="priority">

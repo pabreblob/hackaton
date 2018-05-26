@@ -225,17 +225,14 @@ public class MessageService {
 		return res;
 	}
 
-	public Message reconstruct(final Message message, final BindingResult binding) {
+	public Message reconstruct(final Message message) {
 		Message result;
 
 		result = message;
 		result.setSender(this.actorService.findByPrincipal());
 		result.setMoment(new Date(System.currentTimeMillis() - 1000));
 		result.setFolder(this.folderService.findFolderByNameAndActor("Out box"));
-		if (message.getRecipients() == null)
-			result.setRecipients(new ArrayList<Actor>());
 
-		this.validator.validate(result, binding);
 		return result;
 	}
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
@@ -15,7 +16,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +27,7 @@ import services.MessageService;
 import domain.Actor;
 import domain.Folder;
 import domain.Message;
+import forms.MessageForm;
 
 @Controller
 @RequestMapping("/message/actor")
@@ -77,30 +78,47 @@ public class MessageActorController extends AbstractController {
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
-		Message message;
+		MessageForm messageForm;
 
-		message = this.messageService.create();
-		result = this.createEditModelAndView(message);
+		messageForm = new MessageForm();
+		result = this.createEditModelAndView(messageForm);
 		return result;
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public ModelAndView save(@ModelAttribute("mess") final Message mess, final BindingResult binding) {
+	public ModelAndView save(@Valid final MessageForm messageForm, final BindingResult binding) {
 		ModelAndView result;
-		if (mess.getRecipients() != null)
-			for (final Actor a : mess.getRecipients())
-				Assert.notNull(a);
-		final Message message = this.messageService.reconstruct(mess, binding);
 
 		if (binding.hasErrors())
-			result = this.createEditModelAndView(message);
+			result = this.createEditModelAndView(messageForm);
 		else
 			try {
-				final Folder outf = message.getFolder();
-				this.messageService.save(message);
-				result = new ModelAndView("redirect:list.do?folderId=" + outf.getId());
+				final Message temp = this.messageService.create();
+				temp.setSubject(messageForm.getSubject());
+				temp.setPriority(messageForm.getPriority());
+				temp.setBody(messageForm.getBody());
+				boolean actorsExist = true;
+				final Collection<Actor> rec = new ArrayList<Actor>();
+				for (final String s : messageForm.getRecipients())
+					if (s != null && !s.equals("")) {
+						final Collection<Actor> recFound = this.actorService.findByUsername(s);
+						if (recFound.isEmpty())
+							actorsExist = false;
+						else {
+							final Actor a = new ArrayList<Actor>(recFound).get(0);
+							rec.add(a);
+						}
+					}
+				temp.setRecipients(rec);
+				final Message message = this.messageService.reconstruct(temp);
+				if (actorsExist) {
+					final Folder outf = message.getFolder();
+					this.messageService.save(message);
+					result = new ModelAndView("redirect:list.do?folderId=" + outf.getId());
+				} else
+					result = this.createEditModelAndView(messageForm, "message.recipients.error");
 			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(message, "message.commit.error");
+				result = this.createEditModelAndView(messageForm, "message.commit.error");
 			}
 		return result;
 	}
@@ -191,21 +209,19 @@ public class MessageActorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Message message) {
+	protected ModelAndView createEditModelAndView(final MessageForm messageForm) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(message, null);
+		result = this.createEditModelAndView(messageForm, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Message message, final String messageCode) {
+	protected ModelAndView createEditModelAndView(final MessageForm messageForm, final String messageCode) {
 		ModelAndView result;
-		final Collection<Actor> actors = this.actorService.findAll();
 
 		result = new ModelAndView("message/edit");
-		result.addObject("mess", message);
-		result.addObject("actors", actors);
+		result.addObject("messageForm", messageForm);
 		result.addObject("message", messageCode);
 		return result;
 	}
