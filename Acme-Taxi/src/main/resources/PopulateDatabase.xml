@@ -2441,6 +2441,23 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="moment" value="2017/02/20 23:10" />
 		
 	</bean>
+	<bean id="Sponsorship7" class="domain.Sponsorship">
+		<property name="sponsor" ><ref bean="Sponsor2"></ref></property>
+		<property name="pictureUrl" value="https://cdn.pixabay.com/photo/2016/09/08/18/45/cube-1655118_1280.jpg" />
+		<property name="accepted" value="false"/>
+		<property name="cancelled" value="false"/>
+		<property name="creditCard"><bean class="domain.CreditCard">
+					<property name="holderName" value="agent2" />
+					<property name="brandName" value="brand1" />
+					<property name="number" value="4716213778910154" />
+					<property name="expMonth" value="11" />
+					<property name="expYear" value="20" />
+					<property name="cvv" value="144" />
+				</bean></property>
+		<property name="price" value="20.0"/>
+		<property name="moment" value="2017/02/20 23:16" />
+		
+	</bean>
 	
 	<bean id="RepairShop1" class="domain.RepairShop">
 		<property name="mechanic" ><ref bean="Mechanic1"></ref></property>
