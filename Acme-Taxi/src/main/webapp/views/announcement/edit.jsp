@@ -32,6 +32,6 @@
 <acme:submit name="save" code="announcement.save"/>
 <acme:cancel code="announcement.cancel" url="/announcement/user/list-created.do"/>
 <jstl:if test="${announcement.id != 0}">
-<input type="submit" name="delete" value="<spring:message code="announcement.delete" />"/>
+<acme:submit name="delete" code="announcement.delete"/>
 </jstl:if>
 </form:form>

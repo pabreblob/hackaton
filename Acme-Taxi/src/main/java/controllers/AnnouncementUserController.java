@@ -1,11 +1,11 @@
 
 package controllers;
 
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.displaytag.tags.TableTagParameters;
 import org.displaytag.util.ParamEncoder;
@@ -13,8 +13,6 @@ import org.hibernate.Hibernate;
 import org.joda.time.Hours;
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -33,6 +31,7 @@ import services.UserService;
 import domain.Announcement;
 import domain.Comment;
 import domain.User;
+import forms.AnnouncementFinderForm;
 
 @Controller
 @RequestMapping("/announcement/user")
@@ -49,9 +48,6 @@ public class AnnouncementUserController extends AbstractController {
 
 	@Autowired
 	private CommentService			commentService;
-
-	@Autowired
-	private MessageSource			messageSource;
 
 
 	@RequestMapping(value = "/list-created", method = RequestMethod.GET)
@@ -202,7 +198,7 @@ public class AnnouncementUserController extends AbstractController {
 		return res;
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final Announcement announcement, final BindingResult binding) {
 		ModelAndView result;
 		final Announcement ann = this.announcementService.reconstruct(announcement, binding);
@@ -211,8 +207,14 @@ public class AnnouncementUserController extends AbstractController {
 			result = this.createEditModelAndView(ann);
 		else
 			try {
-				this.announcementService.save(ann);
-				result = new ModelAndView("redirect:list-created.do");
+				final LocalDateTime now = new LocalDateTime();
+				final LocalDateTime moment = new LocalDateTime(announcement.getMoment());
+				if (!moment.isAfter(now))
+					result = this.createEditModelAndView(ann, "announcement.moment.error");
+				else {
+					this.announcementService.save(ann);
+					result = new ModelAndView("redirect:list-created.do");
+				}
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(ann, "announcement.commit.error");
 			}
@@ -295,28 +297,33 @@ public class AnnouncementUserController extends AbstractController {
 
 	@RequestMapping("/finder")
 	public ModelAndView finder() {
-		final ModelAndView res = new ModelAndView("announcement/finder");
+		ModelAndView res;
+		final AnnouncementFinderForm announcementFinderForm = new AnnouncementFinderForm();
+		res = this.createEditModelAndView(announcementFinderForm);
 		return res;
 	}
 
-	@RequestMapping(value = "/finderresult", method = RequestMethod.GET)
-	public ModelAndView finderResult(@RequestParam(value = "keyword", required = false) final String keyword, @RequestParam(value = "minPrice", required = false) final Double minPrice,
-		@RequestParam(value = "maxPrice", required = false) final Double maxPrice, @RequestParam(value = "moment", required = false) final String moment, @RequestParam(value = "origin", required = false) final String origin, @RequestParam(
-			value = "destination", required = false) final String destination) {
+	@RequestMapping(value = "/finderresult", method = RequestMethod.POST, params = "send")
+	public ModelAndView finderResult(@Valid final AnnouncementFinderForm announcementFinderForm, final BindingResult binding) {
 		ModelAndView res;
-		try {
-			Date parsedMoment = null;
-			if (moment != null && !moment.equals(""))
-				parsedMoment = new SimpleDateFormat(this.messageSource.getMessage("moment.date.format", null, LocaleContextHolder.getLocale())).parse(moment);
-			final Collection<Announcement> announcements = this.announcementService.findAnnouncementsFinder(keyword, minPrice, maxPrice, parsedMoment, origin, destination);
-			Assert.notNull(announcements);
-			res = new ModelAndView("announcement/finderresult");
-			res.addObject("announcements", announcements);
-			res.addObject("currency", this.configurationService.find().getCurrency());
-		} catch (final Throwable oops) {
-			res = new ModelAndView("announcement/finder");
-			res.addObject("errormessage", this.messageSource.getMessage("announcement.commit.error", null, LocaleContextHolder.getLocale()));
-		}
+
+		if (binding.hasErrors())
+			res = this.createEditModelAndView(announcementFinderForm);
+		else
+			try {
+				final String keyword = announcementFinderForm.getKeyword();
+				final Double minPrice = announcementFinderForm.getMinPrice();
+				final Double maxPrice = announcementFinderForm.getMaxPrice();
+				final Date moment = announcementFinderForm.getMoment();
+				final String origin = announcementFinderForm.getOrigin();
+				final String destination = announcementFinderForm.getDestination();
+				final Collection<Announcement> announcements = this.announcementService.findAnnouncementsFinder(keyword, minPrice, maxPrice, moment, origin, destination);
+				res = new ModelAndView("announcement/finderresult");
+				res.addObject("announcements", announcements);
+				res.addObject("currency", this.configurationService.find().getCurrency());
+			} catch (final Throwable oops) {
+				res = this.createEditModelAndView(announcementFinderForm, "announcement.commit.error");
+			}
 		return res;
 	}
 
@@ -333,6 +340,23 @@ public class AnnouncementUserController extends AbstractController {
 
 		result = new ModelAndView("announcement/edit");
 		result.addObject("announcement", announcement);
+		result.addObject("message", messageCode);
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final AnnouncementFinderForm announcementFinderForm) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(announcementFinderForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final AnnouncementFinderForm announcementFinderForm, final String messageCode) {
+		ModelAndView result;
+
+		result = new ModelAndView("announcement/finder");
+		result.addObject("announcementFinderForm", announcementFinderForm);
 		result.addObject("message", messageCode);
 		return result;
 	}
