@@ -21,7 +21,15 @@
 <p><spring:message code="message.subject" />: <jstl:out value="${mess.subject}"/></p>
 <spring:message code="moment.date.format" var="dateFormat" />
 <p><spring:message code="message.moment" />: <fmt:formatDate value="${mess.moment}" pattern="${dateFormat}"/></p>
-<p><spring:message code="message.priority" />: <jstl:out value="${mess.priority}"/></p>
+<jstl:if test="${mess.priority == 'LOW'}">
+<p><spring:message code="message.priority" />: <spring:message code="message.priolow"/></p>
+</jstl:if>
+<jstl:if test="${mess.priority == 'NEUTRAL'}">
+<p><spring:message code="message.priority" />: <spring:message code="message.prioneutral"/></p>
+</jstl:if>
+<jstl:if test="${mess.priority == 'HIGH'}">
+<p><spring:message code="message.priority" />: <spring:message code="message.priohigh"/></p>
+</jstl:if>
 <p><spring:message code="message.body" />: <jstl:out value="${mess.body}"/></p>
 <br />
 
