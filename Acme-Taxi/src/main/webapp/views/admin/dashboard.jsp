@@ -17,61 +17,210 @@
 <p><spring:message code="admin.cancelledannouncements"/>: <jstl:out value="${cancelledAnnouncements}"/></p>
 </div>
 
-<spring:message code="actor.username" var="usernameHeader" />
-<spring:message code="actor.name" var="nameHeader" />
-<spring:message code="actor.surname" var="surnameHeader" />
 <spring:message code="admin.topusers"/>
-<display:table name="topUsers" id="row" requestURI="admin/dashboard.do" class="displaytag">
-<display:column property="userAccount.username" title="${usernameHeader}" />
-<display:column property="name" title="${nameHeader}" />
-<display:column property="surname" title="${surnameHeader}" />
-</display:table>
+<table>
+<tr>
+<th><spring:message code="actor.username"/></th>
+<th><spring:message code="actor.name"/></th>
+<th><spring:message code="actor.surname"/></th>
+<th><spring:message code="admin.score"/></th>
+</tr>
+<jstl:forEach var="user" items="${topUsers}" >
+<tr>
+<td>
+<jstl:out value="${user.userAccount.username}"/>
+</td>
+<td>
+<jstl:out value="${user.name}"/>
+</td>
+<td>
+<jstl:out value="${user.surname}"/>
+</td>
+<td>
+<jstl:out value="${user.meanRating}"/>
+</td>
+</tr>
+</jstl:forEach>
+</table>
 
 <spring:message code="admin.topdrivers"/>
-<display:table name="topDrivers" id="row" requestURI="admin/dashboard.do" class="displaytag">
-<display:column property="userAccount.username" title="${usernameHeader}" />
-<display:column property="name" title="${nameHeader}" />
-<display:column property="surname" title="${surnameHeader}" />
-</display:table>
+<table>
+<tr>
+<th><spring:message code="actor.username"/></th>
+<th><spring:message code="actor.name"/></th>
+<th><spring:message code="actor.surname"/></th>
+<th><spring:message code="admin.score"/></th>
+</tr>
+<jstl:forEach var="driver" items="${topDrivers}" >
+<tr>
+<td>
+<jstl:out value="${driver.userAccount.username}"/>
+</td>
+<td>
+<jstl:out value="${driver.name}"/>
+</td>
+<td>
+<jstl:out value="${driver.surname}"/>
+</td>
+<td>
+<jstl:out value="${driver.meanRating}"/>
+</td>
+</tr>
+</jstl:forEach>
+</table>
 
 <spring:message code="admin.topmechanics"/>
-<display:table name="topMechanics" id="row" requestURI="admin/dashboard.do" class="displaytag">
-<display:column property="userAccount.username" title="${usernameHeader}" />
-<display:column property="name" title="${nameHeader}" />
-<display:column property="surname" title="${surnameHeader}" />
-</display:table>
+<table>
+<tr>
+<th><spring:message code="actor.username"/></th>
+<th><spring:message code="actor.name"/></th>
+<th><spring:message code="actor.surname"/></th>
+<th><spring:message code="admin.score"/></th>
+</tr>
+<jstl:forEach var="mechanic" items="${topMechanics}" >
+<tr>
+<td>
+<jstl:out value="${mechanic.key.userAccount.username}"/>
+</td>
+<td>
+<jstl:out value="${mechanic.key.name}"/>
+</td>
+<td>
+<jstl:out value="${mechanic.key.surname}"/>
+</td>
+<td>
+<jstl:out value="${mechanic.value}"/>
+</td>
+</tr>
+</jstl:forEach>
+</table>
 
 <spring:message code="admin.worstusers"/>
-<display:table name="worstUsers" id="row" requestURI="admin/dashboard.do" class="displaytag">
-<display:column property="userAccount.username" title="${usernameHeader}" />
-<display:column property="name" title="${nameHeader}" />
-<display:column property="surname" title="${surnameHeader}" />
-</display:table>
+<table>
+<tr>
+<th><spring:message code="actor.username"/></th>
+<th><spring:message code="actor.name"/></th>
+<th><spring:message code="actor.surname"/></th>
+<th><spring:message code="admin.score"/></th>
+</tr>
+<jstl:forEach var="user" items="${worstUsers}" >
+<tr>
+<td>
+<jstl:out value="${user.userAccount.username}"/>
+</td>
+<td>
+<jstl:out value="${user.name}"/>
+</td>
+<td>
+<jstl:out value="${user.surname}"/>
+</td>
+<td>
+<jstl:out value="${user.meanRating}"/>
+</td>
+</tr>
+</jstl:forEach>
+</table>
 
 <spring:message code="admin.worstdrivers"/>
-<display:table name="worstDrivers" id="row" requestURI="admin/dashboard.do" class="displaytag">
-<display:column property="userAccount.username" title="${usernameHeader}" />
-<display:column property="name" title="${nameHeader}" />
-<display:column property="surname" title="${surnameHeader}" />
-</display:table>
+<table>
+<tr>
+<th><spring:message code="actor.username"/></th>
+<th><spring:message code="actor.name"/></th>
+<th><spring:message code="actor.surname"/></th>
+<th><spring:message code="admin.score"/></th>
+</tr>
+<jstl:forEach var="driver" items="${worstDrivers}" >
+<tr>
+<td>
+<jstl:out value="${driver.userAccount.username}"/>
+</td>
+<td>
+<jstl:out value="${driver.name}"/>
+</td>
+<td>
+<jstl:out value="${driver.surname}"/>
+</td>
+<td>
+<jstl:out value="${driver.meanRating}"/>
+</td>
+</tr>
+</jstl:forEach>
+</table>
 
 <spring:message code="admin.worstmechanics"/>
-<display:table name="worstMechanics" id="row" requestURI="admin/dashboard.do" class="displaytag">
-<display:column property="userAccount.username" title="${usernameHeader}" />
-<display:column property="name" title="${nameHeader}" />
-<display:column property="surname" title="${surnameHeader}" />
-</display:table>
+<table>
+<tr>
+<th><spring:message code="actor.username"/></th>
+<th><spring:message code="actor.name"/></th>
+<th><spring:message code="actor.surname"/></th>
+<th><spring:message code="admin.score"/></th>
+</tr>
+<jstl:forEach var="mechanic" items="${worstMechanics}" >
+<tr>
+<td>
+<jstl:out value="${mechanic.key.userAccount.username}"/>
+</td>
+<td>
+<jstl:out value="${mechanic.key.name}"/>
+</td>
+<td>
+<jstl:out value="${mechanic.key.surname}"/>
+</td>
+<td>
+<jstl:out value="${mechanic.value}"/>
+</td>
+</tr>
+</jstl:forEach>
+</table>
 
 <spring:message code="admin.mostwritten"/>
-<display:table name="mostWritten" id="row" requestURI="admin/dashboard.do" class="displaytag">
-<display:column property="userAccount.username" title="${usernameHeader}" />
-<display:column property="name" title="${nameHeader}" />
-<display:column property="surname" title="${surnameHeader}" />
-</display:table>
+<table>
+<tr>
+<th><spring:message code="actor.username"/></th>
+<th><spring:message code="actor.name"/></th>
+<th><spring:message code="actor.surname"/></th>
+<th><spring:message code="admin.reports"/></th>
+</tr>
+<jstl:forEach var="actor" items="${mostWritten}" >
+<tr>
+<td>
+<jstl:out value="${actor.key.userAccount.username}"/>
+</td>
+<td>
+<jstl:out value="${actor.key.name}"/>
+</td>
+<td>
+<jstl:out value="${actor.key.surname}"/>
+</td>
+<td>
+<jstl:out value="${actor.value}"/>
+</td>
+</tr>
+</jstl:forEach>
+</table>
 
 <spring:message code="admin.mostreceived"/>
-<display:table name="mostReceived" id="row" requestURI="admin/dashboard.do" class="displaytag">
-<display:column property="userAccount.username" title="${usernameHeader}" />
-<display:column property="name" title="${nameHeader}" />
-<display:column property="surname" title="${surnameHeader}" />
-</display:table>
+<table>
+<tr>
+<th><spring:message code="actor.username"/></th>
+<th><spring:message code="actor.name"/></th>
+<th><spring:message code="actor.surname"/></th>
+<th><spring:message code="admin.reports"/></th>
+</tr>
+<jstl:forEach var="actor" items="${mostReceived}" >
+<tr>
+<td>
+<jstl:out value="${actor.key.userAccount.username}"/>
+</td>
+<td>
+<jstl:out value="${actor.key.name}"/>
+</td>
+<td>
+<jstl:out value="${actor.key.surname}"/>
+</td>
+<td>
+<jstl:out value="${actor.value}"/>
+</td>
+</tr>
+</jstl:forEach>
+</table>

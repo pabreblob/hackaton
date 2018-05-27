@@ -40,6 +40,9 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
 	@Query("select distinct rs.mechanic from RepairShop rs where rs.mechanic.userAccount.banned is false order by rs.meanRating desc")
 	Collection<Mechanic> getTopMechanics();
 
+	@Query("select rs.meanRating from RepairShop rs where rs.mechanic.id = ?1 and rs.meanRating = (select max(rep.meanRating) from RepairShop rep where rep.mechanic.id = ?1)")
+	Integer getTopRating(int mechanicId);
+
 	@Query("select u from User u where u.userAccount.banned is false order by u.meanRating asc")
 	Collection<User> getWorstUsers();
 
@@ -49,12 +52,21 @@ public interface AdminRepository extends JpaRepository<Admin, Integer> {
 	@Query("select distinct rs.mechanic from RepairShop rs where rs.mechanic.userAccount.banned is false order by rs.meanRating asc")
 	Collection<Mechanic> getWorstMechanics();
 
+	@Query("select rs.meanRating from RepairShop rs where rs.mechanic.id = ?1 and rs.meanRating = (select min(rep.meanRating) from RepairShop rep where rep.mechanic.id = ?1)")
+	Integer getWorstRating(int mechanicId);
+
 	@Query("select (select count(a) from Announcement a where a.cancelled is true)*1.0/count(ann) from Announcement ann")
 	Double getRatioCancelledAnnouncements();
 
 	@Query("select r.creator from Report r where r.creator.userAccount.banned is false group by r.creator order by count(r) desc")
 	Collection<Actor> getMostReportsWritten();
 
+	@Query("select count(r) from Report r where r.creator.id = ?1")
+	Integer getCountWritten(int actorId);
+
 	@Query("select r.reported from Report r where r.reported.userAccount.banned is false group by r.reported order by count(r) desc")
 	Collection<Actor> getMostReportsReceived();
+
+	@Query("select count(r) from Report r where r.reported.id = ?1")
+	Integer getCountReceived(int actorId);
 }
