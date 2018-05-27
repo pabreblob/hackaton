@@ -55,6 +55,7 @@
           	<a class="dropdown-item" href="announcement/user/list.do"><spring:message code="master.page.user.announcement.list"/></a>
           	<a class="dropdown-item" href="announcement/user/list-created.do"><spring:message code="master.page.user.announcement.created"/></a>
           	<a class="dropdown-item" href="announcement/user/list-joined.do"><spring:message code="master.page.user.announcement.joined"/></a>
+          	<a class="dropdown-item" href="announcement/user/finder.do"><spring:message code="master.page.user.announcement.finder"/></a>
       	</div>
    	 </li>
    	 
@@ -140,12 +141,14 @@
       	</a>
       	<div class="dropdown-menu">
           <a class="dropdown-item" href="configuration/admin/display.do"><spring:message code="master.page.admin.configuration.display" /></a> 
+          <a class="dropdown-item" href="admin/admin/dashboard.do"><spring:message code="master.page.admin.dashboard"/></a>
           <a class="dropdown-item" href="spamWord/list.do"><spring:message code="master.page.admin.spamword.list" /></a>
           <a class="dropdown-item" href="idNumberPattern/list.do"><spring:message code="master.page.admin.idnumber.list" /></a> 
           <a class="dropdown-item" href="sponsorship/admin/list.do"><spring:message code="master.page.admin.sponsorship.list" /></a> 
           <a class="dropdown-item" href="report/admin/list.do"><spring:message code="master.page.admin.report.list" /></a>
           <a class="dropdown-item" href="report/admin/listUnread.do"><spring:message code="master.page.admin.report.unread" /></a> 
           <a class="dropdown-item" href="request/admin/list.do"><spring:message code="master.page.admin.request.list"/></a>
+          <a class="dropdown-item" href="announcement/admin/list.do"><spring:message code="master.page.admin.announcement.list"/></a>
       	</div>
    	 </li>
    	 

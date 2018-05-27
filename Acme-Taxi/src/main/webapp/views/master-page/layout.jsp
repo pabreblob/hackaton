@@ -105,7 +105,20 @@
 		<tiles:insertAttribute name="footer" />
 	</div></div>
 		
+	<script>
+	$(".form-control").change(function ()
+			  {
+			     var value = this.value;
+			     if(value=="")
+			     {
+			          $(this).css("border", "1px solid red");
+			     }else
+			     {
+			        $(this).css("border",'');
+			     }
+			  }).trigger("change");
 	
+	</script>	
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script></body>
