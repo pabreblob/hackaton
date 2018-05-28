@@ -385,7 +385,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="admsur" />
 		<property name="birthdate" value="1997/04/28" />
 		<property name="email" value="admin@gmail.com" />
-		<property name="phone" value="+034 681331066" />
+		<property name="phone" value="+34 681331066" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -412,7 +412,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="user1sur" />
 		<property name="birthdate" value="1992/05/27" />
 		<property name="email" value="user1@gmail.com" />
-		<property name="phone" value="+034 681231086" />
+		<property name="phone" value="+34 681231086" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -421,6 +421,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<ref bean="User1Notificationbox" />
 		<ref bean="User1Trashbox" />
 		<ref bean="User1Spambox" />
+		<ref bean="Custom" />
 		</list>	
 		</property>
 		<property name="blockedUsers">
@@ -452,7 +453,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="user2sur" />
 		<property name="birthdate" value="1994/05/27" />
 		<property name="email" value="user2@gmail.com" />
-		<property name="phone" value="+034 689231086" />
+		<property name="phone" value="+34 689231086" />
 		<property name="suspicious" value="true" />	
 		<property name="folders">
 		<list>
@@ -491,7 +492,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="user3sur" />
 		<property name="birthdate" value="1992/09/17" />
 		<property name="email" value="user3@gmail.com" />
-		<property name="phone" value="+034 689231081" />
+		<property name="phone" value="+34 689231081" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -529,7 +530,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="user4sur" />
 		<property name="birthdate" value="1993/09/17" />
 		<property name="email" value="user4@gmail.com" />
-		<property name="phone" value="+034 689234081" />
+		<property name="phone" value="+34 689234081" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -566,7 +567,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="driver1sur" />
 		<property name="birthdate" value="1998/01/28" />
 		<property name="email" value="driver1@gmail.com" />
-		<property name="phone" value="+034 681131066" />
+		<property name="phone" value="+34 681131066" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -602,7 +603,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="driver2sur" />
 		<property name="birthdate" value="1978/01/28" />
 		<property name="email" value="driver2@gmail.com" />
-		<property name="phone" value="+034 681131022" />
+		<property name="phone" value="+34 681131022" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -640,7 +641,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="driver3sur" />
 		<property name="birthdate" value="1989/11/28" />
 		<property name="email" value="driver3@gmail.com" />
-		<property name="phone" value="+034 681144066" />
+		<property name="phone" value="+34 681144066" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -675,7 +676,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="driver4sur" />
 		<property name="birthdate" value="1968/09/18" />
 		<property name="email" value="driver4@gmail.com" />
-		<property name="phone" value="+034 681156066" />
+		<property name="phone" value="+34 681156066" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -712,7 +713,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="mechanic1sur" />
 		<property name="birthdate" value="1965/11/18" />
 		<property name="email" value="mechanic1@gmail.com" />
-		<property name="phone" value="+034 681116066" />
+		<property name="phone" value="+34 681116066" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -742,7 +743,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="mechanic2sur" />
 		<property name="birthdate" value="1988/06/17" />
 		<property name="email" value="mechanic2@gmail.com" />
-		<property name="phone" value="+034 681346066" />
+		<property name="phone" value="+34 681346066" />
 		<property name="suspicious" value="true" />	
 		<property name="folders">
 		<list>
@@ -772,7 +773,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="mechanic3sur" />
 		<property name="birthdate" value="1987/07/17" />
 		<property name="email" value="mechanic3@gmail.com" />
-		<property name="phone" value="+034 681343066" />
+		<property name="phone" value="+34 681343066" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -802,7 +803,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="mechanic4sur" />
 		<property name="birthdate" value="1987/08/27" />
 		<property name="email" value="mechanic4@gmail.com" />
-		<property name="phone" value="+034 681743066" />
+		<property name="phone" value="+34 681743066" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -832,7 +833,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="sponsor1sur" />
 		<property name="birthdate" value="1977/09/27" />
 		<property name="email" value="sponsor1@gmail.com" />
-		<property name="phone" value="+034 683743066" />
+		<property name="phone" value="+34 683743066" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -861,7 +862,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="sponsor2sur" />
 		<property name="birthdate" value="1987/03/27" />
 		<property name="email" value="sponsor2@gmail.com" />
-		<property name="phone" value="+034 683843096" />
+		<property name="phone" value="+34 683843096" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -890,7 +891,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="sponsor3sur" />
 		<property name="birthdate" value="1989/03/22" />
 		<property name="email" value="sponsor3@gmail.com" />
-		<property name="phone" value="+034 683847796" />
+		<property name="phone" value="+34 683847796" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -919,7 +920,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="surname" value="sponsor4sur" />
 		<property name="birthdate" value="1979/12/22" />
 		<property name="email" value="sponsor4@gmail.com" />
-		<property name="phone" value="+034 688846796" />
+		<property name="phone" value="+34 688846796" />
 		<property name="suspicious" value="false" />	
 		<property name="folders">
 		<list>
@@ -1090,6 +1091,19 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 	<bean id="User1Spambox" class="domain.Folder">
 		<property name="parent"><null/></property>
 		<property name="name" value="Spam box" />
+		<property name="messages">
+		<list>
+		</list>	
+		</property>
+		<property name="children">
+		<list>
+		</list>	
+		</property>
+		
+	</bean>
+	<bean id="Custom" class="domain.Folder">
+		<property name="parent"><null/></property>
+		<property name="name" value="custom" />
 		<property name="messages">
 		<list>
 		</list>	
