@@ -20,7 +20,7 @@
 	<!-- Artifact identification and properties -->
 
 	<groupId>Design-and-Testing</groupId>
-	<artifactId>AcmeTaxi</artifactId>
+	<artifactId>Acme-Taxi</artifactId>
 	<version>1.14</version>
 	<packaging>war</packaging>
 	
@@ -31,7 +31,7 @@
 	<!-- Indexing information -->
 
 	<name>Acme Taxi</name>
-	<url>http://www.acmetaxi.com</url>
+	<url>http://www.acme-taxi.com</url>
 	<description>This is the Acme Taxi project.</description>
 	
 	<!-- Build commands -->

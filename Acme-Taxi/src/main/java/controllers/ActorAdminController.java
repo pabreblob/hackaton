@@ -84,7 +84,7 @@ public class ActorAdminController extends AbstractController {
 		} catch (final Throwable oops) {
 		}
 		if (returnUri == null)
-			return new ModelAndView("redirect: ");
+			return new ModelAndView("redirect: listBanned.do");
 		else if (returnUri.equals("suspicious"))
 			return new ModelAndView("redirect: listSuspicious.do");
 		else
@@ -98,7 +98,7 @@ public class ActorAdminController extends AbstractController {
 		} catch (final Throwable oops) {
 		}
 		if (returnUri == null)
-			return new ModelAndView("redirect: ");
+			return new ModelAndView("redirect: listBanned.do");
 		else if (returnUri.equals("suspicious"))
 			return new ModelAndView("redirect: listSuspicious.do");
 		else
