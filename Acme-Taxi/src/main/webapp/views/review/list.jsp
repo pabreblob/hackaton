@@ -22,7 +22,7 @@
 	</display:column>
 	
 	<display:column>
-		<a href="review/user/delete.do?reviewId=${row.id}"> <spring:message
+		<a href="review/user/delete.do?reviewId=${row.id}" onclick="return confirm('<spring:message code='review.confirm.delete' />')"> <spring:message
 				code="review.delete" />
 		</a>
 	</display:column>

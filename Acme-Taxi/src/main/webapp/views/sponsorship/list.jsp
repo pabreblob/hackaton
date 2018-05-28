@@ -29,14 +29,14 @@
 		<display:column>
 			<jstl:if test="${sponsorship.accepted == false }">
 				<a
-					href="sponsorship/sponsor/delete.do?sponsorshipId=${sponsorship.id}">
+					href="sponsorship/sponsor/delete.do?sponsorshipId=${sponsorship.id}" onclick="return confirm('<spring:message code='sponsorship.confirm.delete' />')">
 					<spring:message code="sponsorship.delete" />
 				</a>
 			</jstl:if>
 			<jstl:if test="${sponsorship.accepted == true }">
 				<jstl:if test="${sponsorship.cancelled == false}">
 					<a
-						href="sponsorship/sponsor/cancel.do?sponsorshipId=${sponsorship.id}">
+						href="sponsorship/sponsor/cancel.do?sponsorshipId=${sponsorship.id}" onclick="return confirm('<spring:message code='sponsorship.confirm.cancel' />')">
 						<spring:message code="sponsorship.cancel" />
 					</a>
 				</jstl:if>
