@@ -5,6 +5,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <script>
 $(document).ready(function() {
@@ -23,7 +24,8 @@ $(document).ready(function() {
 	<spring:message code="announcement.keyword" />
 </label>
 <spring:message code="announcement.placeholder.search" var="placeholderSearch" />
-<input type="text" name="keyword" id="keyword" placeholder="${placeholderSearch}" />
+<input type="text" name="keyword" id="keyword" placeholder="${placeholderSearch}" /> <br>
+<acme:button url="announcement/list.do" code="announcement.list.available"/>
 <table id="list">
 <thead>
 <tr>

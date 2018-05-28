@@ -15,4 +15,5 @@
 <acme:textbox code="announcement.origin" path="origin"/>
 <acme:textbox code="announcement.destination" path="destination"/>
 <acme:submit name="send" code="announcement.send"/>
-</form:form>
+</form:form> <br>
+<acme:button url="announcement/user/list.do" code="announcement.list.available"/>

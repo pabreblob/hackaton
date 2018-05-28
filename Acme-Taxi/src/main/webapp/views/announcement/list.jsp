@@ -23,6 +23,9 @@
 <jstl:if test="${requestURI == 'announcement/user/list-created.do'}">
 	<acme:button url="announcement/user/create.do" code="announcement.create"/>
 </jstl:if>
+<jstl:if test="${requestURI == 'announcement/user/list.do'}">
+	<acme:button url="announcement/user/finder.do" code="announcement.use.finder"/>
+</jstl:if>
 
 
 <display:table name="announcements" id="row" requestURI="${requestURI}"

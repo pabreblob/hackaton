@@ -24,7 +24,8 @@
 <acme:textbox code="announcement.origin" path="origin"/>
 <acme:textbox code="announcement.destination" path="destination"/>
 <acme:textbox code="announcement.price" path="pricePerPerson"/>
-<acme:textbox code="announcement.moment" path="moment" placeholder="dd/MM/yyyy HH:mm"/>
+<spring:message code="announcement.moment.placeholder" var="momentPlaceholder"/>
+<acme:textbox code="announcement.moment" path="moment" placeholder="${momentPlaceholder}"/>
 <acme:textarea code="announcement.description" path="description"/>
 <acme:checkbox code="announcement.pets" path="petsAllowed"/>
 <acme:checkbox code="announcement.smoking" path="smokingAllowed"/>
