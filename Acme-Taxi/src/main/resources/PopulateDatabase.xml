@@ -462,6 +462,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<ref bean="User2Notificationbox" />
 		<ref bean="User2Trashbox" />
 		<ref bean="User2Spambox" />
+		<ref bean="InboxChild" />
 		</list>	
 		</property>
 		<property name="blockedUsers">
@@ -1123,6 +1124,21 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		</property>
 		<property name="children">
 		<list>
+		<ref bean="InboxChild" />
+		</list>	
+		</property>
+		
+	</bean>
+		<bean id="InboxChild" class="domain.Folder">
+		<property name="parent"><ref bean="User2Inbox" /></property>
+		<property name="name" value="inBoxChild" />
+		<property name="messages">
+		<list>
+		</list>	
+		</property>
+		<property name="children">
+		<list>
+		
 		</list>	
 		</property>
 		
