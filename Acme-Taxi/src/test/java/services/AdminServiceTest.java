@@ -33,8 +33,10 @@ public class AdminServiceTest extends AbstractTest {
 	/**
 	 * Tests the methods related to the dashboard information that the admin must have access to.
 	 * <p>
-	 * 19.14. An actor who is authenticated as an admin must be able to: Display a dashboard with the following information: ...
+	 * This method tests all the different methods that are used in the dashboard.
 	 * <p>
+	 * 19.14. An actor who is authenticated as an admin must be able to: Display a dashboard with the following information: ...
+	 * 
 	 * Case 1: An actor logged in as an admin tries to display the dashboard information. No exceptions is expected.
 	 * 
 	 * Case 2: An actor who is not an admin tries to display the dashboard information. An IllegalArgumentException is expected.
