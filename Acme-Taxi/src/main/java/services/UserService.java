@@ -38,6 +38,8 @@ public class UserService {
 	@Autowired
 	private UserAccountService		userAccountService;
 	@Autowired
+	private ActorService			actorService;
+	@Autowired
 	private FolderService			folderService;
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -46,6 +48,14 @@ public class UserService {
 
 
 	public User create() {
+		Actor principal;
+		try {
+			principal = this.actorService.findByPrincipal();
+		} catch (final Throwable oops) {
+			principal = null;
+		}
+
+		Assert.isTrue(principal == null);
 		final User u = new User();
 
 		final UserAccount ua = this.userAccountService.create();
@@ -78,6 +88,14 @@ public class UserService {
 		Assert.isTrue(age >= 18);
 
 		if (u.getId() == 0) {
+			Actor principal;
+			try {
+				principal = this.actorService.findByPrincipal();
+			} catch (final Throwable oops) {
+				principal = null;
+			}
+
+			Assert.isTrue(principal == null);
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			final String hash = encoder.encodePassword(u.getUserAccount().getPassword(), null);
 			u.getUserAccount().setPassword(hash);
@@ -92,7 +110,8 @@ public class UserService {
 			u.getUserAccount().setAuthorities(authorities);
 			final UserAccount ua = this.userAccountService.save(u.getUserAccount());
 			u.setUserAccount(ua);
-		}
+		} else if (u.getId() != 0)
+			Assert.isTrue(u.getId() == this.findByPrincipal().getId());
 
 		if (u.getPhone() != null && u.getPhone() != "")
 			if (!u.getPhone().trim().startsWith("+"))
