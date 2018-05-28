@@ -118,4 +118,62 @@ public class AdminServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 		super.unauthenticate();
 	}
+	/**
+	 * Tests editing the profile of an admin
+	 * <p>
+	 * This method is used to test the edition of the profile of an admin. If the data introduced is incorrect an exception must be thrown.
+	 * <p>
+	 * Functional requirement:
+	 * <p>
+	 *  An actor who is authenticated must be able to:
+	 * <p>
+	 * Edit his profile.
+	 * <p>
+	 * Case 1: The data introduced is correct. The process is done successfully. <br>
+	 * Case 2: The administrator tries to edit data of a profile that does not exist.The process is expected to fail. <br>
+	 * Case 3: A user tries to edit the profile of an admin.The process is expected to fail.
+	 */
+	@Test
+	public void driverEditAdmin() {
+		final Object testingData[][] = {
+			{
+				"admin", "Admin",null
+			}, {
+				"admin", "non-valid",NullPointerException.class
+			},{
+				"user1", "Admin",NullPointerException.class
+			}
+		};
+		for (int i = 0; i < testingData.length; i++)
+			this.templateEdit((String) testingData[i][0], (String) testingData[i][1],(Class<?>) testingData[i][2]);
+	}
+
+	/**
+	 * Template for testing editing the profile of an admin
+	 * <p>
+	 * 
+	 * @param username of the admin that is doing the edition
+	 * @param admin
+	 *            The admin whose data is being edited
+	 * @param expected
+	 *            The expected exception to be thrown. User <code>null</code> if no exception is expected
+	 */
+	private void templateEdit(final String username, final String admin,final Class<?> expected) {
+		Class<?> caught = null;
+		try {
+			Integer id;
+			if (admin.equals("non-valid"))
+				id = null;
+			else
+				id = this.getEntityId(admin);
+			super.authenticate(username);
+			final Admin a=this.adminService.findOne(id);
+			a.setName("edited");
+			this.adminService.save(a);
+			super.authenticate(null);
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+		}
+		this.checkExceptions(expected, caught);
+	}
 }
