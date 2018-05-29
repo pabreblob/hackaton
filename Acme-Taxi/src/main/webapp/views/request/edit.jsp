@@ -47,6 +47,7 @@
 <script>
 	$(document).ready(function(){
 	if(document.getElementById("commentInput").value.trim() != ""){
+		document.getElementById("anyComment").style.display = "none";
 		document.getElementById("commentBox").style.display = "block";
 	}else{
 		$("#anyComment").click(function(){
