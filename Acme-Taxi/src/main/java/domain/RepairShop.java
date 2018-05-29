@@ -24,7 +24,7 @@ import org.hibernate.validator.constraints.URL;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
-	@Index(columnList = "mechanic_id"), @Index(columnList = "marked")
+	@Index(columnList = "mechanic_id"), @Index(columnList = "marked"), @Index(columnList = "meanRating")
 })
 public class RepairShop extends DomainEntity {
 
