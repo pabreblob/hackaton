@@ -51,7 +51,7 @@ public class ReportService {
 	}
 	public Integer countReportThisWeek() {
 		final long dayInMS = 7 * 24 * 60 * 60 * 1000;
-		final Integer res = this.reportRepository.countReportThisWeek(new Date(System.currentTimeMillis() - dayInMS));
+		final Integer res = this.reportRepository.countReportThisWeek(this.actorService.findByPrincipal().getId(), new Date(System.currentTimeMillis() - dayInMS));
 		return res;
 	}
 	public Report create() {

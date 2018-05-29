@@ -32,6 +32,6 @@ public interface ReportRepository extends JpaRepository<Report, Integer> {
 	@Query("select count(r) from Report r where r.creator.id = ?1")
 	Integer countReportByActor(int actorId);
 
-	@Query("select count(r) from Report r where r.moment > ?1")
-	Integer countReportThisWeek(Date date);
+	@Query("select count(r) from Report r where r.creator.id = ?1 and r.moment > ?2")
+	Integer countReportThisWeek(int actorId, Date date);
 }

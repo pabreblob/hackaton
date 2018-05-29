@@ -11,8 +11,8 @@
 
 <h4><spring:message code="report.reporting"/><jstl:out value="${reported}"/></h4>
 <form:form action="report/actor/save.do" modelAttribute="report">
+	<form:hidden path="reported"/>
 	<acme:textarea code="report.reason" path="reason"/>
-	
 	<div class="form-group">
 	<form:label path="imageUrl">
 		<spring:message code="report.image" /><br>
