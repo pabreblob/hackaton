@@ -1,0 +1,4 @@
+En announcement, pulsar el botón de cancelar un announcement no hace nada.
+En announcement, pulsar el botón de cancelar al editar o crear redirige a la lista de announcements disponibles en lugar de los creados.
+En folder, renombrar una folder no tiene efecto.
+En message, marcar como spam no marca automáticamente como leído.

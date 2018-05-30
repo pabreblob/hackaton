@@ -189,7 +189,6 @@ public class MessageService {
 		Assert.isTrue(folder.getMessages().contains(message));
 		final Folder spamf = this.folderService.findFolderByNameAndActor("Spam box");
 		Assert.isTrue(this.actorService.findByPrincipal().getFolders().contains(spamf));
-		message.setChecked(true);
 		folder.getMessages().remove(message);
 		message.setFolder(spamf);
 		spamf.getMessages().add(message);

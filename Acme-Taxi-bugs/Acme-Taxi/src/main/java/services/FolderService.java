@@ -192,7 +192,7 @@ public class FolderService {
 		Assert.isTrue(!old.getName().equals("Notification box"));
 		Assert.isTrue(f.getName().replace(" ", "").length() != 0);
 
-		return this.folderRepository.save(f);
+		return old;
 	}
 	public void changeParent(final Folder toMove, final Folder newParent) {
 		Assert.notNull(toMove);

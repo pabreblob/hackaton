@@ -31,7 +31,7 @@
 <acme:checkbox code="announcement.smoking" path="smokingAllowed"/>
 <acme:textbox code="announcement.seats" path="seats"/>
 <acme:submit name="save" code="announcement.save"/>
-<acme:cancel code="announcement.cancel" url="/announcement/user/list-created.do"/>
+<acme:cancel code="announcement.cancel" url="/announcement/user/list.do"/>
 <jstl:if test="${announcement.id != 0}">
 <acme:submit name="delete" code="announcement.delete"/>
 </jstl:if>

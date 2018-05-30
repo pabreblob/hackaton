@@ -151,7 +151,6 @@ public class AnnouncementUserController extends AbstractController {
 		Assert.notNull(announcementId);
 		Assert.isTrue(announcementId != 0);
 		ModelAndView result;
-		this.announcementService.cancel(announcementId);
 		result = new ModelAndView("redirect:/announcement/user/list-created.do");
 		return result;
 	}
