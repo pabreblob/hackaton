@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+
+	<definition name="actor/list" extends="master.page">	
+		<put-attribute name="title" value="User list" />
+		<put-attribute name="body" value="/views/actor/list.jsp" />
+	</definition>
+	
+	<definition name="actor/listSuspicious" extends="master.page">	
+		<put-attribute name="title" value="Suspicious list" />
+		<put-attribute name="body" value="/views/actor/listSuspicious.jsp" />
+	</definition>		
+	
+	
+	<definition name="actor/listBanned" extends="master.page">	
+		<put-attribute name="title" value="Banned list" />
+		<put-attribute name="body" value="/views/actor/listBanned.jsp" />
+	</definition>		
+	
+</tiles-definitions>

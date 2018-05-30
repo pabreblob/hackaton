@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="report/create" extends="master.page">	
+		<put-attribute name="title" value="Reportando" />
+		<put-attribute name="body" value="/views/report/create.jsp" />
+	</definition>
+
+	<definition name="report/list" extends="master.page">	
+		<put-attribute name="title" value="Lista de reportes" />
+		<put-attribute name="body" value="/views/report/list.jsp" />
+	</definition>
+
+	<definition name="report/listUnread" extends="master.page">	
+		<put-attribute name="title" value="Lista de reportes no leídos " />
+		<put-attribute name="body" value="/views/report/list.jsp" />
+	</definition>
+
+	<definition name="report/list-user" extends="master.page">	
+		<put-attribute name="title" value="Lista de reportes" />
+		<put-attribute name="body" value="/views/report/list.jsp" />
+	</definition>
+	
+	<definition name="report/display" extends="master.page">	
+		<put-attribute name="title" value="Reporte" />
+		<put-attribute name="body" value="/views/report/display.jsp" />
+	</definition>
+	
+</tiles-definitions>

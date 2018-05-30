@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * converters.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd		
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd		
+	">
+
+	<util:list id="converters">
+		<bean class="converters.StringToSpamWordConverter" /> 
+    	<bean class="converters.SpamWordToStringConverter" /> 
+    	<bean class="converters.StringToIdNumberPatternConverter" /> 
+    	<bean class="converters.IdNumberPatternToStringConverter" /> 
+		<bean class="converters.StringToConfigurationConverter" /> 
+    	<bean class="converters.ConfigurationToStringConverter" /> 
+		<bean class="converters.StringToCommentConverter" /> 
+    	<bean class="converters.CommentToStringConverter" /> 
+    	<bean class="converters.StringToFolderConverter" /> 
+    	<bean class="converters.FolderToStringConverter" />
+	<bean class="converters.StringToMessageConverter" /> 
+    	<bean class="converters.MessageToStringConverter" />
+    	
+    	<bean class="converters.SponsorshipToStringConverter"/>
+		<bean class="converters.StringToSponsorshipConverter" />
+		<bean class="converters.SponsorToStringConverter"/>
+		<bean class="converters.StringToSponsorConverter" />
+		<bean class="converters.StringToMechanicConverter" /> 
+    	<bean class="converters.MechanicToStringConverter" />
+		<bean class="converters.StringToRepairShopConverter" /> 
+    	<bean class="converters.RepairShopToStringConverter" />
+		<bean class="converters.DriverToStringConverter"/>
+		<bean class="converters.StringToDriverConverter" />
+		<bean class="converters.StringToServiceConverter" /> 
+    	<bean class="converters.ServiceToStringConverter" />
+		<bean class="converters.StringToUserConverter" /> 
+    	<bean class="converters.UserToStringConverter" />
+		<bean class="converters.StringToReservationConverter" /> 
+    	<bean class="converters.ReservationToStringConverter" />
+    	<bean class="converters.StringToReportConverter" /> 
+    	<bean class="converters.ReportToStringConverter" />
+    	<bean class="converters.StringToActorConverter" /> 
+    	<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToCarConverter" /> 
+    	<bean class="converters.CarToStringConverter" />
+    	<bean class="converters.StringToRequestConverter" /> 
+    	<bean class="converters.RequestToStringConverter" />
+		<bean class="converters.StringToReviewConverter" /> 
+    	<bean class="converters.ReviewToStringConverter" />
+    	<bean class="converters.StringToCreditCardConverter" /> 
+    	<bean class="converters.CreditCardToStringConverter" />
+	<bean class="converters.StringToAnnouncementConverter" /> 
+    	<bean class="converters.AnnouncementToStringConverter" />
+	</util:list>
+	
+</beans>

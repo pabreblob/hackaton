@@ -1,0 +1,3 @@
+En repairShop, eliminada etiqueta safehtml en el nombre
+En el display de repairShop, eliminada la restricción de reservas de un user
+EN el controller de repairshop, al guardar la repairshop ahora redirige a la pagina de inicio
