@@ -1,0 +1,3 @@
+En idNumberPattern, el select para filtrar las nacionalidades aparece vacía. Solo aparece el "- Mostrar todos".
+Se permite hacer XSS en una palabra spam.
+Al mostrar un report, aparece el creador incorrectamente. Aparece como creador el usuario que es reportado. (Solo afecta al display)

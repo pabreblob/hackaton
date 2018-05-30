@@ -21,7 +21,6 @@
 	<form:select path="text">
 		<spring:message code="idNumberPattern.showAll" var="showAll"/>
 		<form:option value="" label="${showAll}" />		
-		<form:options items="${nationalities}"/>
 	</form:select>
 	<acme:submit name="submit" code="idNumberPattern.submit"/><acme:button url="idNumberPattern/create.do" code="idNumberPattern.create"/>
 </form:form>
