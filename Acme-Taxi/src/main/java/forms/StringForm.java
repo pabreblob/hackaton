@@ -15,7 +15,7 @@ public class StringForm {
 
 
 	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
+	@SafeHtml(whitelistType = WhiteListType.RELAXED)
 	public String getText() {
 		return this.text;
 	}

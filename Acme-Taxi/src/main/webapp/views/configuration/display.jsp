@@ -80,10 +80,10 @@ tr:nth-child(even){
 		<td><b><spring:message code="configuration.legalText"/></b></td><td style="text-align: center"><a href="configuration/admin/display-legaltexteng.do"><spring:message code="configuration.legaltexteng.link"/></a></td><td style="text-align: center"><a href="configuration/admin/display-legaltextesp.do"><spring:message code="configuration.legaltextesp.link"/></a></td>
 	</tr>
 	<tr>
-		<td><b><spring:message code="configuration.cookiesPolicy"/></b></td><td style="text-align: center"><jstl:out value="${config.cookiesPolicyEng}"/></td><td style="text-align: center"><jstl:out value="${config.cookiesPolicyEsp}"/></td>
+		<td><b><spring:message code="configuration.cookiesPolicy"/></b></td><td style="text-align: center"><a href="configuration/admin/display-cookieseng.do"><spring:message code="configuration.cookiesPolicyEng.link"/></a></td><td style="text-align: center"><a href="configuration/admin/display-cookiesesp.do"><spring:message code="configuration.cookiesPolicyEsp.link"/></a></td>
 	</tr>
 	<tr>
-		<td><b><spring:message code="configuration.contact"/></b></td><td style="text-align: center"><jstl:out value="${config.contactEng}"/></td><td style="text-align: center"><jstl:out value="${config.contactEsp}"/></td>
+		<td><b><spring:message code="configuration.contact"/></b></td><td style="text-align: center"><a href="configuration/admin/display-contacteng.do"><spring:message code="configuration.contactEng.link"/></a></td><td style="text-align: center"><a href="configuration/admin/display-contactesp.do"><spring:message code="configuration.contactEsp.link"/></a></td>
 	</tr>
 	<tr>
 		<td><b><spring:message code="configuration.acceptCookies"/></b></td><td style="text-align: center"><jstl:out value="${config.acceptCookiesEng}"/></td><td style="text-align: center"><jstl:out value="${config.acceptCookiesEsp}"/></td>
