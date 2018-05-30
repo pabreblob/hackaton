@@ -2679,6 +2679,13 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="comment" value="testcomment"/>
 		<property name="cancelled" value="false" />
 	</bean>
+	<bean id="Reservation7" class="domain.Reservation">
+		<property name="user" ><ref bean="User3"></ref></property>
+		<property name="service" ><ref bean="Service1"></ref></property>
+		<property name="moment" value="2019/09/25 13:10" />
+		<property name="comment" value="testcomment"/>
+		<property name="cancelled" value="false" />
+	</bean>
 	<bean id="Request1" class="domain.Request">
 		<property name="user" ><ref bean="User1"></ref></property>
 		<property name="driver" ><null/></property>

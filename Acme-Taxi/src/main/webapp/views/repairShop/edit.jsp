@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="repairShop/mechanic/edit.do" modelAttribute="repairShop">
+<form:form action="repairShop/mechanic/edit.do" modelAttribute="repairShop" onsubmit="return checkPhone()">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<acme:textbox code="repairShop.name" path="name" />
@@ -35,6 +35,20 @@
 	</jstl:if> 
 	<acme:cancel code="repairShop.cancel" url="/repairShop/mechanic/list-created.do" />	
 </form:form>
-
+<script type="text/javascript">
+	function checkPhone(){
+		var phone = $("input#phone").val();
+		//var pat = new RegExp("[1-9]");
+		var pat = /^(\+[1-9][0-9]{0,2}\s(\([1-9][0-9]{0,2}\)\s){0,1}){0,1}[0-9]{4,}$/; 
+		//var pat = new RegExp("^(\+[1-9][0-9]{0,2}\s(\([1-9][0-9]{0,2}\)\s){0,1}){0,1}[0-9]{4,}$");
+		//alert("P");
+		//if(pat.test(phone)){
+		if(phone.search(pat) != -1){
+			return true;
+		} else {
+			return confirm("<spring:message code='repairShop.checkPhone'/>");
+		}
+	}
+</script>
 
 

@@ -39,6 +39,8 @@ public class RepairShopService {
 	private UserService		userService;
 	@Autowired
 	private CarService		carService;
+	@Autowired
+	private ConfigurationService		configurationService;
 
 
 	public RepairShopService() {
@@ -68,6 +70,9 @@ public class RepairShopService {
 		if(!repairShop.getMechanic().isSuspicious()){
 			repairShop.getMechanic().setSuspicious(spamw);
 		}
+		if (repairShop.getPhone() != null && repairShop.getPhone() != "")
+			if (!repairShop.getPhone().trim().startsWith("+"))
+				repairShop.setPhone("+" + this.configurationService.find().getCountryCode() + " " + repairShop.getPhone().trim());
 		
 		final RepairShop res = this.repairShopRepository.save(repairShop);
 		return res;
