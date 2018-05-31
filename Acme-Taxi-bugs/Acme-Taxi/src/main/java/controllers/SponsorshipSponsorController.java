@@ -102,7 +102,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		s = this.sponsorshipService.findOne(sponsorshipId);
 		Assert.isTrue(s.isAccepted());
 		Assert.isTrue(this.sponsorService.findByPrincipal().equals(s.getSponsor()));
-		this.sponsorshipService.cancel(s);
+		//this.sponsorshipService.cancel(s);
 		res = new ModelAndView("redirect:list.do");
 
 		return res;
