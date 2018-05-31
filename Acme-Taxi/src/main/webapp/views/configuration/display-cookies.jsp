@@ -24,3 +24,7 @@
 		<a href="configuration/admin/edit-cookiesesp.do"><spring:message code="configuration.cookies.edit"/></a>
 	</div>
 </jstl:if>
+
+<div>
+	<a href="configuration/admin/display.do"><spring:message code="configuration.back"/></a>
+</div>

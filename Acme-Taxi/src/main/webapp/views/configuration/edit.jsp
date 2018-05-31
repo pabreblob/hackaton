@@ -14,6 +14,10 @@
 	<form:hidden path="version"/>
 	<form:hidden path="legalTextEng"/>
 	<form:hidden path="legalTextEsp"/>
+	<form:hidden path="cookiesPolicyEng"/>
+	<form:hidden path="cookiesPolicyEsp"/>
+	<form:hidden path="contactEng"/>
+	<form:hidden path="contactEsp"/>
 	
 	<acme:textbox code="configuration.bannerUrl" path="bannerUrl"/>
 	<acme:textbox code="configuration.currency" path="currency"/>

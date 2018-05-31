@@ -24,3 +24,7 @@
 		<a href="configuration/admin/edit-contactesp.do"><spring:message code="configuration.contact.edit"/></a>
 	</div>
 </jstl:if>
+
+<div>
+	<a href="configuration/admin/display.do"><spring:message code="configuration.back"/></a>
+</div>
