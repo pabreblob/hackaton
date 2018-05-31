@@ -1,1 +1,3 @@
 En la vista edit.jsp de configurations, faltan etiquetas form:hidden que hacen que falle la edición pero no sale ningún mensaje.
+Los messages_es.properties de error de configuration están cambiados.
+Los comentarios no se marcan correctamente.

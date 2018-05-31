@@ -16,7 +16,6 @@ import org.springframework.validation.Validator;
 import repositories.CommentRepository;
 import domain.Announcement;
 import domain.Comment;
-import domain.SpamWord;
 
 @Service
 @Transactional
@@ -28,8 +27,8 @@ public class CommentService {
 	private UserService			userService;
 	@Autowired
 	private AdminService		adminService;
-	@Autowired
-	private SpamWordService		spamWordService;
+	//	@Autowired
+	//	private SpamWordService		spamWordService;
 	@Autowired
 	private Validator			validator;
 
@@ -53,15 +52,15 @@ public class CommentService {
 
 		comment.setMoment(new Date(System.currentTimeMillis() - 1000));
 
-		final Collection<SpamWord> sw = this.spamWordService.findAll();
-		boolean spamw = false;
-		for (final SpamWord word : sw) {
-			spamw = comment.getBody().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
-			if (spamw)
-				break;
-		}
-		if (spamw)
-			comment.setMarked(true);
+		//		final Collection<SpamWord> sw = this.spamWordService.findAll();
+		//		boolean spamw = false;
+		//		for (final SpamWord word : sw) {
+		//			spamw = comment.getBody().toLowerCase().matches(".*\\b" + word.getWord() + "\\b.*");
+		//			if (spamw)
+		//				break;
+		//		}
+		//		if (spamw)
+		//			comment.setMarked(true);
 
 		final Comment res = this.commentRepository.save(comment);
 
