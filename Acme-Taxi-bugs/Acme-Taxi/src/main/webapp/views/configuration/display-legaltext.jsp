@@ -24,3 +24,7 @@
 		<a href="configuration/admin/edit-legaltextesp.do"><spring:message code="configuration.legaltext.edit"/></a>
 	</div>
 </jstl:if>
+
+<div>
+	<a href="configuration/admin/display.do"><spring:message code="configuration.back"/></a>
+</div>
