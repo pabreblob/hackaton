@@ -57,7 +57,7 @@ public class ReviewDriverController extends AbstractController {
 		res = new ModelAndView("review/list");
 		res.addObject("reviews", reviews);
 		res.addObject("total", total);
-		res.addObject("requestURI", "review/user/list.do");
+		res.addObject("requestURI", "review/driver/list.do");
 		return res;
 	}
 

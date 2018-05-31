@@ -69,7 +69,7 @@ public class ReviewController extends AbstractController {
 		res = new ModelAndView("review/list");
 		res.addObject("reviews", reviews);
 		res.addObject("total", total);
-		res.addObject("requestURI", "review/list.do");
+		res.addObject("requestURI", "review/list-driver.do");
 		return res;
 	}
 
@@ -101,7 +101,7 @@ public class ReviewController extends AbstractController {
 		res = new ModelAndView("review/list");
 		res.addObject("reviews", reviews);
 		res.addObject("total", total);
-		res.addObject("requestURI", "review/list.do");
+		res.addObject("requestURI", "review/list-user.do");
 		return res;
 	}
 
@@ -133,7 +133,7 @@ public class ReviewController extends AbstractController {
 		res = new ModelAndView("review/list");
 		res.addObject("reviews", reviews);
 		res.addObject("total", total);
-		res.addObject("requestURI", "review/list.do");
+		res.addObject("requestURI", "review/list-repairShop.do");
 		return res;
 	}
 
