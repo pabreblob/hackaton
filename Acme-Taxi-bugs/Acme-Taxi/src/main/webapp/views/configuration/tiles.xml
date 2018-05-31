@@ -16,6 +16,16 @@
 		<put-attribute name="body" value="/views/configuration/display-legaltext.jsp" />
 	</definition>
 	
+	<definition name="configuration/display-cookies" extends="master.page">	
+		<put-attribute name="title" value="Cookies Policy" />
+		<put-attribute name="body" value="/views/configuration/display-cookies.jsp" />
+	</definition>
+	
+	<definition name="configuration/display-contact" extends="master.page">	
+		<put-attribute name="title" value="Contact Message" />
+		<put-attribute name="body" value="/views/configuration/display-contact.jsp" />
+	</definition>
+	
 	<definition name="configuration/edit" extends="master.page">	
 		<put-attribute name="title" value="Edit Configurations" />
 		<put-attribute name="body" value="/views/configuration/edit.jsp" />
@@ -24,6 +34,16 @@
 	<definition name="configuration/edit-legaltext" extends="master.page">	
 		<put-attribute name="title" value="Edit Legal Text" />
 		<put-attribute name="body" value="/views/configuration/edit-legaltext.jsp" />
+	</definition>
+	
+	<definition name="configuration/edit-cookies" extends="master.page">	
+		<put-attribute name="title" value="Edit Cookies Policy" />
+		<put-attribute name="body" value="/views/configuration/edit-cookies.jsp" />
+	</definition>
+	
+	<definition name="configuration/edit-contact" extends="master.page">	
+		<put-attribute name="title" value="Edit Contact Message" />
+		<put-attribute name="body" value="/views/configuration/edit-contact.jsp" />
 	</definition>	
 	
 </tiles-definitions>
