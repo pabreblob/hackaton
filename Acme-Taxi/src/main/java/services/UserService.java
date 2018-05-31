@@ -48,14 +48,6 @@ public class UserService {
 
 
 	public User create() {
-		Actor principal;
-		try {
-			principal = this.actorService.findByPrincipal();
-		} catch (final Throwable oops) {
-			principal = null;
-		}
-
-		Assert.isTrue(principal == null);
 		final User u = new User();
 
 		final UserAccount ua = this.userAccountService.create();
