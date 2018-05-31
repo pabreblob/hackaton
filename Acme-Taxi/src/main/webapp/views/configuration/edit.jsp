@@ -26,10 +26,6 @@
 	<acme:textarea code="configuration.footer" path="footer"/>
 	<acme:textarea code="configuration.welcomeEng" path="welcomeEng"/>
 	<acme:textarea code="configuration.welcomeEsp" path="welcomeEsp"/>
-	<acme:textarea code="configuration.cookiesPolicyEng" path="cookiesPolicyEng"/>
-	<acme:textarea code="configuration.cookiesPolicyEsp" path="cookiesPolicyEsp"/>
-	<acme:textarea code="configuration.contactEng" path="contactEng"/>
-	<acme:textarea code="configuration.contactEsp" path="contactEsp"/>
 	<acme:textarea code="configuration.acceptCookiesEng" path="acceptCookiesEng"/>
 	<acme:textarea code="configuration.acceptCookiesEsp" path="acceptCookiesEsp"/>
 	<acme:textbox code="configuration.nationalities" path="nationalities"/>
