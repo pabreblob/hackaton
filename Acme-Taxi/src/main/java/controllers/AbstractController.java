@@ -46,7 +46,8 @@ public class AbstractController {
 		else if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("Spanish"))
 			model.addAttribute("acceptCookies", this.configurationService.find().getAcceptCookiesEsp());
 		model.addAttribute("footer", this.configurationService.find().getFooter());
-		model.addAttribute("spons", this.sponsorshipService.getRandomSponsorship().getPictureUrl());
+		if (this.sponsorshipService.getRandomSponsorship() != null)
+			model.addAttribute("spons", this.sponsorshipService.getRandomSponsorship().getPictureUrl());
 		try {
 			final Integer unread = this.messageService.countTotalUnreadMessages();
 			model.addAttribute("unread", unread);

@@ -146,6 +146,9 @@ public class SponsorshipService {
 	}
 
 	public Sponsorship getRandomSponsorship() {
-		return new ArrayList<Sponsorship>(this.sponsorshipRepository.getRandomSponsorship()).get(0);
+		Sponsorship res = null;
+		if (this.sponsorshipRepository.getRandomSponsorship().size() != 0)
+			res = new ArrayList<Sponsorship>(this.sponsorshipRepository.getRandomSponsorship()).get(0);
+		return res;
 	}
 }
