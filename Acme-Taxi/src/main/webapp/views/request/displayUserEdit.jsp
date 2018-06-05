@@ -24,7 +24,7 @@
   width="700"
   height="500"
   frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/directions?key=&origin=<jstl:out value="${request.origin}"/>&destination=<jstl:out value="${request.destination}"/>&avoid=ferries|tolls&mode=driving" allowfullscreen>
+  src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyDisL3GBbgW3MlE03PIgWrgurFwLLbeGXs&origin=<jstl:out value="${request.origin}"/>&destination=<jstl:out value="${request.destination}"/>&avoid=ferries|tolls&mode=driving" allowfullscreen>
 </iframe>
 </jstl:if>
 

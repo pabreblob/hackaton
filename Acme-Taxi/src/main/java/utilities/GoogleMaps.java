@@ -13,7 +13,7 @@ import domain.maps.Data;
 public class GoogleMaps {
 
 	private static String getData(final String origin, final String destination) {
-		final String key = "";
+		final String key = "AIzaSyCA4hAo71kG0TVLFPIsFILD9CVsQzZBReQ";
 		final String uri = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + origin + "&destinations=" + destination + "&key=" + key;
 		final RestTemplate restTemplate = new RestTemplate();
 		final String result = restTemplate.getForObject(uri, String.class);
