@@ -7,7 +7,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="announcement/user/finderresult.do" modelAttribute="announcementFinderForm">
+<form:form action="announcement/user/finderresult.do" modelAttribute="announcementFinderForm" method="GET">
 <acme:textbox code="announcement.keyword" path="keyword"/>
 <acme:textbox code="announcement.minprice" path="minPrice"/>
 <acme:textbox code="announcement.maxprice" path="maxPrice"/>

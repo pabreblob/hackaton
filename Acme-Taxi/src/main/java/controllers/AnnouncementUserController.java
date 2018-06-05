@@ -303,7 +303,7 @@ public class AnnouncementUserController extends AbstractController {
 		return res;
 	}
 
-	@RequestMapping(value = "/finderresult", method = RequestMethod.POST, params = "send")
+	@RequestMapping(value = "/finderresult", method = RequestMethod.GET, params = "send")
 	public ModelAndView finderResult(@Valid final AnnouncementFinderForm announcementFinderForm, final BindingResult binding) {
 		ModelAndView res;
 
