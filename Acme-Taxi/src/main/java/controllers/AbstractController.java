@@ -10,12 +10,10 @@
 
 package controllers;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,10 +59,14 @@ public class AbstractController {
 		ModelAndView result;
 
 		result = new ModelAndView("misc/panic");
-		result.addObject("name", ClassUtils.getShortName(oops.getClass()));
-		result.addObject("exception", oops.getMessage());
-		result.addObject("stackTrace", ExceptionUtils.getStackTrace(oops));
-
+		result.addObject("bannerUrl", this.configurationService.find().getBannerUrl());
+		if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("English"))
+			result.addObject("acceptCookies", this.configurationService.find().getAcceptCookiesEng());
+		else if (LocaleContextHolder.getLocale().getDisplayLanguage().equals("Spanish"))
+			result.addObject("acceptCookies", this.configurationService.find().getAcceptCookiesEsp());
+		result.addObject("footer", this.configurationService.find().getFooter());
+		if (this.sponsorshipService.getRandomSponsorship() != null)
+			result.addObject("spons", this.sponsorshipService.getRandomSponsorship().getPictureUrl());
 		return result;
 	}
 

@@ -19,16 +19,5 @@
 <%@taglib prefix="core" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<p><spring:message code="panic.text" /> <code>${name}</code>.</p>
+<p><spring:message code="panic.text" />
 
-<h2><spring:message code="panic.message" /></h2>
-
-<p style="font-family: 'Courier New'">
-	${exception}
-</p>
-
-<h2><spring:message code="panic.stack.trace" /></h2>
-
-<p style="font-family: 'Courier New'">	
-	${stackTrace}
-</p>
