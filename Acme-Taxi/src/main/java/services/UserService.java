@@ -38,8 +38,6 @@ public class UserService {
 	@Autowired
 	private UserAccountService		userAccountService;
 	@Autowired
-	private ActorService			actorService;
-	@Autowired
 	private FolderService			folderService;
 	@Autowired
 	private ConfigurationService	configurationService;
@@ -80,14 +78,6 @@ public class UserService {
 		Assert.isTrue(age >= 18);
 
 		if (u.getId() == 0) {
-			Actor principal;
-			try {
-				principal = this.actorService.findByPrincipal();
-			} catch (final Throwable oops) {
-				principal = null;
-			}
-
-			Assert.isTrue(principal == null);
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			final String hash = encoder.encodePassword(u.getUserAccount().getPassword(), null);
 			u.getUserAccount().setPassword(hash);
@@ -149,6 +139,7 @@ public class UserService {
 		res.setBlockedUsers(new ArrayList<Actor>());
 		res.setReviews(new ArrayList<Review>());
 		res.setAnnouncements(new ArrayList<Announcement>());
+		res.setMeanRating(0.0);
 		res.setPhotoUrl(userForm.getPhoto());
 		res.setLocation(userForm.getLocation());
 
