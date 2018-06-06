@@ -168,12 +168,11 @@ public class RequestService {
 		Assert.isNull(r.getDriver());
 		final LocalDate now = new LocalDate();
 		final LocalDate moment = new LocalDate(r.getMoment());
-		Assert.isTrue(moment.isAfter(now));
 		final Actor a = this.actorService.findByPrincipal();
-		if (!(a instanceof Admin))
+		if (!(a instanceof Admin)) {
 			Assert.isTrue(r.getUser().getId() == this.userService.findByPrincipal().getId());
-		else
-			Assert.isTrue(r.isMarked());
+			Assert.isTrue(moment.isAfter(now));
+		}
 		this.requestRepository.delete(requestId);
 	}
 	@SuppressWarnings("deprecation")
