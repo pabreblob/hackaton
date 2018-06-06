@@ -50,10 +50,64 @@
 	<spring:message code="review.body" />:
 	<jstl:out value="${review.body}" />
 </p>
+
 <p>
 	<spring:message code="review.rating" />:
 	<jstl:out value="${review.rating}" />
+	
+	<jstl:if test="${review.rating == 0}">
+	 <span class="valoracion val-0"></span>
+	</jstl:if>
+	<jstl:if test="${review.rating > 0}">
+	<jstl:if test="${review.rating <= 0.5}">
+	 <span class="valoracion val-5"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${review.rating > 0.5}">
+	<jstl:if test="${review.rating <= 1}">
+	 <span class="valoracion val-10"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${review.rating > 1}">
+	<jstl:if test="${review.rating <= 1.5}">
+	 <span class="valoracion val-15"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${review.rating > 1.5}">
+	<jstl:if test="${review.rating <= 2}">
+	 <span class="valoracion val-20"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${review.rating > 2}">
+	<jstl:if test="${review.rating <= 2.5}">
+	 <span class="valoracion val-25"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${review.rating > 2.5}">
+	<jstl:if test="${review.rating <= 3}">
+	 <span class="valoracion val-30"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${review.rating > 3}">
+	<jstl:if test="${review.rating <= 3.5}">
+	 <span class="valoracion val-35"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${review.rating > 3.5}">
+	<jstl:if test="${review.rating <= 4}">
+	 <span class="valoracion val-40"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${review.rating > 4}">
+	<jstl:if test="${review.rating <= 4.5}">
+	 <span class="valoracion val-45"></span>
+	</jstl:if>
+	</jstl:if>
+	<jstl:if test="${review.rating > 4.5}">
+	 <span class="valoracion val-50"></span>
+	</jstl:if>
 </p>
+
 <%-- <spring:message code="review.dateFormat2" var="dateFormat" />
 <p>
 	<spring:message code="review.moment" />:
