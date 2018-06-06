@@ -49,9 +49,10 @@ public class ReportService {
 	public Integer countReportByActor(final int actorId) {
 		return this.reportRepository.countReportByActor(actorId);
 	}
-	public Integer countReportThisWeek() {
+	public Integer countReportThisWeek(final int actorId) {
 		final long dayInMS = 7 * 24 * 60 * 60 * 1000;
-		final Integer res = this.reportRepository.countReportThisWeek(this.actorService.findByPrincipal().getId(), new Date(System.currentTimeMillis() - dayInMS));
+		final Date d = new Date(System.currentTimeMillis() - dayInMS);
+		final Integer res = this.reportRepository.countReportThisWeek(actorId, d);
 		return res;
 	}
 	public Report create() {
@@ -61,8 +62,6 @@ public class ReportService {
 	public Report save(final Report r) {
 		Assert.isTrue(r.getCreator().getId() != r.getReported().getId());
 		Assert.isTrue(!(r.getReported() instanceof Admin));
-		if (r.getId() == 0)
-			Assert.isTrue(this.countReportThisWeek() + 1 <= this.configurationService.find().getLimitReportsWeek());
 		final Report saved = this.reportRepository.save(r);
 		return saved;
 	}

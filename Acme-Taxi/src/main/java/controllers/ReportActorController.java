@@ -55,13 +55,15 @@ public class ReportActorController extends AbstractController {
 			return res;
 		}
 		try {
+			if (this.reportService.countReportThisWeek(this.actorService.findByPrincipal().getId()) + 1 > this.configurationService.find().getLimitReportsWeek())
+				throw new IllegalArgumentException();
 			this.reportService.save(r);
 			return new ModelAndView("redirect:/actor/display.do?actorId=" + r.getReported().getId());
 		} catch (final Throwable oops) {
 			final ModelAndView res = new ModelAndView("report/create");
 			res.addObject("report", r);
 			res.addObject("reported", r.getReported().getName() + " " + r.getReported().getSurname());
-			if (this.reportService.countReportThisWeek() >= this.configurationService.find().getLimitReportsWeek())
+			if (this.reportService.countReportThisWeek(this.actorService.findByPrincipal().getId()) >= this.configurationService.find().getLimitReportsWeek())
 				res.addObject("message", "report.limit");
 			else
 				res.addObject("message", "report.cannotCommit");
