@@ -85,7 +85,6 @@ public class CommentUserController extends AbstractController {
 				else
 					res = new ModelAndView("redirect:/announcement/user/display.do?announcementId=" + announcementId);
 
-				System.out.println("to va bien pero no");
 			} catch (final Throwable oops) {
 				res = new ModelAndView("comment/edit");
 				res.addObject("comment", cres);
