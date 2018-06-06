@@ -27,7 +27,7 @@
 	<acme:textbox code="service.title" path="title" />
 	<acme:textbox code="service.price" path="price" />
 	<acme:submit name="save" code="service.save"  />
-	<jstl:if test="${repairShop.id != 0}">
+	<jstl:if test="${service.id != 0}">
 	<input type="submit" name="delete"
 				value="<spring:message code="service.delete" />"
 				onclick="return confirm('<spring:message code="service.confirm.delete" />')" />

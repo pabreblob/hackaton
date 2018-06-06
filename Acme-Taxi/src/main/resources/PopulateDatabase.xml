@@ -2494,7 +2494,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="name" value="repairshop1" />
 		<property name="description" value="desc1" />
 		<property name="location" value="Testloc1" />
-		<property name="phone" value="691331099" />
+		<property name="phone" value="+34 691331099" />
 		<property name="photoUrl" value="http://www.camiondedesatranques.es/images/Desatascos_01.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="4.0" />
@@ -2510,7 +2510,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="name" value="repairshop2" />
 		<property name="description" value="desc2" />
 		<property name="location" value="Testloc2" />
-		<property name="phone" value="691336799" />
+		<property name="phone" value="+34 691336799" />
 		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
@@ -2525,7 +2525,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="name" value="repairshop3" />
 		<property name="description" value="desc3" />
 		<property name="location" value="Testloc3" />
-		<property name="phone" value="691397099" />
+		<property name="phone" value="+34 691397099" />
 		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
@@ -2540,7 +2540,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="name" value="repairshop4" />
 		<property name="description" value="desc4" />
 		<property name="location" value="Testloc4" />
-		<property name="phone" value="691551099" />
+		<property name="phone" value="+34 691551099" />
 		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
@@ -2555,7 +2555,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="name" value="repairshop5" />
 		<property name="description" value="desc5" />
 		<property name="location" value="Testloc5" />
-		<property name="phone" value="691301099" />
+		<property name="phone" value="+34 691301099" />
 		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
@@ -2570,7 +2570,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="name" value="repairshop6" />
 		<property name="description" value="desc6" />
 		<property name="location" value="Testloc6" />
-		<property name="phone" value="691331099" />
+		<property name="phone" value="+34 691331099" />
 		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="false" />
 		<property name="meanRating" value="0.0" />
@@ -2585,7 +2585,7 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		<property name="name" value="repairshop7" />
 		<property name="description" value="sex" />
 		<property name="location" value="Testloc7" />
-		<property name="phone" value="691312099" />
+		<property name="phone" value="+34 691312099" />
 		<property name="photoUrl" value="https://fotos00.autofacil.es/2014/10/20/646x260/taller.jpg" />
 		<property name="marked" value="true" />
 		<property name="meanRating" value="0.0" />
@@ -3028,6 +3028,150 @@ Su principal objetivo es facilitar a los clientes y al público en general, la i
 		</property>
 		<property name="announcement"><ref bean="Announcement3" /></property>
 		<property name="marked" value="true" />
+	</bean>
+	<bean id="Comment7" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 12:33" />
+		<property name="body" value="comment7" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+	<bean id="Comment8" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 12:35" />
+		<property name="body" value="comment8" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+	<bean id="Comment9" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 12:36" />
+		<property name="body" value="comment9" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+		<bean id="Comment10" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 13:30" />
+		<property name="body" value="comment10" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+		<bean id="Comment11" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 12:40" />
+		<property name="body" value="comment11" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+		<bean id="Comment12" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 14:30" />
+		<property name="body" value="comment12" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+		<bean id="Comment13" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/10/30 12:30" />
+		<property name="body" value="comment13" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+		<bean id="Comment14" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 15:30" />
+		<property name="body" value="comment14" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+		<bean id="Comment15" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 18:30" />
+		<property name="body" value="comment15" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+		<bean id="Comment16" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 12:40" />
+		<property name="body" value="comment16" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+		<bean id="Comment17" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 13:30" />
+		<property name="body" value="comment17" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
+	</bean>
+		<bean id="Comment18" class="domain.Comment">
+		<property name="comment"><null/></property>
+		<property name="moment" value="2017/09/30 18:30" />
+		<property name="body" value="comment18" />
+		<property name="creator"><ref bean="User3" /></property>
+		<property name="replies">
+			<list>
+				
+			</list>
+		</property>
+		<property name="announcement"><ref bean="Announcement1" /></property>
 	</bean>
 	<bean id="Review1" class="domain.Review">
 		<property name="title" value="review1" />
