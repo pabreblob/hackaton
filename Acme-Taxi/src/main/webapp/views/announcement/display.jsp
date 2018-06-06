@@ -54,28 +54,25 @@
 </h2>
 
 <jstl:if test="${hasComment == true}">
+	<ul id="coms">
 	<jstl:forEach var="comment" items="${comments}">
 		
-		<div class="COMMENT">
-		
-			<div class="COMMENT">
+			<li class="COMMENT" id="comentario">
 				<a href="user/display.do?userId=${comment.creator.id}"><jstl:out value="${comment.creator.userAccount.username}"/></a>			
 					<span class="MOMENT">
 						(<fmt:formatDate value="${comment.moment}" pattern="${dateFormat}" />)
 					</span>:
-			</div>
-			<div class="COMMENT">
+			
+				<div>
 				&emsp;<jstl:out value="${comment.body}"/>
-			</div>
-
-			<div>			
+				</div>		
 				<security:authorize access="hasRole('ADMIN')">
 					<a href="comment/admin/delete.do?commentId=${comment.id}"><spring:message code="comment.delete"/></a>
 				</security:authorize>
-			</div>
-		</div>	
+		
+		<ul id="reps">		
 		<jstl:forEach var="reply" items="${comment.replies}">
-		<div class="REPLY">
+		<li class="REPLY" id="respuesta">
 			
 				<div>
 					&emsp;&emsp;<a href="user/display.do?userId=${reply.creator.id}"><jstl:out value="${reply.creator.userAccount.username}"/></a>
@@ -90,10 +87,11 @@
 					&emsp;&emsp;<a href="comment/admin/delete.do?commentId=${reply.id}"><spring:message code="comment.reply.delete"/></a>
 				</security:authorize>
 				
-		</div>
+		
+		</li>
 		
 		</jstl:forEach>
-		
+		</ul>
 		<security:authorize access="hasRole('USER')">
 			<jstl:if test="${isCreator == true}">
 				<div>
@@ -107,10 +105,18 @@
 			</jstl:if>
 		</security:authorize>
 		
-		<br/>
-		
+		</li>
+
 	</jstl:forEach>
+	</ul>
+	<br/>
+	<button id="showmore">
+		<spring:message code="comment.showmore"/>
+	</button>
+	<br/>
+	
 </jstl:if>
+
 
 <jstl:if test="${hasComment == false}">
 		<p><i><spring:message code="comment.empty"/></i></p>
@@ -135,3 +141,28 @@
 <jstl:if test="${requestURI == 'announcement/admin/display.do'}">
 <a href="announcement/admin/delete.do?announcementId=${announcement.id}" onclick="return confirm('<spring:message code="announcement.confirm.delete"/>')"><spring:message code="announcement.delete"/></a>
 </jstl:if>
+
+<script>
+$(function () {
+    $('#showmore').click(function () {
+        $('#coms #comentario:hidden').slice(0, 10).show();
+        if ($('#coms #comentario').length == $('#coms #comentario:visible').length) {
+            $('#showmore ').hide();
+        }
+    });
+});
+
+</script>
+
+<style>
+#coms #comentario:nth-child(n+11) {
+    display:none;
+}
+
+#coms #comentario{
+	list-style: none;
+	margin: 10px;
+}
+
+</style>
+
