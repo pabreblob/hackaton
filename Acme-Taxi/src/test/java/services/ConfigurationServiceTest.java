@@ -73,7 +73,6 @@ public class ConfigurationServiceTest extends AbstractTest {
 	 *            The expected exception to be thrown. Use <code>null</code> if no exception is expected
 	 */
 	private void templateEdit(final String userLogged, final Class<?> expected) {
-		System.out.println("supp nibba");
 		Class<?> caught = null;
 		try {
 			super.authenticate(userLogged);
