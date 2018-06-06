@@ -44,6 +44,8 @@ public class RequestService {
 	private MessageService			messageService;
 	@Autowired
 	private AdminService			adminService;
+	@Autowired
+	private ActorService			actorService;
 
 
 	public Request create() {
@@ -167,7 +169,11 @@ public class RequestService {
 		final LocalDate now = new LocalDate();
 		final LocalDate moment = new LocalDate(r.getMoment());
 		Assert.isTrue(moment.isAfter(now));
-		Assert.isTrue(r.getUser().getId() == this.userService.findByPrincipal().getId());
+		final Actor a = this.actorService.findByPrincipal();
+		if (!(a instanceof Admin))
+			Assert.isTrue(r.getUser().getId() == this.userService.findByPrincipal().getId());
+		else
+			Assert.isTrue(r.isMarked());
 		this.requestRepository.delete(requestId);
 	}
 	@SuppressWarnings("deprecation")
