@@ -77,9 +77,6 @@ public class CommentUserController extends AbstractController {
 			else if (c.equals("f"))
 				res.addObject("c", false);
 
-			System.out.println(binding);
-			System.out.println("argo fue malamente");
-
 		} else
 			try {
 				this.commentService.save(cres);
@@ -101,7 +98,6 @@ public class CommentUserController extends AbstractController {
 				else if (c.equals("f"))
 					res.addObject("c", false);
 
-				System.out.println("cabesa que ta'squivocao");
 			}
 		return res;
 	}
