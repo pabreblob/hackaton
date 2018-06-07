@@ -195,6 +195,8 @@ public class FolderServiceTest extends AbstractTest {
 	 * Case 1: Moving the folder 'custom'. It will be a child of the folder 'In box'. No exception is expected.
 	 * 
 	 * Case 2: Moving the folder 'In box'. It will be a child of the folder 'Out box'. A user cannot edit a default folder. An IllegalArgumentException is expected.
+	 * 
+	 * Case 3: Moving the folder 'Notification box'. It will be a child of the folder 'Spam box'. A user cannot edit a default folder. An IllegalArgumentException is expected.
 	 */
 	@Test
 	public void driverMoveFolder() {
@@ -203,6 +205,8 @@ public class FolderServiceTest extends AbstractTest {
 				"custom", "In box", null
 			}, {
 				"In box", "Out box", IllegalArgumentException.class
+			}, {
+				"Notification box", "Spam box", IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)
@@ -246,6 +250,8 @@ public class FolderServiceTest extends AbstractTest {
 	 * Case 1: User1 tries to rename "custom" to "customRenamed". No exception is expected.
 	 * 
 	 * Case 2: User1 tries to rename "In box" to "InboxRenamed". An IllegalArgumentException is expected.
+	 * 
+	 * Case 3: User1 tries to rename "Notification box" to "InboxRenamed". An IllegalArgumentException is expected.
 	 */
 	@Test
 	public void testRename() {
@@ -254,6 +260,8 @@ public class FolderServiceTest extends AbstractTest {
 				"custom", "customRenamed", null
 			}, {
 				"In box", "InboxRenamed", IllegalArgumentException.class
+			}, {
+				"Notification box", "NotificationboxRenamed", IllegalArgumentException.class
 			}
 		};
 		for (int i = 0; i < testingData.length; i++)

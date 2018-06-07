@@ -55,13 +55,17 @@ public class AnnouncementServiceTest extends AbstractTest {
 	 * 
 	 * Case 1: User1 creates an announcement. No exception is expected.
 	 * 
-	 * Case 3: An unauthenticated user tries to create a message. An IllegalArgumentException is expected.
+	 * Case 2: Driver1 tries to create an announcement. An IllegalArgumentException is expected.
+	 * 
+	 * Case 3: An unauthenticated user tries to create an announcement. An IllegalArgumentException is expected.
 	 */
 	@Test
 	public void driverSaveAnnouncement() {
 		final Object testingData[][] = {
 			{
 				"user1", null
+			}, {
+				"driver1", IllegalArgumentException.class
 			}, {
 				null, IllegalArgumentException.class
 			}
@@ -486,7 +490,9 @@ public class AnnouncementServiceTest extends AbstractTest {
 	 * 
 	 * Case 2: User1 cancels an announcement with an attendant. No exception is expected.
 	 * 
-	 * Case 3: An unauthenticated user tries to cancel an announcement. An IllegalArgumentException is expected.
+	 * Case 3: Driver1 tries to cancel an announcement. An IllegalArgumentException is expected.
+	 * 
+	 * Case 4: An unauthenticated user tries to cancel an announcement. An IllegalArgumentException is expected.
 	 */
 	@Test
 	public void driverCancelAnnouncement() {
@@ -495,6 +501,8 @@ public class AnnouncementServiceTest extends AbstractTest {
 				"user1", null, false
 			}, {
 				"user1", null, true
+			}, {
+				"driver1", IllegalArgumentException.class, false
 			}, {
 				null, IllegalArgumentException.class, false
 			}
@@ -563,7 +571,9 @@ public class AnnouncementServiceTest extends AbstractTest {
 	 * 
 	 * Case 2: User2 lists their created announcements. No exception is expected.
 	 * 
-	 * Case 3: An unauthenticated user tries to list their created announcements. An IllegalArgumentException is expected.
+	 * Case 3: Driver1 tries to list their created announcements. An IllegalArgumentException is expected.
+	 * 
+	 * Case 4: An unauthenticated user tries to list their created announcements. An IllegalArgumentException is expected.
 	 */
 	@Test
 	public void driverListCreatedAnnouncements() {
@@ -572,6 +582,8 @@ public class AnnouncementServiceTest extends AbstractTest {
 				"user1", null
 			}, {
 				"user2", null
+			}, {
+				"driver1", IllegalArgumentException.class
 			}, {
 				null, IllegalArgumentException.class
 			}
@@ -628,7 +640,9 @@ public class AnnouncementServiceTest extends AbstractTest {
 	 * 
 	 * Case 2: User2 lists their joined announcements. No exception is expected.
 	 * 
-	 * Case 3: An unauthenticated user tries to list their joined announcements. An IllegalArgumentException is expected.
+	 * Case 3: Driver1 tries to list their joined announcements. An IllegalArgumentException is expected.
+	 * 
+	 * Case 4: An unauthenticated user tries to list their joined announcements. An IllegalArgumentException is expected.
 	 */
 	@Test
 	public void driverListJoinedAnnouncements() {
@@ -637,6 +651,8 @@ public class AnnouncementServiceTest extends AbstractTest {
 				"user1", "user2", null
 			}, {
 				"user2", "user3", null
+			}, {
+				"user1", "driver1", IllegalArgumentException.class
 			}, {
 				"user1", null, IllegalArgumentException.class
 			}
@@ -698,7 +714,9 @@ public class AnnouncementServiceTest extends AbstractTest {
 	 * 
 	 * Case 2: User2 creates an announcement and user1 lists available announcements. No exception is expected.
 	 * 
-	 * Case 3: An unauthenticated user tries to list available announcements. An IllegalArgumentException is expected.
+	 * Case 3: Driver1 tries to list available announcements. An IllegalArgumentException is expected.
+	 * 
+	 * Case 4: An unauthenticated user tries to list available announcements. An IllegalArgumentException is expected.
 	 */
 	@Test
 	public void driverListAvailableAnnouncements() {
@@ -707,6 +725,8 @@ public class AnnouncementServiceTest extends AbstractTest {
 				"user1", "user2", null
 			}, {
 				"user2", "user1", null
+			}, {
+				"user1", "driver1", IllegalArgumentException.class
 			}, {
 				"user1", null, IllegalArgumentException.class
 			}
@@ -833,7 +853,9 @@ public class AnnouncementServiceTest extends AbstractTest {
 	 * 
 	 * Case 2: User2 lists available announcements using the finder. No exception is expected.
 	 * 
-	 * Case 3: An unauthenticated user tries to list available announcements using the finder. An IllegalArgumentException is expected.
+	 * Case 3: Driver1 tries to list available announcements using the finder. An IllegalArgumentException is expected.
+	 * 
+	 * Case 4: An unauthenticated user tries to list available announcements using the finder. An IllegalArgumentException is expected.
 	 */
 	@Test
 	public void driverFindAnnouncements() {
@@ -842,6 +864,8 @@ public class AnnouncementServiceTest extends AbstractTest {
 				"user1", null
 			}, {
 				"user2", null
+			}, {
+				"driver1", IllegalArgumentException.class
 			}, {
 				null, IllegalArgumentException.class
 			}
