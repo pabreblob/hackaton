@@ -333,7 +333,7 @@ Teléfono de contacto disponible: 954 551 000&lt;br&gt;
 Correo electrónico: acme.contact@acme.com&lt;br&gt;
 En la web www.acme.com hay una serie de contenidos de carácter informativo sobre anuncios publicados por los usuarios del sistema. Estos contenidos abarcan desde información personal de los usuarios registrados hasta información relativa a los anuncios publicado, tales como su localización geográfica y su fecha de realización.&lt;br&gt;
 Su principal objetivo es facilitar a los clientes y al público en general, la información relativa a la empresa y servicios que se ofrecen.&lt;br&gt;" />
-		<property name="countryCode" value="034" />
+		<property name="countryCode" value="34" />
 		<property name="acceptCookiesEng" value="By using this site, you accept our cookie policy" />
 		<property name="acceptCookiesEsp" value="Usar este sitio implica aceptar nuestra política de cookies" />
 		<property name="nationalities">
